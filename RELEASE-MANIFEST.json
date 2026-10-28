@@ -1,0 +1,870 @@
+{
+  "source": "Anime Bazaar local playable source",
+  "sourceSha256": "2aaa264e23ff818a2e6010b013061068369f7ec835e344a01c8106f22a457817",
+  "files": [
+    {
+      "name": "ainz-preview.html",
+      "bytes": 102752,
+      "sha256": "bc31175cfb16dd679da99241156cf66a4c03cfc182b666319dcd82559180aba5"
+    },
+    {
+      "name": "art/bosses/father.jpg",
+      "bytes": 20499,
+      "sha256": "395c4f86481117faf387766def7ec4a4434bfadbb32dfe60642cb92596da8ce6"
+    },
+    {
+      "name": "art/bosses/frieza.jpg",
+      "bytes": 22475,
+      "sha256": "36a32712d80b02f1115da0f9ac20bcb10ff3575c449b4c3741a9f648e522bb99"
+    },
+    {
+      "name": "art/bosses/garou.jpg",
+      "bytes": 24396,
+      "sha256": "6bc3e85db655424b6f404e2f0338ada81a5679a5cc92ee8798ab50b8ab524441"
+    },
+    {
+      "name": "art/bosses/kaido.jpg",
+      "bytes": 26012,
+      "sha256": "b5a20ca18389aa83c072782927253e6d99636167d2007b3d7208b152e5e241d1"
+    },
+    {
+      "name": "art/bosses/macht.jpg",
+      "bytes": 27441,
+      "sha256": "d86371ee3d64b9dbef387dc0e047ac4bbdf8802f83c868617a89d4ebf49b083d"
+    },
+    {
+      "name": "art/bosses/madara_uchiha.jpg",
+      "bytes": 9448,
+      "sha256": "645eab34a7c23e4af68686b37dd594209d4e4a33b25cf8e2ddeb746cbf3fe232"
+    },
+    {
+      "name": "art/bosses/makima.jpg",
+      "bytes": 26211,
+      "sha256": "3fd02e50107238ff1cd8d9714415f66745ac51a99c2ffab320d3125e7151d2e7"
+    },
+    {
+      "name": "art/bosses/muzan_kibutsuji.jpg",
+      "bytes": 25213,
+      "sha256": "2a87be5800f14d707cb3e805d04148f6c0fdfe17ead38a95e6f68c997f8d53f9"
+    },
+    {
+      "name": "art/bosses/ryomen_sukuna.jpg",
+      "bytes": 22518,
+      "sha256": "9dbfbdb543ceff89502441d51ed9c8fa42e58ea13ca115562488d581668d7037"
+    },
+    {
+      "name": "art/bosses/sosuke_aizen.jpg",
+      "bytes": 26525,
+      "sha256": "2b55a3bb5fa55c175585aa5693f896fda7a82026e2525facff089aff0b0015e2"
+    },
+    {
+      "name": "art/bosses/tomura_shigaraki.jpg",
+      "bytes": 21426,
+      "sha256": "d3158809b2ec541849c469162fcdd046e6e9fba052743355fff87df37b5def8f"
+    },
+    {
+      "name": "art/bosses/victor_ep09.jpg",
+      "bytes": 211688,
+      "sha256": "a8b6650b0ca7264c00c70b62961e0a8abf572c3f39ee4584c186e0082186a617"
+    },
+    {
+      "name": "art/bosses/zeke_yeager.jpg",
+      "bytes": 21159,
+      "sha256": "d0242c1befd29156be6541de36ccec6aca05474785cbe372e0a8d7fa01c40830"
+    },
+    {
+      "name": "art/heroes/ainz.jpg",
+      "bytes": 45638,
+      "sha256": "763d6b9ed5402d9cfda19e011f9526bc573b6a8b3c510eaaa3c064af86bedcaa"
+    },
+    {
+      "name": "art/heroes/andy-fuuko-episode4.jpg",
+      "bytes": 197575,
+      "sha256": "2033d5a77a580ad56dca912c0ac194d3d8bb7762c75ba9b7f9b6444d882ec6eb"
+    },
+    {
+      "name": "art/heroes/anya.jpg",
+      "bytes": 19884,
+      "sha256": "91e3eae2bfca093ffea4a82a8180edc14428c0a3cefc9218a4b4355016ea2ec9"
+    },
+    {
+      "name": "art/heroes/deku.jpg",
+      "bytes": 21657,
+      "sha256": "12ccbb01aef95b38b7af5cb14e5f87631476fc0eeec9ce9a607d61962af3c73c"
+    },
+    {
+      "name": "art/heroes/denji.jpg",
+      "bytes": 27950,
+      "sha256": "b5edc40417ddea705e45e7dbea1bfe3a6922a9414171a35fb128330636336346"
+    },
+    {
+      "name": "art/heroes/edward.jpg",
+      "bytes": 51910,
+      "sha256": "b10461b27850aee5354e93d1b6835c93b82d9aec101ea48a620854ca05f67c25"
+    },
+    {
+      "name": "art/heroes/frieren.jpg",
+      "bytes": 38826,
+      "sha256": "8696377b954771f870dce2f9097b3034f2016a9a16002506178cad8718b72d69"
+    },
+    {
+      "name": "art/heroes/gojo.jpg",
+      "bytes": 43820,
+      "sha256": "2deac38112b84532572f755cc5911e70b545a096406a30819dec8068ee503dee"
+    },
+    {
+      "name": "art/heroes/goku.jpg",
+      "bytes": 22954,
+      "sha256": "17b5ecaaa8edc3d97c42eadbe3733e21c04f0634b4b78dae2009eabb1c0d60d0"
+    },
+    {
+      "name": "art/heroes/ichigo-tybw-part3.png",
+      "bytes": 1238947,
+      "sha256": "2bea9019091ed014fcd4f1ec6cc58577c3dfd9ef127b201be0a0e45afec5f956"
+    },
+    {
+      "name": "art/heroes/jinwoo.jpg",
+      "bytes": 341978,
+      "sha256": "d6d62da2a523f2b06a8035eff6de2a94bf5b3ace039355ca34abd9014a62ae7e"
+    },
+    {
+      "name": "art/heroes/levi-final-season-ep7.png",
+      "bytes": 599651,
+      "sha256": "3a5345a664ff05ecf22004ca4340c6df899b6441c7866dfca2f231ce68dffc01"
+    },
+    {
+      "name": "art/heroes/luffy.jpg",
+      "bytes": 27449,
+      "sha256": "034750d25b8014e56f7f012cedaaa82fd475cb4e405cc7d10cd0140aefb3a368"
+    },
+    {
+      "name": "art/heroes/maomao.jpg",
+      "bytes": 30026,
+      "sha256": "abd0e1d211311759cd719788d86090ecb74b8a710f25d481b0ecd9f3405da253"
+    },
+    {
+      "name": "art/heroes/misaka.png",
+      "bytes": 142658,
+      "sha256": "06990674dccc7d8735886baef6b55f72bfcc5c9472a7ce3b717c64b3e687bcc2"
+    },
+    {
+      "name": "art/heroes/naruto.jpg",
+      "bytes": 56547,
+      "sha256": "ab7125371f5794f2e08fd6d1de9bf0ada2d3bb8475845cadd39879ac27d1bd7c"
+    },
+    {
+      "name": "art/heroes/ryuko.png",
+      "bytes": 101185,
+      "sha256": "bf97310a7c93c30d03d8f2cce4163621357dcafc4daef143eacaf12c04515bf3"
+    },
+    {
+      "name": "art/heroes/saitama.jpg",
+      "bytes": 21324,
+      "sha256": "fc7438b20714279244417af287b7442683de7bc75b1e60d4c5a70c3d11fe7cad"
+    },
+    {
+      "name": "art/heroes/shinra.jpg",
+      "bytes": 110614,
+      "sha256": "0567e37c913ad823b7f0e1929896c0a38687b0fa2ad080af91be9acc33d8013b"
+    },
+    {
+      "name": "art/heroes/tanjiro.jpg",
+      "bytes": 79653,
+      "sha256": "7c042997217abe4c776ba82be706fe7f54b7334ddd557685ab8617f2a7a31a78"
+    },
+    {
+      "name": "art/heroes/vegeta.jpg",
+      "bytes": 20234,
+      "sha256": "a817c6d6b8fedfbc6c796d96f5b0cd9a370288e1647354ed40275a596a3ceb20"
+    },
+    {
+      "name": "art/items/ainz/death-knight.png",
+      "bytes": 94828,
+      "sha256": "028206bdeb23d021c9226c272a3da3b9cd4aa48cd9821702b1f014ba4d5d6df2"
+    },
+    {
+      "name": "art/items/ainz/grasp-heart.jpg",
+      "bytes": 84808,
+      "sha256": "3407186d2ff480afd511fcffbb37f95e6cdca4b3e162578e45ee2f9cc6c0c245"
+    },
+    {
+      "name": "art/items/ainz/spuit-lance.jpg",
+      "bytes": 35138,
+      "sha256": "f7821375b787b5e93155ffc8e58b436c4af93a694285e7a8c02cd977dde95aa7"
+    },
+    {
+      "name": "art/items/aki.jpg",
+      "bytes": 32643,
+      "sha256": "c2b60b9bc1fa5788b3a0aa12281ef77d1adb35ed705b710e26f59d5a46611a01"
+    },
+    {
+      "name": "art/items/all_might.jpg",
+      "bytes": 22757,
+      "sha256": "5e68eb538c99eec936e351665194f340d2e035b4d63352cc4998815ab6be3314"
+    },
+    {
+      "name": "art/items/alphonse.jpg",
+      "bytes": 15337,
+      "sha256": "c2cbb2f0beaf0e9bc4f3f529a4d9570cb8976e66c63a0b82d5bfa8ac98b7ab41"
+    },
+    {
+      "name": "art/items/andy/blood-propulsion-ep1.jpg",
+      "bytes": 93622,
+      "sha256": "c9a727f076d9a4679b5d1dec0d77df2913b27f36d22d94f59bafb52299b6b38b"
+    },
+    {
+      "name": "art/items/andy/crimson-crescent-moon-ep07.jpg",
+      "bytes": 363615,
+      "sha256": "f5a3e352c278fb8f064c378085b1ebbe689ca28b6c56afa3409191d0722b4283"
+    },
+    {
+      "name": "art/items/andy/crimson-waxing-moon-ep06.jpg",
+      "bytes": 263719,
+      "sha256": "4086c9b5dd4cbd05786a9c8216c794621bb1f78a70d45e0d1ff040318e1c6ec8"
+    },
+    {
+      "name": "art/items/andy/crimson_bullet-episode14.jpg",
+      "bytes": 136650,
+      "sha256": "8f8157c9ef415f69f557e56a91f8a091a8d0e27859beacba112d81e4c62258e7"
+    },
+    {
+      "name": "art/items/andy/dead-line-victor-ep22.jpg",
+      "bytes": 302930,
+      "sha256": "f2908df495ddc07570c332cd347a2183b2617285b3c295b9c4e2993637365315"
+    },
+    {
+      "name": "art/items/andy/dead_road-bahamut-2023.jpg",
+      "bytes": 492454,
+      "sha256": "06d371e5b95f71b0a1e37fe1e0ea6521a884f0a1959f9929850f5c836786fd4d"
+    },
+    {
+      "name": "art/items/andy/fuuko_touch-episode17.jpg",
+      "bytes": 217619,
+      "sha256": "0939888f584df3e0a54fa22aeea86730fcf42c1283de429d1843c3cc49e8c97f"
+    },
+    {
+      "name": "art/items/andy/parts-bullet-finger-official.jpg",
+      "bytes": 1983309,
+      "sha256": "f414b0d38ea0d51aaf36e5ef29ba9575baa337f679e133496b24f14fa82cc892"
+    },
+    {
+      "name": "art/items/andy/parts_bullet_head-episode4.jpg",
+      "bytes": 152699,
+      "sha256": "df9253ea531d4e23643d8eb7dfe62b744f9ebf9624c13e7ca7e0ad6d2fd81a92"
+    },
+    {
+      "name": "art/items/andy/remember-episode8.jpg",
+      "bytes": 134026,
+      "sha256": "d0e87d5ffee46965314142ba0e229f53eb6b132a8d6d143cca0523e71dd67341"
+    },
+    {
+      "name": "art/items/andy/und_regen-card-crop.jpg",
+      "bytes": 42175,
+      "sha256": "fc7e738759d68573055847f60a7f07f0fe44b00e8d88c3f9b3c5eb5cf1721003"
+    },
+    {
+      "name": "art/items/andy/unluck_undead.jpg",
+      "bytes": 360406,
+      "sha256": "891a8eaa7157d3fec8fab5895c59c4e7cab53ed08187fc602a60e69cae33c207"
+    },
+    {
+      "name": "art/items/bond.jpg",
+      "bytes": 15699,
+      "sha256": "bd3ad3159c067ffe104469a45a69b5a609b97a45d3371156fd750334bd21781c"
+    },
+    {
+      "name": "art/items/fern.jpg",
+      "bytes": 23089,
+      "sha256": "16badecb5b838a4eb9a5209c8e4ec835a3a094deab51f6dd88938a4c8f570a00"
+    },
+    {
+      "name": "art/items/flowers.jpg",
+      "bytes": 54036,
+      "sha256": "bbfae48a3d3a9890a51025f84bceed1da45e3b9e3ed056cf1eb932c089093d2c"
+    },
+    {
+      "name": "art/items/gaoshun.jpg",
+      "bytes": 15070,
+      "sha256": "99d0b3dad161c4c0434827bfdf38a80b63a627f69976ff6ebddacbac709c784c"
+    },
+    {
+      "name": "art/items/gear5.gif",
+      "bytes": 2199855,
+      "sha256": "74a583da90edda61322a904f425dc4352a3d39fd502c469cea97da4280cd46e9"
+    },
+    {
+      "name": "art/items/genos.jpg",
+      "bytes": 29661,
+      "sha256": "6c4e6d1ea27888792d4a437fa4da3488ca3b5c3d817e52dbbf670027cc6ead84"
+    },
+    {
+      "name": "art/items/goku/instant_transmission.jpg",
+      "bytes": 93305,
+      "sha256": "a9671588577bca9b00c89e682e3bf31597b31478d169526b66aee3294b0900df"
+    },
+    {
+      "name": "art/items/goku/kaioken.jpg",
+      "bytes": 164321,
+      "sha256": "0dbc1f790006af37a0544a84bb734311fbf6a587f948633d0a2490b4ff36dd63"
+    },
+    {
+      "name": "art/items/goku/kamehameha-anime.png",
+      "bytes": 516396,
+      "sha256": "ba1d774b5d0ae4b9b21bf6bfc5cbb7575992bb9d0f4a571d133c3187729d7e91"
+    },
+    {
+      "name": "art/items/goku/ki-charge-golden-flare.jpg",
+      "bytes": 232282,
+      "sha256": "4350d940677f04f8feca4ebc9af340a0350b347290bf4d05b226bedeec8a2b5c"
+    },
+    {
+      "name": "art/items/goku/nimbus.jpg",
+      "bytes": 244494,
+      "sha256": "c708ac85710fa4785de600b565d9f0f31c824a6b83e41e682d146a0a6505e502"
+    },
+    {
+      "name": "art/items/goku/power_pole.jpg",
+      "bytes": 75840,
+      "sha256": "32bf83ad393666cad8c63de0f53968f9a4a9b8ec7a045b4106be58add5e3d0f5"
+    },
+    {
+      "name": "art/items/goku/senzu.jpg",
+      "bytes": 63898,
+      "sha256": "7b8951daae65f74672eca568240151417f2299d56ed87f201a2acf6f46293272"
+    },
+    {
+      "name": "art/items/goku/spirit_bomb.jpg",
+      "bytes": 259043,
+      "sha256": "576f795314842d5ba1d7752af789f1c526d8bec2fea4df3b979cf83525be04e0"
+    },
+    {
+      "name": "art/items/goku/super_kame.png",
+      "bytes": 3000199,
+      "sha256": "13d1ca12efee725c196bcaaaf391a9f2ceb828016e1719d183253e95de6e283b"
+    },
+    {
+      "name": "art/items/goku/ultra_instinct.jpg",
+      "bytes": 232567,
+      "sha256": "e65367add777ad3eec17fcd26612ec44631544795f0c15d959bd54cbc3d0d330"
+    },
+    {
+      "name": "art/items/goku/weighted_gi.jpg",
+      "bytes": 52146,
+      "sha256": "10abec954e220fc7a9cea2da1f566264901447ae96a0cc164d110278d03f62d0"
+    },
+    {
+      "name": "art/items/goku/whis-training.jpg",
+      "bytes": 93053,
+      "sha256": "fbea241484cc2461ec03e81ec51c8ccf15904ed433bb997958c547740b562626"
+    },
+    {
+      "name": "art/items/hange.jpg",
+      "bytes": 20040,
+      "sha256": "e71add5217bfd909a38444fc6ea03826a41ca631b8169cd0e1ae001a5c09de69"
+    },
+    {
+      "name": "art/items/ichigo/bankai.png",
+      "bytes": 2278009,
+      "sha256": "b162a35ad72a00826ea6aa440259a6c91d23747e4a6439096f974740b2ac4c4b"
+    },
+    {
+      "name": "art/items/ichigo/complete_fullbring.jpg",
+      "bytes": 286428,
+      "sha256": "272d0a2fe9c9b55f0c2ea6ce17fa8e09a4317cb6c17f6223abbf35992f99ac3a"
+    },
+    {
+      "name": "art/items/ichigo/flash-step-ep58.webp",
+      "bytes": 86128,
+      "sha256": "2c522a47e4019110cc4c458f79641b7ce1fc99755b566b37d69e9302c6c97781"
+    },
+    {
+      "name": "art/items/ichigo/getsuga-episode59-blast.webp",
+      "bytes": 76572,
+      "sha256": "d833bf4020fe368a1bfc1dbdae91beef6e3eeccd7a6d8e2747c4e550ab2611b5"
+    },
+    {
+      "name": "art/items/ichigo/ginjo-cross-of-scaffold.png",
+      "bytes": 759873,
+      "sha256": "fbf76c0bc9ce743fc92fd9fef94da8cf1d8eeba8fb88668c5a6301fb2c6c1401"
+    },
+    {
+      "name": "art/items/ichigo/hollow_mask.jpg",
+      "bytes": 149100,
+      "sha256": "ebb96971158fc6ceae81fcdca06b8717d6f7e9c523846bd24c280af32762e0cf"
+    },
+    {
+      "name": "art/items/ichigo/mugetsu-ep309.jpg",
+      "bytes": 166832,
+      "sha256": "cd5a33d0083b0cdd187d750839314dc5754959f9e46d29b264b0db6b0930239a"
+    },
+    {
+      "name": "art/items/ichigo/rukia.jpg",
+      "bytes": 89896,
+      "sha256": "a483d4ceeed4dc4c335c0ca04e79fc429ef0b6d5482e064f6a7cb33bd07f34ad"
+    },
+    {
+      "name": "art/items/ichigo/substitute-badge-ep348.webp",
+      "bytes": 35396,
+      "sha256": "f33b0d8dd46d2f511fbe988efd20a6ea65f096a9bfbc03cb67f6966e1c268548"
+    },
+    {
+      "name": "art/items/ichigo/tensa-anime-ep302.jpg",
+      "bytes": 71657,
+      "sha256": "af74742a0620916cb57b5a4ec03ece08bac0b7865b6d8cd7ff4892fc839e132c"
+    },
+    {
+      "name": "art/items/ichigo/urahara-shop-episode303.webp",
+      "bytes": 67936,
+      "sha256": "055e3ae3490876823af3d4b921f50d9ea6503e723e26f9c64b2b82e6aa13f13f"
+    },
+    {
+      "name": "art/items/ichigo/urahara.png",
+      "bytes": 120836,
+      "sha256": "d9b8a27de2ddaf580ffafd5177ebc742a1747d10b5c2c709260b2742ed81d05f"
+    },
+    {
+      "name": "art/items/ichigo/zangetsu-clear.jpg",
+      "bytes": 145367,
+      "sha256": "40e20c35864ab184c4a8b791afb6d72f5685c132552b799e5d53290ca8d67942"
+    },
+    {
+      "name": "art/items/jinshi.jpg",
+      "bytes": 25773,
+      "sha256": "49dcdeb2ba22e2d6c8ef43f1ce92d94955469df6308c04ff8cc8a1ba09436b90"
+    },
+    {
+      "name": "art/items/jinwoo/arise.webp",
+      "bytes": 15682,
+      "sha256": "5de43c6d90e0a60b95664d51e30773001528503c49dc5cfe00f4e13764ab37e6"
+    },
+    {
+      "name": "art/items/jinwoo/kasaka-fang-weapon.png",
+      "bytes": 172636,
+      "sha256": "802d0f9a62adb2b3127cddb250ffe1348d2aee9e8c1cc7fe131d17ce0ddb74bb"
+    },
+    {
+      "name": "art/items/jinwoo/monarch-domain-ep13.jpg",
+      "bytes": 59601,
+      "sha256": "78f247f94e23c688e2f532ba861d4857d3a5c9e26f93d81acffc0962d3385471"
+    },
+    {
+      "name": "art/items/jinwoo/shadow_iron.jpg",
+      "bytes": 25563,
+      "sha256": "6e136e354dbe50c516c3b9ec96520e5a3b3e56a7c2c6361612da42ae5ec89ed7"
+    },
+    {
+      "name": "art/items/jinwoo/shadow_tank.jpg",
+      "bytes": 143706,
+      "sha256": "5bc5e182ec3b1d8f52de9d9ff718ff009c6bf96d6ae48169a0a2dea13744f338"
+    },
+    {
+      "name": "art/items/jinwoo/shadow_tusk.jpg",
+      "bytes": 45786,
+      "sha256": "8fdd11b058b87a3d3d6833209d6967ddf2102a8d62ea8ab60af7614fa133f983"
+    },
+    {
+      "name": "art/items/jinwoo/system-status-ep4.png",
+      "bytes": 707988,
+      "sha256": "b8a6e7b9b7a3d22baacc9832059ae605f6024264fa0d87e3ef2a066d8f39dc18"
+    },
+    {
+      "name": "art/items/kon.jpg",
+      "bytes": 22747,
+      "sha256": "95a09f03fba798eff7372c90df46e53bdb4ee9f9601d4cb671cd507c23684018"
+    },
+    {
+      "name": "art/items/loid.jpg",
+      "bytes": 20004,
+      "sha256": "9db77fd7839d9eacf24b2d23ce31fe7157b51db1bf46b74ada49fe72b86822ab"
+    },
+    {
+      "name": "art/items/luffy/chopper.webp",
+      "bytes": 64268,
+      "sha256": "dd098f5fdff3bb503aa23dce2bf3c086491c4281f028d495b375e0d9f308f31a"
+    },
+    {
+      "name": "art/items/luffy/gear2.webp",
+      "bytes": 44768,
+      "sha256": "47c699d9d2bbcb7bd237fe8f0643bed8e8df52e2198ea7961e4ed50669511058"
+    },
+    {
+      "name": "art/items/luffy/gear4.webp",
+      "bytes": 29572,
+      "sha256": "a615a3d3c15344566d56e2b8cf0055bcd3730582e050e15bc244aecdee400105"
+    },
+    {
+      "name": "art/items/luffy/jet_gatling.webp",
+      "bytes": 52014,
+      "sha256": "65880519065fd7f24a3c5f9e999f618432b10525c081c1bb5b953a0216bb27c1"
+    },
+    {
+      "name": "art/items/luffy/meat.webp",
+      "bytes": 85608,
+      "sha256": "96bdb8df48f7b2471f13405a340c9c6a04fcd0b2a6dd985485acc495853c0e88"
+    },
+    {
+      "name": "art/items/luffy/pistol.webp",
+      "bytes": 79160,
+      "sha256": "eb0cdfc4487e1f09e13e8061a54a1dad474fb0b93512ed93457f5a81f4fe7867"
+    },
+    {
+      "name": "art/items/luffy/red_hawk.webp",
+      "bytes": 48392,
+      "sha256": "97600d2e8c73e73f32069c2e1799a6a6f62950b21dbfbe9a719eb8b4d973314c"
+    },
+    {
+      "name": "art/items/luffy/straw_hat.webp",
+      "bytes": 53758,
+      "sha256": "5b1d00ce3d4d69ba9cfb92caa13960b6247c9a0d241198fce4d9349b29ab14cf"
+    },
+    {
+      "name": "art/items/luffy/sunny.webp",
+      "bytes": 71694,
+      "sha256": "73b54cba4d4c443d9b63bf77cfa8b7dfe119d011fcf6c7eb76c01070d82fc925"
+    },
+    {
+      "name": "art/items/luomen.jpg",
+      "bytes": 17460,
+      "sha256": "2c75106ee4f0e27a18b91c7547cac054fc7aef28a6969c0de079f4def026c067"
+    },
+    {
+      "name": "art/items/naruto/C007_0101.jpg",
+      "bytes": 40401,
+      "sha256": "7d0723578e11e8c0adeccfd002cdf4bcf36387663f35ebd31ac6255d52f4f7ca"
+    },
+    {
+      "name": "art/items/naruto/clear-v2/baryon.png",
+      "bytes": 2379306,
+      "sha256": "952a98b460b9c540d5902f4888302c5a6bc4c984a064ec86479d2ba1db62c177"
+    },
+    {
+      "name": "art/items/naruto/clear-v2/kurama-wide.jpg",
+      "bytes": 901909,
+      "sha256": "804df72db4e8cccb0f25fd04afaa0a85f9099b34dca5f9fa5f870af6cf9daf5d"
+    },
+    {
+      "name": "art/items/naruto/clear-v2/ramen-umeiwa.jpg",
+      "bytes": 422360,
+      "sha256": "a08566859e1bbdf28979baf41637ba8a9ba8460878feb94429464d668992813a"
+    },
+    {
+      "name": "art/items/naruto/clone_squad.jpg",
+      "bytes": 51015,
+      "sha256": "3f9b94feeb640cf115efbfbd0bfbdde14efeee86d935a7f2bc7b254dcaf6ba29"
+    },
+    {
+      "name": "art/items/naruto/gamabunta.jpg",
+      "bytes": 112078,
+      "sha256": "8407254c06bfab051c3ddb58ba27680e2e2d5e9f0883b5e341bdfca9582c195d"
+    },
+    {
+      "name": "art/items/naruto/kunai.jpg",
+      "bytes": 71970,
+      "sha256": "9cc21475efcf3f2fe6574ced8f3b2380a0289aee23b38413fc3d6951d24d603f"
+    },
+    {
+      "name": "art/items/naruto/sage_mode.jpg",
+      "bytes": 554815,
+      "sha256": "bd584dc6fdd5ea1e129b2530e7b3029da314b7101fbe2526d7cadee8f82372b0"
+    },
+    {
+      "name": "art/items/naruto/sexy_jutsu_kaguya.jpg",
+      "bytes": 259464,
+      "sha256": "2cd2d1d326635f74515062cd8f8e71eb29f64e3d6d58332f4a3173202d34865f"
+    },
+    {
+      "name": "art/items/naruto/shadow_clone.jpg",
+      "bytes": 204643,
+      "sha256": "558100b2383ed2f2cd20e894b0e0baeda67a20e25673c3c733ad7030bb67408d"
+    },
+    {
+      "name": "art/items/pochita.jpg",
+      "bytes": 23548,
+      "sha256": "d2fedd285a76f76c1a6912062732d1d95706ecfe4372a01ce10542f275eead0d"
+    },
+    {
+      "name": "art/items/power.jpg",
+      "bytes": 27530,
+      "sha256": "8549a7cc16dd748caa5e6d5858720dec7f1a87b90308551d88805dabd067fb1e"
+    },
+    {
+      "name": "art/items/purple.gif",
+      "bytes": 2079454,
+      "sha256": "c3be15b0a9ad13a2062cd6dc621768ff8857145ae570cfb7b17d18ff0bed2b67"
+    },
+    {
+      "name": "art/items/rasengan.jpg",
+      "bytes": 31977,
+      "sha256": "036cac798e65309a13c6e85c93dcae4c658b0bdd36057e8ddb38ce7f2834a3b2"
+    },
+    {
+      "name": "art/items/sanji.jpg",
+      "bytes": 20313,
+      "sha256": "7d001ec837d0f772bda3d2d179e81ca1a8629ce05680c80ada7adb514df81110"
+    },
+    {
+      "name": "art/items/shinra/bunker_gear.jpg",
+      "bytes": 796685,
+      "sha256": "271130d0a92c1faa03c8b075899b728e260c135ce156fdd300b9de068fc027a5"
+    },
+    {
+      "name": "art/items/shinra/hysterical_strength.jpg",
+      "bytes": 71506,
+      "sha256": "a19c283890be3629dca66e2581d9cae465af4f7a827804db5a1c4e884ba9c57f"
+    },
+    {
+      "name": "art/items/shinra/shinra_arthur.jpg",
+      "bytes": 220777,
+      "sha256": "d476ea28b1cfc8a173ac5f4fd33a3ddaa2e8682c72b561088fb801709fceb4a7"
+    },
+    {
+      "name": "art/items/shinra/shinra_iris.jpg",
+      "bytes": 266892,
+      "sha256": "89bbc012aaf64fc845c76007dbbb791efcceab7e7ed8d1a22b4e3762fa49b29a"
+    },
+    {
+      "name": "art/items/shinra/shinra_maki.jpg",
+      "bytes": 44205,
+      "sha256": "af390b87d8909f4073eff0ff281176c14bc349ad4b878a417c005eecce8539f3"
+    },
+    {
+      "name": "art/items/shinra/vulcan.jpg",
+      "bytes": 69623,
+      "sha256": "d47a0d4e8a4b9385db71f9fbf0747f841f6bddd4f36d3273142beec2394881e0"
+    },
+    {
+      "name": "art/items/stark.jpg",
+      "bytes": 31705,
+      "sha256": "0780c69c15c5c745cac19e2a71453007478348438dfcaaa6cd5d54a7224a62ed"
+    },
+    {
+      "name": "art/items/tanjiro/clear-blue-sky-mugen-train.jpg",
+      "bytes": 132480,
+      "sha256": "edd8813809e189d85859eb0154398ec429a009bf8109da3391549ba49861c981"
+    },
+    {
+      "name": "art/items/tanjiro/crow.webp",
+      "bytes": 62126,
+      "sha256": "c3d3728413187caab445ff355baea0fef1f28692a038f2a1f62ebf229485de45"
+    },
+    {
+      "name": "art/items/tanjiro/hinokami.webp",
+      "bytes": 43064,
+      "sha256": "005f806facbfc92f6d012bee63e11161453d066f02d9ffbb0c67a73fd059d4ff"
+    },
+    {
+      "name": "art/items/tanjiro/inosuke.webp",
+      "bytes": 51380,
+      "sha256": "d82deaa6b87fcc6ccf44bed912d7e5d3484a1aeb165e4b9bc8fafb86fc30c35b"
+    },
+    {
+      "name": "art/items/tanjiro/nezuko-hashira-training-ep1.jpg",
+      "bytes": 49878,
+      "sha256": "32c1baa8ec3fefee2d941087e8a259041cd80f6577452191c5b10eaa8687d7f1"
+    },
+    {
+      "name": "art/items/tanjiro/nichirin.webp",
+      "bytes": 17934,
+      "sha256": "81298d1b792110ae75b84c2b858c4773f585ee0d1e1e8cdfd7523ea20a14ab4a"
+    },
+    {
+      "name": "art/items/tanjiro/onigiri.webp",
+      "bytes": 53354,
+      "sha256": "7b385c5b46d1b88fc315a54a1240a3ae03d74e8978c8ab70cce9b0dc598005cf"
+    },
+    {
+      "name": "art/items/tanjiro/sun_halo.webp",
+      "bytes": 157504,
+      "sha256": "36ea7d7d79678d4cb581d73f704d578d4dbfb180123faa195e69d728a2667bf3"
+    },
+    {
+      "name": "art/items/tanjiro/water-dragon-mugen-train.jpg",
+      "bytes": 75699,
+      "sha256": "1d6083d3575b8aca752c23c426393e706518d37a29e8934dcece21aa882ca5aa"
+    },
+    {
+      "name": "art/items/tanjiro/wisteria.webp",
+      "bytes": 86006,
+      "sha256": "275317163f310e6f1ede9ce58e3b982bf14d18323dd2245e559523d69aa48171"
+    },
+    {
+      "name": "art/items/tanjiro/zenitsu.webp",
+      "bytes": 98270,
+      "sha256": "bd265ec7fbd70f5b42d27a1aa1043f699a5f8ccc043cc5e7f332c76aeddf084e"
+    },
+    {
+      "name": "art/items/uraraka.jpg",
+      "bytes": 23183,
+      "sha256": "a165bed52c80d659369eb7178a9bfaa9b17702ab4643156cd84b5b71740fea3d"
+    },
+    {
+      "name": "art/items/vegeta/armor.webp",
+      "bytes": 56864,
+      "sha256": "0cfd420b5d0e8261208bf9e7a3f0fb871887f172915e7df8480d1ce02d20836c"
+    },
+    {
+      "name": "art/items/vegeta/big_bang.webp",
+      "bytes": 67320,
+      "sha256": "a8c8f89cbd795b03db9b6fffea0ce4ec66f3b5ebd0cbf5004945db2cdca96071"
+    },
+    {
+      "name": "art/items/vegeta/bulma-capsule-tight.webp",
+      "bytes": 8062,
+      "sha256": "33f334e7cf411425938e1a3f5f752d1ad2a941f8c339aace316adc8f7d7405fa"
+    },
+    {
+      "name": "art/items/vegeta/final_explosion.webp",
+      "bytes": 44040,
+      "sha256": "a2c6dde45f1d5fdb0d1347098bc008eb8ac652d2780ac7386067194f8aaa6b98"
+    },
+    {
+      "name": "art/items/vegeta/final_flash.webp",
+      "bytes": 78926,
+      "sha256": "76622d55daaf142b7fb6d5858d88d7d8ce508884e74ed0dd07f401434474698b"
+    },
+    {
+      "name": "art/items/vegeta/galick_gun.webp",
+      "bytes": 46708,
+      "sha256": "0bbe97a11351abcad3be961d532e1a27f6de42b9acc68bc3e91da8951432ff6f"
+    },
+    {
+      "name": "art/items/vegeta/gravity.webp",
+      "bytes": 67454,
+      "sha256": "22929797cf84875059cad3560b5291eba67ad8f4cf6034e01522f341dbf927f7"
+    },
+    {
+      "name": "art/items/vegeta/majin.webp",
+      "bytes": 121952,
+      "sha256": "5d601d1db511936af6fdc341eb2928c61d2123f4a8ab65adecf632bb1a7a40ca"
+    },
+    {
+      "name": "art/items/vegeta/pride-card.webp",
+      "bytes": 55708,
+      "sha256": "1a15beba4e1af6a8829dcc594ce0933165044dabdbc35d71479b2d5c52f11598"
+    },
+    {
+      "name": "art/items/vegeta/scouter.webp",
+      "bytes": 62270,
+      "sha256": "40218900118066e2af837c0097fcfbd9856ae3302ccfd5fe661c2c66e8d4a990"
+    },
+    {
+      "name": "art/items/vegeta/ultra_ego-roccomanga.webp",
+      "bytes": 122384,
+      "sha256": "859cdad6ee85309badc9c408fcd55ddf26fe0adac2da87607ee8bc34d00b6985"
+    },
+    {
+      "name": "art/items/yor.jpg",
+      "bytes": 20654,
+      "sha256": "a8d26d4cd607b2bb5391fbd58db19551adb83d5eae8a800bd906759281b71c21"
+    },
+    {
+      "name": "art/items/zoro-episode1062.webp",
+      "bytes": 35052,
+      "sha256": "96111cb1268c0b4f7a6a61a415b0466bbdc3d2f3c95de4b13d960817c407c2fc"
+    },
+    {
+      "name": "art/review/BZ-GOKU-TRIAL-ART-20261028/assets/goku-vs-vegeta-episode30.jpg",
+      "bytes": 367892,
+      "sha256": "ce86c40cd827a5785c059eb94eca72749b7b096a487bc9507d2ad07e5577b76a"
+    },
+    {
+      "name": "art/review/BZ-ICON-CHARACTERS-01/fuuko_official_character2_main.png",
+      "bytes": 286054,
+      "sha256": "0fa3d79eb1f815661264bdd0b7f4e0b36ccdcfd2e6d0fae52d5fab1815658f53"
+    },
+    {
+      "name": "art/review/BZ-ICON-CHARACTERS-01/juiz_official_character6_main.png",
+      "bytes": 336609,
+      "sha256": "b37f564e1ce03bd4626b5e9fa04ce5408b12d0033de4601c5b16d29296c32d29"
+    },
+    {
+      "name": "art/review/BZ-SKILL-ART-01/burnBonus_amaterasu.jpg",
+      "bytes": 235464,
+      "sha256": "168f804a36e1d9fe7e22a5dbf214d5a548d3177b155b206641fdc771248e1c35"
+    },
+    {
+      "name": "art/review/BZ-SKILL-ART-01/crit_sharingan.jpg",
+      "bytes": 48226,
+      "sha256": "c86fcfea72fe290c9602df93336c5f7e1566b246c928420df3eedb7fe2b142c2"
+    },
+    {
+      "name": "art/review/BZ-SKILL-ART-01/healMult_reverse_cursed_technique.webp",
+      "bytes": 21874,
+      "sha256": "f90b5dae9c4bf008a1bb285ff36b69da5ddc65f10cf675441c250466adbf6fca"
+    },
+    {
+      "name": "art/review/BZ-SKILL-ART-01/poisonBonus_venom_venom_fruit.jpg",
+      "bytes": 74834,
+      "sha256": "eb03fd085001fd91f232665e02f1f456825393509308bab9ddc7e93d600c35cf"
+    },
+    {
+      "name": "art/review/BZ-SKILL-ART-01/shieldMult_armament_haki.png",
+      "bytes": 134954,
+      "sha256": "f3ba4cca043db44fc74b71546f8af2571d50e733fa7858dba2a69a986d18e611"
+    },
+    {
+      "name": "art/review/BZ-SKILL-ART-01/startRegen_hamon_breathing.jpg",
+      "bytes": 168504,
+      "sha256": "c9cc26f0f1c505a186583e22cb4b821790e02976652a51f9dd01cd7e6a969f58"
+    },
+    {
+      "name": "art/shops/ichiraku-teuchi-counter.jpg",
+      "bytes": 68322,
+      "sha256": "4d20af7155d31b90c76774df0288a8557216dfa1926ec6090ce4c2d57be8d422"
+    },
+    {
+      "name": "art/skills/clear-v2/godspeed-front.jpg",
+      "bytes": 118285,
+      "sha256": "768edb74504557f4e538bad59df5efc71f889fc5188102a7fb8a54cb317e6de7"
+    },
+    {
+      "name": "art/skills/clear-v2/hashirama_cells.jpg",
+      "bytes": 77184,
+      "sha256": "5c8fb5d73228975d30499848e9b1d096e39678661f6478cf0a569e559a4a9fae"
+    },
+    {
+      "name": "art/skills/clear-v2/tekkai.jpg",
+      "bytes": 167763,
+      "sha256": "fad0e30c0981ef7f63d9704189be504a0cd16313bbd7ce77aee4dec3825c04ef"
+    },
+    {
+      "name": "art/skills/clear-v2/total_concentration.jpg",
+      "bytes": 210655,
+      "sha256": "da2532b5b8481c27a15b5de9ed30dae457363586eeda2da9eefff3efb68e0c0d"
+    },
+    {
+      "name": "art/skills/transparent-world-infinity-castle.png",
+      "bytes": 156978,
+      "sha256": "839c0072f28d627cce77fa23b33222bcff8238f1d89e1a508d47343c6c959a0d"
+    },
+    {
+      "name": "audio/bank.js",
+      "bytes": 660199,
+      "sha256": "a73944e7d431d1ca5620788fb4c6fef7e1b5a542222066e22b938916c90e0352"
+    },
+    {
+      "name": "ghost-sync.js",
+      "bytes": 9737,
+      "sha256": "e7886b1df0a4805a5af319665bd621a7dcf6a3146bc1a0dcd9e6ea763412d6c0"
+    },
+    {
+      "name": "index.html",
+      "bytes": 495170,
+      "sha256": "2aaa264e23ff818a2e6010b013061068369f7ec835e344a01c8106f22a457817"
+    },
+    {
+      "name": "recent-artwork.html",
+      "bytes": 166668,
+      "sha256": "3a1942f67a6ae1a47c3d02f50eff9740c447f2d91f4e8a46fd5ad7dbbc539b5a"
+    },
+    {
+      "name": "shop-preview.html",
+      "bytes": 107589,
+      "sha256": "1d4b4a0d054c4fe384440d4eca4a15686ba1c6095600c50b8ec753ff1b1882a5"
+    }
+  ],
+  "hosting": "GitHub Pages static host",
+  "deployment_adjustments": [
+    "Disable server-dependent automatic friend updates on github.io; preserve manual save codes."
+  ]
+}
