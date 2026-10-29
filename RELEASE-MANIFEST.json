@@ -1,6 +1,6 @@
 {
-  "source": "Anime Bazaar local playable source",
-  "sourceSha256": "2aaa264e23ff818a2e6010b013061068369f7ec835e344a01c8106f22a457817",
+  "source": "Existing live gameplay with approved Shinra artwork",
+  "sourceSha256": "6f74ea5d7022115af39a72cfae6a3b3a019a291be72bbf79a48c7aa2e61e9f6a",
   "files": [
     {
       "name": "ainz-preview.html",
@@ -603,9 +603,19 @@
       "sha256": "7d001ec837d0f772bda3d2d179e81ca1a8629ce05680c80ada7adb514df81110"
     },
     {
+      "name": "art/items/shinra/adolla-link-official.jpg",
+      "bytes": 106186,
+      "sha256": "a5ae9f8cdee4ac8584c220e78ee9d3957e59324b8e559a11ffb8133cbe0bf9a6"
+    },
+    {
       "name": "art/items/shinra/bunker_gear.jpg",
       "bytes": 796685,
       "sha256": "271130d0a92c1faa03c8b075899b728e260c135ce156fdd300b9de068fc027a5"
+    },
+    {
+      "name": "art/items/shinra/excalibur-close.webp",
+      "bytes": 322946,
+      "sha256": "d45576b24f9f92d99801bbf9e056bb78208c859b6b275473b56f9709bdddb4c1"
     },
     {
       "name": "art/items/shinra/hysterical_strength.jpg",
@@ -833,6 +843,11 @@
       "sha256": "da2532b5b8481c27a15b5de9ed30dae457363586eeda2da9eefff3efb68e0c0d"
     },
     {
+      "name": "art/skills/shinra/adolla-grace-evangelist.jpg",
+      "bytes": 173015,
+      "sha256": "debb7aa1b9a99d43967ec19852c3a7d24f12213a7f77e344f06b0d9ad400743d"
+    },
+    {
       "name": "art/skills/transparent-world-infinity-castle.png",
       "bytes": 156978,
       "sha256": "839c0072f28d627cce77fa23b33222bcff8238f1d89e1a508d47343c6c959a0d"
@@ -849,8 +864,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 495170,
-      "sha256": "2aaa264e23ff818a2e6010b013061068369f7ec835e344a01c8106f22a457817"
+      "bytes": 495345,
+      "sha256": "6f74ea5d7022115af39a72cfae6a3b3a019a291be72bbf79a48c7aa2e61e9f6a"
     },
     {
       "name": "recent-artwork.html",
@@ -866,5 +881,14 @@
   "hosting": "GitHub Pages static host",
   "deployment_adjustments": [
     "Disable server-dependent automatic friend updates on github.io; preserve manual save codes."
-  ]
+  ],
+  "artwork_release": {
+    "base_commit": "2872d80be69894502cd1c606260c1ba6c280e419",
+    "changes": [
+      "Adolla Link: Woman in Black connection scene",
+      "Adolla Grace: wide Evangelist and Sho vision",
+      "Arthur Excalibur: reviewed source and sword-focused framing"
+    ],
+    "gameplay_changed": false
+  }
 }

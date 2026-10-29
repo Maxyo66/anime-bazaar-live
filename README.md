@@ -6,4 +6,4 @@ Open https://maxyo66.github.io/anime-bazaar-live/ to play. Progress stays in you
 
 Do not delete the original site or browser data until migration has been checked.
 
-Canonical game HTML SHA-256: 2aaa264e23ff818a2e6010b013061068369f7ec835e344a01c8106f22a457817
+Canonical game HTML SHA-256: 6f74ea5d7022115af39a72cfae6a3b3a019a291be72bbf79a48c7aa2e61e9f6a
