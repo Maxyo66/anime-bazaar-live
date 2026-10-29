@@ -1236,12 +1236,12 @@ const PASSIVES={
  edward:{name:'Equivalent Exchange',icon:'⚖️',desc:'Earn 2 extra gold at the start of each day.',income:2},
  frieren:{name:'Millennia of Study',icon:'📚',desc:'Items that grow after fights grow by 1 extra. Analysis: each different enemy item that activates is analyzed (up to 5); your damaging Spells deal +2 per analyzed item.',grow:1},
  deku:{name:'Plus Ultra',icon:'💚',desc:'Self-damage is halved. Below 50% HP, your Weapons deal 20% more damage.',self:.5,dmg:(s,it)=>isW(it)&&below(s,.5)?1.2:1},
- ichigo:{name:'Hollow Within',icon:'👹',desc:'Weapons deal 20% more damage, rising to 50% more below 50% HP.',dmg:(s,it)=>isW(it)?(below(s,.5)?1.5:1.2):1},
+ ichigo:{name:'Hollow Within',icon:'👹',desc:'Weapons deal 30% more damage, rising to 60% more below 50% HP.',dmg:(s,it)=>isW(it)?(below(s,.5)?1.6:1.3):1},
  levi:{name:'Ackerman Instinct',icon:'🗡️',desc:'+10% crit chance on all your items.',crit:.1},
  saitama:{name:'Limiter Removed',icon:'💪',desc:'+100 max HP. Every 4th Weapon activation is a guaranteed crit on every hit of that activation (Multicast counts once). The punch count shows during fights.',hp:100,forceWhole:true,forceCrit:(s,it)=>isW(it)&&(s.wUses=(s.wUses||0)+1)%4===0},
  anya:{name:'Mind Reading',icon:'🧠',desc:'At the start of each fight, slow the 3 fastest enemy items for 3s.',start(s,f){for(const o of [...f.items].sort((a,b)=>a.cd-b.cd).slice(0,3))o.slow+=3}},
  jinwoo:{name:'Shadow Monarch',icon:'👤',desc:'Each Shadow-item activation grants 1 Command (maximum 6). Each Command makes your Weapons deal 4% more damage. Multicast grants Command once. Resets each fight.',onUse(s,f,it){if(it.def.tags.includes('Shadow'))s.command=Math.min(6,s.command+1)}},
- ainz:{name:'Arcane Preparation',icon:'📜',desc:'When one of your temporary contracts expires, gain 1 Seal (maximum 3). Your next damaging Spell spends all Seals: +12 damage per Seal on its opening hit, scaled by that Spell’s tier; this bonus cannot crit. Contracts and Seals reset each fight.'},
+ ainz:{name:'Arcane Preparation',icon:'📜',desc:'When one of your temporary contracts expires, gain 1 Seal (maximum 3). Your next damaging Spell spends all Seals: +20 damage per Seal on its opening hit, scaled by that Spell’s tier; this bonus cannot crit. Contracts and Seals reset each fight.'},
  shinra:{name:"Devil's Footprints",icon:'🔥',desc:'Each Weapon activation grants 1 Heat (maximum 6). Corna and Adolla Burst spend Heat for bonus damage and Burn; Adolla Link gains Shield from stored Heat. Multicast grants Heat once. Resets each fight.',onUse(s,f,it){if(isW(it))s.heat=Math.min(6,s.heat+1)}},
  denji:{name:'Devil Heart',icon:'💓',desc:'Whenever you damage yourself, gain 1 regen (up to 5 per fight).',onSelf(s){if((s.dh=(s.dh||0))<5){s.dh++;s.regen++}}},
  maomao:{name:'Poison Tolerance',icon:'🍵',desc:'Take 40% less damage from poison. Tested dose: the first 4 times you damage yourself, your next Toxin applies +2 more poison. Antidote: your heals restore +1 per 4 poison on the enemy (max +6).',taken:(s,v,k)=>k==='poison'?Math.round(v*.6):v},
@@ -1300,24 +1300,24 @@ const ITEMS={};
 function I(hero,id,name,icon,size,tags,cd,fx,extra={}){ITEMS[id]={hero,id,name,icon,size,tags,cd,fx,...extra}}
 // Naruto
 I('naruto','shadow_clone','Shadow Clone','👥',1,['Friend','Clone'],4,[{t:'dmg',v:8},{t:'haste',to:'right',d:1}]);
-I('naruto','rasengan','Rasengan','🌀',2,['Weapon'],6,[{t:'dmg',v:23,per:{tag:'Clone',v:8}}]);
+I('naruto','rasengan','Rasengan','🌀',2,['Weapon'],6,[{t:'dmg',v:27,per:{tag:'Clone',v:8}}]);
 I('naruto','ramen','Ichiraku Ramen','🍜',1,['Food'],5,[{t:'heal',v:16},{t:'haste',to:'adj',d:1}]);
 I('naruto','sage_mode','Sage Mode','🐸',3,['Tool'],10,[{t:'shield',v:35},{t:'charge',to:'tag:Weapon',v:2}]);
-I('naruto','kunai','Kunai','🔪',1,['Weapon'],3,[{t:'dmg',v:9}],{crit:0.15});
+I('naruto','kunai','Kunai','🔪',1,['Weapon'],3,[{t:'dmg',v:10}],{crit:0.15});
 I('naruto','kurama','Nine-Tails Chakra','🦊',3,['Tool'],11,[{t:'dmg',v:45},{t:'heal',v:25},{t:'burn',v:4}]);
-I('naruto','clone_squad','Clone Squad','🎎',2,['Friend','Clone'],5,[{t:'dmg',v:6}],{multicast:3});
+I('naruto','clone_squad','Clone Squad','🎎',2,['Friend','Clone'],5,[{t:'dmg',v:7}],{multicast:3});
 I('naruto','sexy_jutsu','Sexy Jutsu','💋',1,['Tool'],6,[{t:'slow',n:2,d:1.5}]);
 I('naruto','gamabunta','Summoning: Gamabunta','🐸',3,['Friend'],10,[{t:'dmg',v:40},{t:'shield',v:30}]);
 I('naruto','rasenshuriken','Rasenshuriken','💠',3,['Weapon'],8,[{t:'dmg',v:35,per:{tag:'Clone',v:12}},{t:'slow',n:1,d:1.5}],{special:'fusion'});
 I('naruto','baryon','Baryon Mode','🔥',3,['Tool'],9,[{t:'dmg',v:60},{t:'heal',v:30},{t:'haste',to:'all',d:2}],{special:'ult'});
 // Goku
-I('goku','kamehameha','Kamehameha','☄️',3,['Weapon'],9.5,[{t:'dmg',v:85,chargedBonus:20}]);
+I('goku','kamehameha','Kamehameha','☄️',3,['Weapon'],9.5,[{t:'dmg',v:105,chargedBonus:20}]);
 I('goku','ki_charge','Ki Charge','⚡',1,['Tool'],3.5,[{t:'charge',to:'adjWeapon',v:1.5}]);
-I('goku','senzu','Senzu Bean','🌱',1,['Food'],8,[{t:'heal',v:45}]);
-I('goku','power_pole','Power Pole','🦯',2,['Weapon'],5,[{t:'dmg',v:21}]);
+I('goku','senzu','Senzu Bean','🌱',1,['Food'],8,[{t:'heal',v:55}]);
+I('goku','power_pole','Power Pole','🦯',2,['Weapon'],5,[{t:'dmg',v:30}]);
 I('goku','nimbus','Flying Nimbus','☁️',2,['Vehicle'],6,[{t:'haste',to:'adj',d:2}]);
 I('goku','spirit_bomb','Spirit Bomb','🌕',3,['Weapon'],14,[{t:'dmg',v:150,donorBonus:15}]);
-I('goku','weighted_gi','Weighted Gi','🥋',2,['Apparel'],8,[{t:'shield',v:30}],{onAllyUse:{tag:'Weapon',fx:[{t:'shield',v:4}]}});
+I('goku','weighted_gi','Weighted Gi','🥋',2,['Apparel'],8,[{t:'shield',v:36}],{onAllyUse:{tag:'Weapon',fx:[{t:'shield',v:4}]}});
 I('goku','instant_transmission','Instant Transmission','☝️',1,['Tool'],4,[{t:'charge',to:'right',v:2}]);
 I('goku','kaioken','Kaio-ken','🔴',2,['Tool'],7,[{t:'haste',to:'tag:Weapon',d:3},{t:'selfdmg',v:5}]);
 I('goku','super_kame','Super Kamehameha','🌠',3,['Weapon'],10,[{t:'dmg',v:110,chargedBonus:30}],{special:'fusion'});
@@ -1366,7 +1366,7 @@ I('edward','alphonse','Alphonse','🛡️',3,['Friend'],8,[{t:'shield',v:50},{t:
 I('edward','stone',"Philosopher's Stone",'💎',1,['Relic'],9,[{t:'heal',v:40},{t:'charge',to:'all',v:1}]);
 I('edward','exchange','Equivalent Exchange','⚖️',1,['Tool'],8,[{t:'exchange',v:10,cap:15}],{income:2,note:'Click this card on your board or in your stash to choose Protect or Transmute before combat. Each copy keeps its own choice; new and older copies default to Protect.'});
 I('edward','watch','State Alchemist Watch','⌚',1,['Apparel'],6,[{t:'haste',to:'adj',d:1}],{income:1});
-I('edward','mustang','Roy Mustang','🔥',2,['Friend'],7,[{t:'dmg',v:15},{t:'burn',v:6}]);
+I('edward','mustang','Roy Mustang','🔥',2,['Friend'],7,[{t:'dmg',v:12},{t:'burn',v:5}]);
 I('edward','winry',"Winry's Wrench",'🔧',1,['Friend'],6,[{t:'heal',v:12},{t:'charge',to:'tag:Weapon',v:1}]);
 I('edward','alchemy_lance','Transmuted Lance','🔱',2,['Weapon'],4,[{t:'dmg',v:18},{t:'charge',to:'adj',v:1}],{special:'fusion'});
 I('edward','gate_truth','Gate of Truth','🚪',2,['Relic'],10,[{t:'heal',v:40},{t:'charge',to:'all',v:3}],{income:3,special:'ult'});
@@ -1383,25 +1383,25 @@ I('frieren','mana_suppress','Mana Suppression','🌫️',1,['Spell'],7,[{t:'slow
 I('frieren','grand_zoltraak','Mastered Zoltraak','🌟',3,['Spell','Weapon'],6,[{t:'dmg',v:16}],{multicast:2,grow:5,special:'fusion'});
 I('frieren','thousand_years','Thousand Years of Magic','🔮',3,['Spell'],9,[{t:'dmg',v:40},{t:'shield',v:30}],{grow:10,special:'ult'});
 // Deku
-I('deku','ofa5','One For All 5%','💥',1,['Weapon'],4,[{t:'dmg',v:13},{t:'selfdmg',v:2}]);
-I('deku','delaware','Delaware Smash','👉',2,['Weapon'],5,[{t:'dmg',v:26},{t:'selfdmg',v:4}]);
+I('deku','ofa5','One For All 5%','💥',1,['Weapon'],4,[{t:'dmg',v:15},{t:'selfdmg',v:2}]);
+I('deku','delaware','Delaware Smash','👉',2,['Weapon'],5,[{t:'dmg',v:30},{t:'selfdmg',v:4}]);
 I('deku','full_cowl','Full Cowl','💚',2,['Tool'],7,[{t:'haste',to:'all',d:1.5},{t:'shield',v:8,aboveHalfOnly:true}]);
 I('deku','detroit','Detroit Smash','🤜',3,['Weapon'],10,[{t:'dmg',v:80,aboveBonus:15},{t:'selfdmg',v:12}]);
 I('deku','notebook','Hero Notebook','📓',1,['Tool'],6,[{t:'charge',to:'tag:Weapon',v:1.5}]);
-I('deku','all_might','All Might','⭐',3,['Friend'],12,[{t:'heal',v:45},{t:'shield',v:45}]);
+I('deku','all_might','All Might','⭐',3,['Friend'],12,[{t:'heal',v:55},{t:'shield',v:55}]);
 I('deku','uraraka','Uraraka','🪐',2,['Friend'],6,[{t:'slow',n:2,d:2},{t:'shield',v:12}]);
 I('deku','blackwhip','Blackwhip','🖤',2,['Tool'],6,[{t:'dmg',v:8},{t:'freeze',n:1,d:1.5},{t:'shield',v:12,belowHalfOnce:true}]);
 I('deku','bakugo','Bakugo','💣',2,['Friend','Weapon'],5,[{t:'dmg',v:18},{t:'burn',v:3}]);
 I('deku','shoot_style','Shoot Style','🦶',2,['Weapon'],3,[{t:'dmg',v:16},{t:'selfdmg',v:1},{t:'haste',to:'right',d:1}],{special:'fusion'});
 I('deku','ofa100','One For All 100%','🌋',3,['Weapon'],9,[{t:'dmg',v:190,aboveBonus:30},{t:'selfdmg',v:40}],{special:'ult'});
 // Ichigo
-I('ichigo','zangetsu','Zangetsu','🗡️',2,['Weapon'],5,[{t:'dmg',v:18}]);
-I('ichigo','getsuga','Getsuga Tensho','🌙',3,['Weapon'],9,[{t:'dmg',v:60}]);
+I('ichigo','zangetsu','Zangetsu','🗡️',2,['Weapon'],5,[{t:'dmg',v:24}]);
+I('ichigo','getsuga','Getsuga Tensho','🌙',3,['Weapon'],8,[{t:'dmg',v:80}]);
 I('ichigo','hollow_mask','Hollow Mask','👹',1,['Apparel'],8,[{t:'shield',v:14}],{onAllyUse:{tag:'Weapon',fx:[{t:'dmg',v:5}]}});
 I('ichigo','flash_step','Flash Step','💨',1,['Tool'],4,[{t:'haste',to:'tag:Weapon',d:1}]);
 I('ichigo','badge','Substitute Badge','📛',1,['Relic'],7,[{t:'shield',v:20}]);
-I('ichigo','kon','Kon','🧸',1,['Friend'],5,[{t:'dmg',v:7},{t:'heal',v:9}]);
-I('ichigo','bankai','Bankai','🌑',2,['Tool'],9,[{t:'haste',to:'all',d:3}]);
+I('ichigo','kon','Kon','🧸',1,['Friend'],5,[{t:'dmg',v:10},{t:'heal',v:9}]);
+I('ichigo','bankai','Bankai','🌑',2,['Tool'],8,[{t:'haste',to:'all',d:3}]);
 I('ichigo','rukia','Rukia','❄️',2,['Friend'],7,[{t:'dmg',v:12},{t:'freeze',n:1,d:1.5}]);
 I('ichigo','urahara',"Urahara's Shop",'🎩',1,['Friend'],8,[{t:'charge',to:'all',v:1}],{income:1});
 I('ichigo','tensa','Tensa Zangetsu','🖤',3,['Weapon'],5,[{t:'dmg',v:30}],{multicast:2,special:'fusion'});
@@ -1417,21 +1417,21 @@ I('levi','odm','ODM Gear','🎣',2,['Tool'],5,[{t:'haste',to:'adj',d:2},{t:'flan
 I('levi','thunder_spear','Thunder Spear','⚡',2,['Weapon'],8,[{t:'dmg',v:30,readyBonus:12},{t:'burn',v:4}]);
 I('levi','cleaning','Cleaning Kit','🧹',1,['Tool'],6,[{t:'shield',v:10},{t:'charge',to:'adj',v:1}]);
 I('levi','cloak','Survey Corps Cloak','🧥',1,['Apparel'],7,[{t:'shield',v:14}]);
-I('levi','hange','Hange','🔬',2,['Friend'],7,[{t:'charge',to:'tag:Weapon',v:2},{t:'poison',v:3}]);
+I('levi','hange','Hange','🔬',2,['Friend'],7,[{t:'charge',to:'tag:Weapon',v:2},{t:'poison',v:5}]);
 I('levi','black_tea','Black Tea','🍵',1,['Food'],6,[{t:'heal',v:15}]);
-I('levi','mikasa','Mikasa','🧣',2,['Friend','Weapon'],4,[{t:'dmg',v:11}],{crit:0.15});
-I('levi','erwin',"Erwin's Charge",'🐎',2,['Friend'],8,[{t:'haste',to:'all',d:2}]);
+I('levi','mikasa','Mikasa','🧣',2,['Friend','Weapon'],4,[{t:'dmg',v:13}],{crit:0.15});
+I('levi','erwin',"Erwin's Charge",'🐎',2,['Friend'],7,[{t:'haste',to:'all',d:2}]);
 I('levi','spin_slash','Spinning Slash','🌪️',2,['Weapon'],4,[{t:'dmg',v:7}],{multicast:4,crit:0.2,special:'fusion'});
 I('levi','strongest',"Humanity's Strongest",'🕊️',2,['Weapon'],5,[{t:'dmg',v:30}],{multicast:2,crit:0.3,special:'ult'});
 // Saitama
 I('saitama','normal_punch','Normal Punch','👊',1,['Weapon'],5,[{t:'dmg',v:16},{t:'shield',v:10,cadence:3}]);
 I('saitama','cnp','Consecutive Normal Punches','🤛',2,['Weapon'],6,[{t:'dmg',v:6}],{multicast:4});
-I('saitama','serious_punch','Serious Punch','💢',3,['Weapon'],22,[{t:'dmg',v:330,fourthBonus:70}]);
+I('saitama','serious_punch','Serious Punch','💢',3,['Weapon'],23,[{t:'dmg',v:330,fourthBonus:70}]);
 I('saitama','flyer','Bargain Sale Flyer','📰',1,['Tool'],12,[{t:'heal',v:10}],{income:3});
 I('saitama','genos','Genos','🤖',2,['Friend','Weapon'],5,[{t:'dmg',v:14},{t:'burn',v:4}]);
 I('saitama','license','Hero License','📇',1,['Relic'],8,[{t:'shield',v:14}]);
 I('saitama','noodles','Cup Noodles','🍜',1,['Food'],6,[{t:'heal',v:18}]);
-I('saitama','king','King Engine','👑',1,['Friend'],10,[{t:'slow',n:3,d:2}]);
+I('saitama','king','King Engine','👑',1,['Friend'],12,[{t:'slow',n:3,d:2}]);
 I('saitama','fubuki','Fubuki','🌪️',2,['Friend'],7,[{t:'shield',v:20},{t:'slow',n:1,d:1}]);
 I('saitama','side_hops','Serious Side Hops','🦘',1,['Tool'],3,[{t:'haste',to:'all',d:1}],{special:'fusion'});
 I('saitama','table_flip','Serious Table Flip','🪑',3,['Tool'],14,[{t:'dmg',v:80},{t:'freeze',n:10,d:2}],{special:'ult'});
@@ -1450,10 +1450,10 @@ I('anya','strix','Operation Strix','🦉',3,['Tool'],10,[{t:'charge',to:'tag:Fri
 // Denji
 I('denji','chainsaw','Chainsaw Arm','⚙️',2,['Weapon'],3,[{t:'dmg',v:10,afterHeal:4},{t:'selfdmg',v:1}]);
 I('denji','pull_cord','Pull Cord','🧵',1,['Tool'],5,[{t:'charge',to:'tag:Weapon',v:1,lowSkip:true},{t:'selfdmg',v:2,lowSkip:true},{t:'shield',v:8,lowOnly:true}]);
-I('denji','pochita','Pochita','🐶',1,['Friend'],6,[{t:'heal',v:20}]);
-I('denji','power','Power','🩸',2,['Friend','Weapon'],6,[{t:'dmg',v:22}]);
+I('denji','pochita','Pochita','🐶',1,['Friend'],6,[{t:'heal',v:24}]);
+I('denji','power','Power','🩸',2,['Friend','Weapon'],6,[{t:'dmg',v:26}]);
 I('denji','transfusion','Blood Transfusion','💉',1,['Food'],7,[{t:'heal',v:24,afterSelf:12}]);
-I('denji','aki','Aki','🎌',2,['Friend'],6,[{t:'dmg',v:16},{t:'slow',n:1,d:2}]);
+I('denji','aki','Aki','🎌',2,['Friend'],6,[{t:'dmg',v:18},{t:'slow',n:1,d:2}]);
 I('denji','toast','Bread & Jam','🍞',1,['Food'],5,[{t:'heal',v:12},{t:'haste',to:'adj',d:1}]);
 I('denji','kobeni','Kobeni','🔪',2,['Friend','Weapon'],5,[{t:'dmg',v:14}],{crit:0.2});
 I('denji','reze','Reze (Bomb Devil)','💣',2,['Friend','Weapon'],8,[{t:'dmg',v:35},{t:'burn',v:5}]);
@@ -1472,9 +1472,9 @@ I('vegeta','majin','Majin Vegeta','😈',2,['Tool'],10,[{t:'dmg',v:50},{t:'selfd
 I('vegeta','final_explosion','Final Explosion','🎆',3,['Weapon'],15,[{t:'dmg',v:300},{t:'selfdmg',v:100}],{special:'fusion'});
 I('vegeta','ultra_ego','Ultra Ego','🟪',3,['Tool'],8,[{t:'dmg',v:40},{t:'heal',v:40},{t:'haste',to:'tag:Weapon',d:2}],{special:'ult'});
 // Maomao (Toxin items power each other)
-I('maomao','poison_tasting','Poison Tasting','🍵',1,['Toxin'],6,[{t:'poison',v:3},{t:'selfdmg',v:2}]);
+I('maomao','poison_tasting','Poison Tasting','🍵',1,['Toxin'],6,[{t:'poison',v:2},{t:'selfdmg',v:2}]);
 I('maomao','herbal_salve','Herbal Salve','🌿',1,['Food'],7,[{t:'heal',v:14},{t:'regen',v:1}]);
-I('maomao','oleander','Oleander Skewers','🌸',2,['Weapon','Toxin'],7,[{t:'dmg',v:8},{t:'poison',v:4}]);
+I('maomao','oleander','Oleander Skewers','🌸',2,['Weapon','Toxin'],7,[{t:'dmg',v:8},{t:'poison',v:3}]);
 I('maomao','apothecary_kit','Apothecary Kit','🧪',2,['Tool'],7,[{t:'charge',to:'tag:Toxin',v:1},{t:'heal',v:10}]);
 I('maomao','snake_wine','Snake Wine','🐍',1,['Food','Toxin'],7,[{t:'heal',v:10},{t:'poison',v:2}]);
 I('maomao','cordyceps','Caterpillar Fungus','🍄',1,['Relic','Toxin'],9,[{t:'poison',v:2}],{income:1});
@@ -1544,11 +1544,11 @@ I('juiz','quest_card','Quest Card','🎴',1,['Tool'],9,[{t:'heal',v:15},{t:'char
 I('juiz','final_verdict','Final Verdict','🔨',3,['Spell','Weapon'],9,[{t:'dmg',v:70},{t:'freeze',n:2,d:1.5}],{special:'fusion'});
 I('juiz','loop100','The 100th Loop','🔄',3,['Spell'],11,[{t:'shield',v:60},{t:'dmg',v:60},{t:'charge',to:'all',v:2}],{special:'ult'});
 // Shinra: bank Heat for protection, or spend it on a flame finisher.
-I('shinra','devils_footprints',"Devil's Footprints",'🔥',1,['Weapon'],3.5,[{t:'dmg',v:10},{t:'burn',v:1}]);
+I('shinra','devils_footprints',"Devil's Footprints",'🔥',1,['Weapon'],3.5,[{t:'dmg',v:12},{t:'burn',v:1}]);
 I('shinra','rapid','Rapid','💨',1,['Tool'],5,[{t:'heat',v:1},{t:'charge',to:'adj',v:1.2}]);
 I('shinra','bunker_gear','Fire Soldier Bunker Gear','🧥',2,['Apparel'],7,[{t:'shield',v:22}],{onAllyUse:{tag:'Weapon',fx:[{t:'shield',v:3}]}});
 I('shinra','shinra_iris','Sister Iris','🙏',1,['Friend'],8,[{t:'heal',v:18},{t:'regen',v:1}]);
-I('shinra','shinra_arthur',"Arthur's Excalibur",'⚔️',2,['Friend','Weapon'],5,[{t:'dmg',v:24}]);
+I('shinra','shinra_arthur',"Arthur's Excalibur",'⚔️',2,['Friend','Weapon'],5,[{t:'dmg',v:28}]);
 I('shinra','shinra_maki','Maki: Sputter and Flare','🔥',2,['Friend'],7,[{t:'shield',v:16},{t:'burn',v:3}]);
 I('shinra','shinra_vulcan','Vulcan Joseph','🔧',1,['Friend'],6,[{t:'charge',to:'right',v:2}]);
 I('shinra','hysterical_strength','Hysterical Strength','💪',1,['Tool'],8,[{t:'selfdmg',v:6},{t:'heat',v:2},{t:'haste',to:'tag:Weapon',d:2}]);
@@ -1569,14 +1569,14 @@ I('jinwoo','demon_king_daggers',"Demon King's Daggers",'⚔️',2,['Weapon'],5,[
 I('jinwoo','arise','Arise','👤',3,['Tool'],10,[{t:'command',v:2},{t:'shield',v:30},{t:'charge',to:'tag:Shadow',v:3}],{special:'ult'});
 
 // Ainz uses timed contracts and consumable spell Seals, independent of Shadow Command.
-I('ainz','ainz_grasp','Grasp Heart','✊',2,['Weapon','Spell'],6,[{t:'dmg',v:24},{t:'slow',n:1,d:1}]);
-I('ainz','ainz_knight','Create Undead: Death Knight','🛡️',2,['Friend','Undead','Contract'],10,[{t:'contract',v:12,d:6,interval:2,shield:18}]);
-I('ainz','ainz_skull','Summon Undead: Elemental Skull','💀',2,['Friend','Undead','Contract'],11,[{t:'contract',v:10,d:6,interval:1.5}]);
-I('ainz','ainz_negative','Negative Burst','🌑',2,['Weapon','Spell'],7,[{t:'dmg',v:28},{t:'extendContract',v:1}]);
+I('ainz','ainz_grasp','Grasp Heart','✊',2,['Weapon','Spell'],5,[{t:'dmg',v:36},{t:'slow',n:1,d:1}]);
+I('ainz','ainz_knight','Create Undead: Death Knight','🛡️',2,['Friend','Undead','Contract'],10,[{t:'contract',v:18,d:6,interval:2,shield:18}]);
+I('ainz','ainz_skull','Summon Undead: Elemental Skull','💀',2,['Friend','Undead','Contract'],11,[{t:'contract',v:15,d:6,interval:1.5}]);
+I('ainz','ainz_negative','Negative Burst','🌑',2,['Weapon','Spell'],6,[{t:'dmg',v:40},{t:'extendContract',v:1}]);
 I('ainz','ainz_delay','Delay Magic','📜',1,['Tool'],5,[{t:'seal',v:1},{t:'shield',v:4}]);
 I('ainz','ainz_staff','Staff of Ainz Ooal Gown','🔱',2,['Tool','Relic'],7,[{t:'charge',to:'adjSpell',v:1},{t:'extendContract',v:2}]);
-I('ainz','ainz_beryl','Body of Effulgent Beryl','💎',1,['Spell','Apparel'],8,[{t:'shield',v:25}]);
-I('ainz','ainz_lethal','Greater Lethal','🟣',1,['Spell'],7,[{t:'heal',v:22}],{note:'Negative-energy recovery is adapted as healing for the wielder; not instant damage.'});
+I('ainz','ainz_beryl','Body of Effulgent Beryl','💎',1,['Spell','Apparel'],8,[{t:'shield',v:35}]);
+I('ainz','ainz_lethal','Greater Lethal','🟣',1,['Spell'],7,[{t:'heal',v:30}],{note:'Negative-energy recovery is adapted as healing for the wielder; not instant damage.'});
 I('ainz','ainz_time','Time Stop','⏳',2,['Spell','Tool'],12,[{t:'freeze',n:2,d:2},{t:'seal',v:1}],{note:'Game adaptation: briefly Freeze two enemy items. This does not stop the combat clock or pause the whole world.'});
 I('ainz','ainz_reality','Triplet Maximize Magic: Reality Slash','🌀',3,['Weapon','Spell'],8,[{t:'dmg',v:28}],{multicast:3,special:'fusion'});
 I('ainz','ainz_goal','The Goal of All Life Is Death','🕰️',3,['Spell','Relic'],12,[{t:'doom',v:180,d:12}],{special:'ult',note:'Paired with Cry of the Banshee: a telegraphed, once-per-fight piercing burst. Freezing this card pauses its countdown. This is a damage adaptation, not an automatic kill.'});
@@ -1703,6 +1703,45 @@ E('ginjo_counter','Stolen Getsuga','🌙',3,['Weapon'],13,[{t:'dmg',v:120}],{col
 E('ginjo_cross','Cross of Scaffold','🗡️',2,['Weapon'],5,[{t:'dmg',v:20}],{color:'#b0a097',src:'Bleach'});
 E('ginjo_armor','Final Fullbring Armor','🛡️',2,['Apparel'],6,[{t:'shield',v:35}],{color:'#b0a097',src:'Bleach'});
 E('tsukishima_book','Book of the End','📕',2,['Tool'],9,[{t:'slow',n:2,d:2}],{color:'#b0a097',src:'Bleach'});
+E('beerus_hakai','Hakai','🟣',3,['Spell'],14,[{t:'dmg',v:75}],{color:'#6b3fa0',src:'Dragon Ball'});
+E('beerus_sphere','Sphere of Destruction','🔮',2,['Weapon'],5,[{t:'dmg',v:22},{t:'burn',v:2}],{color:'#6b3fa0',src:'Dragon Ball'});
+E('beerus_reflex','Divine Reflexes','🐈',2,['Tool'],7,[{t:'shield',v:25},{t:'haste',to:'tag:Weapon',d:1}],{color:'#6b3fa0',src:'Dragon Ball'});
+E('whis_rewind','Temporal Do-Over','🔁',1,['Relic'],12,[{t:'heal',v:50}],{color:'#6b3fa0',src:'Dragon Ball'});
+E('meruem_tail','King’s Tail','🦂',2,['Weapon'],4,[{t:'dmg',v:14}],{crit:.25,color:'#3e6b4f',src:'Hunter x Hunter'});
+E('meruem_aura','Royal Aura','👑',3,['Tool'],9,[{t:'haste',to:'all',d:1.5},{t:'shield',v:25}],{color:'#3e6b4f',src:'Hunter x Hunter'});
+E('pitou_doctor','Doctor Blythe','🩺',2,['Tool'],7,[{t:'heal',v:25},{t:'regen',v:2}],{color:'#3e6b4f',src:'Hunter x Hunter'});
+E('meruem_gungi','Gungi Mastery','♟️',1,['Relic'],8,[{t:'freeze',n:2,d:1.5}],{color:'#3e6b4f',src:'Hunter x Hunter'});
+E('kaguya_tsb','Expansive Truth-Seeking Ball','⚫',3,['Weapon'],12,[{t:'dmg',v:100}],{color:'#c7c2d8',src:'Naruto'});
+E('kaguya_bones','All-Killing Ash Bones','🦴',2,['Weapon'],6,[{t:'dmg',v:18,perFrozen:10}],{color:'#c7c2d8',src:'Naruto'});
+E('kaguya_dimension','Dimension Shift','🌀',2,['Relic'],9,[{t:'freeze',n:3,d:2}],{color:'#c7c2d8',src:'Naruto'});
+E('kaguya_byakugan','Rinne Sharingan','👁️',1,['Relic'],7,[{t:'slow',n:2,d:2},{t:'shield',v:15}],{color:'#c7c2d8',src:'Naruto'});
+E('yhwach_auswahlen','Auswählen','✴️',3,['Spell'],11,[{t:'dmg',v:60},{t:'heal',v:60}],{color:'#2f2f3a',src:'Bleach'});
+E('yhwach_almighty','The Almighty','👁️‍🗨️',2,['Relic'],10,[{t:'freeze',n:3,d:2}],{color:'#2f2f3a',src:'Bleach'});
+E('yhwach_sword','Sword of the Father','🗡️',2,['Weapon'],5,[{t:'dmg',v:26,lowBonus:.5}],{color:'#2f2f3a',src:'Bleach'});
+E('yhwach_blut','Blut Vene','🩸',2,['Tool'],8,[{t:'shield',v:45}],{color:'#2f2f3a',src:'Bleach'});
+const CALAMITIES=[
+ {name:'Beerus — God of Destruction',icon:'🐈‍⬛',color:'#6b3fa0',series:'Dragon Ball',hpMult:1.8,strat:'Hakai erases almost anything it touches, Divine Reflexes rebuild his Shield and Haste his Weapons, and Whis rewinds a disaster once in a while. Survive Hakai long enough to win.',weak:['Burst','Shield'],b:['beerus_hakai','beerus_sphere','beerus_reflex','whis_rewind'],drops:['beerus_sphere','beerus_reflex']},
+ {name:'Meruem — Chimera Ant King',icon:'🦂',color:'#3e6b4f',series:'Hunter x Hunter',hpMult:1.35,strat:'The King’s Tail strikes constantly and crits, Royal Aura Hastes his whole board, Pitou’s Doctor Blythe heals him and Gungi Mastery Freezes your board.',weak:['Freeze','Poison','Slow'],b:['meruem_tail','meruem_aura','pitou_doctor','meruem_tail','meruem_gungi'],drops:['meruem_tail','meruem_gungi']},
+ {name:'Kaguya Ōtsutsuki — Progenitor',icon:'🐇',color:'#c7c2d8',series:'Naruto',hpMult:.95,strat:'Dimension Shift Freezes most of your board; the All-Killing Ash Bones deal +10 for each of your frozen items, and the Truth-Seeking Ball is a heavy blow.',weak:['Haste','Many small items'],b:['kaguya_tsb','kaguya_bones','kaguya_dimension','kaguya_byakugan','kaguya_bones'],drops:['kaguya_bones','kaguya_byakugan']},
+ {name:'Yhwach — The Almighty',icon:'✴️',color:'#2f2f3a',series:'Bleach',hpMult:1.3,strat:'Auswählen steals your health, The Almighty Freezes your items, Blut Vene rebuilds his Shield, and below half health his sword hits 50% harder.',weak:['Burst','Shield removal'],b:['yhwach_auswahlen','yhwach_almighty','yhwach_sword','yhwach_blut'],drops:['yhwach_sword','yhwach_blut']}];
+const CALAMITY_CHANCE=.01,CALAMITY_DROP=.6,CALAMITY_MIN_DAY=5;
+for(const c of CALAMITIES)for(const id of c.drops)ITEMS[id].special='calamity';
+for(const c of CALAMITIES)if(ART.bosses&&ART.bosses[c.name])ART.monsters[c.name]=ART.bosses[c.name];
+function genCalamity(day){return applyPowerMatch(genCalamityBase(day),'optional')}
+function genCalamityBase(day){
+ const pool=CALAMITIES.filter(c=>!(S.calamitiesSeen||[]).includes(c.name)),c=pool.length?pool[rnd(pool.length)]:CALAMITIES[rnd(CALAMITIES.length)],tier=Math.min(MAX_TIER,enemyTier(day+2));
+ const items=buildFixed(c.b,BOARD_SLOTS,tier),drop=c.drops[rnd(c.drops.length)];
+ return {name:c.name,icon:c.icon,color:c.color,series:c.series,strat:c.strat,weak:c.weak,hard:true,calamity:true,hp:Math.round((700+day*215)*(c.hpMult||1)*D().mon),items,skills:{startShield:Math.round((60+day*15)*D().mon),weaponDmg:Math.floor(day/2)+D().skills*2},gold:20+day*3,xp:8,calamityDrop:{item:drop,tier:items.find(i=>i.id===drop).tier,chance:CALAMITY_DROP,roll:R()}};
+}
+function calamityDropValid(d){return d&&ITEMS[d.item]&&ITEMS[d.item].special==='calamity'&&Number.isInteger(d.tier)&&d.tier>=0&&d.tier<=MAX_TIER&&typeof d.roll==='number'}
+function calamityOutcome(m,w){
+ if(!m||!m.calamity||w!=='a'||!calamityDropValid(m.calamityDrop))return null;const d=m.calamityDrop,name=ITEMS[d.item].name;
+ return d.roll<d.chance?{inst:mkInst(d.item,d.tier),note:`☄️ Calamity drop: ${name} (${TIERS[d.tier]}). It is an extra reward choice below.`}:{inst:null,note:`You survived the calamity, but ${name} did not drop (${Math.round(d.chance*100)}% chance).`};
+}
+function calamityScoutHTML(m){
+ if(!m.calamity||!calamityDropValid(m.calamityDrop))return '';const d=ITEMS[m.calamityDrop.item];
+ return `<div class="velvet" style="padding:10px;margin:8px 0;border-color:#ff7a9a"><b>☄️ Calamity — extremely dangerous, very rare</b><p class="small" style="margin:4px 0">Optional. Losing costs nothing but the hour. If you win, there is a <b>${Math.round(m.calamityDrop.chance*100)}%</b> chance to take <b>${d.icon} ${esc(d.name)} · ${TIERS[m.calamityDrop.tier]}</b>, an exclusive item no shop sells. Only one calamity can appear per run.</p><span class="small">${d.fx.map(f=>fxText(f,{id:d.id,tier:m.calamityDrop.tier,bonus:0})).join(' · ').replace(/<[^>]+>/g,'')}</span></div>`;
+}
 const MON_DEFS=[
  {name:'Rogue Ninja',boss:'Madara Uchiha',rank:1,icon:'👤',series:'Naruto',hp:.9,strat:'Hit-and-run ninja: shuriken volleys, explosive tags and smoke bombs.',weak:['Shields'],b:['ninja_shuriken','paper_bomb','smoke_bomb','ninja_shuriken','paper_bomb','ninja_shuriken']},
  {name:'Saibaman',boss:'Frieza',rank:1,icon:'🌱',series:'Dragon Ball',hp:.85,strat:'A swarm of small fighters that self-destruct for huge burst damage.',weak:['Shields'],b:['sai_claw','sai_self','sai_acid','sai_claw','sai_self','sai_acid']},
@@ -1796,7 +1835,7 @@ function buildFixed(list,budget,tier){let used=0;const items=[];for(const id of 
 // One offer per trophy per run, whether taken or not. Trophy items never appear in shops; they can be sold.
 const TROPHIES={
  'Zeke Yeager':{item:'boulder',chance:.5,cond:{kind:'time',limit:40},why:'Beat the Beast Titan before his barrage wears you down.'},
- 'Kisame Hoshigaki':{item:'kisame_same',chance:.4,cond:{kind:'maxUses',id:'kisame_same',limit:10},why:'Freeze or out-pace Samehada before it feeds too often.'},
+ 'Kisame Hoshigaki':{item:'kisame_same',chance:.4,cond:{kind:'maxUses',id:'kisame_same',limit:14},why:'Freeze or out-pace Samehada before it feeds too often.'},
  'Ulquiorra':{item:'ulq_lanza',chance:.4,cond:{kind:'time',limit:35},why:'Break through Hierro and regeneration quickly.'},
  'Daki':{item:'daki_obi',chance:.4,cond:{kind:'time',limit:20},why:'Cut down both siblings before the sashes and sickles wear you out.'},
  'Katana Man':{item:'katana_cord',chance:.4,cond:{kind:'maxUses',id:'katana_draw',limit:6},why:'Shut down his Quick Draw before he gets to use it often.'},
@@ -1844,19 +1883,32 @@ const ENCH={
  deadly:{name:'Black Flash',icon:'⚡',desc:'+20% crit chance',crit:0.2,fx:[]},
 };
 const SKILLS=[
- {name:'Tekkai (Iron Body)',icon:'🛡️',desc:'Start each fight with 40 shield.',k:'startShield',v:40},
- {name:'Total Concentration',icon:'🗡️',desc:'Weapons deal +6 damage. Each Weapon touching another Weapon deals +2 more damage. Empty slots break adjacency. Bonuses stack per learned copy.',k:'weaponDmg',v:6,extra:{formationDmg:2}},
- {name:'Sharingan',icon:'👁️',desc:'+12% crit chance on all items.',k:'crit',v:0.12},
- {name:'Godspeed',icon:'⚡',desc:'Your items charge 8% faster.',k:'speed',v:0.08},
- {name:'Amaterasu',icon:'🔥',desc:'Burn you apply is +2.',k:'burnBonus',v:2},
- {name:'Venom Venom Fruit',icon:'☠️',desc:'Poison you apply is +2.',k:'poisonBonus',v:2},
- {name:'Hashirama Cells',icon:'🌳',desc:'+80 max HP.',k:'maxHp',v:80},
- {name:'Reverse Cursed Technique',icon:'💊',desc:'Healing is 25% stronger.',k:'healMult',v:0.25},
- {name:'Armament Haki',icon:'🖤',desc:'Shield gained is 25% stronger. At fight start, gain 10 Shield per Weapon occupying a physical board edge (maximum 2 Weapons per copy), before Shield bonuses. Empty slots at the edge do not count.',k:'shieldMult',v:0.25,extra:{edgeGuard:10}},
- {name:'Hamon Breathing',icon:'💚',desc:'Start each fight with 4 regen.',k:'startRegen',v:4},
+ {name:'Tekkai (Iron Body)',icon:'🛡️',rarity:'Bronze',desc:'Start each fight with 60 shield.',k:'startShield',v:60},
+ {name:'Amaterasu',icon:'🔥',rarity:'Bronze',desc:'Burn you apply is +3.',k:'burnBonus',v:3},
+ {name:'Venom Venom Fruit',icon:'☠️',rarity:'Bronze',desc:'Poison you apply is +2.',k:'poisonBonus',v:2},
+ {name:'Hashirama Cells',icon:'🌳',rarity:'Bronze',desc:'+80 max HP.',k:'maxHp',v:80},
+ {name:'Reverse Cursed Technique',icon:'💊',rarity:'Bronze',desc:'Healing is 25% stronger.',k:'healMult',v:0.25},
+ {name:'Total Concentration',icon:'🗡️',rarity:'Silver',desc:'Weapons deal +6 damage. Each Weapon touching another Weapon deals +2 more damage. Empty slots break adjacency.',k:'weaponDmg',v:6,extra:{formationDmg:2}},
+ {name:'Sharingan',icon:'👁️',rarity:'Silver',desc:'+8% crit chance on all items.',k:'crit',v:0.08},
+ {name:'Godspeed',icon:'⚡',rarity:'Silver',desc:'Your items charge 6% faster.',k:'speed',v:0.06},
+ {name:'Armament Haki',icon:'🖤',rarity:'Silver',desc:'Shield gained is 15% stronger. Your first copy also gives 10 Shield at fight start per Weapon on a board edge (maximum 2), before Shield bonuses.',k:'shieldMult',v:0.15,extra:{edgeGuard:10},firstOnly:['edgeGuard']},
+ {name:'Hamon Breathing',icon:'💚',rarity:'Silver',desc:'Start each fight with 3 regen.',k:'startRegen',v:3},
+ {name:'Will of Fire Bonds',icon:'🤝',rarity:'Gold',desc:'Your Friend items charge 35% faster.',k:'friendSpeed',v:0.35},
+ {name:'Flash Step Mastery',icon:'💨',rarity:'Gold',desc:'Your 1-slot items charge 30% faster.',k:'smallSpeed',v:0.3},
+ {name:'Domain Expansion',icon:'🌌',rarity:'Gold',desc:'Your Spells charge 10% faster.',k:'spellSpeed',v:0.1},
+ {name:'Bankai',icon:'🌑',rarity:'Gold',desc:'Your 3-slot Weapons deal 35% more damage.',k:'bigWeaponMult',v:0.35},
+ {name:'Conqueror\'s Haki',icon:'👑',rarity:'Gold',desc:'At fight start, Freeze the enemy’s 2 largest items for 5s.',k:'openFreeze',v:5},
 ];
+const SKILL_RARITY_COLOR={Bronze:'#e8a368',Silver:'#d6dee8',Gold:'#ffd23f'};
+function skillCopyFactor(n){return n<=0?1:n===1?.5:.25}
+function skillCopies(sk,k){return (sk&&sk._copies&&sk._copies[k.k])||0}
+function rollSkillChoices(day=(S&&S.day)||1){
+ const gold=Math.min(.25,.04+.02*day),silver=.35,out=[];
+ for(let i=0;i<3;i++){const r=R(),tier=r<gold?'Gold':r<gold+silver?'Silver':'Bronze';let pool=SKILLS.filter(k=>k.rarity===tier&&!out.includes(k));if(!pool.length)pool=SKILLS.filter(k=>!out.includes(k));out.push(pool[rnd(pool.length)])}
+ return out;
+}
 // Extra skill values are explicit so older saves retain their original learned bonuses.
-function gainSkill(sk,k){sk[k.k]=(sk[k.k]||0)+k.v;for(const [key,value] of Object.entries(k.extra||{}))sk[key]=(sk[key]||0)+value}
+function gainSkill(sk,k){const n=skillCopies(sk,k),f=skillCopyFactor(n);sk[k.k]=+((sk[k.k]||0)+k.v*f).toFixed(4);for(const [key,value] of Object.entries(k.extra||{})){if(n>0&&(k.firstOnly||[]).includes(key))continue;sk[key]=+((sk[key]||0)+value*f).toFixed(4)}sk._copies={...(sk._copies||{}),[k.k]:n+1}}
 const skillValueRules=()=>SKILLS.flatMap(k=>[{k:k.k,v:k.v},...Object.entries(k.extra||{}).map(([key,value])=>({k:key,v:value}))]);
 function placementSkillsHTML(sk){const parts=[];if(sk.formationDmg>0)parts.push(`🗡️ Touching Weapons: +${sk.formationDmg} damage each`);if(sk.edgeGuard>0)parts.push(`🖤 Edge Weapons: +${sk.edgeGuard} starting Shield each (max 2; Shield bonuses apply)`);return parts.length?`<div class="placement-skills small">${parts.join(' · ')}</div>`:''}
 const MONSTERS=[['Rogue Ninja','👤','Naruto'],['Saibaman','🌱','Dragon Ball'],['Hand Demon','👹','Demon Slayer'],['Cursed Spirit','👻','Jujutsu Kaisen'],['Nomu','🧠','My Hero Academia'],['Hollow','💀','Bleach'],['Pure Titan','🧟','Attack on Titan'],['Chimera Ant','🐜','Hunter x Hunter'],['Marine Captain','⚓','One Piece'],['Zombie Devil','🧟','Chainsaw Man'],['Mystic Beast','🐉','One-Punch Man'],['Aura the Guillotine','⚖️','Frieren']];
@@ -1877,7 +1929,7 @@ function price(id,tier){
 }
 const sellPrice=inst=>Math.max(1,Math.floor(SIZE_PRICE[ITEMS[inst.id].size]*PRICE_MULT[inst.tier]/2));
 const allFx=inst=>inst.ench?[...ITEMS[inst.id].fx,...ENCH[inst.ench].fx]:ITEMS[inst.id].fx;
-function cdOf(inst,sk={}){let c=ITEMS[inst.id].cd;if(inst.ench&&ENCH[inst.ench].cdMult)c*=ENCH[inst.ench].cdMult;return c*(1-Math.min(0.5,sk.speed||0))}
+function cdOf(inst,sk={}){let c=ITEMS[inst.id].cd;if(inst.ench&&ENCH[inst.ench].cdMult)c*=ENCH[inst.ench].cdMult;const d=ITEMS[inst.id],tag=(d.tags.includes('Friend')?sk.friendSpeed||0:0)+(d.size===1?sk.smallSpeed||0:0)+(d.tags.includes('Spell')?sk.spellSpeed||0:0);return c*(1-Math.min(0.5,(sk.speed||0)+tag))}
 function fxVal(fx,inst,tagCount,stats){
   if(!SCALED.includes(fx.t))return fx.v||0;
   let v=(fx.v||0)*VAL_MULT[inst.tier];
@@ -1909,7 +1961,7 @@ function baseFxText(fx,inst){
   const v=fxVal(fx,inst,null);
   switch(fx.t){
     case 'contract':return `Summon a temporary contract for <b>${fx.d}s</b>: deal <b>${fx.v*VAL_MULT[inst.tier]}</b> damage every ${fx.interval}s${fx.shield?`; gain ${fx.shield*VAL_MULT[inst.tier]} Shield when newly summoned`:''}. Maximum 2 active contracts; each card owns one. Recasting only refreshes its duration (maximum 8s left); no extra spawn Shield or immediate attack. Pulses are not item activations. Ainz gains 1 Seal when it expires. Resets each fight`;
-    case 'seal':return `Bank <b>${fx.v}</b> Seal (maximum 3). Ainz’s next damaging Spell spends all Seals for +12 damage per Seal, scaled by that Spell’s tier, opening hit only; bonus cannot crit. Resets each fight`;
+    case 'seal':return `Bank <b>${fx.v}</b> Seal (maximum 3). Ainz’s next damaging Spell spends all Seals for +20 damage per Seal, scaled by that Spell’s tier, opening hit only; bonus cannot crit. Resets each fight`;
     case 'extendContract':return `Extend your active contracts by <b>${fx.v}s</b> (maximum 8s remaining); does not create summons or restart their attack timers. Delays the Seal earned on expiry`;
     case 'doom':return `Once per fight across all copies: begin a <b>${fx.d}s</b> Cry of the Banshee countdown, then deal <b>${fx.v*VAL_MULT[inst.tier]}</b> damage ignoring Shield, plus stored Seal bonus. Freezing this card pauses the countdown. No critical or Weapon bonus; never an automatic kill. Resets each fight`;
     case 'drain':return `Deal <b>${fx.v*VAL_MULT[inst.tier]}</b> damage and heal the HP actually removed (healing bonuses apply; damage absorbed by Shield supplies no healing)`;
@@ -2006,7 +2058,7 @@ function ttHTML(inst,isShopOffer=false){
   if(inst.ench)extra.push(`<div class="ttx ench">${ENCH[inst.ench].icon} <b>${ENCH[inst.ench].name}</b>: ${ENCH[inst.ench].desc}</div>`);
   const rec=typeof RECIPES!=='undefined'&&d.hero?RECIPES.find(r=>r.a===d.id||r.b===d.id):null;
   if(rec)extra.push(`<div class="ttx fuse">🧬 Fuses with <b>${ITEMS[rec.a===d.id?rec.b:rec.a].name}</b> into ${ITEMS[rec.out].name}</div>`);
-  const kind=d.special==='ult'?'<span class="ttk ult">Ultimate</span>':d.special==='fusion'?'<span class="ttk fus">Fusion</span>':d.special==='enemy'?'<span class="ttk en">Enemy</span>':d.special==='trophy'?'<span class="ttk en">🏆 Trophy</span>':'';
+  const kind=d.special==='ult'?'<span class="ttk ult">Ultimate</span>':d.special==='fusion'?'<span class="ttk fus">Fusion</span>':d.special==='enemy'?'<span class="ttk en">Enemy</span>':d.special==='trophy'?'<span class="ttk en">🏆 Trophy</span>':d.special==='calamity'?'<span class="ttk ult">☄️ Calamity</span>':'';
   const sell=S&&SCREEN==='run'&&d.special!=='enemy'?`<span>Sells for 💴 ${sellPrice(inst)}</span>`:'';
   const shopHint=shopDuplicateHint(inst,isShopOffer);
   return `<div class="tt-in t${inst.tier}">
@@ -2065,6 +2117,7 @@ const DIFFS={
  casual:{name:'Casual',desc:'The original balance. Relaxed runs.',bump:0,budget:0,hp:1,skills:0,mon:1,loss:1,prestige:20},
  normal:{name:'Normal',desc:'Sharper rival boards, tougher monsters and bosses.',bump:2,budget:2,hp:1.35,skills:2,mon:1.4,loss:1.25,prestige:20},
  hard:{name:'Hard',desc:'Stacked rival boards, brutal bosses, and losses cost more prestige.',bump:3,budget:2,hp:1.4,skills:2,mon:1.5,loss:1.5,prestige:16},
+ heat:{name:'🔥 Heat',desc:'Hard, and every monster, boss, calamity and trial scales up to your board\'s power. The stronger you get, the harder they hit back. Counts as Hard.',bump:3,budget:2,hp:1.4,skills:2,mon:1.5,loss:1.5,prestige:16,heat:true},
 };
 const DIFF_KEYS=Object.keys(DIFFS);
 const D=()=>DIFFS[(S&&S.diff)||'normal'];
@@ -2275,7 +2328,7 @@ function saveProfile(){store.set('animeBazaarProfiles',LP);pushCloud()}
 function recordRunEnd(){
   if(S.recorded)return;S.recorded=true;
   const r=heroRec(S.hero.id);r.runs++;r.wins+=S.wins;r.best=Math.max(r.best,S.wins);
-  if(S.wins>=WINS_NEEDED){r.champs++;if(S.diff==='hard')r.hard++;else if(S.diff==='normal')r.normal++}
+  if(S.wins>=WINS_NEEDED){r.champs++;if(S.diff==='hard'||S.diff==='heat')r.hard++;else if(S.diff==='normal')r.normal++}
   if(S.daily)PROFILE.daily[S.daily]=Math.max(PROFILE.daily[S.daily]||0,S.wins);
   S.rewards=grantRunRewards();
   addHistory();
@@ -2611,11 +2664,11 @@ function readTransparentWorld(defender,attack){
 
 // ================= Character ultimate trials: reusable state/claim flow =================
 const HERO_ULT_TRIALS={
- ainz:{id:'nazarick-duel-v1',title:'The Shalltear Rematch',item:'ainz_goal',alternateItem:'ainz_spuit',skill:DARK_WISDOM_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Shalltear Bloodfallen — Nazarick rematch',opponent:{icon:'🦇',color:'#bb5b8b',series:'Overlord'},enemyItems:['ainz_spuit','shalltear_blood','shalltear_frenzy','shalltear_einherjar','shalltear_recovery'],hpBase:350,hpDay:55,shield:0,guardName:'Nazarick’s ward',lore:'Prepare for a personal rematch with Shalltear. Her own Spuit Lance is one of the mutually exclusive rewards: inspect how it heals her before committing.',pressure:'Spuit Lance heals only from damage that reaches HP: Shield denies its recovery. Blood Pool and Regeneration prolong the fight, Blood Frenzy Hastens nearby items, and Einherjar creates temporary attack pressure. Race her with prepared spells or protect your health while contracts attack. Win to choose the ultimate, her Spuit Lance, or Dark Wisdom.'},
- edward:{id:'no-easy-answer-v1',title:'No Easy Answer',item:'gate_truth',skill:EQUIVALENT_REBOUND_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Scar — alchemy trial',opponent:{icon:'✋',color:'#ad8c6b',series:'Fullmetal Alchemist: Brotherhood'},enemyItems:['scar_strike','scar_deconstruct','scar_pressure','scar_terrain','scar_strike'],hpBase:350,hpDay:60,shield:0,guardName:'Alphonse’s guard',lore:'An optional battle inspired by Edward and Alphonse’s confrontation with Scar. Prepare your alchemy before accepting: preserve protection or turn it into a faster finish.',pressure:'Two fast Close Combat items pressure your health. Deconstruction removes Shield before its hit, Pursuit Hastens Weapons, and Ground Destruction Slows two items. Rebuild protection between attacks or spend it before Deconstruction can remove it. These card labels and timings are game adaptations.'},
- goku:{id:'borrowed-strength-v1',title:'Borrowed Strength',item:'ultra_instinct',skill:WHIS_TRAINING_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,boss:'Frieza',enemy:'Frieza — Namek rematch',enemyItems:['death_beam','frieza_ki','death_beam','frieza_final','supernova'],hpBase:350,hpDay:60,shield:0,guardName:'King Kai’s guard',maxEnemyUse:{id:'supernova',limit:1,label:'Supernova'},lore:'Revisit the battle on Namek in an optional rematch. Route your attacks or gather support before Frieza can finish his second Supernova.',pressure:'Fast Death Beams pressure your health while Final Form accelerates Frieza’s board. Freeze can delay Supernova; a prepared beam or diverse Tool-supported Spirit Bomb can race the second blast.'},
- naruto:{id:'kurama-pact-v1',title:'Kurama’s Pact',item:'baryon',skill:KURAMA_LINK_SKILL,minDay:4,minLevel:5,limit:35,minHealth:.5,tier:2,boss:'Madara Uchiha',enemy:'Madara Uchiha — mindscape echo',enemyItems:['susanoo','madara_fire','rinnegan','meteor_echo','rinnegan'],hpBase:650,hpDay:95,shield:40,guardName:'Chakra guard',maxEnemyUse:{id:'meteor_echo',limit:1,label:'Tengai Shinsei'},lore:'Kurama recreates a battle against Madara to test your timing and chakra control.',pressure:'Susanoo builds Shield, two Rinnegan items Freeze your board, the flame applies Burn, and Tengai Shinsei is a marked heavy strike: win before the second one lands. A shielded Friend engine or faster offense both answer.'},
- andy:{id:'victor-challenge-v1',title:'Victor’s Challenge',item:'unluck_undead',alternateItem:'unluck_ragnarok',skill:BLOOD_PROPULSION_SKILL,minDay:4,minLevel:5,limit:45,minHealth:.25,tier:2,boss:'Victor',enemy:'Victor — inner-world trial',enemyItems:['victor_cut','victor_regen','victor_will','victor_burst'],hpBase:800,hpDay:60,shield:0,guardName:'Recovery guard',lore:'Face Victor in an inner-world trial. Prove that you can control your recovery without relying on Undead’s revival.',pressure:'Victor’s regeneration ramps throughout the fight. His barrage keeps pressure on you, Ancient Will Slows your items, and a delayed burst threatens both combatants.'},
+ ainz:{id:'nazarick-duel-v1',title:'The Shalltear Rematch',item:'ainz_goal',alternateItem:'ainz_spuit',skill:DARK_WISDOM_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Shalltear Bloodfallen — Nazarick rematch',opponent:{icon:'🦇',color:'#bb5b8b',series:'Overlord'},enemyItems:['ainz_spuit','shalltear_blood','shalltear_frenzy','shalltear_einherjar','shalltear_recovery'],hpBase:900,hpDay:125,shield:0,guardName:'Nazarick’s ward',lore:'Prepare for a personal rematch with Shalltear. Her own Spuit Lance is one of the mutually exclusive rewards: inspect how it heals her before committing.',pressure:'Spuit Lance heals only from damage that reaches HP: Shield denies its recovery. Blood Pool and Regeneration prolong the fight, Blood Frenzy Hastens nearby items, and Einherjar creates temporary attack pressure. Race her with prepared spells or protect your health while contracts attack. Win to choose the ultimate, her Spuit Lance, or Dark Wisdom.'},
+ edward:{id:'no-easy-answer-v1',title:'No Easy Answer',item:'gate_truth',skill:EQUIVALENT_REBOUND_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Scar — alchemy trial',opponent:{icon:'✋',color:'#ad8c6b',series:'Fullmetal Alchemist: Brotherhood'},enemyItems:['scar_strike','scar_deconstruct','scar_pressure','scar_terrain','scar_strike'],hpBase:600,hpDay:88,shield:0,guardName:'Alphonse’s guard',lore:'An optional battle inspired by Edward and Alphonse’s confrontation with Scar. Prepare your alchemy before accepting: preserve protection or turn it into a faster finish.',pressure:'Two fast Close Combat items pressure your health. Deconstruction removes Shield before its hit, Pursuit Hastens Weapons, and Ground Destruction Slows two items. Rebuild protection between attacks or spend it before Deconstruction can remove it. These card labels and timings are game adaptations.'},
+ goku:{id:'borrowed-strength-v1',title:'Borrowed Strength',item:'ultra_instinct',skill:WHIS_TRAINING_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,boss:'Frieza',enemy:'Frieza — Namek rematch',enemyItems:['death_beam','frieza_ki','death_beam','frieza_final','supernova'],hpBase:450,hpDay:70,shield:0,guardName:'King Kai’s guard',maxEnemyUse:{id:'supernova',limit:1,label:'Supernova'},lore:'Revisit the battle on Namek in an optional rematch. Route your attacks or gather support before Frieza can finish his second Supernova.',pressure:'Fast Death Beams pressure your health while Final Form accelerates Frieza’s board. Freeze can delay Supernova; a prepared beam or diverse Tool-supported Spirit Bomb can race the second blast.'},
+ naruto:{id:'kurama-pact-v1',title:'Kurama’s Pact',item:'baryon',skill:KURAMA_LINK_SKILL,minDay:4,minLevel:5,limit:35,minHealth:.5,tier:2,boss:'Madara Uchiha',enemy:'Madara Uchiha — mindscape echo',enemyItems:['susanoo','madara_fire','rinnegan','meteor_echo','rinnegan'],hpBase:700,hpDay:100,shield:40,guardName:'Chakra guard',maxEnemyUse:{id:'meteor_echo',limit:1,label:'Tengai Shinsei'},lore:'Kurama recreates a battle against Madara to test your timing and chakra control.',pressure:'Susanoo builds Shield, two Rinnegan items Freeze your board, the flame applies Burn, and Tengai Shinsei is a marked heavy strike: win before the second one lands. A shielded Friend engine or faster offense both answer.'},
+ andy:{id:'victor-challenge-v1',title:'Victor’s Challenge',item:'unluck_undead',alternateItem:'unluck_ragnarok',skill:BLOOD_PROPULSION_SKILL,minDay:4,minLevel:5,limit:45,minHealth:.25,tier:2,boss:'Victor',enemy:'Victor — inner-world trial',enemyItems:['victor_cut','victor_regen','victor_will','victor_burst'],hpBase:1000,hpDay:80,shield:0,guardName:'Recovery guard',lore:'Face Victor in an inner-world trial. Prove that you can control your recovery without relying on Undead’s revival.',pressure:'Victor’s regeneration ramps throughout the fight. His barrage keeps pressure on you, Ancient Will Slows your items, and a delayed burst threatens both combatants.'},
  saitama:{id:'arrive-in-time-v1',title:'Arrive in Time',item:'table_flip',skill:LIMITER_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Boros — Dominator of the Universe',opponent:{icon:'👁️',color:'#6b3fa0',series:'One-Punch Man'},enemyItems:['boros_cannon','boros_meteor','boros_regen','boros_blast','boros_blast'],hpBase:820,hpDay:100,shield:0,enemySkills:{regenOnce:.4},guardName:'Hero Association guard',maxEnemyUse:{id:'boros_cannon',limit:2,label:'Collapsing Star Roaring Cannon'},lore:'An optional battle inspired by Saitama’s fight with Boros. Line up your fourth punch and end it before the cannon fires a third time.',pressure:'Collapsing Star Roaring Cannon is a slow, heavy burst, and Meteoric Burst Hastes his whole board, so each cannon comes sooner. Alien Regeneration heals him, Energy Blasts chip away, and the first blow that would defeat Boros instead leaves him at 40% health, so one lined-up punch is not enough on its own. Shield your health through the cannons or land the fourth-punch crits fast. Labels and timings are game adaptations.'},
  misaka:{id:'break-the-calculation-v1',title:'Break the Calculation',item:'level6_shift',skill:DISCHARGE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Accelerator — Level 6 Shift Project',opponent:{icon:'↩️',color:'#d9d9e8',series:'A Certain Scientific Railgun'},enemyItems:['accel_reflect','accel_strike','accel_rubble','accel_wind','accel_rubble'],hpBase:800,hpDay:115,shield:30,guardName:'Judgment guard',maxEnemyUse:{id:'accel_strike',limit:2,label:'Vector Strike'},lore:'An optional battle inspired by Misaka’s confrontation with Accelerator. Route your discharges through his reflection before he lands a third Vector Strike.',pressure:'Vector Reflection rebuilds a large Shield every few seconds, Wind Vector Slows two of your items, and Redirected Rubble keeps chipping. Vector Strike is the marked heavy hit. Burst through between Shield windows with routed discharges, or shield yourself and time the Railgun. Labels and timings are game adaptations.'},
  denji:{id:'keep-the-engine-running-v1',title:'Keep the Engine Running',item:'hero_of_hell',skill:ENGINE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Katana Man — Samurai Sword',opponent:{icon:'🗡️',color:'#4a4a4a',series:'Chainsaw Man'},enemyItems:['katana_iai','katana_draw','katana_goons','katana_cord','katana_draw'],hpBase:780,hpDay:110,shield:0,guardName:'Public Safety guard',maxEnemyUse:{id:'katana_iai',limit:2,label:'Draw Strike'},lore:'An optional rematch inspired by Denji and Aki’s fight with Katana Man. Keep your engine running: bleed, recover and finish him before his third Draw Strike.',pressure:'Draw Strike is a slow, telegraphed heavy cut. Quick Draw crits often, the Yakuza Goons chip away and Pull the Cord Hastes his Weapons. Out-heal the pressure with Regeneration and recovery, or time a burst right after you recover. Labels and timings are game adaptations.'},
@@ -2625,9 +2678,9 @@ const HERO_ULT_TRIALS={
  luffy:{id:'hold-the-rooftop-v1',title:'Hold the Rooftop',item:'gear5',skill:DRUMS_SKILL,minDay:4,minLevel:5,limit:38,minHealth:.35,tier:2,enemy:'Kaido — Onigashima Rooftop',opponent:{icon:'🐲',color:'#3d5a80',series:'One Piece'},enemyItems:['kd_bagua','boro_breath','dragon_scales','kd_drunk'],hpBase:1250,hpDay:172,shield:30,guardName:'Straw Hat guard',maxEnemyUse:{id:'kd_bagua',limit:2,label:'Thunder Bagua (full swing)'},lore:'An optional rematch inspired by Luffy’s rooftop battle with Kaido. Keep your rhythm and bring him down before his third full-swing Thunder Bagua.',pressure:'Thunder Bagua (full swing) is a slow, marked heavy blow. Dragon Scales rebuild a big Shield, Boro Breath burns you, and Drunken Dragon Bagua Hastes his Weapons and heals him. Protect your rhythm or out-pace him with haste and food. Labels and timings are game adaptations.'},
  gojo:{id:'lesson-in-restraint-v1',title:'A Lesson in Restraint',item:'unlimited_void',skill:LIMITLESS_SKILL,minDay:4,minLevel:5,limit:35,minHealth:.35,tier:2,enemy:'Jogo — Disaster Curse',opponent:{icon:'🌋',color:'#c0502a',series:'Jujutsu Kaisen'},enemyItems:['jogo_eruption','jogo_insects','jogo_rock','jogo_heat','jogo_insects'],hpBase:1100,hpDay:155,shield:0,guardName:'Jujutsu High guard',maxEnemyUse:{id:'jogo_eruption',limit:2,label:'Maximum: Meteor'},lore:'An optional battle inspired by Gojo’s lesson to Jogo. Control the eruptions and finish him before his third Maximum: Meteor.',pressure:'Maximum: Meteor is a marked eruption that burns, Ember Insects and Lava Rock keep the Burn going, and Volcanic Heat Hastes his whole board. Slow and freeze the volcano, or shield up and release a prepared Purple. Labels and timings are game adaptations.'},
  frieren:{id:'weigh-the-mana-v1',title:'Weigh the Mana',item:'thousand_years',skill:FLAMME_SKILL,minDay:4,minLevel:5,limit:36,minHealth:.35,tier:2,enemy:'Aura — Scale of Obedience',opponent:{icon:'⚖️',color:'#b07cc6',series:'Frieren'},enemyItems:['aura_weigh','aura_soldier','aura_guillotine','aura_rally','aura_soldier'],hpBase:850,hpDay:120,shield:0,guardName:'Hero party guard',maxEnemyUse:{id:'aura_weigh',limit:2,label:'Scale of Obedience (weighing)'},lore:'An optional battle inspired by Frieren’s duel with Aura the Guillotine. Read her magic, hide your mana and win before the scale is weighed a third time.',pressure:'The weighing Scale of Obedience is a marked blow that also Slows your whole board. Headless Soldiers chip constantly, the Guillotine hits hard, and the Undying Army heals Aura and Hastes her Weapons. Analysis grows as her items fire; concealed mana and Stark’s tempo help you strike first. Labels and timings are game adaptations.'},
- maomao:{id:'resurrection-drug-v1',title:'The Resurrection Drug',item:'medicine_chest',skill:NOTES_SKILL,minDay:4,minLevel:5,limit:37,minHealth:.35,tier:2,enemy:'Suirei — Shi Clan Fortress',opponent:{icon:'⚗️',color:'#5f7f6a',series:'The Apothecary Diaries'},enemyItems:['suirei_drug','shi_musket','suirei_needle','suirei_incense','shi_musket'],hpBase:1300,hpDay:180,shield:0,guardName:'Rear palace guard',maxEnemyUse:{id:'suirei_drug',limit:2,label:'Resurrection Drug'},lore:'An optional battle inspired by the Shi clan fortress arc. Out-dose a fellow apothecary and finish her before she takes the Resurrection Drug a third time.',pressure:'The Resurrection Drug is a marked heal and Shield. Shi Clan Muskets hit hard, the Hidden Needle and Poisoned Incense poison you and Haste her Weapons. Stack poison faster than she heals, or outlast her with remedies. Labels and timings are game adaptations.'},
+ maomao:{id:'resurrection-drug-v1',title:'The Resurrection Drug',item:'medicine_chest',skill:NOTES_SKILL,minDay:4,minLevel:5,limit:37,minHealth:.35,tier:2,enemy:'Suirei — Shi Clan Fortress',opponent:{icon:'⚗️',color:'#5f7f6a',series:'The Apothecary Diaries'},enemyItems:['suirei_drug','shi_musket','suirei_needle','suirei_incense','shi_musket'],hpBase:1050,hpDay:150,shield:0,guardName:'Rear palace guard',maxEnemyUse:{id:'suirei_drug',limit:2,label:'Resurrection Drug'},lore:'An optional battle inspired by the Shi clan fortress arc. Out-dose a fellow apothecary and finish her before she takes the Resurrection Drug a third time.',pressure:'The Resurrection Drug is a marked heal and Shield. Shi Clan Muskets hit hard, the Hidden Needle and Poisoned Incense poison you and Haste her Weapons. Stack poison faster than she heals, or outlast her with remedies. Labels and timings are game adaptations.'},
  tanjiro:{id:'upper-moon-three-v1',title:'Upper Moon Three',item:'thirteenth',skill:SUN_RESOLVE_SKILL,minDay:4,minLevel:5,limit:37,minHealth:.35,tier:2,enemy:'Akaza — Upper Moon Three',opponent:{icon:'👊',color:'#c2416b',series:'Demon Slayer'},enemyItems:['akaza_annihilation','akaza_disorder','akaza_regen','akaza_compass','akaza_disorder'],hpBase:850,hpDay:120,shield:0,guardName:'Demon Slayer Corps guard',maxEnemyUse:{id:'akaza_annihilation',limit:2,label:'Destructive Death: Annihilation Type'},lore:'An optional battle inspired by the Mugen Train dawn fight. Read Akaza’s Compass Needle and cut him down before his third Annihilation Type.',pressure:'Annihilation Type is a marked heavy strike, Air Type: Disorder sends repeated blows, Compass Needle Hastes his Weapons and Upper Moon Regeneration heals him. Burn cuts through regeneration; a fast opening crit or a Friend combo can also win. Labels and timings are game adaptations.'},
- ichigo:{id:'final-fullbring-v1',title:'Ginjo’s Final Fullbring',item:'mugetsu',skill:FB_RESONANCE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Kugo Ginjo — Final Fullbring',opponent:{icon:'⚔️',color:'#b0a097',series:'Bleach'},enemyItems:['ginjo_counter','ginjo_cross','ginjo_armor','tsukishima_book'],hpBase:880,hpDay:125,shield:30,guardName:'Substitute guard',maxEnemyUse:{id:'ginjo_counter',limit:2,label:'Stolen Getsuga'},lore:'An optional rematch inspired by the Lost Agent finale. Break Ginjo’s replenishing armor and finish him before his third Stolen Getsuga.',pressure:'Stolen Getsuga is a marked heavy counter, the Final Fullbring Armor rebuilds Shield every few seconds, the Book of the End Slows your board, and the Cross of Scaffold keeps slashing. Fullbring support, a Bankai burst or a Hollow push can all win. Labels and timings are game adaptations.'},
+ ichigo:{id:'final-fullbring-v1',title:'Ginjo’s Final Fullbring',item:'mugetsu',skill:FB_RESONANCE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Kugo Ginjo — Final Fullbring',opponent:{icon:'⚔️',color:'#b0a097',series:'Bleach'},enemyItems:['ginjo_counter','ginjo_cross','ginjo_armor','tsukishima_book'],hpBase:1250,hpDay:175,shield:30,guardName:'Substitute guard',maxEnemyUse:{id:'ginjo_counter',limit:2,label:'Stolen Getsuga'},lore:'An optional rematch inspired by the Lost Agent finale. Break Ginjo’s replenishing armor and finish him before his third Stolen Getsuga.',pressure:'Stolen Getsuga is a marked heavy counter, the Final Fullbring Armor rebuilds Shield every few seconds, the Book of the End Slows your board, and the Cross of Scaffold keeps slashing. Fullbring support, a Bankai burst or a Hollow push can all win. Labels and timings are game adaptations.'},
  shinra:{id:'company8-sparring-v1',title:'Company 8 Sparring',item:'adolla_burst',skill:ADOLLA_GRACE_SKILL,minDay:4,minLevel:5,limit:34,minHealth:.35,tier:2,enemy:'Arthur Boyle — Company 8 sparring',opponent:{icon:'⚔️',color:'#54b7ed',series:'Fire Force'},enemyItems:['arthur_plasma','bunker_gear','shinra_maki','shinra_vulcan','shinra_iris'],hpBase:720,hpDay:100,shield:35,guardName:'Fire Soldier guard',maxEnemyUse:{id:'arthur_plasma',limit:1,label:'Excalibur · Plasma Burst'},lore:'Company 8 tests your flame control. Arthur duels with Maki, Iris and Vulcan supporting his board. This is an optional training encounter.',pressure:'Vulcan accelerates Iris; Bunker Gear and Maki build Shield while Excalibur’s Plasma Burst is a marked heavy strike: break the defense before the second one. Burn or a charged Heat finisher both answer.'},
  levi:{id:'beast-titan-v1',title:'Bring Down the Beast',item:'strongest',skill:SURVEY_DISCIPLINE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,boss:'Zeke Yeager',enemy:'Zeke Yeager — Beast Titan trial',enemyItems:['zeke_volley','pure_titans','zeke_scream','beast_roar','boulder'],hpBase:1200,hpDay:144,shield:0,guardName:'Survey Corps guard',maxEnemyUse:{id:'zeke_volley',limit:3,label:'Crushed-Rock Volley'},lore:'A Survey Corps expedition corners the Beast Titan. Cut through his Titans and bring him down before his marked volleys break the formation.',pressure:'Crushed-Rock Volley is a marked three-hit throw: Shield absorbs it, and a fast kill denies the fourth. Royal Scream Hastes his whole board, Disaster Roar Freezes one of your items, and the Titan Horde and Boulder Barrage keep chip pressure on. Fast flanking crits or a protected Thunder Spear both answer. Labels and timings are game adaptations.'},
  jinwoo:{id:'shadow-command-v1',title:'Shadow Army Trial',item:'arise',skill:MONARCH_DOMAIN_SKILL,minDay:4,minLevel:5,limit:34,minHealth:.35,tier:2,enemy:'Igris — shadow army drill',opponent:{icon:'⚔️',color:'#8e67d5',series:'Solo Leveling'},enemyItems:['igris_crimson','shadow_igris','shadow_iron','shadow_tank'],hpBase:900,hpDay:125,shield:40,guardName:'Shadow guard',maxEnemyUse:{id:'igris_crimson',limit:1,label:'Crimson Knight Strike'},lore:'Igris leads your shadows in a test of command. Defeat the armored formation before the drill overwhelms you to master a stronger extraction or the domain.',pressure:'Iron supplies Shield, Tank Slows your board and Igris strikes repeatedly; the Crimson Knight Strike is a marked heavy blow, so win before the second one. Knight Killer bypasses Shield; a supported dagger or Shadow formation can also win the race.'}
@@ -2640,7 +2693,8 @@ function heroTrialState(){
  return S.heroTrial;
 }
 function heroTrialAvailable(){const c=heroTrialConfig();if(!c)return false;const t=heroTrialState();return t.stage==='reward'||(t.stage==='idle'&&S.day>=c.minDay&&S.level>=c.minLevel&&arcOptionalHour())}
-function heroTrialOpponent(){
+function heroTrialOpponent(){return applyPowerMatch(heroTrialOpponentBase(),'optional')}
+function heroTrialOpponentBase(){
  const c=heroTrialConfig(),tier=enemyTier(S.day),d=BOSS_DEFS[c.boss],boss=BOSSES.find(b=>b[0]===c.boss),identity=c.opponent||{icon:boss[1],color:boss[2],series:boss[3]};
  return {name:c.enemy,...identity,hp:Math.round((c.hpBase+S.day*c.hpDay)*D().mon/DIFFS.normal.mon),items:buildFixed(c.enemyItems||d.b,BOARD_SLOTS,tier),skills:{startShield:c.shield*(tier+1),weaponDmg:Math.floor(S.day/2),...(c.enemySkills||{})},gold:8+S.day,xp:4,strat:d?.strat||c.pressure,weak:d?.weak||'Inspect the board and prepare a build before committing.'};
 }
@@ -2656,7 +2710,7 @@ function heroTrialHTML(){
   return `<h2>${c.title} — mastered</h2><p><b>Choose one reward. The other rewards are unavailable for the rest of this run.</b> This trial’s hour is already paid. You can rearrange or sell items below before claiming.</p><div class="skillgrid"><button class="choice" data-act="heroTrialClaim" data-arg="item"><div style="display:grid;grid-template-columns:repeat(3,1fr);height:155px">${cardHTML(preview)}</div><h3>${ITEMS[c.item].name} · ${TIERS[c.tier]} · ${ITEMS[c.item].size} slots</h3><div class="small">${ITEMS[c.item].fx.map(f=>fxText(f,preview)).join('<br>')}</div></button>${c.alternateItem?`<button class="choice" data-act="heroTrialClaim" data-arg="alternate"><div style="display:grid;grid-template-columns:repeat(3,1fr);height:155px">${cardHTML({...preview,id:c.alternateItem})}</div><h3>${ITEMS[c.alternateItem].name} · ${TIERS[c.tier]} · ${ITEMS[c.alternateItem].size} slots</h3><div class="small">${ITEMS[c.alternateItem].fx.map(f=>fxText(f,{...preview,id:c.alternateItem})).join('<br>')}</div></button>`:''}<button class="choice" data-act="heroTrialClaim" data-arg="skill">${skillArtHTML(c.skill)}<h3>${c.skill.name} · Gold skill</h3><div class="small">${c.skill.desc}</div></button></div><button data-act="heroTrialLater">Choose later — keep the earned reward</button>`;
  }
  const m=t.enemy;
- return `${skillArtHTML(c.skill)}<h2>${c.title}</h2><p>${c.lore} Choose a preparation, then inspect the full opponent before committing.</p><p><b>Objective: win within ${c.limit}s, finish with at least ${Math.round(c.minHealth*100)}% health, and use no revival.</b> The combat timer includes the sandstorm. Speed and Skip do not change it.${c.maxEnemyUse?` <b>Win before the ${['first','second','third','fourth','fifth','sixth'][c.maxEnemyUse.limit]||'next'} ${esc(c.maxEnemyUse.label)}.</b>`:''}</p><div class="btns"><button class="${t.prep==='opening'?'primary':''}" data-act="heroTrialPrep" data-arg="opening">Opening focus · charge leftmost Weapon 2s at fight start</button><button class="${t.prep==='guard'?'primary':''}" data-act="heroTrialPrep" data-arg="guard">${c.guardName} · start with 80 extra Shield</button></div><p class="small">Preparation applies only to this trial. No specific item is required. Choose one reward: Gold ${ITEMS[c.item].name}${c.alternateItem?`, Gold ${ITEMS[c.alternateItem].name}`:''}, or ${c.skill.name}. All other choices are lost for this run.</p>${m?`<h3>${esc(m.name)} · ${m.hp} HP</h3><p>Starts with ${m.skills.startShield} Shield; Weapons deal +${m.skills.weaponDmg} damage. ${c.pressure}</p>${enemyItemList(m)}<p class="small">${m.items.map(i=>esc(ITEMS[i.id].name)).join(' · ')}</p><p><b>Any win:</b> +${m.gold} gold and ${m.xp} XP. A slower or unhealthy win still earns these, but not the exclusive reward.</p>`:''}<p class="small">Entry is free and uses this hour. One attempt per run: a loss, draw, missed objective, revival, or quitting/reloading during combat uses the attempt. No prestige is lost. The previewed opponent and reward stay fixed across reloads. Accepting locks your preparation.</p><div class="btns">${m?'<button class="primary" data-act="heroTrialAccept">Accept the trial and fight</button>':''}<button data-act="heroTrialBack">Return without committing</button></div>`;
+ return `${skillArtHTML(c.skill)}<h2>${c.title}</h2><p>${c.lore} Choose a preparation, then inspect the full opponent before committing.</p>${powerMatchHTML(m)}<p><b>Objective: win within ${c.limit}s, finish with at least ${Math.round(c.minHealth*100)}% health, and use no revival.</b> The combat timer includes the sandstorm. Speed and Skip do not change it.${c.maxEnemyUse?` <b>Win before the ${['first','second','third','fourth','fifth','sixth'][c.maxEnemyUse.limit]||'next'} ${esc(c.maxEnemyUse.label)}.</b>`:''}</p><div class="btns"><button class="${t.prep==='opening'?'primary':''}" data-act="heroTrialPrep" data-arg="opening">Opening focus · charge leftmost Weapon 2s at fight start</button><button class="${t.prep==='guard'?'primary':''}" data-act="heroTrialPrep" data-arg="guard">${c.guardName} · start with 80 extra Shield</button></div><p class="small">Preparation applies only to this trial. No specific item is required. Choose one reward: Gold ${ITEMS[c.item].name}${c.alternateItem?`, Gold ${ITEMS[c.alternateItem].name}`:''}, or ${c.skill.name}. All other choices are lost for this run.</p>${m?`<h3>${esc(m.name)} · ${m.hp} HP</h3><p>Starts with ${m.skills.startShield} Shield; Weapons deal +${m.skills.weaponDmg} damage. ${c.pressure}</p>${enemyItemList(m)}<p class="small">${m.items.map(i=>esc(ITEMS[i.id].name)).join(' · ')}</p><p><b>Any win:</b> +${m.gold} gold and ${m.xp} XP. A slower or unhealthy win still earns these, but not the exclusive reward.</p>`:''}<p class="small">Entry is free and uses this hour. One attempt per run: a loss, draw, missed objective, revival, or quitting/reloading during combat uses the attempt. No prestige is lost. The previewed opponent and reward stay fixed across reloads. Accepting locks your preparation.</p><div class="btns">${m?'<button class="primary" data-act="heroTrialAccept">Accept the trial and fight</button>':''}<button data-act="heroTrialBack">Return without committing</button></div>`;
 }
 function acceptHeroTrial(){
  const c=heroTrialConfig(),t=heroTrialState();if(!c||S.phase!=='heroTrial'||!heroTrialAvailable()||t.stage!=='idle'||!t.prep||!t.enemy||t.enemyDay!==S.day)return false;
@@ -2757,6 +2811,7 @@ function genChoices(){
   if(isBossDay()&&S.hour===HOURS-1&&!S.bossDoneToday)c[0]={type:'boss'};
   const usedMon=[];
   S.choices=c.map(o=>o.type==='monster'?(()=>{const mon=genMonster(S.day,o.hard,usedMon);usedMon.push(mon.name);return {...o,mon}})():o.type==='boss'?{...o,mon:genBoss(S.day)}:o.type==='event'?{...o,ev:pickEvent()}:o);
+  if(S.day>=CALAMITY_MIN_DAY&&!S.calamityMet&&R()<CALAMITY_CHANCE){const mon=genCalamity(S.day);S.calamityMet=true;S.calamitiesSeen=[...(S.calamitiesSeen||[]),mon.name];S.choices.push({type:'monster',hard:true,mon})}
   if(arcAvailable())S.choices.push({type:'ichigoArc'});
   if(tanjiroTrialAvailable())S.choices.push({type:'tanjiroTrial'});
   if(heroTrialAvailable())S.choices.push({type:'heroTrial'});
@@ -2770,7 +2825,7 @@ function finishHour(){
 function gainXp(n){
   S.xp+=n;
   while(S.xp>=XP_PER_LEVEL){S.xp-=XP_PER_LEVEL;S.level++;S.pendingSkills++;sfx('level');toast(`Level up! Level ${S.level}`)}
-  if(S.pendingSkills>0&&!S.skillChoices)S.skillChoices=shuffle(SKILLS).slice(0,3);
+  if(S.pendingSkills>0&&!S.skillChoices)S.skillChoices=rollSkillChoices();
   if(S.level>=ULT_LEVEL&&!S.ultGiven&&!HERO_ULT_TRIALS[S.hero.id]){
     S.ultGiven=true;const inst=mkInst(S.hero.ult,Math.min(MAX_TIER,1+Math.floor(S.day/5)));
     if(!boardPut(inst))S.stash.push(inst);
@@ -2906,16 +2961,42 @@ function bossFor(day){
   return BOSSES[S.bossPlan[day]];
 }
 const nextBossDay=()=>{let d=S.day;while(d%3!==0)d++;if(d===S.day&&S.bossDoneToday)d+=3;return d};
+// Boss consistency (Claude 2026-10-29): health factors measured from full bot runs so every boss is a similar test.
+const BOSS_HP={"Muzan Kibutsuji":0.64,"Kaido":0.73,"Tomura Shigaraki":0.79,"Frieza":0.89,"Garou":0.92,"Madara Uchiha":0.93,"Victor":0.94,"Zeke Yeager":1.1,"Ryomen Sukuna":1.18,"Father":1.18,"Macht":1.23,"Makima":1.4,"Sosuke Aizen":1.43};
+// Hard/Heat first boss (Day 3): same item tier as Normal plus extra health, instead of a full tier jump.
+const HARD_FIRST_BOSS={maxDay:3,hp:1.44};
+function bossTierDay(day){const b=Math.max(0,D().bump-1);return day+1+(day<=HARD_FIRST_BOSS.maxDay&&b>1?1:b)}
 function genBoss(day){
   const [name,icon,color,series]=bossFor(day),bd=BOSS_DEFS[name];
+  const firstHard=day<=HARD_FIRST_BOSS.maxDay&&Math.max(0,D().bump-1)>1,hpF=(BOSS_HP[name]||1)*(firstHard?HARD_FIRST_BOSS.hp:1);
   const skills={startShield:Math.round((30+day*10)*D().mon),weaponDmg:Math.floor(day/2)+D().skills*2};
-  return {name,icon,color,series,strat:bd.strat,weak:bd.weak,boss:true,hp:Math.round((380+day*110)*D().mon),items:buildFixed(bd.b,BOARD_SLOTS,enemyTier(day+1+Math.max(0,D().bump-1))),skills,gold:10+day*2,xp:5};
+  return {name,icon,color,series,strat:bd.strat,weak:bd.weak,boss:true,hp:Math.round((380+day*110)*D().mon*hpF),items:buildFixed(bd.b,BOARD_SLOTS,enemyTier(bossTierDay(day))),skills,gold:10+day*2,xp:5};
 }
 {const gm=genMonster,gb=genBoss;genMonster=function(...a){return attachTrophy(gm(...a))};genBoss=function(...a){return attachTrophy(gb(...a))}}
+// Board power = sum of item slots x tier value, plus 1.5 per learned level-up skill copy.
+// Expected power per day was measured from the game's own generated boards (Normal).
+const POWER_EXPECTED=[10,10,13,16,19,22,26,30,34,38,41,43,44];
+const POWER_MATCH={deadLow:.8,deadHigh:1.15,upSlope:.8,upCap:1.6,catchFloor:.75,minDay:3};
+function expectedPower(day){return POWER_EXPECTED[Math.min(POWER_EXPECTED.length-1,Math.max(0,day))]}
+function boardPower(items,skills){const n=skills&&skills._copies?Object.values(skills._copies).reduce((a,b)=>a+b,0):SKILLS.filter(k=>skills&&skills[k.k]>0).length;return (items||[]).reduce((a,i)=>ITEMS[i.id]?a+ITEMS[i.id].size*VAL_MULT[i.tier]:a,0)+1.5*n}
+function powerRatio(){return S&&S.day>=POWER_MATCH.minDay?boardPower(S.board,S.skills)/expectedPower(S.day):1}
+const HEAT_MATCH={slope:1,cap:1.8};
+function powerMult(kind,r=powerRatio()){const P=POWER_MATCH;if(S&&DIFFS[S.diff]&&DIFFS[S.diff].heat)return r>1?Math.min(HEAT_MATCH.cap,1+(r-1)*HEAT_MATCH.slope):1;if(kind==='optional'&&r>P.deadHigh)return Math.min(P.upCap,1+(r-P.deadHigh)*P.upSlope);if(kind==='catchup'&&r<P.deadLow)return Math.max(P.catchFloor,r/P.deadLow);return 1}
+function applyPowerMatch(m,kind){if(!m||!S||m.powerMatch)return m;const r=powerRatio(),f=powerMult(kind,r);if(f===1)return m;
+ m.powerMatch={kind:S&&DIFFS[S.diff]&&DIFFS[S.diff].heat?'heat':kind,ratio:+r.toFixed(2),mult:+f.toFixed(2)};m.hp=Math.max(1,Math.round(m.hp*f));if(m.skills&&m.skills.startShield)m.skills={...m.skills,startShield:Math.round(m.skills.startShield*f)};return m}
+function powerMatchHTML(m){const pm=m&&m.powerMatch;if(!pm)return '';const pct=Math.round(Math.abs(pm.mult-1)*100);
+ if(pm.kind==='heat'||(S&&DIFFS[S.diff]&&DIFFS[S.diff].heat))return `<p class="small" style="color:#ff9a6b"><b>🔥 Heat:</b> your board is ${Math.round(pm.ratio*100)}% of the usual power for this day, so this fight has +${pct}% health${m.skills&&m.skills.startShield?' and Shield':''}.</p>`;
+ return pm.kind==='optional'?`<p class="small" style="color:#ffb3b3"><b>⚖️ Matched to your board:</b> your board is ${Math.round(pm.ratio*100)}% of the usual power for this day, so this optional fight has +${pct}% health${m.skills&&m.skills.startShield?' and Shield':''}.</p>`:`<p class="small" style="color:#9cf0b0"><b>🤝 Catch-up:</b> your board is behind this day's usual power, so this monster has −${pct}% health.</p>`}
+{const gm2=genMonster;genMonster=function(day,hard,...a){return applyPowerMatch(gm2(day,hard,...a),hard?'optional':'catchup')}}
+{const gb2=genBoss;genBoss=function(...a){const m=gb2(...a);return S&&DIFFS[S.diff]&&DIFFS[S.diff].heat?applyPowerMatch(m,'heat'):m}}
+// Elite-only health factors (BZ-MONSTER-CONSISTENCY-01): fitted so each elite is beaten by 55-80% of Day-5 reference builds.
+const ELITE_HP={'Rogue Ninja': 1.17, 'Saibaman': 1.24, 'Hand Demon': 1.2, 'Nomu': 1.62, 'Hollow': 1.7, 'Pure Titan': 0.5, 'Marine Captain': 2.35, 'Zombie Devil': 1.1, 'Mystic Beast': 1.62, 'Aura the Guillotine': 2.02, 'Ginyu Force': 1.68, 'Daki': 0.63, 'Mahito': 1.55, 'Gifters': 2.14, 'King the Wildfire': 0.45, 'Kisame Hoshigaki': 1.96, 'Chimera Soldiers': 2.35, 'Lust': 1.48, 'Linie': 2.35, 'Psykos': 1.76, 'Katana Man': 0.77, 'Ulquiorra': 1.88, 'Himiko Toga': 0.81, 'UMA Beasts': 2.28, 'Billy': 1.68, 'Female Titan': 1.5};
+{const gm3=genMonster;genMonster=function(day,hard,...a){const m=gm3(day,hard,...a);const f=hard&&m&&ELITE_HP[m.name];if(f){m.hp=Math.max(1,Math.round(m.hp*f));m.eliteHp=f}return m}}
+function pickNearPower(list){if(!S||list.length<3)return pick(list);const me=boardPower(S.board,S.skills),ranked=list.map(b=>({b,d:Math.abs(boardPower(b.items,b.skills)-me)})).sort((x,y)=>x.d-y.d);return pick(ranked.slice(0,Math.max(1,Math.ceil(ranked.length/3)))).b}
 function genGhost(day){
   const friendB=friendEntries().flatMap(f=>f.boards.filter(b=>b.day===day));
   const pool=[...(SHARED[day]||[]),...friendB].map(cleanBoard).filter(ghostBoardCompatible),local=(store.get('animeBazaarGhosts',{})[day]||[]).map(cleanBoard).filter(ghostBoardCompatible);
-  const src=pool.length&&R()<0.6?['shared',pick(pool)]:local.length&&R()<0.4?['local',pick(local)]:null;
+  const src=pool.length&&R()<0.6?['shared',pickNearPower(pool)]:local.length&&R()<0.4?['local',pickNearPower(local)]:null;
   if(src&&src[1]){
     const s=src[1],h=heroById(s.heroId);
     const ttl=s.cos&&s.cos.title?' · '+TITLE_DEFS[s.cos.title].name:'';
@@ -2924,7 +3005,7 @@ function genGhost(day){
     return {name:h.name+who,heroId:h.id,icon:sk?sk.emblem:h.emblem,color:sk?sk.color:h.color,aura:sk?sk.aura:null,skin:sk||null,cos:s.cos,hp:s.hp,skills:s.skills,items:s.items.map(i=>Object.assign(mkInst(i.id,i.tier,i.ench,i.bonus),{slot:i.slot??undefined}))};
   }
   const h=pick(HEROES),pool2=[...heroPool(h.id),...heroPool(h.id),...NEUTRAL],skills={};
-  for(let i=0;i<Math.floor(day/2)+D().skills;i++){const k=pick(SKILLS);gainSkill(skills,k)}
+  for(let i=0;i<Math.floor(day/2)+D().skills;i++){const k=pick(rollSkillChoices(day));gainSkill(skills,k)}
   return {name:h.name+' (Ghost)',heroId:h.id,icon:h.emblem,color:h.color,hp:Math.round((300+(day-1)*55)*D().hp)+(skills.maxHp||0),skills,items:buildBoard(pool2,Math.min(10,4+day+D().budget),day+D().bump)};
 }
 function snapshotBoard(){return {heroRules:HERO_BOARD_RULES[S.hero.id]||1,cos:{skin:META.equip.skins[S.hero.id]||null,frames:META.equip.frames,themes:META.equip.themes,title:META.equip.titles},heroId:S.hero.id,ownerId:CLOUD.uid||null,diff:S.diff,day:S.day,hp:maxHp(),skills:{...S.skills},items:S.board.map(i=>({id:i.id,tier:i.tier,ench:i.ench,bonus:i.bonus,slot:i.slot,...(i.id==='exchange'?{exchangeMode:i.exchangeMode==='transmute'?'transmute':'protect'}:{})}))}}
@@ -2949,12 +3030,12 @@ const EVENTS=[
    {label:'Bet half your gold (50/50 to double it)',act:()=>{const b=Math.floor(S.gold/2);if(b<1)return 'You have nothing to bet.';if(R()<.5){S.gold+=b;return `You won ${b} gold!`}S.gold-=b;return `You lost ${b} gold...`}},
    {label:'Walk away',act:()=>'You keep your gold.'}]},
  {title:'Kame House',icon:'🐢',text:'Master Roshi offers to teach you a secret technique, for a modest fee.',opts:()=>[
-   {label:`Pay ${6+S.day} gold: learn a technique (pick a skill)`,act:()=>{const c=6+S.day;if(S.gold<c)return 'You cannot afford the lesson.';S.gold-=c;S.pendingSkills++;if(!S.skillChoices)S.skillChoices=shuffle(SKILLS).slice(0,3);return 'The sensei nods. Choose your technique.'}},
+   {label:`Pay ${3+S.day} gold: learn a technique (pick a skill)`,act:()=>{const c=3+S.day;if(S.gold<c)return 'You cannot afford the lesson.';S.gold-=c;S.pendingSkills++;if(!S.skillChoices)S.skillChoices=rollSkillChoices();return 'The sensei nods. Choose your technique.'}},
    {label:'Ask for advice: +1 XP',act:()=>{gainXp(1);return '"Work hard, eat well, rest well." +1 XP.'}}]},
  {title:'Suspicious Chest',icon:'🧰',text:'A chest sits in a dungeon corner. Frieren insists it is 99% a Mimic. She opens it anyway.',opts:()=>[
    {label:'Open it: gain a random hero item',act:()=>{const id=pick(heroPool(S.hero.id)),t=rollTier(S.day+1);return acquire(id,t)?`Found ${TIERS[t]} ${ITEMS[id].name}!`:'No room, so you leave it behind.'}},
    {label:'Take the coins on top: +4 gold',act:()=>{S.gold+=4;return '+4 gold.'}}]},
- {title:'Yorknew Auction',rarity:'rare',minDay:3,icon:'🕯️',text:'The underground auction is in session. Rare goods, no questions asked.',opts:()=>{const c=15+S.day*3;return [
+ {title:'Yorknew Auction',rarity:'rare',minDay:3,icon:'🕯️',text:'The underground auction is in session. Rare goods, no questions asked.',opts:()=>{const c=4+S.day*2;return [
    {label:`Pay ${c} gold: a random hero item, Silver tier or better`,act:()=>{if(S.gold<c)return 'The dealer laughs at your empty purse.';const id=pick(heroPool(S.hero.id)),t=Math.min(3,Math.max(1,rollTier(S.day+1)));if(!acquire(id,t))return 'You have no room for it, so the deal is off. Your gold is safe.';S.gold-=c;return `You got ${TIERS[t]} ${ITEMS[id].name}!`}},
    {label:'Leave quietly',act:()=>'You slip back into the crowd.'}]}},
  {title:'Hidden Hot Springs',icon:'♨️',text:'Steam rises from a hidden spring. Jiraiya is "doing research" behind the fence.',opts:()=>[
@@ -2965,8 +3046,8 @@ const EVENTS=[
      const it=pick(c),sz=ITEMS[it.id].size,pool=ALL_SHOP.filter(id=>ITEMS[id].size===sz&&id!==it.id&&(!ITEMS[id].hero||heroOwnsItem(S.hero.id,ITEMS[id]))),nid=pick(pool),old=ITEMS[it.id].name;
      it.id=nid;it.tier=Math.min(MAX_TIER,it.tier+1);it.bonus=0;return `${old} became a ${TIERS[it.tier]} ${ITEMS[nid].name}!`}},
    {label:'Sell him some rare minerals: +6 gold',act:()=>{S.gold+=6;return '+6 gold.'}}]},
- {title:'Hunter Exam',rarity:'common',minDay:2,icon:'📛',text:'The examiner hands you a number badge. "Pass tonight\'s duel and you\'ll earn a Hunter\'s fee."',opts:()=>{const r=10+S.day*2;return [
-   {label:`Take the exam: win tonight's PvP fight for +${r} gold`,act:()=>{S.quest={kind:'pvp',reward:r,day:S.day};return `Exam accepted. Win tonight's PvP fight to collect ${r} gold.`}},
+ {title:'Hunter Exam',rarity:'common',minDay:2,icon:'📛',text:'The examiner hands you a number badge. "Pass tonight\'s duel and you\'ll earn a Hunter\'s fee."',opts:()=>{const r=10+S.day*2,fee=4+S.day;return [
+   {label:`Pay ${fee} gold to take the exam: win tonight's PvP fight for +${r} gold (lose it and the fee is gone)`,act:()=>{if(S.gold<fee)return 'You cannot afford the exam fee.';S.gold-=fee;S.quest={kind:'pvp',reward:r,day:S.day};return `Exam accepted (−${fee} gold). Win tonight's PvP fight to collect ${r} gold.`}},
    {label:'Skip it: +2 gold for directions',act:()=>{S.gold+=2;return '+2 gold.'}}]}},
  {title:'Bounty Board',rarity:'common',minDay:1,maxDay:11,icon:'📋',text:'Wanted posters flutter on the board. One of them is circled in red.',opts:()=>{const r=12+S.day*2;return [
    {label:`Take the bounty: beat an Elite monster today for +${r} gold`,act:()=>{S.quest={kind:'elite',reward:r,day:S.day};return `Bounty accepted. Defeat an Elite monster before tonight's PvP fight for ${r} gold.`}},
@@ -2983,7 +3064,7 @@ const EVENTS=[
    {label:'Make the deal: +12% crit chance for the rest of the run, lose 3 prestige',act:()=>{if(S.prestige<=3)return 'Ryuk laughs. "You don\'t have enough left to pay me."';S.skills.crit=(S.skills.crit||0)+.12;S.prestige-=3;return '+12% crit chance. −3 prestige.'}},
    {label:'Refuse and toss him an apple: +1 XP',act:()=>{gainXp(1);return 'Ryuk shrugs. +1 XP.'}}]},
  {title:'Academy Lesson',rarity:'rare',minDay:1,maxDay:4,icon:'🏫',text:'Iruka-sensei spots you outside the Academy. "You look ready for something new. Come in."',opts:()=>[
-   {label:'Attend the lesson: learn a skill for free',act:()=>{S.pendingSkills++;if(!S.skillChoices)S.skillChoices=shuffle(SKILLS).slice(0,3);return 'Choose your new skill.'}},
+   {label:'Attend the lesson: learn a skill for free',act:()=>{S.pendingSkills++;if(!S.skillChoices)S.skillChoices=rollSkillChoices();return 'Choose your new skill.'}},
    {label:'Treat him to ramen: +2 XP',act:()=>{gainXp(2);return '+2 XP.'}}]},
  {title:'Cat Burglar',rarity:'common',minDay:2,icon:'🍊',text:'Nami offers you a cut of tonight\'s heist. "No risk, no treasure."',opts:()=>{const r=10+S.day;return [
    {label:`Join the heist: 60% chance of +${r} gold, otherwise lose 5 gold`,act:()=>{if(R()<.6){S.gold+=r;return `Clean getaway! +${r} gold.`}S.gold=Math.max(0,S.gold-5);return 'The Marines show up. You drop 5 gold running away.'}},
@@ -3136,7 +3217,7 @@ function titleHTML(){
   return `<div class="wrap home-wrap"><header class="home-masthead"><div><div class="market-kicker">The bazaar between worlds</div><h1 class="title">Anime Bazaar</h1></div><div class="home-mark"><b>${HEROES.length} heroes</b><span>Win ${WINS_NEEDED} PvP fights to champion</span></div></header>
   ${profileBarHTML()}
   ${sh?`<nav class="home-toolbar" aria-label="Saved run"><button class="primary" data-act="resume">▶ Continue ${sh.short} run · Day ${saved.S.day}</button><button data-act="abandonSaved">🏳 Abandon run</button></nav>`:''}
-  <section class="home-startbar" aria-label="Choose a hero and difficulty"><div class="home-pick-heading"><h2>Who are you?</h2><span>Hover to discover · Click to begin</span></div><div class="diffbox"><div class="seg" role="group" aria-label="Difficulty">${DIFF_KEYS.map(k=>`<button data-act="setDiff" data-arg="${k}" class="${(activeProf().diff||'normal')===k?'on':''}">${DIFFS[k].name}</button>`).join('')}</div><div class="small">${DIFFS[activeProf().diff||'normal'].desc} · Mastery stars come from Normal and Hard titles.</div></div></section>
+  <section class="home-startbar" aria-label="Choose a hero and difficulty"><div class="home-pick-heading"><h2>Who are you?</h2><span>Hover to discover · Click to begin</span></div><div class="diffbox"><div class="seg" role="group" aria-label="Difficulty">${DIFF_KEYS.map(k=>`<button data-act="setDiff" data-arg="${k}" class="${(activeProf().diff||'normal')===k?'on':''}">${DIFFS[k].name}</button>`).join('')}</div><div class="small">${DIFFS[activeProf().diff||'normal'].desc} · Mastery stars come from Normal and Hard titles (Heat counts as Hard).</div></div></section>
   <div class="heroes home-heroes">${HEROES.map(h=>{const r=heroRec(h.id),m=mastery(h.id),lk=myLook(h.id),ml=masteryLv(META.mastery[h.id]);return `<button class="hero" style="--hc:${lk.color}" data-act="hero" data-arg="${h.id}">
     ${h.isNew&&!r.runs?'<span class="new">NEW</span>':''}${r.runs?`<span class="rec">${'★'.repeat(m)}${'☆'.repeat(3-m)} best ${r.best}</span>`:''}
     ${avatarHTML({heroId:h.id,color:lk.color,emblem:lk.emblem,aura:lk.aura})}<h3>${h.name}</h3><div class="small">${h.series}${lk.aura?' · '+esc(lk.name):''}</div>
@@ -3280,6 +3361,7 @@ function stageHTML(){
       const m=c.mon;
       const ins=`<button class="inspect" data-act="inspect" data-arg="${i}" aria-label="Inspect ${esc(m.name)}">🔍 Inspect</button>`;
       if(c.type==='boss')return `<div class="cwrap"><button class="choice boss" data-act="choose" data-arg="${i}"><div class="kind">⚠ Boss</div><div class="big">${m.icon}</div><h3>${m.name}</h3><div class="small"><i>${m.series}</i>${ARENAS[m.name]?` · Arena: ${ARENAS[m.name].name}`:''}<br>❤️ ${m.hp} · 🛡 ${m.skills.startShield} · Reward 💰${m.gold} ⭐${m.xp} + rare item</div></button>${ins}</div>`;
+      if(m.calamity)return `<div class="cwrap"><button class="choice boss" data-act="choose" data-arg="${i}"><div class="kind">☄️ Calamity · very rare</div><div class="big">${m.icon}</div><h3>${esc(m.name)}</h3><div class="small"><i>${esc(m.series)}</i><br>❤️ ${m.hp} · 🛡 ${m.skills.startShield} · Optional · exclusive item chance</div></button>${ins}</div>`;
       return `<div class="cwrap"><button class="choice ${m.hard?'elite':'mon'}" data-act="choose" data-arg="${i}"><div class="kind">${m.hard?'Elite Monster':'Monster'}${m.forces?` · ${esc(BOSS_SHORT[m.forces]||m.forces)}'s ${m.rank===2?'lieutenant':'forces'}`:' · Wandering'}</div><div class="big">${m.icon}</div><h3 class="${m.hard?'elite':''}">${m.name}</h3><div class="small"><i>${m.series}</i><br>❤️ ${m.hp} · ${m.items.length} items${m.buildVersion?' · themed loot':''} · Reward 💰${m.gold} ⭐${m.xp} + item</div></button>${ins}</div>`;
     }).join('')}</div><div class="restrow"><button class="restbtn" data-act="rest">🏕️ Rest by the fire <span class="small">+${2+Math.floor(S.day/3)} gold, +1 XP</span></button></div>`;
   }
@@ -3336,7 +3418,7 @@ function scoutHTML(m,fightIdx){
   return `<div class="modal" id="scout"><div class="box velvet scout"><div class="chead">${avatarHTML({name:m.name,color:m.color,emblem:m.icon})}<div><h2 style="font-size:32px">${esc(m.name)}</h2><div class="small"><i>${esc(m.series||'')}</i> · ${m.boss?'Boss':m.hard?'Elite monster':'Monster'} · ❤️ ${m.hp}${m.skills&&m.skills.startShield?` · 🛡 ${m.skills.startShield}`:''}</div></div></div>
    <p style="margin:8px 0">${esc(m.strat||'')}</p>
    <div class="tags">${(m.weak||[]).map(w=>`<span class="tag weak">${m.buildVersion?'Counterplay':'Weak to'}: ${esc(w)}</span>`).join('')}</div>
-   ${m.buildVersion?`<div class="small">${esc(m.stage)} build · ${m.hard?'Elite':'Regular'}</div>`:''}${trophyScoutHTML(m)}${monsterAbilityText(m).map(t=>`<p class="small"><b>Encounter ability:</b> ${esc(t)}</p>`).join('')}${enemyBoardHTML(m)}${enemyItemList(m)}${monsterRewardText(m)}
+   ${m.buildVersion?`<div class="small">${esc(m.stage)} build · ${m.hard?'Elite':'Regular'}</div>`:''}${trophyScoutHTML(m)}${calamityScoutHTML(m)}${powerMatchHTML(m)}${monsterAbilityText(m).map(t=>`<p class="small"><b>Encounter ability:</b> ${esc(t)}</p>`).join('')}${enemyBoardHTML(m)}${enemyItemList(m)}${monsterRewardText(m)}
    <div class="btns" style="justify-content:center">${fightIdx!=null?`<button class="primary" data-act="choose" data-arg="${fightIdx}">⚔️ Fight</button>`:''}<button data-act="closeScout">Close</button></div></div></div>`;
 }
 function bestiaryHTML(){
@@ -3379,7 +3461,7 @@ function runHTML(){
     if(u)h+=`<div class="modal"><div class="box velvet ultbox"><h2 style="font-size:40px">Ultimate unlocked!</h2>${cardHTML(u)}<h3 style="font-size:28px">${ITEMS[u.id].name}</h3><ul class="fx" style="text-align:left;display:inline-block">${descLines(u).map(l=>`<li>${l}</li>`).join('')}</ul><div class="btns" style="justify-content:center"><button class="primary" data-act="ultOk">Awesome!</button></div></div></div>`;
     else S.ultShow=null;
   }else if(S.pendingSkills>0&&S.skillChoices){
-    h+=`<div class="modal"><div class="box velvet"><h2>⭐ Choose a skill</h2><div class="small">Skills last for the whole run.</div><div class="skillgrid">${S.skillChoices.map((k,i)=>`<button class="choice" data-act="skill" data-arg="${i}">${skillArtHTML(k)}<h3>${k.name}</h3><div class="small">${k.desc}</div></button>`).join('')}</div></div></div>`;
+    h+=`<div class="modal"><div class="box velvet"><h2>⭐ Choose a skill</h2><div class="small">Skills last for the whole run.</div><div class="skillgrid">${S.skillChoices.map((k,i)=>{const n=skillCopies(S.skills,k),r=k.rarity||'Bronze';return `<button class="choice" data-act="skill" data-arg="${i}" style="border-color:${SKILL_RARITY_COLOR[r]||''}">${skillArtHTML(k)}<div class="kind" style="color:${SKILL_RARITY_COLOR[r]||''}">${r} skill</div><h3>${k.name}</h3><div class="small">${k.desc}</div>${n?`<div class="small" style="color:#ffb3b3">You have ${n} cop${n===1?'y':'ies'}: this one gives ${Math.round(skillCopyFactor(n)*100)}%.</div>`:''}</button>`}).join('')}</div></div></div>`;
   }
   return h;
 }
@@ -3666,7 +3748,7 @@ function startCombat(enemy,kind,onEnd,preparePlayer){
   const B=makeSide('b',enemy.name,enemy.icon,enemy.color,enemy.hp,enemy.items,esk,enemy.heroId);B.aura=enemy.aura||null;B.skin=enemy.skin||null;B.cos=enemy.cos?{frames:enemy.cos.frames,themes:enemy.cos.themes}:null;
   if(preparePlayer)preparePlayer(A);
   F={a:A,b:B,ticks:0,acc:0,last:0,kind,onEnd,over:false,winner:null,speed:SET.fightSpeed||1,skipping:false,log:[],projs:0,arena:kind==='boss'?ARENAS[enemy.name]||null:null};
-  SCREEN='combat';buildCombat();log(null,`Fight start: ${A.name} vs ${B.name}`);for(const side of [A,B])if(side.edgeGuardShield)log(side,`🖤 Armament Haki: +${side.edgeGuardShield} Shield from edge Weapons`);
+  SCREEN='combat';buildCombat();log(null,`Fight start: ${A.name} vs ${B.name}`);for(const side of [A,B])if(side.edgeGuardShield)log(side,`🖤 Armament Haki: +${side.edgeGuardShield} Shield from edge Weapons`);for(const [sd,op] of [[A,B],[B,A]])if(sd.sk&&sd.sk.openFreeze>0){const big=[...op.items].sort((x,y)=>y.def.size-x.def.size||x.idx-y.idx).slice(0,2);for(const it of big)it.freeze=Math.max(it.freeze||0,sd.sk.openFreeze);log(sd,`👑 Conqueror's Haki: ${big.map(i=>i.def.name).join(' and ')} Frozen ${sd.sk.openFreeze}s`)}
   for(const [me,foe] of [[A,B],[B,A]])if(me.pas&&me.pas.start){me.pas.start(me,foe);log(me,`${me.pas.icon} <b>${me.pas.name}</b>`)}
   if(kind==='pve'&&SET.autoSkipPve){ACT.skip();return}
   if(kind==='boss'&&SET.cinematics&&SET.anim==='full'){F.paused=true;VFX.bossIntro({name:enemy.name.toUpperCase(),series:enemy.series||'',icon:enemy.icon,color:enemy.color}).then(()=>{if(F)F.paused=false})}
@@ -3740,7 +3822,7 @@ function fly(fromSide,it,toKey,type,big){
   const an=p.animate([{transform:`translate(${x0}px,${y0}px) scale(.6)`},{transform:`translate(${mx}px,${my}px) scale(1.1)`,offset:.5},{transform:`translate(${x1}px,${y1}px) scale(.8)`}],{duration:dur,easing:'ease-in'});
   const f=F;an.onfinish=()=>{p.remove();f.projs--};
 }
-function weaponDamageMultiplier(me,it){return (me.pas&&me.pas.dmg?me.pas.dmg(me,it):1)*(isW(it)?1+.04*Math.min(6,Math.max(0,me.command||0)):1)}
+function weaponDamageMultiplier(me,it){return (me.pas&&me.pas.dmg?me.pas.dmg(me,it):1)*(isW(it)?1+.04*Math.min(6,Math.max(0,me.command||0)):1)*(isW(it)&&it.def.size===3?1+(me.sk.bigWeaponMult||0):1)}
 function bankSeal(me,n){me.seals=Math.min(3,Math.max(0,me.seals||0)+n)}
 function advancePreparedMagic(me,foe){
   if(me.hp<=0||foe.hp<=0)return;
@@ -3913,7 +3995,7 @@ function useItem(me,foe,it){
   const damagingSpell=it.def.tags.includes('Spell')&&it.def.fx.some(f=>f.t==='dmg'||(f.t==='doom'&&!me.doomUsed));
   const spent=me.heroId==='ainz'&&damagingSpell?Math.min(3,Math.max(0,me.seals||0)):0;
   if(spent){me.seals-=spent;log(me,`📜 ${it.def.name}: spends ${spent} Seals for +${12*spent*VAL_MULT[it.inst.tier]} opening damage`)}
-  it.spellSealBonus=12*spent*VAL_MULT[it.inst.tier];
+  it.spellSealBonus=20*spent*VAL_MULT[it.inst.tier];
   const flanked=it.flankLeft>0,ready=!!it.spearReady&&it.def.fx.some(f=>f.readyBonus);if(ready)it.spearReady=false;
   const P=me.pas||{},critCh=(flanked?it.flankCrit||0:0)+(it.def.crit||0)+(me.sk.crit||0)+((it.inst.ench&&ENCH[it.inst.ench].crit)||0)+(P.crit||0)+vegetaCritBonus(it,prepared);
   const forced=P.forceCrit?P.forceCrit(me,it):false;
@@ -4181,6 +4263,7 @@ const ACT={
       if(!prepareTanjiroElite(mon,boss))return;
       startCombat(mon,boss?'boss':'pve',w=>{
         const trophyRes=trophyOutcome(mon,w);if(trophyRes&&trophyRes.dropped)S.trophiesSeen=[...(S.trophiesSeen||[]),mon.trophy.item];
+        const calRes=calamityOutcome(mon,w);if(mon.calamity&&w==='a'){META.calamities=[...new Set([...(META.calamities||[]),mon.name])]}
         const lesson=recordTanjiroElite(mon,boss,w);
         afterFight();
         {const r=META.seen[mon.name]||(META.seen[mon.name]={w:0,l:0});if(w==='a')r.w++;else r.l++;checkAch(null,null);saveProfile()}
@@ -4188,7 +4271,7 @@ const ACT={
         if(boss)S.bossDoneToday=true;
         if(w==='a'){
           S.gold+=mon.gold;gainXp(mon.xp);if(boss){S.bossesBeaten++;if(!META.bosses.includes(mon.name))META.bosses.push(mon.name)}
-          S.reward={title:`Defeated ${mon.name}! +${mon.gold}g, +${mon.xp} XP${lesson?' · '+lesson:''}`,items:monsterRewardItems(mon,boss)};if(trophyRes){if(trophyRes.inst)S.reward.items.push(trophyRes.inst);S.reward.note=trophyRes.note}S.phase='reward';
+          S.reward={title:`Defeated ${mon.name}! +${mon.gold}g, +${mon.xp} XP${lesson?' · '+lesson:''}`,items:monsterRewardItems(mon,boss)};if(trophyRes){if(trophyRes.inst)S.reward.items.push(trophyRes.inst);S.reward.note=trophyRes.note}if(calRes){if(calRes.inst)S.reward.items.push(calRes.inst);S.reward.note=calRes.note}S.phase='reward';
         }else{S.msg={title:'Defeated...',text:`${mon.name} was too strong. No reward this time, but no prestige lost.${lesson?' '+lesson:''}`};S.phase='msg'}
       });
       return 'norender';
@@ -4227,7 +4310,7 @@ const ACT={
   toBoard:()=>{const it=findInv(S.sel.uid);if(boardUsed()+ITEMS[it.id].size>BOARD_SLOTS)return toast('Not enough board space');S.stash=S.stash.filter(x=>x!==it);boardPut(it)},
   evOpt:i=>{const e=EVENTS[S.event.ev];const text=S.event.opts[+i].act();S.msg={title:`${e.icon} ${e.title}`,text};S.phase='msg';sfx('click')},
   cont:()=>{sfx('click');const merchant=merchantScene();if(S.phase==='merchant'&&merchant)toast(merchant.speaker+': '+merchant.farewell);if(S.arcReturnWithoutHour){S.arcReturnWithoutHour=false;S.phase='choose';S.choices=S.choices.filter(c=>c.type!=='ichigoArc');return}finishHour()},
-  skill:i=>{const chosen=S.skillChoices[+i],k=SKILLS.find(x=>x.k===chosen.k)||chosen;gainSkill(S.skills,k);S.pendingSkills--;S.skillChoices=S.pendingSkills>0?shuffle(SKILLS).slice(0,3):null;sfx('level');toast(`Learned ${k.name}`)},
+  skill:i=>{const chosen=S.skillChoices[+i],k=SKILLS.find(x=>x.k===chosen.k)||chosen;gainSkill(S.skills,k);S.pendingSkills--;S.skillChoices=S.pendingSkills>0?rollSkillChoices():null;sfx('level');toast(`Learned ${k.name}`)},
   ultOk:()=>{S.ultShow=null;sfx('merge')},
   fightPvp:()=>{
     const opp=S.opp;

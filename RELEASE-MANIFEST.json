@@ -1,6 +1,6 @@
 {
-  "source": "Canonical Anime Bazaar complete gameplay and selected artwork",
-  "sourceSha256": "1cf2aa7ed794c07496f0efeb30366ca32dff611261479ba2a32dda1a0ca13680",
+  "source": "Latest completed canonical gameplay and selected Shinra artwork",
+  "sourceSha256": "5d7e43cd6ebad0b30cd33cbfb31438fe0b030dac385f5a12d9f67d81218308fa",
   "files": [
     {
       "name": "ainz-preview.html",
@@ -864,8 +864,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 509418,
-      "sha256": "1cf2aa7ed794c07496f0efeb30366ca32dff611261479ba2a32dda1a0ca13680"
+      "bytes": 523754,
+      "sha256": "5d7e43cd6ebad0b30cd33cbfb31438fe0b030dac385f5a12d9f67d81218308fa"
     },
     {
       "name": "recent-artwork.html",
@@ -892,13 +892,23 @@
     "gameplay_changed": false
   },
   "gameplay_release": {
+    "base_commit": "cd7d6b093f18aeca703e4fa28410b7e67547fc69",
     "batches": [
-      "Frieren/Maomao analysis and tested doses",
-      "Boss pressure tuning",
-      "Veteran hero trials",
-      "Five additional enemy trophies and Bestiary details"
+      "All earlier character reworks and trophies",
+      "Calamity encounters and installed Maomao adjustment",
+      "Skill rarity tiers, diminishing duplicates and skill balance",
+      "Power-matched optional fights, catch-up and stored ghost selection",
+      "Hero balance pass and build-path trial audit",
+      "Elite consistency and opt-in Heat difficulty",
+      "Saitama timing adjustment",
+      "Boss consistency and Hard Day-3 boss smoothing",
+      "Event fees and Deku/Denji/Goku buffs"
     ],
-    "approval_reference": "recall:4092",
+    "excluded": [
+      "Shelved rival-ghost patch",
+      "Unfinished smarter-bot tool",
+      "Uninstalled Maomao passive-trim proposal"
+    ],
     "canonical_html_identical": true
   }
 }
