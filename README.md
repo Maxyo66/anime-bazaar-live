@@ -6,4 +6,6 @@ Open https://maxyo66.github.io/anime-bazaar-live/ to play. Progress stays in you
 
 Do not delete the original site or browser data until migration has been checked.
 
-Canonical game HTML SHA-256: 6f74ea5d7022115af39a72cfae6a3b3a019a291be72bbf79a48c7aa2e61e9f6a
+Canonical game HTML SHA-256: 1cf2aa7ed794c07496f0efeb30366ca32dff611261479ba2a32dda1a0ca13680
+
+Current release also includes Frieren/Maomao reworks, boss pressure tuning, veteran hero trials, and five more enemy trophies with Bestiary conditions. Selected Shinra artwork is retained.

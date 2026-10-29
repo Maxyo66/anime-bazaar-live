@@ -1234,7 +1234,7 @@ const PASSIVES={
  tanjiro:{name:'Scent of the Gap',icon:'👃',desc:'Your first Weapon attack each fight is a guaranteed crit.',forceCrit:(s,it)=>isW(it)&&!s.firstW&&(s.firstW=true)},
  gojo:{name:'Six Eyes',icon:'👁️',desc:'Spells charge 20% faster. Start each fight with 40 shield. Blue marks your next Red (+20, +12 Shield) or Purple (+10); Purple gains +40 more after both Blue and Red since its last use.',cd:it=>it.def.tags.includes('Spell')?.8:1,start(s){s.shield+=40}},
  edward:{name:'Equivalent Exchange',icon:'⚖️',desc:'Earn 2 extra gold at the start of each day.',income:2},
- frieren:{name:'Millennia of Study',icon:'📚',desc:'Items that grow after fights grow by 1 extra.',grow:1},
+ frieren:{name:'Millennia of Study',icon:'📚',desc:'Items that grow after fights grow by 1 extra. Analysis: each different enemy item that activates is analyzed (up to 5); your damaging Spells deal +2 per analyzed item.',grow:1},
  deku:{name:'Plus Ultra',icon:'💚',desc:'Self-damage is halved. Below 50% HP, your Weapons deal 20% more damage.',self:.5,dmg:(s,it)=>isW(it)&&below(s,.5)?1.2:1},
  ichigo:{name:'Hollow Within',icon:'👹',desc:'Weapons deal 20% more damage, rising to 50% more below 50% HP.',dmg:(s,it)=>isW(it)?(below(s,.5)?1.5:1.2):1},
  levi:{name:'Ackerman Instinct',icon:'🗡️',desc:'+10% crit chance on all your items.',crit:.1},
@@ -1244,7 +1244,7 @@ const PASSIVES={
  ainz:{name:'Arcane Preparation',icon:'📜',desc:'When one of your temporary contracts expires, gain 1 Seal (maximum 3). Your next damaging Spell spends all Seals: +12 damage per Seal on its opening hit, scaled by that Spell’s tier; this bonus cannot crit. Contracts and Seals reset each fight.'},
  shinra:{name:"Devil's Footprints",icon:'🔥',desc:'Each Weapon activation grants 1 Heat (maximum 6). Corna and Adolla Burst spend Heat for bonus damage and Burn; Adolla Link gains Shield from stored Heat. Multicast grants Heat once. Resets each fight.',onUse(s,f,it){if(isW(it))s.heat=Math.min(6,s.heat+1)}},
  denji:{name:'Devil Heart',icon:'💓',desc:'Whenever you damage yourself, gain 1 regen (up to 5 per fight).',onSelf(s){if((s.dh=(s.dh||0))<5){s.dh++;s.regen++}}},
- maomao:{name:'Poison Tolerance',icon:'🍵',desc:'Take 40% less damage from poison.',taken:(s,v,k)=>k==='poison'?Math.round(v*.6):v},
+ maomao:{name:'Poison Tolerance',icon:'🍵',desc:'Take 40% less damage from poison. Tested dose: the first 4 times you damage yourself, your next Toxin applies +2 more poison. Antidote: your heals restore +1 per 4 poison on the enemy (max +6).',taken:(s,v,k)=>k==='poison'?Math.round(v*.6):v},
  misaka:{name:'Electromaster',icon:'⚡',desc:'Every 3rd Weapon activation discharges chain lightning for bonus damage equal to 30% of that card’s base hit (Railgun: 60%), minimum 10 per tier step so fast cards discharge meaningfully. The bonus never advances the count; Multicast counts once. The discharge count shows during fights.',
    onUse(s,f,it){if(isW(it)&&(s.zap=(s.zap||0)+1)%3===0){const df=it.def.fx.find(x=>x.t==='dmg')||{t:'dmg',v:0},d=Math.max(Math.round(fxVal(df,it.inst,s.tagCount,s)*(df.dischargeMult||.3)),df.v>0?DISCHARGE_MIN*VAL_MULT[it.inst.tier]:0);if(d>0){damage(f,d,'hit');if(!F.skipping)VFX.lightning(cardEl(s,it),avEl(f),'#ffe04a');log(s,`⚡ Chain lightning: ${d} dmg`)}}}},
  ryuko:{name:'Life Fiber Synchronization',icon:'🧵',desc:'Deal up to 50% more damage the lower your HP is. Synchronization: dropping to 50% HP or below triggers a sync (maximum 2 per fight) that Hastes your Weapons for 2s; it rearms only after you recover above 70%. Sync count shows during fights.',dmg:s=>1+.5*Math.max(0,1-s.hp/s.max)},
@@ -1374,12 +1374,12 @@ I('edward','gate_truth','Gate of Truth','🚪',2,['Relic'],10,[{t:'heal',v:40},{
 I('frieren','zoltraak','Zoltraak','✨',2,['Spell','Weapon'],5,[{t:'dmg',v:10}],{grow:4});
 I('frieren','def_magic','Defensive Magic','🔰',2,['Spell'],6,[{t:'shield',v:18}],{grow:3});
 I('frieren','grimoire','Grimoire','📖',1,['Tool'],8,[{t:'charge',to:'tag:Spell',v:2}]);
-I('frieren','fern','Fern','🏹',2,['Friend','Spell'],4,[{t:'dmg',v:8}],{multicast:2});
-I('frieren','stark','Stark','🪓',3,['Friend','Weapon'],9,[{t:'dmg',v:38},{t:'shield',v:20}]);
+I('frieren','fern','Fern','🏹',2,['Friend','Spell'],4,[{t:'dmg',v:10}],{multicast:2});
+I('frieren','stark','Stark','🪓',3,['Friend','Weapon'],9,[{t:'dmg',v:38},{t:'shield',v:20},{t:'charge',to:'adj',v:2}]);
 I('frieren','flowers','Flower Field Spell','🌷',1,['Spell'],7,[{t:'heal',v:14},{t:'regen',v:2}]);
-I('frieren','mimic','Mimic','🧰',2,['Relic'],10,[{t:'dmg',v:28}],{grow:6});
+I('frieren','mimic','Mimic','🧰',2,['Relic'],9,[{t:'dmg',v:28}],{grow:8});
 I('frieren','himmel',"Himmel's Memory",'💐',1,['Relic'],8,[{t:'heal',v:15},{t:'shield',v:10}]);
-I('frieren','mana_suppress','Mana Suppression','🌫️',1,['Spell'],7,[{t:'slow',n:2,d:1.5}]);
+I('frieren','mana_suppress','Mana Suppression','🌫️',1,['Spell'],7,[{t:'slow',n:2,d:1.5}],{conceal:14});
 I('frieren','grand_zoltraak','Mastered Zoltraak','🌟',3,['Spell','Weapon'],6,[{t:'dmg',v:16}],{multicast:2,grow:5,special:'fusion'});
 I('frieren','thousand_years','Thousand Years of Magic','🔮',3,['Spell'],9,[{t:'dmg',v:40},{t:'shield',v:30}],{grow:10,special:'ult'});
 // Deku
@@ -1480,7 +1480,7 @@ I('maomao','snake_wine','Snake Wine','🐍',1,['Food','Toxin'],7,[{t:'heal',v:10
 I('maomao','cordyceps','Caterpillar Fungus','🍄',1,['Relic','Toxin'],9,[{t:'poison',v:2}],{income:1});
 I('maomao','jinshi','Jinshi','🌺',2,['Friend'],7,[{t:'shield',v:25},{t:'haste',to:'tag:Toxin',d:1}]);
 I('maomao','gaoshun','Gaoshun','🛡️',2,['Friend','Weapon'],8,[{t:'shield',v:28},{t:'dmg',v:10}]);
-I('maomao','luomen','Uncle Luomen','📜',1,['Friend'],7,[{t:'heal',v:18}],{onAllyUse:{tag:'Toxin',fx:[{t:'heal',v:1}]}});
+I('maomao','luomen','Uncle Luomen','📜',1,['Friend'],7,[{t:'heal',v:18}],{onAllyUse:{tag:'Toxin',fx:[{t:'heal',v:2}]}});
 I('maomao','imperial_poison','Imperial Court Poison','☠️',3,['Weapon','Toxin'],8,[{t:'dmg',v:12},{t:'poison',v:6}],{special:'fusion'});
 I('maomao','medicine_chest',"Maomao's Medicine Chest",'🏮',3,['Tool','Toxin'],10,[{t:'poison',v:6},{t:'heal',v:30},{t:'charge',to:'tag:Toxin',v:2}],{special:'ult'});
 // Misaka (Electric items chain into each other)
@@ -1619,7 +1619,8 @@ E('blood_whip','Blood Whips','🩸',2,['Weapon'],4,[{t:'dmg',v:12}],{multicast:2
 E('dismantle','Dismantle','✂️',2,['Weapon'],4,[{t:'dmg',v:14}]);E('cleave','Cleave','🩸',2,['Weapon'],6,[{t:'dmg',v:22}],{crit:.2});E('fuga','Fuga','🔥',2,['Spell'],9,[{t:'dmg',v:20},{t:'burn',v:10}]);E('shrine','Malevolent Shrine','⛩️',3,['Spell'],12,[{t:'dmg',v:15}],{multicast:4});
 E('dragon_scales','Dragon Scales','🐉',3,['Tool'],6,[{t:'shield',v:60}]);E('boro_breath','Boro Breath','🔥',2,['Weapon'],8,[{t:'dmg',v:30},{t:'burn',v:6}]);E('thunder_bagua','Thunder Bagua','⚡',2,['Weapon'],7,[{t:'dmg',v:35}],{crit:.2});E('kaido_sake','Kaido\'s Sake','🍶',1,['Food'],7,[{t:'heal',v:25}]);
 E('susanoo','Perfect Susanoo','💜',3,['Tool'],7,[{t:'shield',v:55}]);E('meteor','Tengai Shinsei','☄️',3,['Weapon'],16,[{t:'dmg',v:160}]);E('madara_fire','Majestic Destroyer Flame','🔥',2,['Spell'],7,[{t:'burn',v:9}]);E('rinnegan','Rinnegan','👁️',1,['Relic'],9,[{t:'freeze',n:2,d:1.5}]);
-E('father_core','Philosopher\'s Core','⚫',3,['Relic'],6,[{t:'shield',v:40},{t:'heal',v:15}]);E('father_alch','Instant Alchemy','⚡',2,['Weapon'],5,[{t:'dmg',v:18}]);E('father_god','Absorb God','☀️',3,['Spell'],15,[{t:'dmg',v:100},{t:'heal',v:50}]);E('father_eye','Eye of Truth','👁',1,['Relic'],8,[{t:'slow',n:2,d:2}]);
+E('father_core','Philosopher\'s Core','⚫',3,['Relic'],6,[{t:'shield',v:40},{t:'heal',v:15}]);E('father_alch','Instant Alchemy','⚡',2,['Weapon'],5,[{t:'dmg',v:26}]);E('father_god','Absorb God','☀️',3,['Spell'],15,[{t:'dmg',v:100,plusShield:1},{t:'heal',v:50}]);
+E('father_souls','Souls of Xerxes','🔴',1,['Relic'],5,[{t:'shield',v:20}]);E('father_eye','Eye of Truth','👁',1,['Relic'],8,[{t:'slow',n:2,d:2}]);
 // Scar's timings and numbers are game adaptations, not named anime techniques.
 E('scar_deconstruct','Scar · Deconstruction','✋',2,['Weapon'],8,[{t:'stripShield',v:30},{t:'dmg',v:35}],{src:'Fullmetal Alchemist: Brotherhood'});
 E('scar_strike','Scar · Close Combat','👊',2,['Weapon'],3,[{t:'dmg',v:17}],{src:'Fullmetal Alchemist: Brotherhood'});
@@ -1629,15 +1630,19 @@ E('shalltear_blood','Blood Pool','🩸',1,['Relic'],7,[{t:'heal',v:14},{t:'shiel
 E('shalltear_frenzy','Blood Frenzy','🦇',2,['Weapon'],7,[{t:'dmg',v:24},{t:'haste',to:'adj',d:1}],{src:'Overlord'});
 E('shalltear_einherjar','Einherjar','⚔️',3,['Friend','Contract'],12,[{t:'contract',v:18,d:6,interval:2}],{src:'Overlord'});
 E('shalltear_recovery','Shalltear’s Recovery','🩹',1,['Tool'],8,[{t:'regen',v:1},{t:'heal',v:10}],{src:'Overlord',note:'Game adaptation of her recovery; not a named anime attack.'});
-E('garou_fist','Water Stream Fist','🌊',2,['Weapon'],3,[{t:'dmg',v:8}],{multicast:2});E('garou_cells','Monster Cells','🧬',2,['Tool'],6,[{t:'heal',v:15},{t:'haste',to:'all',d:1}]);E('garou_cosmic','Cosmic Fear Mode','🌌',3,['Weapon'],12,[{t:'dmg',v:90}],{crit:.25});E('garou_counter','Counter Stance','🥋',2,['Tool'],7,[{t:'shield',v:30}]);
+E('garou_fist','Water Stream Fist','🌊',2,['Weapon'],3,[{t:'dmg',v:8,lowBonus:.35}],{multicast:2});
+E('garou_adapt','Martial Arts Adaptation','🥋',1,['Tool'],8,[{t:'haste',to:'tag:Weapon',d:2}]);E('garou_cells','Monster Cells','🧬',2,['Tool'],6,[{t:'heal',v:15},{t:'haste',to:'all',d:1}]);E('garou_cosmic','Cosmic Fear Mode','🌌',3,['Weapon'],12,[{t:'dmg',v:90,lowBonus:.35}],{crit:.25});E('garou_counter','Counter Stance','🥋',2,['Tool'],7,[{t:'shield',v:30}]);
 E('makima_bang','Bang','👉',1,['Weapon'],6,[{t:'dmg',v:25}]);E('makima_control','Control Devil','⛓️',2,['Relic'],8,[{t:'freeze',n:3,d:2}]);E('makima_chain','Chains of Control','🔗',2,['Tool'],7,[{t:'slow',n:3,d:2},{t:'shield',v:15}]);E('makima_pact','Contract','📜',1,['Relic'],9,[{t:'heal',v:20}]);E('makima_dogs','Devil Hounds','🐕',2,['Weapon'],5,[{t:'dmg',v:14}]);
 E('kyoka','Kyoka Suigetsu','🦋',2,['Relic'],7,[{t:'slow',n:4,d:2.5}]);E('kurohitsugi','Kurohitsugi','⬛',3,['Spell'],12,[{t:'dmg',v:80}]);E('hogyoku','Hogyoku','💠',1,['Relic'],8,[{t:'heal',v:25},{t:'shield',v:20}]);E('aizen_blade','Zanpakuto','🗡️',2,['Weapon'],5,[{t:'dmg',v:16}]);
-E('decay','Decay','✋',2,['Spell'],5,[{t:'poison',v:6}]);E('all_for_one','All For One','🌑',3,['Tool'],10,[{t:'dmg',v:40},{t:'heal',v:30}]);E('nomu_army','Nomu Army','🧠',2,['Weapon'],6,[{t:'dmg',v:18}]);E('league','League of Villains','🃏',2,['Tool'],8,[{t:'haste',to:'all',d:1.5},{t:'shield',v:15}]);
+E('decay','Decay','✋',2,['Spell'],5,[{t:'poison',v:6}]);
+E('shig_crumble','Crumbling Touch','🫳',1,['Spell'],10,[{t:'stripShield',v:10},{t:'poison',v:2}]);E('all_for_one','All For One','🌑',3,['Tool'],10,[{t:'dmg',v:40},{t:'heal',v:30}]);E('nomu_army','Nomu Army','🧠',2,['Weapon'],6,[{t:'dmg',v:18}]);E('league','League of Villains','🃏',2,['Tool'],8,[{t:'haste',to:'all',d:1.5},{t:'shield',v:15}]);
 E('boulder','Boulder Barrage','⛰️',2,['Weapon'],5,[{t:'dmg',v:8}],{multicast:3});E('zeke_volley','Crushed-Rock Volley','🎯',3,['Weapon'],10,[{t:'dmg',v:19}],{multicast:3,color:'#7a6a4f'});E('zeke_scream','Royal Scream','📢',1,['Tool'],8,[{t:'haste',to:'all',d:2}]);E('beast_titan','Beast Titan','🦍',3,['Tool'],9,[{t:'shield',v:40},{t:'heal',v:20}]);E('pure_titans','Titan Horde','🧟',2,['Weapon'],6,[{t:'dmg',v:6}],{multicast:3});
 E('victor_cut','Self-Sever Barrage','🩸',2,['Weapon'],4,[{t:'dmg',v:8}],{multicast:3});E('victor_regen','Perfect Undead Regeneration','♻️',3,['Tool'],6,[{t:'heal',v:40},{t:'regen',v:4}]);E('victor_burst','Full-Body Explosion','💥',3,['Weapon'],13,[{t:'dmg',v:110},{t:'selfdmg',v:30}]);E('victor_will','Ancient Will','👁️',1,['Relic'],9,[{t:'slow',n:3,d:2}]);
+E('victor_stitch','Reattach','🧵',1,['Tool'],7,[{t:'heal',v:20}]);
 E('uma_claw','UMA Claws','🐾',1,['Weapon'],3.5,[{t:'dmg',v:7}]);E('uma_hide','UMA Carapace','🐚',2,['Tool'],7,[{t:'shield',v:20}]);E('uma_rule','Rule Enforcement','📏',1,['Relic'],9,[{t:'freeze',n:1,d:1.5}]);
 E('billy_guns','Unfair Revolvers','🔫',2,['Weapon'],4,[{t:'dmg',v:7}],{multicast:2});E('billy_reverse','Unfair Reversal','🔄',2,['Tool'],7,[{t:'shield',v:30}]);E('billy_shot','Ricochet Shot','🎯',1,['Weapon'],6,[{t:'dmg',v:18}],{crit:.2});
-E('diagolze','Diagolze','👑',3,['Spell'],10,[{t:'freeze',n:4,d:2.5}]);E('macht_blade','Golden Blade','⚔️',2,['Weapon'],5,[{t:'dmg',v:18}]);E('golden_city','Golden City','🏛️',2,['Relic'],8,[{t:'shield',v:30}]);E('macht_curse','Gold Curse','✨',2,['Spell'],7,[{t:'dmg',v:10},{t:'slow',n:2,d:2}]);
+E('diagolze','Diagolze','👑',3,['Spell'],8,[{t:'freeze',n:4,d:2.5}]);
+E('macht_gold','Gold Conversion','🪙',1,['Relic'],6,[{t:'freeze',n:1,d:1.5},{t:'shield',v:10}]);E('macht_blade','Golden Blade','⚔️',2,['Weapon'],5,[{t:'dmg',v:30,perFrozen:12}]);E('golden_city','Golden City','🏛️',2,['Relic'],8,[{t:'shield',v:30}]);E('macht_curse','Gold Curse','✨',2,['Spell'],7,[{t:'dmg',v:22},{t:'slow',n:2,d:2}]);
 // act monsters: grunts and lieutenants that serve each boss
 E('ginyu_jeice','Crusher Ball','🔴',1,['Weapon'],4,[{t:'dmg',v:6}],{multicast:2});E('ginyu_pose','Fighting Poses','💃',1,['Tool'],8,[{t:'haste',to:'all',d:1.5},{t:'shield',v:10}]);E('ginyu_recoome','Recoome Eraser Gun','🔫',2,['Weapon'],7,[{t:'dmg',v:28}]);E('ginyu_change','Body Change','🔄',1,['Relic'],12,[{t:'freeze',n:2,d:2}]);
 E('daki_obi','Obi Sashes','🎀',2,['Weapon'],5,[{t:'dmg',v:5}],{multicast:3});E('daki_sickle','Gyutaro\'s Blood Sickles','🌙',2,['Weapon'],6,[{t:'dmg',v:12},{t:'poison',v:3}]);E('daki_regen','Upper Moon Regeneration','🌸',1,['Tool'],6,[{t:'heal',v:16},{t:'regen',v:2}]);
@@ -1681,6 +1686,23 @@ E('jogo_eruption','Maximum: Meteor','🌋',3,['Weapon'],13,[{t:'dmg',v:110},{t:'
 E('jogo_insects','Ember Insects','🔥',2,['Weapon'],5,[{t:'dmg',v:7}],{multicast:3,color:'#c0502a',src:'Jujutsu Kaisen'});
 E('jogo_rock','Lava Rock','🪨',2,['Weapon'],6,[{t:'dmg',v:22},{t:'burn',v:3}],{color:'#c0502a',src:'Jujutsu Kaisen'});
 E('jogo_heat','Volcanic Heat','♨️',1,['Tool'],9,[{t:'haste',to:'all',d:2}],{color:'#c0502a',src:'Jujutsu Kaisen'});
+E('aura_weigh','Scale of Obedience (weighing)','⚖️',3,['Relic'],12,[{t:'dmg',v:150},{t:'slow',n:5,d:2}],{color:'#b07cc6',src:'Frieren'});
+E('aura_rally','Undying Army','🛡️',2,['Tool'],8,[{t:'heal',v:30},{t:'haste',to:'tag:Weapon',d:3}],{color:'#b07cc6',src:'Frieren'});
+E('suirei_drug','Resurrection Drug','⚗️',2,['Food'],12,[{t:'heal',v:90},{t:'shield',v:20}],{color:'#5f7f6a',src:'The Apothecary Diaries'});
+E('shi_musket','Shi Clan Musket','🔫',2,['Weapon'],6,[{t:'dmg',v:40}],{color:'#5f7f6a',src:'The Apothecary Diaries'});
+E('suirei_needle','Hidden Needle','📌',1,['Weapon'],4,[{t:'dmg',v:5},{t:'poison',v:2}],{color:'#5f7f6a',src:'The Apothecary Diaries'});
+E('suirei_incense','Poisoned Incense','🪔',2,['Tool'],8,[{t:'poison',v:4},{t:'haste',to:'tag:Weapon',d:2.5}],{color:'#5f7f6a',src:'The Apothecary Diaries'});
+E('meteor_echo','Tengai Shinsei','☄️',3,['Weapon'],17,[{t:'dmg',v:160}],{color:'#7a3b8f',src:'Naruto'});
+E('igris_crimson','Igris · Crimson Knight Strike','🗡️',3,['Weapon'],15,[{t:'dmg',v:120}],{color:'#8e67d5',src:'Solo Leveling'});
+E('arthur_plasma','Excalibur · Plasma Burst','⚔️',3,['Weapon'],16,[{t:'dmg',v:110},{t:'burn',v:3}],{color:'#54b7ed',src:'Fire Force'});
+E('akaza_annihilation','Destructive Death: Annihilation Type','💥',3,['Weapon'],15,[{t:'dmg',v:120}],{color:'#c2416b',src:'Demon Slayer'});
+E('akaza_disorder','Air Type: Disorder','💨',2,['Weapon'],5,[{t:'dmg',v:8}],{multicast:3,color:'#c2416b',src:'Demon Slayer'});
+E('akaza_regen','Upper Moon Regeneration','🩸',2,['Tool'],7,[{t:'heal',v:35},{t:'regen',v:3}],{color:'#c2416b',src:'Demon Slayer'});
+E('akaza_compass','Compass Needle','🧭',1,['Relic'],8,[{t:'haste',to:'tag:Weapon',d:2}],{color:'#c2416b',src:'Demon Slayer'});
+E('ginjo_counter','Stolen Getsuga','🌙',3,['Weapon'],13,[{t:'dmg',v:120}],{color:'#b0a097',src:'Bleach'});
+E('ginjo_cross','Cross of Scaffold','🗡️',2,['Weapon'],5,[{t:'dmg',v:20}],{color:'#b0a097',src:'Bleach'});
+E('ginjo_armor','Final Fullbring Armor','🛡️',2,['Apparel'],6,[{t:'shield',v:35}],{color:'#b0a097',src:'Bleach'});
+E('tsukishima_book','Book of the End','📕',2,['Tool'],9,[{t:'slow',n:2,d:2}],{color:'#b0a097',src:'Bleach'});
 const MON_DEFS=[
  {name:'Rogue Ninja',boss:'Madara Uchiha',rank:1,icon:'👤',series:'Naruto',hp:.9,strat:'Hit-and-run ninja: shuriken volleys, explosive tags and smoke bombs.',weak:['Shields'],b:['ninja_shuriken','paper_bomb','smoke_bomb','ninja_shuriken','paper_bomb','ninja_shuriken']},
  {name:'Saibaman',boss:'Frieza',rank:1,icon:'🌱',series:'Dragon Ball',hp:.85,strat:'A swarm of small fighters that self-destruct for huge burst damage.',weak:['Shields'],b:['sai_claw','sai_self','sai_acid','sai_claw','sai_self','sai_acid']},
@@ -1717,14 +1739,14 @@ const BOSS_DEFS={
  'Ryomen Sukuna':{strat:'Dismantle and Cleave carve you up, Fuga burns what is left, and the Shrine slices everything.',weak:['Shields','Healing'],b:['dismantle','cleave','fuga','shrine']},
  'Kaido':{strat:'Dragon Scales shrug off damage while Boro Breath scorches you.',weak:['Poison'],b:['dragon_scales','boro_breath','thunder_bagua','kaido_sake','boro_breath']},
  'Madara Uchiha':{strat:'Perfect Susanoo defense, Rinnegan freezes, and a falling meteor.',weak:['Poison','Haste'],b:['susanoo','madara_fire','rinnegan','meteor','rinnegan']},
- 'Father':{strat:'A wall of shields and alchemy, ending with Absorb God.',weak:['Poison'],b:['father_core','father_alch','father_eye','father_god']},
- 'Garou':{strat:'Relentless martial arts that speed up mid-fight, then Cosmic Fear Mode.',weak:['Freeze','Slow'],b:['garou_fist','garou_cells','garou_counter','garou_cosmic']},
+ 'Father':{strat:'A wall of shields and alchemy. Absorb God adds his current Shield to its damage, so strip or outlast the wall before it lands.',weak:['Poison','Shield removal'],b:['father_core','father_alch','father_eye','father_god','father_souls']},
+ 'Garou':{strat:'Relentless martial arts that speed up mid-fight. Below half health he adapts: his Weapons deal 35% more, then Cosmic Fear Mode.',weak:['Freeze','Slow','Burst'],b:['garou_fist','garou_cells','garou_counter','garou_cosmic','garou_adapt']},
  'Makima':{strat:'Controls your board with freezes and slows, then says "Bang".',weak:['Many small items'],b:['makima_bang','makima_control','makima_chain','makima_dogs','makima_pact','makima_bang']},
  'Sosuke Aizen':{strat:'Kyoka Suigetsu slows everything; Kurohitsugi finishes you off.',weak:['Haste','Charge'],b:['kyoka','aizen_blade','hogyoku','kurohitsugi','aizen_blade']},
- 'Tomura Shigaraki':{strat:'Decay spreads poison through you while the Nomu army attacks.',weak:['Healing','Fast kills'],b:['decay','nomu_army','all_for_one','league']},
+ 'Tomura Shigaraki':{strat:'Decay spreads poison through you while the Nomu army attacks; Crumbling Touch erodes your Shield.',weak:['Healing','Fast kills'],b:['decay','nomu_army','all_for_one','league','shig_crumble']},
  'Zeke Yeager':{strat:'Hurls boulders from afar and screams to empower his titans.',weak:['Shields'],b:['boulder','zeke_scream','beast_titan','pure_titans','boulder']},
- 'Victor':{strat:'Will not stay dead: perfect regeneration, a storm of severed limbs, then a full-body explosion.',weak:['Poison','Burn'],b:['victor_cut','victor_regen','victor_will','victor_burst']},
- 'Macht':{strat:'Diagolze turns your items to gold, freezing them for long stretches.',weak:['Haste','Many small items'],b:['diagolze','macht_blade','golden_city','macht_curse']},
+ 'Victor':{strat:'Will not stay dead: perfect regeneration, reattached limbs, a storm of severed limbs, then a full-body explosion.',weak:['Poison','Burn'],b:['victor_cut','victor_regen','victor_will','victor_burst','victor_stitch']},
+ 'Macht':{strat:'Diagolze turns your items to gold. His Golden Blade deals +12 for each of your frozen items, so keep items moving.',weak:['Haste','Many small items'],b:['diagolze','macht_blade','golden_city','macht_curse','macht_gold']},
 };
 const MON_COLORS=['#5a6a8a','#5a9a3a','#9a3a2a','#5a3a8a','#4a4a6a','#e8e8e8','#b8806a','#6a8a3a','#2a5a9a','#7a2a2a','#5a7a4a','#c8a0d8'];
 MON_DEFS.forEach((m,i)=>m.b.forEach(id=>{ITEMS[id].color=m.color||MON_COLORS[i];ITEMS[id].src=m.series}));
@@ -1775,7 +1797,12 @@ function buildFixed(list,budget,tier){let used=0;const items=[];for(const id of 
 const TROPHIES={
  'Zeke Yeager':{item:'boulder',chance:.5,cond:{kind:'time',limit:40},why:'Beat the Beast Titan before his barrage wears you down.'},
  'Kisame Hoshigaki':{item:'kisame_same',chance:.4,cond:{kind:'maxUses',id:'kisame_same',limit:10},why:'Freeze or out-pace Samehada before it feeds too often.'},
- 'Ulquiorra':{item:'ulq_lanza',chance:.4,cond:{kind:'time',limit:35},why:'Break through Hierro and regeneration quickly.'}
+ 'Ulquiorra':{item:'ulq_lanza',chance:.4,cond:{kind:'time',limit:35},why:'Break through Hierro and regeneration quickly.'},
+ 'Daki':{item:'daki_obi',chance:.4,cond:{kind:'time',limit:20},why:'Cut down both siblings before the sashes and sickles wear you out.'},
+ 'Katana Man':{item:'katana_cord',chance:.4,cond:{kind:'maxUses',id:'katana_draw',limit:6},why:'Shut down his Quick Draw before he gets to use it often.'},
+ 'Lust':{item:'lust_lance',chance:.4,cond:{kind:'time',limit:20},why:'Win before her stone core heals her back up.'},
+ 'King the Wildfire':{item:'king_flame',chance:.4,cond:{kind:'maxUses',id:'king_armor',limit:2},why:'Break through before the Lunarian Armor keeps rebuilding.'},
+ 'Himiko Toga':{item:'toga_drain',chance:.4,cond:{kind:'time',limit:18},why:'Finish her before Blood Drain keeps her going.'}
 };
 for(const t of Object.values(TROPHIES))if(ITEMS[t.item])ITEMS[t.item].special='trophy';
 function trophyCondText(t){const c=t.cond;return c.kind==='time'?`win within ${c.limit}s`:`win while ${ITEMS[c.id].name} activates at most ${c.limit} times`}
@@ -1877,7 +1904,7 @@ function cadenceText(fx,inst){const t=VAL_MULT[inst.tier];return (fx.cadence?` <
 function recoveryText(fx,inst){const t=VAL_MULT[inst.tier];return (fx.afterHeal?` (+${fx.afterHeal*t} on the opening hit if you actually recovered HP since this card's previous activation; healing at full HP does not count)`:'')+(fx.afterSelf?` (+${fx.afterSelf*t} healing if you damaged yourself since this card's previous activation)`:'')+(fx.syncBonus?` (+${fx.syncBonus*t} on the opening hit during the 3s after a Synchronization)`:'')+(fx.lowHalf?' (halved while you are at 40% HP or below)':'')+(fx.lowOnly?' <b>Only at 40% HP or below</b>':'')+(fx.lowSkip?' (skipped at 40% HP or below)':'')}
 function prideText(fx,inst){const t=VAL_MULT[inst.tier];return (fx.aboveHalfOnly?' <b>Only while above 50% HP</b>':'')+(fx.belowHalfOnce?' <b>Once per fight, when this activates at 50% HP or below</b>':'')+(fx.aboveBonus?` (+${fx.aboveBonus*t} on the opening hit if this activation starts above 50% HP; the self-damage lands after the attack)`:'')+(fx.t==='prideMark'?`Your rightmost Weapon's next activation gains +${Math.round(fx.v*100)} percentage points crit chance (does not stack)`:'')}
 function rhythmText(fx,inst){const t=VAL_MULT[inst.tier];return (fx.afterSmall?` (+${fx.afterSmall*t} on the opening hit if your previous small/large Weapon activation was a small one)`:'')+(fx.markBonus?` (+${fx.markBonus*t} if Blue marked it; consumes the mark)`:'')+(fx.seqBonus?` (+${fx.seqBonus*t} more if both Blue and Red activated since this card's previous use; consumes the sequence)`:'')+(fx.smallW?' (only a 1-slot Weapon)':'')}
-function fxText(fx,inst){return baseFxText(fx,inst)+rhythmText(fx,inst)+prideText(fx,inst)+recoveryText(fx,inst)+cadenceText(fx,inst)+placementText(fx,inst)}
+function fxText(fx,inst){return baseFxText(fx,inst)+bossText(fx)+rhythmText(fx,inst)+prideText(fx,inst)+recoveryText(fx,inst)+cadenceText(fx,inst)+placementText(fx,inst)}
 function baseFxText(fx,inst){
   const v=fxVal(fx,inst,null);
   switch(fx.t){
@@ -1921,6 +1948,7 @@ function descLines(inst){
   if(d.crit)L.push(`<b>${Math.round(d.crit*100)}%</b> crit chance`);
   if(d.onAllyUse)L.push(`When you use a ${d.onAllyUse.tag} item: `+d.onAllyUse.fx.map(f=>fxText(f,inst)).join(', '));
   if(d.income)L.push(`Earn <b>${d.income*(inst.tier+1)}</b> extra gold each day (on board)`);
+  if(d.conceal)L.push(`<b>Conceal:</b> your next damaging Spell deals <b>+${d.conceal*VAL_MULT[inst.tier]}</b> on its opening hit (does not stack)`);
   if(d.grow)L.push(`Gains <b>+${d.grow}</b> permanently after every fight`+(inst.bonus?` (now +${inst.bonus})`:''));
   if(inst.ench)L.push(`${ENCH[inst.ench].icon} <b>${ENCH[inst.ench].name}</b>: ${ENCH[inst.ench].desc}`);
   return L;
@@ -2379,6 +2407,10 @@ function cleanBoard(b){
   if(b.heroId==='goku'&&b.skills&&b.skills.whisTraining===1)skills.whisTraining=1;
   if(b.heroId==='edward'&&b.skills&&b.skills.equivalentRebound===1)skills.equivalentRebound=1;
   if(b.heroId==='ainz'&&b.skills&&b.skills.darkWisdom===1)skills.darkWisdom=1;
+  if(b.heroId==='tanjiro'&&b.skills&&b.skills.sunResolve===1)skills.sunResolve=1;
+  if(b.heroId==='ichigo'&&b.skills&&b.skills.fbResonance===1)skills.fbResonance=1;
+  if(b.heroId==='frieren'&&b.skills&&b.skills.flamme===1)skills.flamme=1;
+  if(b.heroId==='maomao'&&b.skills&&b.skills.apNotes===1)skills.apNotes=1;
   if(b.heroId==='luffy'&&b.skills&&b.skills.drums===1)skills.drums=1;
   if(b.heroId==='gojo'&&b.skills&&b.skills.limitless===1)skills.limitless=1;
   if(b.heroId==='deku'&&b.skills&&b.skills.heroInstinct===1)skills.heroInstinct=1;
@@ -2510,7 +2542,14 @@ const DRUMS_SKILL={name:'Drums of Liberation',icon:'🥁',rarity:'Gold',hero:'lu
 const LIMITLESS_SKILL={name:'Limitless Precision',icon:'🔵',rarity:'Gold',hero:'gojo',k:'limitless',v:1,desc:'Your first 3 Blue-marked Red or Purple activations each heal 6. Healing bonuses apply. Resets each fight.'};
 if(ART.items.gear4)ART.skills.drums=ART.items.gear4;if(ART.items.blue)ART.skills.limitless=ART.items.blue;
 if(ART.bosses&&ART.bosses.Kaido)ART.monsters['Kaido — Onigashima Rooftop']=ART.bosses.Kaido;
-const EXCLUSIVE_SKILLS=[DRUMS_SKILL,LIMITLESS_SKILL,INSTINCT_SKILL,ROYAL_SKILL,ENGINE_SKILL,SYNC_SKILL,LIMITER_SKILL,DISCHARGE_SKILL,SURVEY_DISCIPLINE_SKILL,TRANSPARENT_WORLD_SKILL,KURAMA_LINK_SKILL,BLOOD_PROPULSION_SKILL,ADOLLA_GRACE_SKILL,MONARCH_DOMAIN_SKILL,WHIS_TRAINING_SKILL,EQUIVALENT_REBOUND_SKILL,DARK_WISDOM_SKILL];
+const FLAMME_SKILL={name:"Flamme's Teaching",icon:'📜',rarity:'Gold',hero:'frieren',k:'flamme',v:1,desc:'Analysis starts each fight with 2 items analyzed and can reach 7.'};
+const NOTES_SKILL={name:"Apothecary's Notes",icon:'📓',rarity:'Gold',hero:'maomao',k:'apNotes',v:1,desc:'Your first 3 tested doses also heal 8. Healing bonuses apply. Resets each fight.'};
+if(ART.items.grimoire)ART.skills.flamme=ART.items.grimoire;if(ART.items.apothecary_kit)ART.skills.apNotes=ART.items.apothecary_kit;
+if(ART.monsters&&ART.monsters['Aura the Guillotine'])ART.monsters['Aura — Scale of Obedience']=ART.monsters['Aura the Guillotine'];
+const SUN_RESOLVE_SKILL={name:'Sun Breathing Resolve',icon:'🌞',rarity:'Gold',hero:'tanjiro',k:'sunResolve',v:1,desc:'Your first 3 Burn-applying activations each heal 5. Healing bonuses apply. Resets each fight.'};
+const FB_RESONANCE_SKILL={name:'Fullbring Resonance',icon:'📛',rarity:'Gold',hero:'ichigo',k:'fbResonance',v:1,desc:'Your first 3 Apparel activations each Charge the Weapons beside them 0.5s. Resets each fight.'};
+if(ART.items.hinokami)ART.skills.sunResolve=ART.items.hinokami;if(ART.items.badge)ART.skills.fbResonance=ART.items.badge;
+const EXCLUSIVE_SKILLS=[SUN_RESOLVE_SKILL,FB_RESONANCE_SKILL,FLAMME_SKILL,NOTES_SKILL,DRUMS_SKILL,LIMITLESS_SKILL,INSTINCT_SKILL,ROYAL_SKILL,ENGINE_SKILL,SYNC_SKILL,LIMITER_SKILL,DISCHARGE_SKILL,SURVEY_DISCIPLINE_SKILL,TRANSPARENT_WORLD_SKILL,KURAMA_LINK_SKILL,BLOOD_PROPULSION_SKILL,ADOLLA_GRACE_SKILL,MONARCH_DOMAIN_SKILL,WHIS_TRAINING_SKILL,EQUIVALENT_REBOUND_SKILL,DARK_WISDOM_SKILL];
 ART.skills.equivalentRebound=ART.items.exchange;
 ART.skills.whisTraining={src:"art/items/goku/whis-training.jpg",focus:"50% 50%"};
 if(ART.items.odm)ART.skills.surveyDiscipline=ART.items.odm;
@@ -2575,7 +2614,7 @@ const HERO_ULT_TRIALS={
  ainz:{id:'nazarick-duel-v1',title:'The Shalltear Rematch',item:'ainz_goal',alternateItem:'ainz_spuit',skill:DARK_WISDOM_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Shalltear Bloodfallen — Nazarick rematch',opponent:{icon:'🦇',color:'#bb5b8b',series:'Overlord'},enemyItems:['ainz_spuit','shalltear_blood','shalltear_frenzy','shalltear_einherjar','shalltear_recovery'],hpBase:350,hpDay:55,shield:0,guardName:'Nazarick’s ward',lore:'Prepare for a personal rematch with Shalltear. Her own Spuit Lance is one of the mutually exclusive rewards: inspect how it heals her before committing.',pressure:'Spuit Lance heals only from damage that reaches HP: Shield denies its recovery. Blood Pool and Regeneration prolong the fight, Blood Frenzy Hastens nearby items, and Einherjar creates temporary attack pressure. Race her with prepared spells or protect your health while contracts attack. Win to choose the ultimate, her Spuit Lance, or Dark Wisdom.'},
  edward:{id:'no-easy-answer-v1',title:'No Easy Answer',item:'gate_truth',skill:EQUIVALENT_REBOUND_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Scar — alchemy trial',opponent:{icon:'✋',color:'#ad8c6b',series:'Fullmetal Alchemist: Brotherhood'},enemyItems:['scar_strike','scar_deconstruct','scar_pressure','scar_terrain','scar_strike'],hpBase:350,hpDay:60,shield:0,guardName:'Alphonse’s guard',lore:'An optional battle inspired by Edward and Alphonse’s confrontation with Scar. Prepare your alchemy before accepting: preserve protection or turn it into a faster finish.',pressure:'Two fast Close Combat items pressure your health. Deconstruction removes Shield before its hit, Pursuit Hastens Weapons, and Ground Destruction Slows two items. Rebuild protection between attacks or spend it before Deconstruction can remove it. These card labels and timings are game adaptations.'},
  goku:{id:'borrowed-strength-v1',title:'Borrowed Strength',item:'ultra_instinct',skill:WHIS_TRAINING_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,boss:'Frieza',enemy:'Frieza — Namek rematch',enemyItems:['death_beam','frieza_ki','death_beam','frieza_final','supernova'],hpBase:350,hpDay:60,shield:0,guardName:'King Kai’s guard',maxEnemyUse:{id:'supernova',limit:1,label:'Supernova'},lore:'Revisit the battle on Namek in an optional rematch. Route your attacks or gather support before Frieza can finish his second Supernova.',pressure:'Fast Death Beams pressure your health while Final Form accelerates Frieza’s board. Freeze can delay Supernova; a prepared beam or diverse Tool-supported Spirit Bomb can race the second blast.'},
- naruto:{id:'kurama-pact-v1',title:'Kurama’s Pact',item:'baryon',skill:KURAMA_LINK_SKILL,minDay:4,minLevel:5,limit:35,minHealth:.5,tier:2,boss:'Madara Uchiha',enemy:'Madara Uchiha — mindscape echo',hpBase:500,hpDay:80,shield:40,guardName:'Chakra guard',lore:'Kurama recreates a battle against Madara to test your timing and chakra control.',pressure:'Susanoo builds Shield, two Rinnegan items Freeze your board, the flame applies Burn, and the meteor is a heavy delayed strike.'},
+ naruto:{id:'kurama-pact-v1',title:'Kurama’s Pact',item:'baryon',skill:KURAMA_LINK_SKILL,minDay:4,minLevel:5,limit:35,minHealth:.5,tier:2,boss:'Madara Uchiha',enemy:'Madara Uchiha — mindscape echo',enemyItems:['susanoo','madara_fire','rinnegan','meteor_echo','rinnegan'],hpBase:650,hpDay:95,shield:40,guardName:'Chakra guard',maxEnemyUse:{id:'meteor_echo',limit:1,label:'Tengai Shinsei'},lore:'Kurama recreates a battle against Madara to test your timing and chakra control.',pressure:'Susanoo builds Shield, two Rinnegan items Freeze your board, the flame applies Burn, and Tengai Shinsei is a marked heavy strike: win before the second one lands. A shielded Friend engine or faster offense both answer.'},
  andy:{id:'victor-challenge-v1',title:'Victor’s Challenge',item:'unluck_undead',alternateItem:'unluck_ragnarok',skill:BLOOD_PROPULSION_SKILL,minDay:4,minLevel:5,limit:45,minHealth:.25,tier:2,boss:'Victor',enemy:'Victor — inner-world trial',enemyItems:['victor_cut','victor_regen','victor_will','victor_burst'],hpBase:800,hpDay:60,shield:0,guardName:'Recovery guard',lore:'Face Victor in an inner-world trial. Prove that you can control your recovery without relying on Undead’s revival.',pressure:'Victor’s regeneration ramps throughout the fight. His barrage keeps pressure on you, Ancient Will Slows your items, and a delayed burst threatens both combatants.'},
  saitama:{id:'arrive-in-time-v1',title:'Arrive in Time',item:'table_flip',skill:LIMITER_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Boros — Dominator of the Universe',opponent:{icon:'👁️',color:'#6b3fa0',series:'One-Punch Man'},enemyItems:['boros_cannon','boros_meteor','boros_regen','boros_blast','boros_blast'],hpBase:820,hpDay:100,shield:0,enemySkills:{regenOnce:.4},guardName:'Hero Association guard',maxEnemyUse:{id:'boros_cannon',limit:2,label:'Collapsing Star Roaring Cannon'},lore:'An optional battle inspired by Saitama’s fight with Boros. Line up your fourth punch and end it before the cannon fires a third time.',pressure:'Collapsing Star Roaring Cannon is a slow, heavy burst, and Meteoric Burst Hastes his whole board, so each cannon comes sooner. Alien Regeneration heals him, Energy Blasts chip away, and the first blow that would defeat Boros instead leaves him at 40% health, so one lined-up punch is not enough on its own. Shield your health through the cannons or land the fourth-punch crits fast. Labels and timings are game adaptations.'},
  misaka:{id:'break-the-calculation-v1',title:'Break the Calculation',item:'level6_shift',skill:DISCHARGE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Accelerator — Level 6 Shift Project',opponent:{icon:'↩️',color:'#d9d9e8',series:'A Certain Scientific Railgun'},enemyItems:['accel_reflect','accel_strike','accel_rubble','accel_wind','accel_rubble'],hpBase:800,hpDay:115,shield:30,guardName:'Judgment guard',maxEnemyUse:{id:'accel_strike',limit:2,label:'Vector Strike'},lore:'An optional battle inspired by Misaka’s confrontation with Accelerator. Route your discharges through his reflection before he lands a third Vector Strike.',pressure:'Vector Reflection rebuilds a large Shield every few seconds, Wind Vector Slows two of your items, and Redirected Rubble keeps chipping. Vector Strike is the marked heavy hit. Burst through between Shield windows with routed discharges, or shield yourself and time the Railgun. Labels and timings are game adaptations.'},
@@ -2585,9 +2624,13 @@ const HERO_ULT_TRIALS={
  vegeta:{id:'pride-under-pressure-v1',title:'Pride Under Pressure',item:'ultra_ego',skill:ROYAL_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Goku — Pride Under Pressure',opponent:{icon:'🟠',color:'#f08a24',series:'Dragon Ball'},enemyItems:['gk_kame','gk_guard','gk_combo','gk_kaioken','gk_combo'],hpBase:800,hpDay:115,shield:40,guardName:'Capsule Corp guard',maxEnemyUse:{id:'gk_kame',limit:2,label:'Kamehameha'},lore:'An optional rivalry match with Goku. Break his guard and prove your pride before his third Kamehameha.',pressure:'Kamehameha is the marked heavy beam, Instinctive Guard rebuilds a big Shield, Rapid Combos chip away and Kaioken Surge Hastes his whole board. Crit often enough to break the guard, or hold back for one perfectly charged Final Flash. Labels and timings are game adaptations.'},
  luffy:{id:'hold-the-rooftop-v1',title:'Hold the Rooftop',item:'gear5',skill:DRUMS_SKILL,minDay:4,minLevel:5,limit:38,minHealth:.35,tier:2,enemy:'Kaido — Onigashima Rooftop',opponent:{icon:'🐲',color:'#3d5a80',series:'One Piece'},enemyItems:['kd_bagua','boro_breath','dragon_scales','kd_drunk'],hpBase:1250,hpDay:172,shield:30,guardName:'Straw Hat guard',maxEnemyUse:{id:'kd_bagua',limit:2,label:'Thunder Bagua (full swing)'},lore:'An optional rematch inspired by Luffy’s rooftop battle with Kaido. Keep your rhythm and bring him down before his third full-swing Thunder Bagua.',pressure:'Thunder Bagua (full swing) is a slow, marked heavy blow. Dragon Scales rebuild a big Shield, Boro Breath burns you, and Drunken Dragon Bagua Hastes his Weapons and heals him. Protect your rhythm or out-pace him with haste and food. Labels and timings are game adaptations.'},
  gojo:{id:'lesson-in-restraint-v1',title:'A Lesson in Restraint',item:'unlimited_void',skill:LIMITLESS_SKILL,minDay:4,minLevel:5,limit:35,minHealth:.35,tier:2,enemy:'Jogo — Disaster Curse',opponent:{icon:'🌋',color:'#c0502a',series:'Jujutsu Kaisen'},enemyItems:['jogo_eruption','jogo_insects','jogo_rock','jogo_heat','jogo_insects'],hpBase:1100,hpDay:155,shield:0,guardName:'Jujutsu High guard',maxEnemyUse:{id:'jogo_eruption',limit:2,label:'Maximum: Meteor'},lore:'An optional battle inspired by Gojo’s lesson to Jogo. Control the eruptions and finish him before his third Maximum: Meteor.',pressure:'Maximum: Meteor is a marked eruption that burns, Ember Insects and Lava Rock keep the Burn going, and Volcanic Heat Hastes his whole board. Slow and freeze the volcano, or shield up and release a prepared Purple. Labels and timings are game adaptations.'},
- shinra:{id:'company8-sparring-v1',title:'Company 8 Sparring',item:'adolla_burst',skill:ADOLLA_GRACE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Arthur Boyle — Company 8 sparring',opponent:{icon:'⚔️',color:'#54b7ed',series:'Fire Force'},enemyItems:['shinra_arthur','bunker_gear','shinra_maki','shinra_vulcan','shinra_iris'],hpBase:450,hpDay:65,shield:25,guardName:'Fire Soldier guard',lore:'Company 8 tests your flame control. Arthur duels with Maki, Iris and Vulcan supporting his board. This is an optional training encounter.',pressure:'Vulcan accelerates Iris; Bunker Gear and Maki build Shield while Excalibur and flame spirits pressure your health. Break the defensive engine with Burn or build a charged Heat finisher.'},
+ frieren:{id:'weigh-the-mana-v1',title:'Weigh the Mana',item:'thousand_years',skill:FLAMME_SKILL,minDay:4,minLevel:5,limit:36,minHealth:.35,tier:2,enemy:'Aura — Scale of Obedience',opponent:{icon:'⚖️',color:'#b07cc6',series:'Frieren'},enemyItems:['aura_weigh','aura_soldier','aura_guillotine','aura_rally','aura_soldier'],hpBase:850,hpDay:120,shield:0,guardName:'Hero party guard',maxEnemyUse:{id:'aura_weigh',limit:2,label:'Scale of Obedience (weighing)'},lore:'An optional battle inspired by Frieren’s duel with Aura the Guillotine. Read her magic, hide your mana and win before the scale is weighed a third time.',pressure:'The weighing Scale of Obedience is a marked blow that also Slows your whole board. Headless Soldiers chip constantly, the Guillotine hits hard, and the Undying Army heals Aura and Hastes her Weapons. Analysis grows as her items fire; concealed mana and Stark’s tempo help you strike first. Labels and timings are game adaptations.'},
+ maomao:{id:'resurrection-drug-v1',title:'The Resurrection Drug',item:'medicine_chest',skill:NOTES_SKILL,minDay:4,minLevel:5,limit:37,minHealth:.35,tier:2,enemy:'Suirei — Shi Clan Fortress',opponent:{icon:'⚗️',color:'#5f7f6a',series:'The Apothecary Diaries'},enemyItems:['suirei_drug','shi_musket','suirei_needle','suirei_incense','shi_musket'],hpBase:1300,hpDay:180,shield:0,guardName:'Rear palace guard',maxEnemyUse:{id:'suirei_drug',limit:2,label:'Resurrection Drug'},lore:'An optional battle inspired by the Shi clan fortress arc. Out-dose a fellow apothecary and finish her before she takes the Resurrection Drug a third time.',pressure:'The Resurrection Drug is a marked heal and Shield. Shi Clan Muskets hit hard, the Hidden Needle and Poisoned Incense poison you and Haste her Weapons. Stack poison faster than she heals, or outlast her with remedies. Labels and timings are game adaptations.'},
+ tanjiro:{id:'upper-moon-three-v1',title:'Upper Moon Three',item:'thirteenth',skill:SUN_RESOLVE_SKILL,minDay:4,minLevel:5,limit:37,minHealth:.35,tier:2,enemy:'Akaza — Upper Moon Three',opponent:{icon:'👊',color:'#c2416b',series:'Demon Slayer'},enemyItems:['akaza_annihilation','akaza_disorder','akaza_regen','akaza_compass','akaza_disorder'],hpBase:850,hpDay:120,shield:0,guardName:'Demon Slayer Corps guard',maxEnemyUse:{id:'akaza_annihilation',limit:2,label:'Destructive Death: Annihilation Type'},lore:'An optional battle inspired by the Mugen Train dawn fight. Read Akaza’s Compass Needle and cut him down before his third Annihilation Type.',pressure:'Annihilation Type is a marked heavy strike, Air Type: Disorder sends repeated blows, Compass Needle Hastes his Weapons and Upper Moon Regeneration heals him. Burn cuts through regeneration; a fast opening crit or a Friend combo can also win. Labels and timings are game adaptations.'},
+ ichigo:{id:'final-fullbring-v1',title:'Ginjo’s Final Fullbring',item:'mugetsu',skill:FB_RESONANCE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Kugo Ginjo — Final Fullbring',opponent:{icon:'⚔️',color:'#b0a097',series:'Bleach'},enemyItems:['ginjo_counter','ginjo_cross','ginjo_armor','tsukishima_book'],hpBase:880,hpDay:125,shield:30,guardName:'Substitute guard',maxEnemyUse:{id:'ginjo_counter',limit:2,label:'Stolen Getsuga'},lore:'An optional rematch inspired by the Lost Agent finale. Break Ginjo’s replenishing armor and finish him before his third Stolen Getsuga.',pressure:'Stolen Getsuga is a marked heavy counter, the Final Fullbring Armor rebuilds Shield every few seconds, the Book of the End Slows your board, and the Cross of Scaffold keeps slashing. Fullbring support, a Bankai burst or a Hollow push can all win. Labels and timings are game adaptations.'},
+ shinra:{id:'company8-sparring-v1',title:'Company 8 Sparring',item:'adolla_burst',skill:ADOLLA_GRACE_SKILL,minDay:4,minLevel:5,limit:34,minHealth:.35,tier:2,enemy:'Arthur Boyle — Company 8 sparring',opponent:{icon:'⚔️',color:'#54b7ed',series:'Fire Force'},enemyItems:['arthur_plasma','bunker_gear','shinra_maki','shinra_vulcan','shinra_iris'],hpBase:720,hpDay:100,shield:35,guardName:'Fire Soldier guard',maxEnemyUse:{id:'arthur_plasma',limit:1,label:'Excalibur · Plasma Burst'},lore:'Company 8 tests your flame control. Arthur duels with Maki, Iris and Vulcan supporting his board. This is an optional training encounter.',pressure:'Vulcan accelerates Iris; Bunker Gear and Maki build Shield while Excalibur’s Plasma Burst is a marked heavy strike: break the defense before the second one. Burn or a charged Heat finisher both answer.'},
  levi:{id:'beast-titan-v1',title:'Bring Down the Beast',item:'strongest',skill:SURVEY_DISCIPLINE_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,boss:'Zeke Yeager',enemy:'Zeke Yeager — Beast Titan trial',enemyItems:['zeke_volley','pure_titans','zeke_scream','beast_roar','boulder'],hpBase:1200,hpDay:144,shield:0,guardName:'Survey Corps guard',maxEnemyUse:{id:'zeke_volley',limit:3,label:'Crushed-Rock Volley'},lore:'A Survey Corps expedition corners the Beast Titan. Cut through his Titans and bring him down before his marked volleys break the formation.',pressure:'Crushed-Rock Volley is a marked three-hit throw: Shield absorbs it, and a fast kill denies the fourth. Royal Scream Hastes his whole board, Disaster Roar Freezes one of your items, and the Titan Horde and Boulder Barrage keep chip pressure on. Fast flanking crits or a protected Thunder Spear both answer. Labels and timings are game adaptations.'},
- jinwoo:{id:'shadow-command-v1',title:'Shadow Army Trial',item:'arise',skill:MONARCH_DOMAIN_SKILL,minDay:4,minLevel:5,limit:40,minHealth:.35,tier:2,enemy:'Igris — shadow army drill',opponent:{icon:'⚔️',color:'#8e67d5',series:'Solo Leveling'},enemyItems:['shadow_igris','shadow_iron','shadow_tank','shadow_tusk'],hpBase:500,hpDay:65,shield:25,guardName:'Shadow guard',lore:'Igris leads your shadows in a test of command. Defeat the armored formation before the drill overwhelms you to master a stronger extraction or the domain.',pressure:'Iron supplies Shield, Tank Slows your board, and Igris and Tusk deliver repeated hits and Burn. Knight Killer bypasses Shield; a supported dagger or Shadow formation can also win the damage race.'}
+ jinwoo:{id:'shadow-command-v1',title:'Shadow Army Trial',item:'arise',skill:MONARCH_DOMAIN_SKILL,minDay:4,minLevel:5,limit:34,minHealth:.35,tier:2,enemy:'Igris — shadow army drill',opponent:{icon:'⚔️',color:'#8e67d5',series:'Solo Leveling'},enemyItems:['igris_crimson','shadow_igris','shadow_iron','shadow_tank'],hpBase:900,hpDay:125,shield:40,guardName:'Shadow guard',maxEnemyUse:{id:'igris_crimson',limit:1,label:'Crimson Knight Strike'},lore:'Igris leads your shadows in a test of command. Defeat the armored formation before the drill overwhelms you to master a stronger extraction or the domain.',pressure:'Iron supplies Shield, Tank Slows your board and Igris strikes repeatedly; the Crimson Knight Strike is a marked heavy blow, so win before the second one. Knight Killer bypasses Shield; a supported dagger or Shadow formation can also win the race.'}
 };
 function heroTrialConfig(){return HERO_ULT_TRIALS[S.hero.id]}
 function freshHeroTrial(c){return {version:1,id:c.id,stage:'idle',prep:null,enemy:null,enemyDay:null,backPhase:'choose'}}
@@ -3304,7 +3347,7 @@ function bestiaryHTML(){
     return `<div class="ctile bent on"><div style="font-size:40px">${icon}</div><div class="cname">${esc(name)}</div><div class="small"><i>${esc(series)}</i> · ${kind}</div><div class="small">${esc(pilot?pilot.strat:strat)}</div>${pilot?`<div class="small">Example: days 4–6, regular. ${monsterAbilityText(pilot).map(esc).join(' ')}</div>`:''}
       <div class="tags" style="justify-content:center">${(pilot?pilot.weak:weak).map(w=>`<span class="tag weak">${esc(w)}</span>`).join('')}</div>
       <div class="mini">${items.map(it=>`<span title="${esc(ITEMS[it.id].name)}">${ITEMS[it.id].icon}</span>`).join('')}</div>
-      <div class="small">Record: <b style="color:#7dff9a">${r.w}W</b> · <b style="color:#ff7a7a">${r.l}L</b></div></div>`};
+      <div class="small">Record: <b style="color:#7dff9a">${r.w}W</b> · <b style="color:#ff7a7a">${r.l}L</b></div>${TROPHIES[name]&&ITEMS[TROPHIES[name].item]?`<div class="small">🏆 Trophy: ${ITEMS[TROPHIES[name].item].icon} ${esc(ITEMS[TROPHIES[name].item].name)} · ${esc(trophyCondText(TROPHIES[name]))} · ${Math.round(TROPHIES[name].chance*100)}% chance</div>`:''}</div>`};
   return `<div class="wrap"><h1 class="title" style="font-size:clamp(40px,8vw,72px)">Bestiary</h1><div class="sub">${cnt} of ${total} discovered. Learn their builds, then counter them.</div>
    <div class="lbl"><span>BOSSES</span></div><div class="cgrid wide">${BOSSES.map(([n,i,c,sr])=>entry(n,i,sr,BOSS_DEFS[n].strat,BOSS_DEFS[n].weak,BOSS_DEFS[n].b,c,'Boss')).join('')}</div>
    <div class="lbl"><span>MONSTERS</span></div><div class="cgrid wide">${MON_DEFS.map(m=>entry(m.name,m.icon,m.series,m.strat,m.weak,m.b,'#6b5b95','Monster')).join('')}</div>
@@ -3739,13 +3782,36 @@ function rhythmAfterUse(me,it){
  }
  if(z===1||z===3)me.lastWSize=z;
 }
+function analysisCount(s){return Math.min(s.sk&&s.sk.flamme===1?7:5,(s.sk&&s.sk.flamme===1?2:0)+(s.analyzed?s.analyzed.size:0))}
+function studyBonus(me,foe,it,fx){let b=0;
+ if(fx.t==='dmg'&&me.heroId==='frieren'&&it.def.tags.includes('Spell'))b+=2*analysisCount(me);
+ if(fx.t==='dmg'&&it.castOpening&&it.castConceal)b+=it.castConceal;
+ if(fx.t==='poison'&&it.castOpening&&it.castDosed)b+=2*VAL_MULT[it.inst.tier];
+ if(fx.t==='heal'&&me.heroId==='maomao'&&foe)b+=Math.min(6,Math.floor((foe.poison||0)/4));
+ return b}
+function testedDose(me){if(me.heroId!=='maomao'||(me.doseUses||0)>=4)return;me.doseUses=(me.doseUses||0)+1;me.doseReady=true;log(me,`🍵 Tested dose ${me.doseUses}/4: next Toxin +2 poison`);
+ if(me.sk.apNotes===1&&(me.notesUses||0)<3){me.notesUses=(me.notesUses||0)+1;const h=Math.round(8*(1+(me.sk.healMult||0)));heal(me,h);log(me,`📓 Apothecary's Notes ${me.notesUses}/3: heal ${h}`)}}
+function studyAfterUse(me,foe,it){
+ if(it.def.conceal){me.concealBank=it.def.conceal*VAL_MULT[it.inst.tier];log(me,`🌫️ Mana concealed: next damaging Spell +${me.concealBank}`)}
+ if(foe&&foe.heroId==='frieren'){foe.analyzed=foe.analyzed||new Set();const n0=analysisCount(foe);foe.analyzed.add(it.def.id);const n1=analysisCount(foe);if(n1>n0)log(foe,`🔍 Analysis ${n1}: ${it.def.name}`)}
+}
+function bossBonus(me,foe,it,fx){let b=0;
+ if(fx.perFrozen&&foe)b+=fx.perFrozen*foe.items.filter(o=>o.freeze>0).length;
+ if(fx.plusShield)b+=Math.round(Math.max(0,me.shield)*fx.plusShield);
+ if(fx.lowBonus&&me.hp<=me.max*.5)b+=Math.round(fxVal(fx,it.inst,me.tagCount,me)*fx.lowBonus);
+ return b}
+function bossText(fx){return (fx.perFrozen?` (+${fx.perFrozen} for each of your frozen items)`:'')+(fx.plusShield?` (+${Math.round(fx.plusShield*100)}% of his current Shield)`:'')+(fx.lowBonus?` (+${Math.round(fx.lowBonus*100)}% while he is at half health or below)`:'')}
+function veteranAfterUse(me,it){
+ if(me.heroId==='tanjiro'&&me.sk.sunResolve===1&&it.def.fx.some(f=>f.t==='burn')&&(me.sunResolveUses||0)<3){me.sunResolveUses=(me.sunResolveUses||0)+1;const h=Math.round(5*(1+(me.sk.healMult||0)));heal(me,h);log(me,`🌞 Sun Breathing Resolve ${me.sunResolveUses}/3: heal ${h}`)}
+ if(me.heroId==='ichigo'&&me.sk.fbResonance===1&&it.def.tags.includes('Apparel')&&(me.fbResonanceUses||0)<3){me.fbResonanceUses=(me.fbResonanceUses||0)+1;const W=targets(me,it,'adj').filter(isW);for(const w of W)chargeCombatItem(w,.5);log(me,`📛 Fullbring Resonance ${me.fbResonanceUses}/3: ${W.length} Weapon${W.length===1?'':'s'} charged 0.5s`)}
+}
 function applyFx(me,foe,it,fx,m){
   if(fx.aboveHalfOnly&&!(it.castOpening&&it.castAboveHalf))return '';
   if(fx.belowHalfOnce){if(!it.castOpening||!it.castBelowHalf||it.belowHalfDone)return '';it.belowHalfDone=true}
   if(fx.t==='prideMark'){const ws=me.items.filter(isW).sort((a,b)=>b.slot-a.slot);if(!ws.length)return '';ws[0].prideCrit=Math.max(ws[0].prideCrit||0,fx.v);return `${ws[0].def.name}: next activation +${Math.round(fx.v*100)}% crit (does not stack)`}
   if((fx.lowOnly&&!it.castLow)||(fx.lowSkip&&it.castLow))return '';
   if((fx.cadence&&!(it.castOpening&&it.cadenceCount===fx.cadence))||(fx.onDischarge&&!(it.castOpening&&it.discharge)))return '';
-  const v=fxVal(fx,it.inst,me.tagCount,me)+placementBonus(me,it,fx)+(it.castOpening&&fx.afterSmall&&it.castAfterSmall?fx.afterSmall*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.markBonus&&it.castBlueMarked?fx.markBonus*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.seqBonus&&it.castPurpleSeq?fx.seqBonus*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.aboveBonus&&it.castAboveHalf?fx.aboveBonus*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.afterHeal&&it.castAfterHeal?fx.afterHeal*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.afterSelf&&it.castAfterSelf?fx.afterSelf*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.syncBonus&&(me.syncUntil||0)>F.ticks?fx.syncBonus*VAL_MULT[it.inst.tier]:0)+(fx.chargedBonus&&it.castPrepared?fx.chargedBonus*VAL_MULT[it.inst.tier]:0)+(fx.fourthBonus&&it.fourthPunch&&it.castOpening?fx.fourthBonus*VAL_MULT[it.inst.tier]:0)+(fx.donorBonus?(it.castDonors||0)*fx.donorBonus*VAL_MULT[it.inst.tier]:0);
+  const v=fxVal(fx,it.inst,me.tagCount,me)+placementBonus(me,it,fx)+bossBonus(me,foe,it,fx)+studyBonus(me,foe,it,fx)+(it.castOpening&&fx.afterSmall&&it.castAfterSmall?fx.afterSmall*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.markBonus&&it.castBlueMarked?fx.markBonus*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.seqBonus&&it.castPurpleSeq?fx.seqBonus*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.aboveBonus&&it.castAboveHalf?fx.aboveBonus*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.afterHeal&&it.castAfterHeal?fx.afterHeal*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.afterSelf&&it.castAfterSelf?fx.afterSelf*VAL_MULT[it.inst.tier]:0)+(it.castOpening&&fx.syncBonus&&(me.syncUntil||0)>F.ticks?fx.syncBonus*VAL_MULT[it.inst.tier]:0)+(fx.chargedBonus&&it.castPrepared?fx.chargedBonus*VAL_MULT[it.inst.tier]:0)+(fx.fourthBonus&&it.fourthPunch&&it.castOpening?fx.fourthBonus*VAL_MULT[it.inst.tier]:0)+(fx.donorBonus?(it.castDonors||0)*fx.donorBonus*VAL_MULT[it.inst.tier]:0);
   switch(fx.t){
     case 'dmg':{const d=Math.round((v+trainedWeaponBonus(me,it)+(fx.readyBonus&&it.castReady?fx.readyBonus*VAL_MULT[it.inst.tier]:0))*m*weaponDamageMultiplier(me,it))+(it.castOpening?it.spellSealBonus||0:0);it.spellSealBonus=0;damage(foe,d,'hit',m>1,!!fx.pierce);if(me===F.a&&S)S.maxHit=Math.max(S.maxHit||0,d);it.dealt+=d;return `${d} dmg${fx.pierce?' (ignores Shield)':''}`}
     case 'seal':{bankSeal(me,fx.v);return `Seals ${me.seals}/3`}
@@ -3799,7 +3865,7 @@ function applyFx(me,foe,it,fx,m){
     case 'regen':{const r=Math.round(v*m);me.regen+=r;return `+${r} regen`}
     case 'burn':{const b=Math.round((v+(me.sk.burnBonus||0))*m);foe.burn+=b;if(!F.skipping){pop(foe,'🔥+'+b,'burn');VFX.burn(avEl(foe))}it.dealt+=b*2;return `${b} burn`}
     case 'poison':{const p=Math.round((v+(me.sk.poisonBonus||0))*m);foe.poison+=p;if(p>0&&me.sk.curseShelter&&!me.curseSheltered){me.curseSheltered=true;me.shield+=me.sk.curseShelter;log(me,`Curtain: +${me.sk.curseShelter} Shield (once per fight)`)}if(!F.skipping){pop(foe,'☠+'+p,'poison');VFX.poison(avEl(foe))}it.dealt+=p*3;return `${p} poison`}
-    case 'selfdmg':{const sv=Math.round(v*(me.pas&&me.pas.self||1)*(fx.lowHalf&&it.castLow?.5:1));me.selfTotal=(me.selfTotal||0)+sv;damage(me,sv,'self');if(me.pas&&me.pas.onSelf)me.pas.onSelf(me);return `−${sv} self`}
+    case 'selfdmg':{const sv=Math.round(v*(me.pas&&me.pas.self||1)*(fx.lowHalf&&it.castLow?.5:1));me.selfTotal=(me.selfTotal||0)+sv;damage(me,sv,'self');testedDose(me);if(me.pas&&me.pas.onSelf)me.pas.onSelf(me);return `−${sv} self`}
     case 'haste':{const T=targets(me,it,fx.to);for(const o of T)o.haste=Math.min(6,o.haste+fx.d);return T.length?`haste ${T.length}`:''}
     case 'charge':{const T=targets(me,it,fx.to).filter(o=>!fx.smallW||(isW(o)&&o.def.size===1));for(const o of T)chargeCombatItem(o,fx.v);return T.length?`charge ${T.length}`:''}
     case 'slow':{const T=pickEnemy(foe,fx.n,'slow');for(const o of T){o.slow+=fx.d;if(!F.skipping){const el=cardEl(foe,o);if(el){const r=el.getBoundingClientRect();VFX.ring(r.left+r.width/2,r.top+r.height/2,'#b07cff',8,50,.4,4)}}}return T.length?`slow ${T.length}`:''}
@@ -3829,6 +3895,8 @@ function useItem(me,foe,it){
   readTransparentWorld(foe,it);
   it.fired=F.ticks;it.uses++;
   it.startedWithoutShield=me.shield<=0;
+  it.castConceal=0;if(it.def.tags.includes('Spell')&&it.def.fx.some(f=>f.t==='dmg')&&me.concealBank>0){it.castConceal=me.concealBank;me.concealBank=0}
+  it.castDosed=it.def.tags.includes('Toxin')&&it.def.fx.some(f=>f.t==='poison')&&!!me.doseReady;if(it.castDosed)me.doseReady=false;
   it.castAfterSmall=isW(it)&&me.lastWSize===1;
   it.castBlueMarked=!!it.def.blueConsumer&&!!me.blueMark;if(it.castBlueMarked)me.blueMark=false;
   it.castPurpleSeq=!!it.def.fx.some(f=>f.seqBonus)&&!!it.seenBlue&&!!it.seenRed;if(it.def.fx.some(f=>f.seqBonus)){it.seenBlue=false;it.seenRed=false}
@@ -3880,6 +3948,8 @@ function useItem(me,foe,it){
   if(me.sk.antFrenzy&&it.def.id==='ant_swarm'&&(me.antFrenzyUses||0)<3){me.antFrenzyUses=(me.antFrenzyUses||0)+1;for(const w of me.items)if(w.def.tags.includes('Weapon'))w.haste=Math.min(6,w.haste+me.sk.antFrenzy);log(me,`Swarm momentum ${me.antFrenzyUses}/3: Weapons gain ${me.sk.antFrenzy}s Haste`)}
   if(me.heroId==='denji'&&me.sk.engineRestart===1&&(me.healedTotal||0)>it.healStart&&(me.engineUses||0)<3){me.engineUses=(me.engineUses||0)+1;const sh=Math.round(8*(1+(me.sk.shieldMult||0)));me.shield+=sh;log(me,`⚙️ Engine Restart ${me.engineUses}/3: +${sh} Shield`)}
   rhythmAfterUse(me,it);
+  studyAfterUse(me,foe,it);
+  veteranAfterUse(me,it);
   triggerKuramaLink(me,it);
   triggerBloodPropulsion(me,it);
   if(P.onUse)P.onUse(me,foe,it);
@@ -3989,6 +4059,10 @@ function updateCombat(){
       s.heroId==='deku'?`<span style="color:#36b04f" title="Above 50% HP: Full Cowl Shields. At 50% or below: +20% Weapon damage and Blackwhip's one-time Shield.">💚 ${s.hp>s.max*.5?'Steady (above 50%)':'Plus Ultra (50% or below)'}</span>`:'',
       s.heroId==='luffy'?`<span style="color:#e0443f" title="Small (1-slot) Weapon then large (3-slot) Weapon: +10 Shield, first 4 times.">🎈 Rhythm ${s.rhythmUses||0}/4${s.lastWSize===1?' · large next!':''}</span>`:'',
       s.heroId==='gojo'?`<span style="color:#4aa3ff" title="Blue marks the next Red or Purple. Purple gains +40 after both Blue and Red.">🔵 ${s.blueMark?'Blue mark ready':'No mark'}</span>`:'',
+      s.heroId==='frieren'?`<span style="color:#c8b6ff" title="Each different enemy item that activates is analyzed. Damaging Spells +2 per analyzed item.">🔍 Analysis ${analysisCount(s)}${s.concealBank?` · 🌫️ +${s.concealBank} hidden`:''}</span>`:'',
+      s.heroId==='maomao'?`<span style="color:#7fa66a" title="Self-damage readies a dose: next Toxin +2 poison (first 4). Heals +1 per 4 enemy poison (max +6).">🍵 Dose ${s.doseUses||0}/4${s.doseReady?' ready':''}</span>`:'',
+      s.heroId==='tanjiro'&&s.sk.sunResolve===1?`<span style="color:#ffb347" title="${esc(SUN_RESOLVE_SKILL.desc)}">🌞 Sun Breathing Resolve ${s.sunResolveUses||0}/3</span>`:'',
+      s.heroId==='ichigo'&&s.sk.fbResonance===1?`<span style="color:#d9d0c7" title="${esc(FB_RESONANCE_SKILL.desc)}">📛 Fullbring Resonance ${s.fbResonanceUses||0}/3</span>`:'',
       s.heroId==='goku'&&s.sk.whisTraining===1?`<span style="color:#ffe04a" title="${esc(WHIS_TRAINING_SKILL.desc)}">⚡ Whis's Training ${s.whisTrainingUses||0}/3</span>`:''].join('');
     s.items.forEach((it,i)=>{
       const el=$(`#c-${s.key}-${i}`);if(!el)return;

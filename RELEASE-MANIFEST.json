@@ -1,6 +1,6 @@
 {
-  "source": "Existing live gameplay with approved Shinra artwork",
-  "sourceSha256": "6f74ea5d7022115af39a72cfae6a3b3a019a291be72bbf79a48c7aa2e61e9f6a",
+  "source": "Canonical Anime Bazaar complete gameplay and selected artwork",
+  "sourceSha256": "1cf2aa7ed794c07496f0efeb30366ca32dff611261479ba2a32dda1a0ca13680",
   "files": [
     {
       "name": "ainz-preview.html",
@@ -864,8 +864,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 495345,
-      "sha256": "6f74ea5d7022115af39a72cfae6a3b3a019a291be72bbf79a48c7aa2e61e9f6a"
+      "bytes": 509418,
+      "sha256": "1cf2aa7ed794c07496f0efeb30366ca32dff611261479ba2a32dda1a0ca13680"
     },
     {
       "name": "recent-artwork.html",
@@ -890,5 +890,15 @@
       "Arthur Excalibur: reviewed source and sword-focused framing"
     ],
     "gameplay_changed": false
+  },
+  "gameplay_release": {
+    "batches": [
+      "Frieren/Maomao analysis and tested doses",
+      "Boss pressure tuning",
+      "Veteran hero trials",
+      "Five additional enemy trophies and Bestiary details"
+    ],
+    "approval_reference": "recall:4092",
+    "canonical_html_identical": true
   }
 }
