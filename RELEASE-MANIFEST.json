@@ -1,6 +1,6 @@
 {
-  "source": "Latest completed canonical gameplay and selected Shinra artwork",
-  "sourceSha256": "5d7e43cd6ebad0b30cd33cbfb31438fe0b030dac385f5a12d9f67d81218308fa",
+  "source": "Completed Claude gameplay through request #21 plus approved artwork",
+  "sourceSha256": "246ae5c0832ad54eb234a806baa3c20446999880112a954f717a9cb21a14d76c",
   "files": [
     {
       "name": "ainz-preview.html",
@@ -126,11 +126,6 @@
       "name": "art/heroes/jinwoo.jpg",
       "bytes": 341978,
       "sha256": "d6d62da2a523f2b06a8035eff6de2a94bf5b3ace039355ca34abd9014a62ae7e"
-    },
-    {
-      "name": "art/heroes/levi-final-season-ep7.png",
-      "bytes": 599651,
-      "sha256": "3a5345a664ff05ecf22004ca4340c6df899b6441c7866dfca2f231ce68dffc01"
     },
     {
       "name": "art/heroes/luffy.jpg",
@@ -778,6 +773,11 @@
       "sha256": "ce86c40cd827a5785c059eb94eca72749b7b096a487bc9507d2ad07e5577b76a"
     },
     {
+      "name": "art/review/BZ-HERO-FRAMES-20261020/levi.jpg",
+      "bytes": 55581,
+      "sha256": "e55fe0c4611aa09df4637ea0f278c201a74d4e98c1466eaefeef61f1314f8861"
+    },
+    {
       "name": "art/review/BZ-ICON-CHARACTERS-01/fuuko_official_character2_main.png",
       "bytes": 286054,
       "sha256": "0fa3d79eb1f815661264bdd0b7f4e0b36ccdcfd2e6d0fae52d5fab1815658f53"
@@ -786,6 +786,111 @@
       "name": "art/review/BZ-ICON-CHARACTERS-01/juiz_official_character6_main.png",
       "bytes": 336609,
       "sha256": "b37f564e1ce03bd4626b5e9fa04ce5408b12d0033de4601c5b16d29296c32d29"
+    },
+    {
+      "name": "art/review/BZ-LEVI-ART-20261028/assets/levi_survey_salute-27bc82b9da.jpg",
+      "bytes": 200334,
+      "sha256": "4908ba1e7141c31035230cc5a624afdced9f43a8c36c395c62d1ab5fdbae2a17"
+    },
+    {
+      "name": "art/review/BZ-LEVI-TROPHIES-20261029/boulder.jpg",
+      "bytes": 102142,
+      "sha256": "d88b43c550c634939579f6a0909e33d1c4b7ebcf575f206a8ce5a05fe9ba7965"
+    },
+    {
+      "name": "art/review/BZ-LEVI-TROPHIES-20261029/kisame_same.jpg",
+      "bytes": 244657,
+      "sha256": "bb8888c1d91bb44220be975fd196dccc9dd844137a6726988402a723fcde2e69"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/accel_reflect-clear-action.png",
+      "bytes": 224972,
+      "sha256": "94104a801030f4106a312c586c51620ea3dfac2ddf9fa51413f6a4826f93ad7c"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/accel_rubble-clear-action.png",
+      "bytes": 275321,
+      "sha256": "6cc94eb9646afbd5ab5799b272015a0470baea832e7b90b937930bfb782ea888"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/accel_strike-clear-action.png",
+      "bytes": 209954,
+      "sha256": "0b3fa974e3cf8d7619f5561cdb7eb9375cf5e0e886e41f8e9fc077bc0bc0974c"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/accel_wind-vortex.png",
+      "bytes": 381932,
+      "sha256": "638e11034b409c4d0b80a719cf403dc81f70f0d31b092239f47ab0be4db6162e"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/calibration-electric-flow.png",
+      "bytes": 315639,
+      "sha256": "40bdce6673eac9c63647cff223d04f53ef9d5c3e1f4284f53d3b75c4684d6eb5"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/electro_bolt.png",
+      "bytes": 170617,
+      "sha256": "7e30de5e66677012dd183f53ba379800d188c3f424250c93c1dd5401518c1009"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/iron_sand-action.png",
+      "bytes": 235221,
+      "sha256": "3c749303baa9306cc647473d08c4a53be8ce41d5b190ed4d4a9fb1e3e8b2cc97"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/lightning_spear-clear-action.png",
+      "bytes": 252959,
+      "sha256": "4e2adfc2bd8bb6a9046c3de35b456adca8f9413ab696cb08fc3c6714893a2b21"
+    },
+    {
+      "name": "art/review/BZ-MISAKA-ACCELERATOR-20261029/railgun-coin-forward.png",
+      "bytes": 178654,
+      "sha256": "a070b4c5aa6bc5eb44272375abed8bab63debc8e27ffb1d53f3579821d06b708"
+    },
+    {
+      "name": "art/review/BZ-NEXT-ART-20261029/boros-cannon-1920.jpg",
+      "bytes": 94446,
+      "sha256": "dbf7a7a72705743490290da82fdbe7b1963679018a80feba055997376e875c06"
+    },
+    {
+      "name": "art/review/BZ-NEXT-ART-20261029/boros_meteor.webp",
+      "bytes": 117908,
+      "sha256": "d09c6a98158d9b182e4a06afabb5837696ed149d15cf28347356ff690a935d45"
+    },
+    {
+      "name": "art/review/BZ-NEXT-ART-20261029/boros_regen-refined-frame62.png",
+      "bytes": 287449,
+      "sha256": "042475fca39430b66fbb9f81d5681caac3261889229adc85dca290ecf3f32897"
+    },
+    {
+      "name": "art/review/BZ-NEXT-ART-20261029/heroForFun.jpg",
+      "bytes": 133314,
+      "sha256": "12006d57a72b22edf0d6761c22eccf3efdd19f32910d5ea8a03cbb6674b1e2b8"
+    },
+    {
+      "name": "art/review/BZ-NEXT-ART-20261029/lanza-horizontal-frame102.png",
+      "bytes": 182999,
+      "sha256": "8bb71042702abe94d9f2613fbf9a7b04f6fd2e53204fa38478c49d7edaa445ac"
+    },
+    {
+      "name": "art/review/BZ-SHINRA-ART-20261028/assets/adolla-burst-candidate.jpg",
+      "bytes": 97129,
+      "sha256": "2c458b3f8393b93b4cbf6270294a5ede72f788dfff7487dcc1c67815fee6c1e6"
+    },
+    {
+      "name": "art/review/BZ-SHINRA-ART-20261028/assets/corna-hellfire.jpg",
+      "bytes": 172706,
+      "sha256": "dda2bc1a86a207c59b728dd99a3f13363ef4a81fc39655d849f2f48e732f34bb"
+    },
+    {
+      "name": "art/review/BZ-SHINRA-SHO-20261029/adolla-leg-effect.webp",
+      "bytes": 133560,
+      "sha256": "9e64766898dbb11a5430c42ead116cc8e2fef54dee46e41cfa33a2669bf3eca7"
+    },
+    {
+      "name": "art/review/BZ-SHINRA-SHO-20261029/rapid.jpg",
+      "bytes": 106513,
+      "sha256": "f3703be967cc906c125821f64762d5e8aba6eb64d03f70ff2a975b8bc74b0d48"
     },
     {
       "name": "art/review/BZ-SKILL-ART-01/burnBonus_amaterasu.jpg",
@@ -864,8 +969,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 523754,
-      "sha256": "5d7e43cd6ebad0b30cd33cbfb31438fe0b030dac385f5a12d9f67d81218308fa"
+      "bytes": 574461,
+      "sha256": "246ae5c0832ad54eb234a806baa3c20446999880112a954f717a9cb21a14d76c"
     },
     {
       "name": "recent-artwork.html",
@@ -874,41 +979,9 @@
     },
     {
       "name": "shop-preview.html",
-      "bytes": 107589,
-      "sha256": "1d4b4a0d054c4fe384440d4eca4a15686ba1c6095600c50b8ec753ff1b1882a5"
+      "bytes": 108999,
+      "sha256": "097e0064f7e214e1715219e41abd77779b76c41ab3304862b1828e083ecf6ba2"
     }
   ],
-  "hosting": "GitHub Pages static host",
-  "deployment_adjustments": [
-    "Disable server-dependent automatic friend updates on github.io; preserve manual save codes."
-  ],
-  "artwork_release": {
-    "base_commit": "2872d80be69894502cd1c606260c1ba6c280e419",
-    "changes": [
-      "Adolla Link: Woman in Black connection scene",
-      "Adolla Grace: wide Evangelist and Sho vision",
-      "Arthur Excalibur: reviewed source and sword-focused framing"
-    ],
-    "gameplay_changed": false
-  },
-  "gameplay_release": {
-    "base_commit": "cd7d6b093f18aeca703e4fa28410b7e67547fc69",
-    "batches": [
-      "All earlier character reworks and trophies",
-      "Calamity encounters and installed Maomao adjustment",
-      "Skill rarity tiers, diminishing duplicates and skill balance",
-      "Power-matched optional fights, catch-up and stored ghost selection",
-      "Hero balance pass and build-path trial audit",
-      "Elite consistency and opt-in Heat difficulty",
-      "Saitama timing adjustment",
-      "Boss consistency and Hard Day-3 boss smoothing",
-      "Event fees and Deku/Denji/Goku buffs"
-    ],
-    "excluded": [
-      "Shelved rival-ghost patch",
-      "Unfinished smarter-bot tool",
-      "Uninstalled Maomao passive-trim proposal"
-    ],
-    "canonical_html_identical": true
-  }
+  "deployment_note": "GitHub Pages disables server-dependent automatic friend updates; manual codes remain available."
 }

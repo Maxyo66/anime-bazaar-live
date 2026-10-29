@@ -1,3 +1,11 @@
+## Release — October 29, 2026
+
+Adds completed story arcs (pilot and batches 1–2), crossover circles and five lore shops, healing cleanses, new neutral-item mechanics, shorter card text, and enemy-only Rank Up/Multiply/Devour/Frenzy traits. Includes 22 approved artwork mappings across Shinra, Levi/trophies, Boros/Saitama and Misaka/Accelerator.
+
+Save/profile codes and local autosaves remain supported. Automatic friend updates require a separate backend and remain deferred. Nape Guard, Full-Power Kick and a Black Wings card are design proposals, not included gameplay.
+
+Source SHA256: `246ae5c0832ad54eb234a806baa3c20446999880112a954f717a9cb21a14d76c`. See RELEASE-MANIFEST.json for packaged asset hashes.
+
 # Anime Bazaar live
 
 Portable playable release of Anime Bazaar, including all six character rework batches.
