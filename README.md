@@ -2,17 +2,8 @@
 
 Play: https://maxyo66.github.io/anime-bazaar-live/
 
-## 2026-10-30 gameplay release
+## 2026-10-30 gameplay release #29
 
-Publishes completed Claude batches #22–#28 from the canonical source:
-- Jotaro Kujo, his trial and DIO story arc (21 playable heroes).
-- Final story-arc batch for Andy/Fuuko, Shinra, Jinwoo, Ainz and Ichigo.
-- Three hero-item identity passes, boss signature traits and clearer arc information.
-- Additional Break, Empower, Overload and Copy items, plus Goku/Deku balance adjustments.
-- Difficulty-matched rival fallback boards built from real bot playtests.
+Normal/Hard/Heat difficulty and economy tuning, longer Break/Copy cooldowns, themed specialty merchants from Day 2, and seven neutral conversion items. Casual is unchanged. Existing production artwork and save/profile import support are preserved.
 
-Existing production artwork is preserved. New artwork proposals remain in local review.
-
-Manual save/profile and friend-code imports remain supported. Automatic friend updates remain deferred on this static host. The original Site and its browser data are preserved.
-
-Canonical index SHA256: df16b0421eccbcf62e8e75641c7d752b06aadb47756894977a42d141c6558e47
+Canonical index SHA256: 1c5cbde865ee71c458fac1c4f2f54825e6c0551f0e6b2193f736d811b1798ae8
