@@ -1,6 +1,6 @@
 {
-  "source": "Completed Claude gameplay through request #35; existing approved production artwork preserved",
-  "sourceSha256": "957234d15cb624734fe957e5b0fc582f7834f119408173e278079595bd93b51e",
+  "source": "Completed Claude gameplay through request #36; existing approved production artwork preserved",
+  "sourceSha256": "e2de6ee565c809eca351625d1d4ac3dc856851352919ad679ebe5ffaaf1b44f0",
   "files": [
     {
       "name": "ainz-preview.html",
@@ -969,8 +969,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 816543,
-      "sha256": "957234d15cb624734fe957e5b0fc582f7834f119408173e278079595bd93b51e"
+      "bytes": 826350,
+      "sha256": "e2de6ee565c809eca351625d1d4ac3dc856851352919ad679ebe5ffaaf1b44f0"
     },
     {
       "name": "recent-artwork.html",
@@ -984,14 +984,9 @@
     }
   ],
   "deployment_note": "GitHub Pages disables server-dependent automatic friend updates; manual codes remain available.",
-  "createdUtc": "2026-11-01T20:28:11.052541+00:00",
+  "createdUtc": "2026-11-02T00:24:50.617312+00:00",
   "requests": [
-    30,
-    31,
-    32,
-    33,
-    34,
-    35
+    36
   ],
   "artworkChanged": false
 }
