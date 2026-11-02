@@ -2,8 +2,8 @@
 
 Play: https://maxyo66.github.io/anime-bazaar-live/
 
-## 2026-11-01 release #37
+## 2026-11-01 release #38
 
-Arena pass 5: moving Infinity Castle rooms, rebuilt Shrine, stone Skull Dome, interlocking chains, grounded Las Noches, Jaku crater, sky-spanning Paths tree and grounded Weisse city. Existing production artwork and save/profile import support are preserved.
+Arena pass 6: film-inspired moving Infinity Castle, rebuilt Malevolent Shrine, detailed Kaido dragon, grounded Las Noches, timed Jaku crater, anime Paths tree and terraced Weisse. Existing production artwork and save/profile import support are preserved.
 
-Canonical index SHA256: d1e5f494c447215f178cea96a7121082651489951c760c462603ec2f908c8990
+Canonical index SHA256: d327bfdc2afbfe6b5230374039cfa4373bceb5ae9739b97521b52862e2439f11

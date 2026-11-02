@@ -5272,64 +5272,91 @@ const ARENA_SCENES=(()=>{
     c.shadowColor='#ff5a1a';c.shadowBlur=18;c.strokeStyle=`rgba(255,${130+90*pulse|0},40,.9)`;c.lineWidth=3+pulse*2;c.stroke();c.restore()}
    const er=(t%11)/11;if(er<.5){const a=Math.sin(er/.5*Math.PI),x=W*.9,y=H*.6;glow(c,x,y,120,'rgba(255,120,30,.7)',a);c.fillStyle=`rgba(80,60,50,${.5*a})`;for(let j=0;j<6;j++){c.beginPath();c.arc(x+Math.sin(j+t)*20,y-j*30*er*2,24+j*6,0,TAU);c.fill()}}
    if(L)embers(c,W,H,t,26,13,'#ffb43b');c.save();c.translate(Math.sin(t*37)*.8,0);c.restore()}},
- // ---- Infinity Castle: a vast dark space full of rooms. Wooden rooms with lit shoji walls hang at every angle, joined by stairs;
- // on each note of Nakime's biwa a group of rooms slides, drops or flips into new places, doors slam open and shut, and
- // demon slayers fall between the floors.
- castle:{st:null,base(c,W,H,t){c.fillStyle=lg(c,0,0,0,H,[[0,'#0a0503'],[.5,'#160a05'],[1,'#080402']]);c.fillRect(0,0,W,H);
-   const st=this.st&&this.st.W===W&&this.st.H===H?this.st:(this.st={W,H,rooms:Array.from({length:22},(_,i)=>{const layer=i%3;return {layer,gx:rn(i,1),gy:rn(i,2),fx:rn(i,1),fy:rn(i,2),rot:[0,0,Math.PI/2,Math.PI,-Math.PI/2][Math.floor(rn(i,3)*5)],frot:0,w:.5+rn(i,4)*.6,h:.35+rn(i,5)*.3,t0:-9}}),beat:-1});
-   const beatLen=2.4,beat=Math.floor(t/beatLen);if(beat!==st.beat){st.beat=beat;for(let k=0;k<6;k++){const r=st.rooms[Math.floor(rn(beat,k+11)*st.rooms.length)];r.fx=r.gx;r.fy=r.gy;r.frot=r.rot;const m=rn(beat,k+30);if(m<.4)r.gx=Math.min(.95,Math.max(.05,r.gx+(rn(beat,k+40)-.5)*.5));else if(m<.75)r.gy=Math.min(.95,Math.max(.05,r.gy+(rn(beat,k+41)-.5)*.6));else r.rot+=Math.PI/2*(rn(beat,k+42)>.5?1:-1);r.t0=beat*beatLen}}
-   // far stairs and beams
-   c.strokeStyle='rgba(90,50,24,.35)';c.lineWidth=2;for(let i=0;i<10;i++){const x=W*rn(i,60),y=H*rn(i,61),L=H*.3,a=rn(i,62)>.5?.6:-.6;c.beginPath();c.moveTo(x,y);c.lineTo(x+Math.cos(a)*L,y+Math.sin(a)*L);c.stroke();for(let s=0;s<10;s++){const q=s/10,sx=x+Math.cos(a)*L*q,sy=y+Math.sin(a)*L*q;c.beginPath();c.moveTo(sx,sy);c.lineTo(sx,sy-8);c.stroke()}}
-   const order=[...st.rooms].sort((a,b)=>b.layer-a.layer);
-   for(const r of order){const k=Math.min(1,(t-r.t0)/.55),e=k<1?1-Math.pow(1-k,3)*(1-.3*Math.sin(k*Math.PI*1.5)):1,x=(r.fx+(r.gx-r.fx)*e)*W,y=(r.fy+(r.gy-r.fy)*e)*H,rot=r.frot+(r.rot-r.frot)*e,sc=[1,.65,.42][r.layer],rw=W*.16*r.w*sc,rh=H*.2*r.h*sc*2,dep=rw*.35,fog=[0,.35,.6][r.layer];
-    c.save();c.translate(x,y);c.rotate(rot);
-    // floor (top face) and side face give the room depth
-    c.beginPath();c.moveTo(-rw,rh*.5);c.lineTo(rw,rh*.5);c.lineTo(rw+dep,rh*.5-dep*.6);c.lineTo(-rw+dep,rh*.5-dep*.6);c.closePath();c.fillStyle='#5a3418';c.fill();
-    c.beginPath();c.moveTo(rw,-rh*.5);c.lineTo(rw+dep,-rh*.5-dep*.6);c.lineTo(rw+dep,rh*.5-dep*.6);c.lineTo(rw,rh*.5);c.closePath();c.fillStyle='#3a200e';c.fill();
-    c.beginPath();c.moveTo(-rw,-rh*.5);c.lineTo(rw,-rh*.5);c.lineTo(rw+dep,-rh*.5-dep*.6);c.lineTo(-rw+dep,-rh*.5-dep*.6);c.closePath();c.fillStyle='#2a1608';c.fill();
-    // front: shoji panels between dark posts, lamp-lit from inside; one panel pair slides open on the beat
-    c.fillStyle='#1a0c05';c.fillRect(-rw,-rh*.5,rw*2,rh);const panels=4,pw=rw*2/panels,open=k<1?Math.sin(k*Math.PI):0;
-    for(let p=0;p<panels;p++){const px=-rw+p*pw+(p===1?-pw*.8*open:p===2?pw*.8*open:0);c.fillStyle=lg(c,0,-rh*.5,0,rh*.5,[[0,'#ffe2a8'],[1,'#d89a50']]);c.fillRect(px+2,-rh*.5+3,pw-4,rh-6);c.strokeStyle='rgba(90,50,20,.7)';c.lineWidth=1;for(let g=1;g<3;g++){c.beginPath();c.moveTo(px+2+(pw-4)*g/3,-rh*.5+3);c.lineTo(px+2+(pw-4)*g/3,rh*.5-3);c.stroke()}for(let g=1;g<4;g++){c.beginPath();c.moveTo(px+2,-rh*.5+3+(rh-6)*g/4);c.lineTo(px+pw-2,-rh*.5+3+(rh-6)*g/4);c.stroke()}}
-    if(open>.2){c.fillStyle=`rgba(255,200,120,${.5*open})`;c.fillRect(-pw*.8,-rh*.5,pw*1.6,rh)}
-    c.strokeStyle='#120804';c.lineWidth=3;c.strokeRect(-rw,-rh*.5,rw*2,rh);
-    if(fog){c.fillStyle=`rgba(12,6,3,${fog})`;c.fillRect(-rw-1,-rh*.5-dep,rw*2+dep+2,rh+dep+1)}c.restore();if(r.layer===0)glow(c,x,y,rw*1.2,'rgba(255,170,80,.12)')}
-   // demon slayers falling between floors
-   for(let i=0;i<3;i++){const q=((t*.35+rn(i,70))%1),x=W*(.2+rn(i,71)*.6)+Math.sin(q*6+i)*20,y=-20+q*(H+40);c.save();c.translate(x,y);c.rotate(q*4+i);c.fillStyle='#0a0a0e';c.beginPath();c.ellipse(0,0,5,9,0,0,TAU);c.fill();c.beginPath();c.arc(0,-11,4,0,TAU);c.fill();c.fillRect(-9,-2,18,3);c.restore()}
+ // ---- Infinity Castle (as in the 2025 film, Giyu and Tanjiro vs Akaza): looking down an endless shaft whose walls are wooden
+ // buildings, floor upon floor of lit windows, falling away to a glowing core. On every note of Nakime's biwa whole blocks of
+ // buildings slide along the shaft, shift sideways, or shoot out of the walls and pull back in, and the castle never stops rearranging.
+ castle:{st:null,base(c,W,H,t,L){const R=6,RH=4,f=H*.95,cx=W/2,cy=H*.5,FAR=60;
+   if(!this.st||this.st.W!==W||this.st.H!==H){const b=[];for(let i=0;i<64;i++){const wall=i%4,span=wall<2?RH:R,wu=1.4+rn(i,2)*2.2,u=-span+wu/2+rn(i,3)*(span*2-wu);b.push({wall,u,wu,z:2+rn(i,4)*FAR,dz:2+rn(i,5)*5,p:.8+rn(i,6)*2.6,fr:null,to:null,t0:-9,seed:i})}this.st={W,H,b,beat:-1,last:t}}
+   const st=this.st,dt=Math.min(.1,Math.max(0,t-st.last));st.last=t;const beatLen=2.4,beat=Math.floor(t/beatLen),mv=1.1;
+   if(beat!==st.beat){st.beat=beat;for(let k=0;k<12;k++){const bl=st.b[Math.floor(rn(beat,k+5)*st.b.length)];if(bl.to)continue;const m=rn(beat,k+20),fr={z:bl.z,u:bl.u,p:bl.p},to={...fr},span=bl.wall<2?RH:R;
+     if(m<.4)to.z=Math.max(3,bl.z+(rn(beat,k+30)>.5?1:-1)*(4+rn(beat,k+31)*9));else if(m<.7)to.u=Math.min(span-bl.wu/2,Math.max(-span+bl.wu/2,bl.u+(rn(beat,k+32)-.5)*span*1.4));else to.p=bl.p>2?.6+rn(beat,k+33):2.6+rn(beat,k+34)*1.6;bl.fr=fr;bl.to=to;bl.t0=t}}
+   for(const bl of st.b){bl.z-=dt*.5;if(bl.to){const k=Math.min(1,(t-bl.t0)/mv),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;bl.z=bl.fr.z+(bl.to.z-bl.fr.z)*e-(t-bl.t0)*.5;bl.u=bl.fr.u+(bl.to.u-bl.fr.u)*e;bl.p=bl.fr.p+(bl.to.p-bl.fr.p)*e;bl.moving=k<1;if(k>=1){bl.to=null;bl.moving=false}}
+    if(bl.z<1.6&&!bl.to)bl.z+=FAR}
+   // the shaft: dark walls converging on a burning core
+   c.fillStyle='#070302';c.fillRect(0,0,W,H);const pr=(X,Y,Z)=>[cx+X*f/Z,cy+Y*f/Z];
+   for(let w=0;w<4;w++){const P=w===0?[[-R,-RH],[-R,RH]]:w===1?[[R,-RH],[R,RH]]:w===2?[[-R,-RH],[R,-RH]]:[[-R,RH],[R,RH]];const a=pr(P[0][0],P[0][1],1.2),b=pr(P[1][0],P[1][1],1.2),c2=pr(P[1][0],P[1][1],FAR),d=pr(P[0][0],P[0][1],FAR);c.beginPath();c.moveTo(...a);c.lineTo(...b);c.lineTo(...c2);c.lineTo(...d);c.closePath();c.fillStyle=lg(c,a[0],a[1],cx,cy,[[0,'#0c0503'],[1,'#1a0c05']]);c.fill()}
+   glow(c,cx,cy,Math.min(W,H)*.5,'rgba(255,140,50,.45)');glow(c,cx,cy,Math.min(W,H)*.12,'rgba(255,220,150,.8)');
+   // depth rails on the shaft walls
+   c.strokeStyle='rgba(255,150,70,.12)';c.lineWidth=1;for(let i=0;i<14;i++){const zz=((i*4.3-t*.5)%FAR+FAR)%FAR+1.6,a=pr(-R,-RH,zz),b=pr(R,RH,zz);c.strokeRect(a[0],a[1],b[0]-a[0],b[1]-a[1])}
+   const fogOf=z=>Math.min(.85,Math.max(0,(z-6)/(FAR-6)))*1;
+   const quad=(p,fill,fog)=>{c.beginPath();c.moveTo(...p[0]);for(let i=1;i<4;i++)c.lineTo(...p[i]);c.closePath();c.fillStyle=fill;c.fill();if(fog>0){c.fillStyle=`rgba(14,6,3,${fog})`;c.fill()}};
+   const order=[...st.b].sort((a,b)=>b.z-a.z);
+   for(const bl of order){if(bl.z<1.6)continue;const z0=bl.z,z1=bl.z+bl.dz,fog=fogOf(z0),w=bl.wall;let x0,x1,y0,y1;
+    if(w<2){y0=bl.u-bl.wu/2;y1=bl.u+bl.wu/2;if(w===0){x0=-R;x1=-R+bl.p}else{x0=R-bl.p;x1=R}}else{x0=bl.u-bl.wu/2;x1=bl.u+bl.wu/2;if(w===2){y0=-RH;y1=-RH+bl.p}else{y0=RH-bl.p;y1=RH}}
+    const P=(X,Y,Z)=>pr(X,Y,Z),wood=bl.seed%3?'#2c1609':'#24120a',lit=bl.moving?'#ffc070':'#e8903a';
+    // side faces that look into the shaft
+    const faces=[];if(x1<0)faces.push(['x',x1]);if(x0>0)faces.push(['x',x0]);if(y1<0)faces.push(['y',y1]);if(y0>0)faces.push(['y',y0]);
+    for(const [ax,v] of faces){const pts=ax==='x'?[P(v,y0,z0),P(v,y1,z0),P(v,y1,z1),P(v,y0,z1)]:[P(x0,v,z0),P(x1,v,z0),P(x1,v,z1),P(x0,v,z0+0)];if(ax==='y')pts[3]=P(x0,v,z1);
+     const facade=(w<2&&ax==='x')||(w>=2&&ax==='y');quad(pts,facade?wood:'#140a05',fog*.9);
+     if(facade&&z0<(L?42:28)){const rows=Math.max(1,Math.floor(bl.wu/.75)),cols=Math.max(1,Math.floor(bl.dz/.9));for(let r=0;r<rows;r++)for(let q=0;q<cols;q++){const on=rn(bl.seed*97+r*13+q,8)>.35;if(!on&&!bl.moving)continue;const a0=(r+.2)/rows,a1=(r+.8)/rows,b0=z0+bl.dz*(q+.18)/cols,b1=z0+bl.dz*(q+.82)/cols,uu=(s)=>w<2?y0+(y1-y0)*s:x0+(x1-x0)*s;
+       const wp=ax==='x'?[P(v,uu(a0),b0),P(v,uu(a1),b0),P(v,uu(a1),b1),P(v,uu(a0),b1)]:[P(uu(a0),v,b0),P(uu(a1),v,b0),P(uu(a1),v,b1),P(uu(a0),v,b1)];quad(wp,on?lit:'#ffb060',fog*.7)}
+      c.strokeStyle=`rgba(10,4,2,${.8-fog*.5})`;c.lineWidth=Math.max(.6,2.4*6/z0);for(let r=0;r<=rows;r++){const s=r/rows,uv=w<2?y0+(y1-y0)*s:x0+(x1-x0)*s,a=ax==='x'?P(v,uv,z0):P(uv,v,z0),b=ax==='x'?P(v,uv,z1):P(uv,v,z1);c.beginPath();c.moveTo(...a);c.lineTo(...b);c.stroke()}}}
+    // the face toward the viewer: a building end with balcony floors
+    const fp=[P(x0,y0,z0),P(x1,y0,z0),P(x1,y1,z0),P(x0,y1,z0)];quad(fp,'#3a1e0c',fog);
+    const fr2=Math.max(1,Math.floor((w<2?bl.wu:bl.p)/.7));c.strokeStyle=`rgba(20,8,3,${.85-fog*.5})`;c.lineWidth=Math.max(.6,2*6/z0);for(let r=1;r<fr2;r++){const s=r/fr2;const a=w<2?P(x0,y0+(y1-y0)*s,z0):P(x0+(x1-x0)*s,y0,z0),b=w<2?P(x1,y0+(y1-y0)*s,z0):P(x0+(x1-x0)*s,y1,z0);c.beginPath();c.moveTo(...a);c.lineTo(...b);c.stroke()}
+    if(z0<30){c.fillStyle=`rgba(255,190,110,${.55*(1-fog)})`;for(let r=0;r<fr2;r++){const s=(r+.5)/fr2,pt=w<2?P((x0+x1)/2,y0+(y1-y0)*s,z0):P(x0+(x1-x0)*s,(y0+y1)/2,z0);c.beginPath();c.arc(pt[0],pt[1],Math.max(1,10/z0),0,TAU);c.fill()}}
+    c.strokeStyle=bl.moving?`rgba(255,200,120,${.9-fog*.6})`:`rgba(255,140,60,${.35-fog*.3})`;c.lineWidth=bl.moving?2:1;c.beginPath();c.moveTo(...fp[0]);for(let i=1;i<4;i++)c.lineTo(...fp[i]);c.closePath();c.stroke();
+    if(bl.moving&&L){c.strokeStyle=`rgba(255,180,90,${.25*(1-fog)})`;c.lineWidth=1;const back=bl.fr,dz=back.z-bl.z;for(const q of fp){c.beginPath();c.moveTo(...q);c.lineTo(q[0]+(q[0]-cx)*(-dz/(bl.z+dz))*.6,q[1]+(q[1]-cy)*(-dz/(bl.z+dz))*.6);c.stroke()}}}
+   c.save();c.globalCompositeOperation='lighter';glow(c,cx,cy,Math.min(W,H)*.22,'rgba(255,150,60,.35)');c.restore();
+   // demon slayers falling down the shaft
+   for(let i=0;i<3;i++){const q=((t*.3+rn(i,70))%1),zz=8+rn(i,72)*20,p=pr((rn(i,71)-.5)*R,-RH+q*RH*2,zz),s=3/zz*5;c.save();c.translate(p[0],p[1]);c.rotate(q*5+i);c.fillStyle='#0a0a0e';c.beginPath();c.ellipse(0,0,4*s,7*s,0,0,TAU);c.fill();c.beginPath();c.arc(0,-9*s,3*s,0,TAU);c.fill();c.fillRect(-7*s,-2*s,14*s,2.4*s);c.restore()}
    vignette(c,W,H,.55)},
   fx(c,W,H,t){const ph=(t%2.4)/2.4;if(ph<.12){const a=1-ph/.12;c.strokeStyle=`rgba(255,236,200,${.55*a})`;c.lineWidth=1.5;for(let i=0;i<4;i++){c.beginPath();for(let x=0;x<=W;x+=12)c.lineTo(x,H*(.15+i*.05)+Math.sin(x*.05+t*40+i)*5*a);c.stroke()}c.font=`900 ${Math.min(W,H)*.06}px "Yu Gothic","Meiryo",serif`;c.textAlign='left';c.fillStyle=`rgba(255,226,180,${.7*a})`;c.fillText('べん',W*.06,H*.2)}}},
- // ---- Malevolent Shrine: a Buddhist double-door shrine, disfigured to house a demon, standing on the crown of one colossal bull skull.
- // Horns rise from its roof, a skull hangs at each roof corner, fanged mouths gape from its sides, and the skull rests in a lake of blood.
- shrine:{base(c,W,H,t){sky(c,W,H,[[0,'#050102'],[.45,'#2a0408'],[.62,'#5a0a10']]);glow(c,W/2,H*.45,W*.55,'rgba(180,10,20,.35)');
-   const u=Math.min(W*.62,H),cx=W/2,hz=H*.74;c.fillStyle=lg(c,0,hz,0,H,[[0,'#3a0408'],[1,'#120103']]);c.fillRect(0,hz,W,H-hz);
-   // the colossal skull, half sunk in blood, crown flattened where the shrine stands
-   const S=u*.23,sx=cx,sy=hz+S*.12;c.save();c.translate(sx,sy);
-   for(const d of [-1,1]){c.beginPath();c.moveTo(d*S*.62,-S*.38);c.bezierCurveTo(d*S*1.35,-S*.42,d*S*1.75,-S*.75,d*S*1.6,-S*1.2);c.bezierCurveTo(d*S*1.55,-S*.85,d*S*1.15,-S*.62,d*S*.55,-S*.12);c.closePath();c.fillStyle=lg(c,d*S*.6,-S*.2,d*S*1.6,-S*1.2,[[0,'#bfb296'],[1,'#f4ecd8']]);c.fill();c.strokeStyle='#2a0608';c.lineWidth=2.5;c.stroke();
-    for(let r=0;r<6;r++){c.beginPath();c.moveTo(d*S*(.75+r*.15),-S*(.4+r*.11));c.lineTo(d*S*(.8+r*.15),-S*(.28+r*.11));c.strokeStyle='rgba(90,70,50,.45)';c.lineWidth=1.5;c.stroke()}}
-   c.beginPath();c.moveTo(-S*.66,-S*.5);c.lineTo(S*.66,-S*.5);c.bezierCurveTo(S*.75,-S*.1,S*.55,S*.2,S*.32,S*.55);c.quadraticCurveTo(S*.25,S*.95,0,S*1.0);c.quadraticCurveTo(-S*.25,S*.95,-S*.32,S*.55);c.bezierCurveTo(-S*.55,S*.2,-S*.75,-S*.1,-S*.66,-S*.5);c.closePath();
-   c.fillStyle=rg(c,-S*.2,-S*.3,S*.1,S*1.2,[[0,'#efe6d0'],[.55,'#c4b694'],[1,'#6a5c48']]);c.fill();c.strokeStyle='#2a0608';c.lineWidth=3;c.stroke();
-   for(const d of [-1,1]){c.beginPath();c.moveTo(d*S*.1,-S*.2);c.quadraticCurveTo(d*S*.42,-S*.32,d*S*.5,-S*.05);c.quadraticCurveTo(d*S*.4,S*.2,d*S*.15,S*.08);c.closePath();c.fillStyle=rg(c,d*S*.3,-S*.05,2,S*.25,[[0,'#ff3a2a'],[.3,'#4a0306'],[1,'#120001']]);c.fill()}
-   c.beginPath();c.moveTo(0,S*.3);c.quadraticCurveTo(S*.08,S*.45,S*.05,S*.62);c.lineTo(-S*.05,S*.62);c.quadraticCurveTo(-S*.08,S*.45,0,S*.3);c.fillStyle='#1a0204';c.fill();
-   c.strokeStyle='rgba(70,45,30,.5)';c.lineWidth=2;c.beginPath();c.moveTo(S*.2,-S*.5);c.lineTo(S*.26,-S*.3);c.lineTo(S*.18,-S*.18);c.moveTo(-S*.4,S*.3);c.lineTo(-S*.32,S*.45);c.stroke();c.restore();
-   // the shrine on the skull's crown: dark timber hall whose whole front is a fanged maw, side mouths, two upswept roofs, great horns
-   const top=sy-S*.5,bw=S*.95,bh=S*.7,dy=top-S*.08-bh,wood=(x0,x1)=>lg(c,x0,0,x1,0,[[0,'#120304'],[.5,'#2e0a0c'],[1,'#120304']]);
-   c.fillStyle='#0e0203';c.fillRect(cx-bw*1.15,top-S*.08,bw*2.3,S*.08);c.fillStyle='#2a0a0a';for(let k=0;k<7;k++)c.fillRect(cx-bw*1.1+k*bw*.36,top-S*.08,bw*.05,S*.08);
-   c.fillStyle=wood(cx-bw,cx+bw);c.fillRect(cx-bw,dy,bw*2,bh);
-   for(const k of [-1,-.62,.62,1]){c.fillStyle='#1c0506';c.fillRect(cx+k*bw-bw*.05,dy,bw*.1,bh);c.fillStyle='rgba(255,120,80,.12)';c.fillRect(cx+k*bw-bw*.05,dy,bw*.02,bh)}
-   c.fillStyle='#3a0c0c';c.fillRect(cx-bw*1.04,dy,bw*2.08,bh*.08);c.strokeStyle='#8a6a2a';c.lineWidth=1.2;c.strokeRect(cx-bw*1.04,dy,bw*2.08,bh*.08);
-   // the maw: lips, gums and two rows of teeth across the front, a red throat glowing inside
-   const mx=cx,my=dy+bh*.58,mw=bw*.56,mh=bh*.36,open=.75+.25*Math.sin(t*1.3);c.save();c.beginPath();c.ellipse(mx,my,mw,mh*open,0,0,TAU);c.fillStyle=rg(c,mx,my,2,mw,[[0,'#ff5a2a'],[.35,'#a0100c'],[.8,'#3a0204'],[1,'#120001']]);c.fill();c.clip();
-   c.fillStyle='#7a1418';c.fillRect(mx-mw,my-mh*open,mw*2,mh*.18);c.fillRect(mx-mw,my+mh*open-mh*.18,mw*2,mh*.18);
-   for(const sgn of [-1,1])for(let i=0;i<11;i++){const tx=mx-mw+mw*2*(i+.5)/11,tw=mw*2/11*.45,big=i===1||i===9,th=mh*(big?.62:.36),ty=my+sgn*mh*open*(.86);c.beginPath();c.moveTo(tx-tw,ty);c.lineTo(tx,ty-sgn*th);c.lineTo(tx+tw,ty);c.closePath();c.fillStyle=lg(c,0,ty,0,ty-sgn*th,[[0,'#bfb4a0'],[1,'#fbf6ea']]);c.fill();c.strokeStyle='#3a0a0a';c.lineWidth=1;c.stroke()}c.restore();
-   c.beginPath();c.ellipse(mx,my,mw,mh*open,0,0,TAU);c.strokeStyle='#4a0a0c';c.lineWidth=5;c.stroke();c.strokeStyle='#b03a2a';c.lineWidth=1.5;c.stroke();
-   for(const d of [-1,1]){const sx2=cx+d*bw*.81,sy2=dy+bh*.5,w2=bw*.13,h2=bh*.2;c.beginPath();c.ellipse(sx2,sy2,w2,h2,0,0,TAU);c.fillStyle='#5a0408';c.fill();c.strokeStyle='#2a0608';c.lineWidth=2;c.stroke();c.fillStyle='#efe6d2';for(let i=0;i<4;i++){const tx=sx2-w2*.75+i*w2*.5;c.beginPath();c.moveTo(tx-2.5,sy2-h2*.8);c.lineTo(tx,sy2-h2*.2);c.lineTo(tx+2.5,sy2-h2*.8);c.fill();c.beginPath();c.moveTo(tx-2.5,sy2+h2*.8);c.lineTo(tx,sy2+h2*.2);c.lineTo(tx+2.5,sy2+h2*.8);c.fill()}}
-   // two-tier roof with upswept eaves and gold ridges
-   const roof=(y,w,h)=>{c.beginPath();c.moveTo(cx-w,y+h*.15);c.quadraticCurveTo(cx-w*.8,y+h*.05,cx-w*.55,y-h*.75);c.lineTo(cx+w*.55,y-h*.75);c.quadraticCurveTo(cx+w*.8,y+h*.05,cx+w,y+h*.15);c.quadraticCurveTo(cx,y-h*.05,cx-w,y+h*.15);c.closePath();c.fillStyle=lg(c,0,y-h,0,y+h*.2,[[0,'#2a0c0e'],[1,'#070102']]);c.fill();c.strokeStyle='#a07a32';c.lineWidth=1.6;c.stroke();
-     c.strokeStyle='rgba(120,40,30,.35)';c.lineWidth=1;for(let k=1;k<12;k++){const x=cx-w*.55+k*w*1.1/12;c.beginPath();c.moveTo(x,y-h*.72);c.lineTo(x+(x-cx)*.35,y+h*.02);c.stroke()}};
-   roof(dy,bw*1.55,S*.3);c.fillStyle=wood(cx-bw*.6,cx+bw*.6);c.fillRect(cx-bw*.55,dy-S*.48,bw*1.1,S*.25);roof(dy-S*.46,bw*1.1,S*.26);
-   const ry=dy-S*.46-S*.2;c.fillStyle='#0a0203';c.fillRect(cx-bw*.6,ry-S*.05,bw*1.2,S*.06);
-   for(const d of [-1,1]){c.beginPath();c.moveTo(cx+d*bw*.3,ry);c.bezierCurveTo(cx+d*bw*.9,ry-S*.05,cx+d*bw*1.3,ry-S*.25,cx+d*bw*1.25,ry-S*.6);c.bezierCurveTo(cx+d*bw*1.12,ry-S*.32,cx+d*bw*.8,ry-S*.18,cx+d*bw*.25,ry-S*.08);c.closePath();c.fillStyle=lg(c,cx+d*bw*.3,ry,cx+d*bw*1.25,ry-S*.6,[[0,'#8a7a5a'],[1,'#f6efdc']]);c.fill();c.strokeStyle='#2a0608';c.lineWidth=2;c.stroke();
-    for(const [hx,hy] of [[cx+d*bw*1.5,dy+S*.1],[cx+d*bw*1.05,dy-S*.37]]){c.strokeStyle='#3a1010';c.lineWidth=1;c.beginPath();c.moveTo(hx,hy-S*.06);c.lineTo(hx,hy);c.stroke();c.beginPath();c.ellipse(hx,hy+S*.045,S*.035,S*.05,0,0,TAU);c.fillStyle='#e0d6be';c.fill();c.strokeStyle='#2a0608';c.stroke();c.fillStyle='#1a0204';c.fillRect(hx-S*.022,hy+S*.03,S*.015,S*.015);c.fillRect(hx+S*.007,hy+S*.03,S*.015,S*.015)}}
-   vignette(c,W,H,.7)},
+ // ---- Malevolent Shrine (anime and manga): a red-pillared shrine under a black tiled roof crowned with curving horns, its whole
+ // doorway a gaping mouth of teeth, mouths on its sides and skulls at its corners; it stands on one great bull skull that lies
+ // in the lake of blood, mirrored in it, under a red sky. The scene is drawn once and reflected in the blood.
+ shrine:{base(c,W,H,t){sky(c,W,H,[[0,'#0a0102'],[.35,'#3a0408'],[.7,'#8a1014']]);glow(c,W/2,H*.38,W*.55,'rgba(255,40,30,.25)');
+   const u=Math.min(W*.62,H),cx=W/2,hz=H*.72,S=u*.16,sy=hz-S*.3;
+   c.beginPath();c.arc(cx,H*.3,u*.36,0,TAU);c.fillStyle=rg(c,cx,H*.3,u*.05,u*.36,[[0,'rgba(200,20,24,.55)'],[1,'rgba(120,0,8,0)']]);c.fill();
+   const scene=()=>{
+    // the skull, lying in the blood: horns spread, sockets dark, snout sunk below the surface
+    c.save();c.translate(cx,sy);
+    for(const d of [-1,1]){c.beginPath();c.moveTo(d*S*.62,-S*.38);c.bezierCurveTo(d*S*1.35,-S*.42,d*S*1.8,-S*.6,d*S*1.75,-S*1.05);c.bezierCurveTo(d*S*1.62,-S*.75,d*S*1.2,-S*.6,d*S*.55,-S*.12);c.closePath();c.fillStyle=lg(c,d*S*.6,-S*.2,d*S*1.7,-S*1.05,[[0,'#a89a7e'],[1,'#ece2cc']]);c.fill();c.strokeStyle='#1a0204';c.lineWidth=2;c.stroke()}
+    c.beginPath();c.moveTo(-S*.7,-S*.55);c.lineTo(S*.7,-S*.55);c.bezierCurveTo(S*.8,-S*.1,S*.55,S*.2,S*.32,S*.55);c.quadraticCurveTo(S*.25,S*.95,0,S*1.0);c.quadraticCurveTo(-S*.25,S*.95,-S*.32,S*.55);c.bezierCurveTo(-S*.55,S*.2,-S*.8,-S*.1,-S*.7,-S*.55);c.closePath();
+    c.fillStyle=rg(c,-S*.2,-S*.35,S*.1,S*1.2,[[0,'#e6dcc4'],[.55,'#b4a688'],[1,'#5a4c3a']]);c.fill();c.strokeStyle='#1a0204';c.lineWidth=2.5;c.stroke();
+    for(const d of [-1,1]){c.beginPath();c.moveTo(d*S*.1,-S*.22);c.quadraticCurveTo(d*S*.44,-S*.34,d*S*.52,-S*.06);c.quadraticCurveTo(d*S*.4,S*.2,d*S*.15,S*.08);c.closePath();c.fillStyle=rg(c,d*S*.3,-S*.05,1,S*.25,[[0,'#ff2a1a'],[.25,'#3a0204'],[1,'#0a0001']]);c.fill()}
+    c.beginPath();c.moveTo(0,S*.3);c.quadraticCurveTo(S*.08,S*.45,S*.05,S*.62);c.lineTo(-S*.05,S*.62);c.quadraticCurveTo(-S*.08,S*.45,0,S*.3);c.fillStyle='#120102';c.fill();
+    c.strokeStyle='rgba(60,36,24,.5)';c.lineWidth=1.5;c.beginPath();c.moveTo(S*.22,-S*.55);c.lineTo(S*.28,-S*.34);c.lineTo(S*.2,-S*.22);c.moveTo(-S*.42,S*.25);c.lineTo(-S*.34,S*.42);c.stroke();c.restore();
+    // the shrine on the crown
+    const y0=sy-S*.55,bw=S*.95,bh=S*1.05,top=y0-bh;
+    c.fillStyle='#160304';c.fillRect(cx-bw*1.18,y0-S*.07,bw*2.36,S*.09);c.fillStyle='#3a0a0a';c.fillRect(cx-bw*1.18,y0-S*.07,bw*2.36,S*.025);
+    c.fillStyle=lg(c,cx-bw,0,cx+bw,0,[[0,'#1e0405'],[.5,'#3a080a'],[1,'#1e0405']]);c.fillRect(cx-bw,top,bw*2,bh-S*.07);
+    for(const k of [-1,-.72,.72,1]){const px=cx+k*bw;c.fillStyle=lg(c,px-bw*.06,0,px+bw*.06,0,[[0,'#5a0a0c'],[.4,'#c42a22'],[1,'#4a0608']]);c.fillRect(px-bw*.06,top,bw*.12,bh-S*.07)}
+    c.fillStyle='#7a1414';c.fillRect(cx-bw*1.05,top,bw*2.1,bh*.07);c.fillRect(cx-bw*1.05,top+bh*.12,bw*2.1,bh*.03);
+    // the doorway is a mouth: pale lips, gums, two rows of teeth, the throat glowing
+    const mx=cx,my=top+bh*.56,rx=bw*.6,ry=bh*.4*(.9+.1*Math.sin(t*1.4));
+    c.beginPath();c.ellipse(mx,my,rx*1.12,ry*1.12,0,0,TAU);c.fillStyle=lg(c,0,my-ry,0,my+ry,[[0,'#e8c0b0'],[.5,'#c88078'],[1,'#e0b0a0']]);c.fill();c.strokeStyle='#3a0606';c.lineWidth=2;c.stroke();
+    c.save();c.beginPath();c.ellipse(mx,my,rx,ry,0,0,TAU);c.fillStyle=rg(c,mx,my+ry*.2,1,rx,[[0,'#ff6a2a'],[.3,'#a01008'],[.75,'#300204'],[1,'#120001']]);c.fill();c.clip();
+    c.fillStyle='#8a2026';c.beginPath();c.ellipse(mx,my-ry,rx,ry*.32,0,0,TAU);c.fill();c.beginPath();c.ellipse(mx,my+ry,rx,ry*.32,0,0,TAU);c.fill();
+    for(const sg of [-1,1])for(let i=0;i<9;i++){const q=(i+.5)/9,tx=mx-rx+rx*2*q,tw=rx*2/9*.46,th=ry*(.32+.12*Math.sin(q*Math.PI))*(i===1||i===7?1.35:1),ty=my+sg*ry*(Math.sqrt(1-Math.pow(2*q-1,2))*.78);c.beginPath();c.moveTo(tx-tw,ty);c.quadraticCurveTo(tx-tw*.4,ty-sg*th*.7,tx,ty-sg*th);c.quadraticCurveTo(tx+tw*.4,ty-sg*th*.7,tx+tw,ty);c.closePath();c.fillStyle=lg(c,0,ty,0,ty-sg*th,[[0,'#cfc4ae'],[1,'#fffaf0']]);c.fill();c.strokeStyle='rgba(60,10,10,.7)';c.lineWidth=.8;c.stroke()}c.restore();
+    for(const d of [-1,1]){const sx2=cx+d*bw*.86,sy2=top+bh*.5,w2=bw*.1,h2=bh*.16;c.beginPath();c.ellipse(sx2,sy2,w2,h2,0,0,TAU);c.fillStyle='#4a0408';c.fill();c.strokeStyle='#d09a8a';c.lineWidth=1.5;c.stroke();c.fillStyle='#efe6d2';for(let i=0;i<3;i++){const tx=sx2-w2*.6+i*w2*.6;c.beginPath();c.moveTo(tx-2,sy2-h2*.85);c.lineTo(tx,sy2-h2*.25);c.lineTo(tx+2,sy2-h2*.85);c.fill();c.beginPath();c.moveTo(tx-2,sy2+h2*.85);c.lineTo(tx,sy2+h2*.25);c.lineTo(tx+2,sy2+h2*.85);c.fill()}
+     const lx=cx+d*bw*1.25,ly=y0-S*.2;c.fillStyle='#1a0404';c.fillRect(lx-S*.06,ly-S*.2,S*.12,S*.22);glow(c,lx,ly-S*.1,S*.35,'rgba(255,140,50,.7)');c.fillStyle='#ffb050';c.fillRect(lx-S*.04,ly-S*.17,S*.08,S*.12)}
+    // the black roof, upswept, tiled, with red rafters, and a second small roof above
+    const roof=(y,w,h)=>{c.beginPath();c.moveTo(cx-w,y+h*.12);c.quadraticCurveTo(cx-w*.82,y,cx-w*.6,y-h*.85);c.lineTo(cx+w*.6,y-h*.85);c.quadraticCurveTo(cx+w*.82,y,cx+w,y+h*.12);c.quadraticCurveTo(cx,y-h*.06,cx-w,y+h*.12);c.closePath();c.fillStyle=lg(c,0,y-h,0,y+h*.15,[[0,'#26080a'],[1,'#050001']]);c.fill();c.strokeStyle='#120203';c.lineWidth=2;c.stroke();
+      c.strokeStyle='rgba(120,30,30,.45)';c.lineWidth=1;for(let k=1;k<16;k++){const x=cx-w*.6+k*w*1.2/16;c.beginPath();c.moveTo(x,y-h*.82);c.lineTo(x+(x-cx)*.42,y+h*.02);c.stroke()}
+      c.fillStyle='#8a1a18';for(let k=0;k<12;k++){const x=cx-w*.88+k*w*1.76/11;c.fillRect(x-1.5,y+h*.02,3,h*.14)}};
+    roof(top,bw*1.65,S*.42);c.fillStyle='#2a0608';c.fillRect(cx-bw*.62,top-S*.62,bw*1.24,S*.24);for(const k of [-.55,.55]){c.fillStyle='#a02020';c.fillRect(cx+k*bw-2,top-S*.62,4,S*.24)}roof(top-S*.6,bw*1.15,S*.3);
+    const ry0=top-S*.6-S*.26;c.fillStyle='#0a0102';c.fillRect(cx-bw*.72,ry0-S*.05,bw*1.44,S*.06);
+    // crown of horns rising from the ridge, the outer ones sweeping out
+    for(let i=0;i<7;i++){const q=i/6-.5,bx=cx+q*bw*1.35,a=-Math.PI/2+q*1.5,len=S*(.5+.3*(1-Math.abs(q)*1.4)),curl=-q*1.8,ex=bx+Math.cos(a)*len,ey=ry0+Math.sin(a)*len,mxh=bx+Math.cos(a-curl*.6)*len*.6,myh=ry0+Math.sin(a-curl*.6)*len*.6,wb=S*.1;
+     c.beginPath();c.moveTo(bx-wb,ry0);c.quadraticCurveTo(mxh-wb*.5,myh,ex,ey);c.quadraticCurveTo(mxh+wb*.5,myh,bx+wb,ry0);c.closePath();c.fillStyle=lg(c,bx,ry0,ex,ey,[[0,'#6a5a44'],[.5,'#c8bca4'],[1,'#f4eedc']]);c.fill();c.strokeStyle='#1a0204';c.lineWidth=1.4;c.stroke()}
+    for(const [hx,hy] of [[cx-bw*1.62,top+S*.06],[cx+bw*1.62,top+S*.06],[cx-bw*1.12,top-S*.56],[cx+bw*1.12,top-S*.56]]){c.strokeStyle='#2a0606';c.lineWidth=1;c.beginPath();c.moveTo(hx,hy);c.lineTo(hx,hy+S*.06);c.stroke();c.beginPath();c.ellipse(hx,hy+S*.11,S*.045,S*.06,0,0,TAU);c.fillStyle='#ddd2b8';c.fill();c.strokeStyle='#1a0204';c.stroke();c.fillStyle='#120102';c.fillRect(hx-S*.026,hy+S*.09,S*.018,S*.018);c.fillRect(hx+S*.008,hy+S*.09,S*.018,S*.018)}};
+   scene();
+   // the lake of blood: the skull and shrine mirrored in it, ripples where the skull meets the surface
+   c.save();c.beginPath();c.rect(0,hz,W,H-hz);c.clip();c.fillStyle='#2a0204';c.fillRect(0,hz,W,H-hz);c.translate(0,hz*2);c.scale(1,-1);c.globalAlpha=.38;scene();c.restore();
+   c.fillStyle=lg(c,0,hz,0,H,[[0,'rgba(90,4,10,.35)'],[1,'rgba(20,0,2,.85)']]);c.fillRect(0,hz,W,H-hz);
+   c.strokeStyle='rgba(255,90,80,.35)';c.lineWidth=1.2;for(let i=0;i<4;i++){const k=((t*.25+i/4)%1),rx2=S*(1+k*2.2),ry2=S*(.12+k*.2);c.globalAlpha=1-k;c.beginPath();c.ellipse(cx,hz,rx2,ry2,0,0,TAU);c.stroke()}c.globalAlpha=1;
+   c.fillStyle='rgba(255,120,110,.5)';c.fillRect(0,hz,W,1);vignette(c,W,H,.6)},
   fx(c,W,H,t,L){const ph=(t%2.6)/2.6;if(ph<.22){const a=1-ph/.22,n=L?7:4;for(let i=0;i<n;i++){const y=H*rn(Math.floor(t/2.6)*10+i,5),dy=(rn(i,6)-.5)*H*.5;c.strokeStyle=`rgba(255,255,255,${a})`;c.lineWidth=2.4;c.beginPath();c.moveTo(-10,y);c.lineTo(W+10,y+dy);c.stroke();c.strokeStyle=`rgba(0,0,0,${a*.8})`;c.lineWidth=1;c.beginPath();c.moveTo(-10,y+2);c.lineTo(W+10,y+dy+2);c.stroke()}}
    c.fillStyle='rgba(255,60,60,.06)';for(let i=0;i<6;i++){const y=H*.76+i*12+Math.sin(t*.8+i)*3;c.fillRect(0,y,W,2)}embers(c,W,H,t,L?18:8,4,'#ff3a3a',20,1.6)}},
  // ---- Onigashima: the island from the sea, its summit carved into the Skull Dome: a stone skull with brow ridges, cheekbones,
@@ -5425,7 +5452,7 @@ const ARENA_SCENES=(()=>{
     c.beginPath();c.moveTo(x-w*.55,b-h);c.lineTo(x,b-h-16);c.lineTo(x+w*.55,b-h);c.fill();c.strokeStyle='rgba(90,86,80,.5)';c.lineWidth=1;c.stroke();c.fillStyle='rgba(60,60,70,.45)';for(let k=1;k<4;k++)c.fillRect(x-2,b-h*k/4.4,4,6)}
    c.beginPath();c.moveTo(cx-R,hz);for(let x=cx-R;x<=cx+R;x+=4)c.lineTo(x,domeY(x));c.closePath();c.fillStyle=rg(c,cx-R*.35,hz-DH*.8,R*.05,R*1.1,[[0,'#ffffff'],[.5,'#e2ded6'],[1,'#8e8a82']]);c.fill();
    for(let i=1;i<6;i++){c.beginPath();for(let x=cx-R;x<=cx+R;x+=4){const y=hz-(hz-domeY(x))*(1-i*.15);x===cx-R?c.moveTo(x,y):c.lineTo(x,y)}c.strokeStyle='rgba(110,106,98,.35)';c.lineWidth=1.2;c.stroke()}
-   for(const [f] of towers){const x=cx+f*R,y=domeY(x);c.fillStyle=rg(c,x,y+2,2,26,[[0,'rgba(120,116,108,.45)'],[1,'rgba(120,116,108,0)']]);c.beginPath();c.ellipse(x,y+3,26,7,0,0,TAU);c.fill();c.fillStyle='#ebe7df';c.beginPath();c.ellipse(x,y,14,4,0,0,TAU);c.fill()}
+   for(const [f,hh] of towers){const x=cx+f*R,w=12+hh*6,y=domeY(x),ft=y-H*.03,L0=x-w*2,R0=x+w*2;c.beginPath();c.moveTo(L0,domeY(L0));c.quadraticCurveTo(x-w*.8,domeY(x-w*.8)-2,x-w*.76,ft);c.lineTo(x+w*.76,ft);c.quadraticCurveTo(x+w*.8,domeY(x+w*.8)-2,R0,domeY(R0));for(let xx=R0;xx>=L0;xx-=3)c.lineTo(xx,domeY(xx)+1);c.closePath();c.fillStyle=lg(c,L0,0,R0,0,[[0,'rgba(236,232,224,1)'],[.42,'#fbf8f2'],[.62,'#e4e0d8'],[1,'rgba(226,222,214,1)']]);c.fill()}
    ridge(c,W,hz,14,.004,2,lg(c,0,hz-20,0,H,[[0,'#e8e4dc'],[1,'#a6a29a']]));
    // quartz trees: tapered white trunks forking into crystal branches
    const branch=(x,y,a,len,w,d)=>{if(d>4||len<6)return;const x2=x+Math.cos(a)*len,y2=y+Math.sin(a)*len,nx=-Math.sin(a),ny=Math.cos(a);c.beginPath();c.moveTo(x+nx*w,y+ny*w);c.lineTo(x2+nx*w*.6,y2+ny*w*.6);c.lineTo(x2-nx*w*.6,y2-ny*w*.6);c.lineTo(x-nx*w,y-ny*w);c.closePath();
@@ -5435,7 +5462,7 @@ const ARENA_SCENES=(()=>{
   fx(c,W,H,t,L){c.fillStyle='rgba(255,255,255,.5)';const n=L?60:24;for(let i=0;i<n;i++){const x=(rn(i,8)*W+t*45*(.5+rn(i,9)))%W,y=H*(.68+rn(i,10)*.32)+Math.sin(t+i)*3;c.fillRect(x,y,4,1)}}},
  // ---- Jaku City: the block stands, then Decay sweeps outward from the centre and everything crumbles, leaving a vast crater of dust
  decay:{base(c,W,H,t){sky(c,W,H,[[0,'#2a1812'],[.6,'#8a6048'],[1,'#3a2a24']]);glow(c,W/2,H*.85,W*.6,'rgba(255,170,110,.22)')},
-  fx(c,W,H,t,L){const wave=Math.min(1.7,Math.max(0,(t-5)*.075)),ground=H*.86,cr=Math.min(1,Math.max(0,(wave-.25)*1.2));
+  fx(c,W,H,t,L){const wave=Math.min(1.7,Math.max(0,(t-5)*.075)),ground=H*.86,cr=Math.min(1,Math.max(0,(wave-1.15)*2.2));
    for(let layer=2;layer>=0;layer--){const n=16-layer*3;for(let i=0;i<n;i++){const w=W/n*.84,x=W*i/n+(layer*29)%40-10,kind=Math.floor(rn(i,layer+40)*3),h=H*(.16+rn(i,layer+1)*.34)*(1-layer*.14),base=ground-layer*H*.035,d=Math.abs((x+w/2)/W-.5)*2,dec=Math.max(0,Math.min(1,(wave-d)*2.4)),sh=40+layer*20;
      if(dec>=1)continue;const hh=h*(1-dec);c.save();c.beginPath();c.rect(x-5,base-hh-40,w+10,hh+40);c.clip();
      c.fillStyle=lg(c,x,0,x+w,0,[[0,`rgb(${sh+30},${sh+24},${sh+20})`],[.7,`rgb(${sh},${sh-4},${sh-8})`],[1,`rgb(${sh-10},${sh-14},${sh-18})`]]);c.fillRect(x,base-h,w,h);c.strokeStyle='rgba(20,16,14,.6)';c.lineWidth=1;c.strokeRect(x,base-h,w,h);
@@ -5449,41 +5476,88 @@ const ARENA_SCENES=(()=>{
     c.beginPath();c.ellipse(W/2,ground-ry*.1,rx*1.04,ry*.55,0,Math.PI,0);c.strokeStyle='rgba(150,140,130,.8)';c.lineWidth=5;c.stroke();for(let i=0;i<40;i++){const a=Math.PI+rn(i,5)*Math.PI,x=W/2+Math.cos(a)*rx*1.02,y=ground-ry*.1+Math.sin(a)*ry*.55;c.fillStyle='#5a524c';c.fillRect(x-3,y-3,6+rn(i,6)*8,4+rn(i,7)*5)}}
    const r=wave*W*.55;if(wave>0&&wave<1.3){c.strokeStyle='rgba(200,190,180,.6)';c.lineWidth=3;c.beginPath();c.ellipse(W/2,ground,r,r*.16,0,0,TAU);c.stroke()}
    if(wave>.2){c.fillStyle=`rgba(150,140,130,${.2*Math.min(1,wave)})`;c.fillRect(0,0,W,H);if(L)for(let i=0;i<50;i++){c.fillStyle='rgba(190,180,170,.5)';c.fillRect((rn(i,8)*W+t*20)%W,H*(.4+rn(i,9)*.45)-((t*10*rn(i,10))%60),2,2)}}}},
- // ---- The Paths: an endless desert under the stars; from one point on the dunes a colossal tree of light rises and spreads its
- // branches across the whole sky, curving and forking like nerves, with light flowing up along them
- paths:{base(c,W,H,t){sky(c,W,H,[[0,'#02041a'],[.58,'#1a2a50'],[.62,'#c8b088'],[1,'#7a6448']]);for(let i=0;i<160;i++){c.fillStyle=`rgba(220,235,255,${.3+.6*Math.abs(Math.sin(t*rn(i,1)+i))})`;c.fillRect(rn(i,2)*W,rn(i,3)*H*.58,1.4,1.4)}
-   for(let i=0;i<5;i++)ridge(c,W,H*(.62+i*.07),10+i*4,.004+i*.001,i+3,`rgba(${150-i*12},${125-i*10},${90-i*8},1)`)},
-  fx(c,W,H,t,L){const cx=W*.5,base=H*.62;c.save();c.globalCompositeOperation='lighter';glow(c,cx,H*.25,Math.max(W,H)*.6,'rgba(120,200,255,.18)');glow(c,cx,base,90,'rgba(200,240,255,.6)');
-   const segs=[];const grow=(x,y,a,len,w,d)=>{if(d>8||len<4)return;const bend=(rn(d*13+len,7)-.5)*.5,mx=x+Math.cos(a+bend)*len*.5,my=y+Math.sin(a+bend)*len*.5,x2=x+Math.cos(a)*len,y2=y+Math.sin(a)*len;segs.push([x,y,mx,my,x2,y2,w,d]);
-     const spread=d<1?.75:d<3?.55:.45;grow(x2,y2,a-spread+(rn(d,len)-.5)*.25,len*.86,w*.7,d+1);grow(x2,y2,a+spread+(rn(d+3,len)-.5)*.25,len*.84,w*.68,d+1);if(d>1&&rn(d+7,len)>.5)grow(x2,y2,a+(rn(d+9,len)-.5)*.3,len*.7,w*.6,d+2)};
-   grow(cx,base,-Math.PI/2,H*.17,9,0);
-   for(const [x,y,mx,my,x2,y2,w,d] of segs){c.strokeStyle=`rgba(170,225,255,${.25})`;c.lineWidth=w*2.6;c.lineCap='round';c.beginPath();c.moveTo(x,y);c.quadraticCurveTo(mx,my,x2,y2);c.stroke();c.strokeStyle=`rgba(225,248,255,${.9-d*.06})`;c.lineWidth=Math.max(.6,w);c.stroke()}
-   const n=L?70:30;for(let i=0;i<n;i++){const sg=segs[Math.floor(rn(i,20)*segs.length)],q=((t*.6+rn(i,21))%1),x=(1-q)*(1-q)*sg[0]+2*(1-q)*q*sg[2]+q*q*sg[4],y=(1-q)*(1-q)*sg[1]+2*(1-q)*q*sg[3]+q*q*sg[5];c.fillStyle='rgba(255,255,255,.9)';c.beginPath();c.arc(x,y,1.6,0,TAU);c.fill()}c.restore()}},
+ // ---- The Paths (anime): a night of stars over pale blue dunes, an aurora on the horizon, and the tree of light: a bright trunk
+ // rising from one point in the sand that splits into countless jagged, glowing tendrils climbing up into the sky like lightning
+ paths:{tree:null,base(c,W,H,t){sky(c,W,H,[[0,'#01030e'],[.45,'#081a3a'],[.66,'#14305a']]);for(let i=0;i<180;i++){c.fillStyle=`rgba(220,240,255,${.25+.6*Math.abs(Math.sin(t*rn(i,1)+i))})`;c.fillRect(rn(i,2)*W,rn(i,3)*H*.66,1.3,1.3)}
+   for(let k=0;k<3;k++){c.beginPath();for(let x=0;x<=W;x+=8){const y=H*(.5+k*.03)+Math.sin(x*.006+t*.15+k)*H*.04;x?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle=`rgba(80,255,170,${.06+k*.02})`;c.lineWidth=H*.05;c.stroke()}
+   for(let i=0;i<5;i++)ridge(c,W,H*(.66+i*.065),9+i*4,.004+i*.001,i+3,lg(c,0,H*(.62+i*.065),0,H,[[0,`rgb(${120-i*16},${150-i*18},${190-i*20})`],[1,`rgb(${40-i*4},${56-i*6},${90-i*8})`]]))},
+  fx(c,W,H,t,L){const cx=W*.5,base=H*.68;
+   if(!this.tree||this.tree.W!==W||this.tree.H!==H){const cv=document.createElement('canvas');cv.width=W;cv.height=H;const g=cv.getContext('2d');g.globalCompositeOperation='lighter';const segs=[];
+    const grow=(x,y,a,len,w,d,sd)=>{if(d>5||len<6)return;let px=x,py=y;const n=5;for(let k=1;k<=n;k++){const jit=(rn(sd*7+k,d+40)-.5)*(d?.9:.15),nx=px+Math.cos(a+jit)*len/n,ny=py+Math.sin(a+jit)*len/n;segs.push([px,py,nx,ny,w*(1-k/n*.35),d]);px=nx;py=ny}
+     const kids=d===0?7:2+(rn(sd,d+50)>.6?1:0);for(let k=0;k<kids;k++){const spread=d===0?1.35:.5,na=-Math.PI/2+(a+Math.PI/2)*.6+((k+.5)/kids-.5)*spread*2+(rn(sd*3+k,d+60)-.5)*.3;grow(px,py,na,len*(d===0?.62:.8),w*.6,d+1,sd*5+k+1)}};
+    grow(cx,base,-Math.PI/2,H*.26,W*.034,0,1);g.lineCap='round';
+    for(const pass of [[4,0],[1.8,1],[.7,2]])for(const [x,y,x2,y2,w,d] of segs){g.lineCap=pass[1]===2?'round':'butt';g.strokeStyle=pass[1]===0?`rgba(60,220,240,${.12/(1+d)})`:pass[1]===1?`rgba(150,250,255,${.32/(1+d*.6)})`:`rgba(240,255,255,${.9-d*.12})`;g.lineWidth=Math.max(.7,w*pass[0]);g.beginPath();g.moveTo(x,y);g.lineTo(x2,y2);g.stroke()}
+    this.tree={W,H,cv,segs}}
+   const tr=this.tree,sway=Math.sin(t*.8)*.02,pulse=.85+.15*Math.sin(t*1.7);c.save();c.globalCompositeOperation='lighter';glow(c,cx,H*.3,Math.max(W,H)*.5,'rgba(60,200,230,.14)');glow(c,cx,base,W*.12,`rgba(200,255,255,${.6*pulse})`);
+   c.globalAlpha=pulse;c.setTransform(1,0,-sway,1,sway*base,0);c.drawImage(tr.cv,0,0);c.setTransform(1,0,0,1,0,0);c.globalAlpha=1;
+   const n=L?60:24;for(let i=0;i<n;i++){const sg=tr.segs[Math.floor(rn(i,20)*tr.segs.length)],q=((t*.7+rn(i,21))%1),y=sg[1]+(sg[3]-sg[1])*q;c.fillStyle='rgba(255,255,255,.9)';c.beginPath();c.arc(sg[0]+(sg[2]-sg[0])*q+(base-y)*sway,y,1.5,0,TAU);c.fill()}
+   c.restore();c.fillStyle='rgba(10,12,20,.9)';c.beginPath();c.ellipse(cx+W*.06,base+6,2.5,9,0,0,TAU);c.fill()}},
  // ---- The 100th Loop: a burning sky at the end of the world; the loop's clock turns; meteors fall
  loop:{base(c,W,H,t){sky(c,W,H,[[0,'#1a0606'],[.5,'#8a3014'],[.8,'#c86a2a'],[1,'#1a0806']]);glow(c,W/2,H*.8,W*.5,'rgba(255,160,80,.4)');const cx=W/2,cy=H*.42,R=Math.min(W,H)*.32;
    c.strokeStyle='rgba(255,226,170,.35)';c.lineWidth=5;c.beginPath();c.arc(cx,cy,R,0,TAU);c.stroke();for(let i=0;i<100;i++){const a=i/100*TAU,r1=R*(i%10?.95:.86);c.lineWidth=i%10?1:3;c.beginPath();c.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);c.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);c.stroke()}
    c.font=`900 ${R*.32}px "Arial Black",Impact,sans-serif`;c.textAlign='center';c.fillStyle='rgba(255,230,180,.22)';c.fillText('100',cx,cy+R*.1);ridge(c,W,H*.86,60,.006,6,'#140604');ridge(c,W,H*.92,30,.01,7,'#0a0302')},
   fx(c,W,H,t,L){const cx=W/2,cy=H*.42,R=Math.min(W,H)*.32,hand=t*.5;c.strokeStyle='rgba(255,236,190,.75)';c.lineWidth=6;c.lineCap='round';c.beginPath();c.moveTo(cx,cy);c.lineTo(cx+Math.cos(hand)*R*.8,cy+Math.sin(hand)*R*.8);c.stroke();c.lineCap='butt';
    const n=L?6:3;for(let i=0;i<n;i++){const q=((t*.22+rn(i,2))%1),x=W*(rn(i,3)*1.2)-q*W*.3,y=-40+q*H*.9;c.save();c.globalCompositeOperation='lighter';for(let j=0;j<7;j++){c.fillStyle=`rgba(255,${170-j*18},70,${.6-j*.08})`;c.beginPath();c.arc(x+j*13,y-j*20,10-j,0,TAU);c.fill()}c.restore();c.beginPath();c.arc(x,y,9,0,TAU);c.fillStyle='#4a2a1a';c.fill()}embers(c,W,H,t,L?20:8,8,'#ffb43b',30,1.8)}},
- // ---- Weisse: the fortress city of the north, all of it gold: a city that climbs a hill behind its wall, houses stacked on the slope,
- // the keep and the church on the crest, under Diagolze's barrier
- weisse:{base(c,W,H,t){sky(c,W,H,[[0,'#2a1e0a'],[.55,'#7a5a22'],[1,'#2a1e0a']]);glow(c,W/2,H*.3,W*.5,'rgba(255,220,120,.25)');ridge(c,W,H*.6,40,.004,2,'rgba(90,70,30,.7)');
-   const G=(x0,y0,x1,y1)=>lg(c,x0,y0,x1,y1,[[0,'#fff2a8'],[.45,'#e0b448'],[1,'#7a5818']]),ground=H*.88,hill=x=>ground-H*.2*Math.exp(-Math.pow((x-W*.5)/(W*.35),2))-H*.04;
-   c.beginPath();c.moveTo(0,ground);for(let x=0;x<=W;x+=6)c.lineTo(x,hill(x));c.lineTo(W,ground);c.closePath();c.fillStyle=lg(c,0,H*.6,0,ground,[[0,'#c8962e'],[1,'#7a5818']]);c.fill();
-   const house=(x,w,h,roofH)=>{const y=hill(x+w/2)+4;c.fillStyle=G(x,y-h,x+w,y);c.fillRect(x,y-h,w,h);c.strokeStyle='rgba(90,64,16,.75)';c.lineWidth=1.3;c.strokeRect(x,y-h,w,h);c.beginPath();c.moveTo(x+w*.33,y-h);c.lineTo(x+w*.33,y);c.moveTo(x+w*.66,y-h);c.lineTo(x+w*.66,y);c.moveTo(x,y-h*.5);c.lineTo(x+w,y-h*.5);c.stroke();
-     c.beginPath();c.moveTo(x-4,y-h);c.lineTo(x+w/2,y-h-roofH);c.lineTo(x+w+4,y-h);c.closePath();c.fillStyle=G(x,y-h-roofH,x+w,y-h);c.fill();c.stroke();c.fillStyle='rgba(90,60,10,.6)';c.fillRect(x+w*.12,y-h*.36,w*.16,h*.2);c.fillRect(x+w*.72,y-h*.36,w*.16,h*.2)};
-   const tower=(x,y,w,h)=>{c.fillStyle=G(x,y-h,x+w,y);c.fillRect(x,y-h,w,h);c.strokeStyle='rgba(90,64,16,.75)';c.strokeRect(x,y-h,w,h);c.beginPath();c.moveTo(x-6,y-h);c.lineTo(x+w/2,y-h-w*1.3);c.lineTo(x+w+6,y-h);c.closePath();c.fillStyle=G(x,y-h-w*1.3,x+w,y-h);c.fill();c.stroke()};
-   const kx=W*.42;tower(kx,hill(kx+W*.03)+4,W*.06,H*.18);const sx=W*.56,sy=hill(sx)+4;c.fillStyle=G(sx,sy-H*.25,sx+W*.04,sy);c.fillRect(sx,sy-H*.16,W*.04,H*.16);c.beginPath();c.moveTo(sx-3,sy-H*.16);c.lineTo(sx+W*.02,sy-H*.36);c.lineTo(sx+W*.043,sy-H*.16);c.closePath();c.fill();c.strokeStyle='rgba(90,64,16,.75)';c.stroke();
-   const rows=[[.02,24],[.0,20]];for(let r=0;r<2;r++)for(let i=0;i<14;i++){const w=W*(.045+rn(i+r*20,3)*.025),x=W*i/13-20+r*W*.035;if(Math.abs(x-kx)<W*.07||Math.abs(x-sx)<W*.05)continue;house(x,w,H*(.07+rn(i+r*20,4)*.06)*(r?1.1:.9),w*.7)}
-   c.fillStyle=G(0,H*.8,0,ground);c.fillRect(0,H*.82,W,ground-H*.82);c.strokeStyle='rgba(90,64,16,.75)';c.strokeRect(0,H*.82,W,ground-H*.82);for(let x=0;x<W;x+=18){c.fillStyle=G(x,H*.8,x+10,H*.82);c.fillRect(x,H*.805,10,H*.017)}
-   for(let i=0;i<4;i++)tower(W*(.08+i*.28),ground,W*.05,H*.14);c.fillStyle='rgba(60,40,8,.7)';c.beginPath();c.arc(W*.5,ground,W*.035,Math.PI,0);c.fill();
-   c.fillStyle='#3a2a12';c.fillRect(0,ground,W,H);c.strokeStyle='rgba(255,226,140,.35)';c.lineWidth=3;c.beginPath();c.ellipse(W/2,ground,W*.62,H*.75,0,Math.PI,0);c.stroke();vignette(c,W,H,.45)},
+ // ---- Weisse: the fortress city of the north turned to gold by Diagolze. The city climbs a hill in ordered terraces: each terrace is
+ // a street of half-timbered houses standing side by side on its own retaining wall, smaller and higher the farther back it is; the
+ // keep and the church crown the summit, and the city wall with its gate towers runs along the front, all under the barrier.
+ weisse:{base(c,W,H,t){sky(c,W,H,[[0,'#2a1e0a'],[.55,'#7a5a22'],[1,'#2a1e0a']]);glow(c,W/2,H*.3,W*.5,'rgba(255,220,120,.25)');ridge(c,W,H*.58,36,.004,2,'rgba(90,70,30,.7)');
+   const G=(x0,y0,x1,y1,dk=0)=>lg(c,x0,y0,x1,y1,[[0,dk?'#d8b85a':'#fff2a8'],[.45,dk?'#a87e26':'#e0b448'],[1,'#6a4c14']]),line='rgba(80,56,12,.8)',ground=H*.9,rows=5;
+   const rowY=r=>H*.5+r*H*.068,rowS=r=>.5+r*.14,rowHalf=r=>W*(.2+r*.075);
+   // the hill, stepped into terraces
+   c.beginPath();c.moveTo(0,ground);c.lineTo(W/2-rowHalf(rows)*1.1,ground);for(let r=rows-1;r>=0;r--){c.lineTo(W/2-rowHalf(r)-8,rowY(r)+4)}c.lineTo(W/2-rowHalf(0)*.6,rowY(0)-H*.05);c.lineTo(W/2+rowHalf(0)*.6,rowY(0)-H*.05);for(let r=0;r<rows;r++)c.lineTo(W/2+rowHalf(r)+8,rowY(r)+4);c.lineTo(W/2+rowHalf(rows)*1.1,ground);c.lineTo(W,ground);c.lineTo(W,H);c.lineTo(0,H);c.closePath();c.fillStyle=lg(c,0,H*.45,0,ground,[[0,'#b88a2a'],[1,'#6a4c14']]);c.fill();
+   // summit: the keep and the church
+   const sy=rowY(0)-H*.05,kx=W*.43,kw=W*.075,kh=H*.17;c.fillStyle=G(kx,sy-kh,kx+kw,sy);c.fillRect(kx,sy-kh,kw,kh);c.strokeStyle=line;c.lineWidth=1.2;c.strokeRect(kx,sy-kh,kw,kh);for(let k=0;k<5;k++)c.fillRect(kx+k*kw/4.5,sy-kh-6,kw/9,6);
+   for(const tx of [kx-W*.018,kx+kw-W*.012]){c.fillStyle=G(tx,sy-kh*1.25,tx+W*.03,sy);c.fillRect(tx,sy-kh*1.2,W*.03,kh*1.2);c.strokeRect(tx,sy-kh*1.2,W*.03,kh*1.2);c.beginPath();c.moveTo(tx-3,sy-kh*1.2);c.lineTo(tx+W*.015,sy-kh*1.5);c.lineTo(tx+W*.03+3,sy-kh*1.2);c.closePath();c.fill();c.stroke()}
+   c.fillStyle='rgba(80,50,8,.6)';for(let k=0;k<3;k++)c.fillRect(kx+kw*(.2+k*.25),sy-kh*.7,kw*.1,kh*.16);
+   const chx=W*.55,cw=W*.07,chh=H*.09;c.fillStyle=G(chx,sy-chh,chx+cw,sy);c.fillRect(chx,sy-chh,cw,chh);c.strokeRect(chx,sy-chh,cw,chh);c.beginPath();c.moveTo(chx-3,sy-chh);c.lineTo(chx+cw/2,sy-chh-H*.05);c.lineTo(chx+cw+3,sy-chh);c.closePath();c.fill();c.stroke();
+   const spx=chx+cw-W*.022;c.fillStyle=G(spx,sy-H*.3,spx+W*.022,sy);c.fillRect(spx,sy-chh-H*.08,W*.022,chh+H*.08);c.strokeRect(spx,sy-chh-H*.08,W*.022,chh+H*.08);c.beginPath();c.moveTo(spx-2,sy-chh-H*.08);c.lineTo(spx+W*.011,sy-H*.34);c.lineTo(spx+W*.022+2,sy-chh-H*.08);c.closePath();c.fill();c.stroke();c.beginPath();c.arc(chx+cw*.35,sy-chh*.55,cw*.12,0,TAU);c.fillStyle='rgba(90,60,10,.6)';c.fill();
+   // terraces, back to front: a retaining wall, then a street of houses standing on it side by side
+   for(let r=0;r<rows;r++){const y=rowY(r),s=rowS(r),half=rowHalf(r),x0=W/2-half,x1=W/2+half;
+    c.fillStyle=G(x0,y,x0,y+H*.03,1);c.fillRect(x0-8,y,x1-x0+16,H*.028*s+4);c.strokeStyle=line;c.lineWidth=1;c.strokeRect(x0-8,y,x1-x0+16,H*.028*s+4);c.strokeStyle='rgba(90,64,16,.45)';for(let x=x0-8;x<x1+8;x+=14*s){c.beginPath();c.moveTo(x,y);c.lineTo(x,y+H*.028*s+4);c.stroke()}
+    let x=x0;let i=0;while(x<x1-10){const w=W*.05*s*(.85+rn(i+r*31,3)*.5),h=H*.085*s*(.85+rn(i+r*31,4)*.35),gable=rn(i+r*31,5)>.45,rh=gable?w*.55:w*.35;if(x+w>x1)break;
+     if(r===0&&x+w>kx-W*.03&&x<chx+cw+W*.01){x=chx+cw+W*.012;i++;continue}
+     c.fillStyle=G(x,y-h,x+w,y);c.fillRect(x,y-h,w,h);c.strokeStyle=line;c.lineWidth=1;c.strokeRect(x,y-h,w,h);
+     c.strokeStyle='rgba(110,78,18,.75)';c.beginPath();c.moveTo(x,y-h*.52);c.lineTo(x+w,y-h*.52);c.moveTo(x+w*.5,y-h);c.lineTo(x+w*.5,y);c.moveTo(x,y-h*.52);c.lineTo(x+w*.5,y-h);c.moveTo(x+w,y-h*.52);c.lineTo(x+w*.5,y-h);c.stroke();
+     c.fillStyle='rgba(90,58,8,.65)';c.fillRect(x+w*.14,y-h*.42,w*.18,h*.2);c.fillRect(x+w*.68,y-h*.42,w*.18,h*.2);c.fillRect(x+w*.4,y-h*.3,w*.2,h*.3);
+     c.beginPath();if(gable){c.moveTo(x-2*s,y-h);c.lineTo(x+w/2,y-h-rh);c.lineTo(x+w+2*s,y-h)}else{c.moveTo(x-2*s,y-h);c.lineTo(x+w*.15,y-h-rh);c.lineTo(x+w*.85,y-h-rh);c.lineTo(x+w+2*s,y-h)}c.closePath();c.fillStyle=G(x,y-h-rh,x+w,y-h);c.fill();c.strokeStyle=line;c.stroke();
+     if(rn(i+r*31,6)>.6){c.fillStyle=G(x+w*.7,y-h-rh,x+w*.8,y-h);c.fillRect(x+w*.68,y-h-rh*.95,w*.1,rh*.6)}
+     x+=w+3*s;i++}}
+   // the city wall and gate along the front
+   const wy=H*.82;c.fillStyle=G(0,wy,0,ground);c.fillRect(0,wy,W,ground-wy);c.strokeStyle=line;c.strokeRect(0,wy,W,ground-wy);for(let x=0;x<W;x+=18){c.fillStyle=G(x,wy-H*.018,x+10,wy);c.fillRect(x,wy-H*.016,10,H*.016)}
+   c.strokeStyle='rgba(90,64,16,.4)';for(let y=wy+8;y<ground;y+=9){c.beginPath();c.moveTo(0,y);c.lineTo(W,y);c.stroke()}
+   const tower=(x,w,h)=>{c.fillStyle=G(x,ground-h,x+w,ground);c.fillRect(x,ground-h,w,h);c.strokeStyle=line;c.strokeRect(x,ground-h,w,h);c.beginPath();c.moveTo(x-5,ground-h);c.lineTo(x+w/2,ground-h-w*1.2);c.lineTo(x+w+5,ground-h);c.closePath();c.fill();c.stroke();c.fillStyle='rgba(80,50,8,.6)';c.fillRect(x+w*.38,ground-h*.75,w*.24,h*.14)};
+   tower(W*.06,W*.05,H*.15);tower(W*.89,W*.05,H*.15);tower(W*.39,W*.05,H*.17);tower(W*.56,W*.05,H*.17);c.fillStyle='rgba(50,32,6,.85)';c.beginPath();c.moveTo(W*.44,ground);c.lineTo(W*.44,ground-H*.04);c.arc(W*.5,ground-H*.04,W*.06,Math.PI,0);c.lineTo(W*.56,ground);c.closePath();c.fill();
+   c.fillStyle='#3a2a12';c.fillRect(0,ground,W,H);c.strokeStyle='rgba(255,226,140,.35)';c.lineWidth=3;c.beginPath();c.ellipse(W/2,ground,W*.62,H*.78,0,Math.PI,0);c.stroke();vignette(c,W,H,.45)},
   fx(c,W,H,t,L){c.save();c.translate(W*.5,H*.2);c.rotate(t*.1);c.strokeStyle='rgba(255,230,140,.45)';c.lineWidth=2;for(const r of [64,50]){c.beginPath();c.arc(0,0,r,0,TAU);c.stroke()}for(let i=0;i<12;i++){c.rotate(TAU/12);c.beginPath();c.moveTo(50,0);c.lineTo(64,7);c.stroke()}c.restore();embers(c,W,H,t,L?40:18,7,'#ffe08a',-20,1.8)}}
  };
  const oniFx=(c,W,H,t,L)=>{const fl=(t%6.5)/6.5;if(fl>.94||(fl>.88&&fl<.9)){c.fillStyle='rgba(210,225,255,.3)';c.fillRect(0,0,W,H);const x0=W*rn(Math.floor(t/6.5),3);c.strokeStyle='#eef4ff';c.lineWidth=2.5;c.beginPath();let x=x0,y=0;c.moveTo(x,y);while(y<H*.55){x+=(rn(y,4)-.5)*50;y+=24;c.lineTo(x,y)}c.stroke()}
-   for(let i=0;i<3;i++){const x=W*((rn(i,3)+t*.012*(1+i*.3))%1.3)-W*.15,y=H*(.1+rn(i,4)*.18);glow(c,x,y,90,'rgba(255,110,40,.4)');c.fillStyle='rgba(70,40,50,.85)';for(let j=0;j<5;j++){c.beginPath();c.arc(x-50+j*25,y+Math.sin(j*2)*6,20,0,TAU);c.fill()}}
-   const dx=W*(.05+1.2*((t*.028)%1))-W*.1,dy=H*.22;c.lineCap='round';c.beginPath();for(let i=0;i<50;i++){const x=dx-i*20,y=dy+Math.sin(i*.33+t*1.4)*34;i?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle='#0c1420';c.lineWidth=34;c.stroke();c.strokeStyle='#33507a';c.lineWidth=27;c.stroke();c.strokeStyle='rgba(140,180,220,.6)';c.lineWidth=3;c.setLineDash([6,12]);c.stroke();c.setLineDash([]);c.lineCap='butt';
-   const hy=dy+Math.sin(t*1.4)*34;c.beginPath();c.ellipse(dx+20,hy,28,18,0,0,TAU);c.fillStyle='#33507a';c.fill();c.strokeStyle='#0c1420';c.lineWidth=3;c.stroke();c.fillStyle='#ffd23f';c.beginPath();c.arc(dx+30,hy-6,4,0,TAU);c.fill();
+   for(let i=0;i<3;i++){const x=W*((rn(i,3)+t*.012*(1+i*.3))%1.3)-W*.15,y=H*(.1+rn(i,4)*.18);glow(c,x,y+20,80,'rgba(255,110,40,.18)');for(let j=0;j<6;j++){const cx2=x-60+j*24,cy2=y+Math.sin(j*2)*6;c.fillStyle=rg(c,cx2,cy2-6,2,26,[[0,'rgba(60,64,80,.8)'],[1,'rgba(24,26,36,0)']]);c.beginPath();c.arc(cx2,cy2,26,0,TAU);c.fill()}}
+   // Kaido's dragon form flying through the storm: a long serpentine body of blue scales with a pale banded belly, a white mane down
+   // the spine, four clawed legs, and a long-snouted head with antler horns, a flowing white mane, whiskers, fangs and gold eyes
+   {const N=L?60:42,seg=W/48,dx=W*(.05+1.35*((t*.026)%1))-W*.15,dy=H*.24,A=H*.07,P=[];for(let i=0;i<N;i++)P.push([dx-i*seg,dy+Math.sin(i*.24-t*1.6)*A*(.4+.6*Math.min(1,i/8))]);
+    const rad=i=>{const q=i/(N-1);return (W/38)*(q<.08?.75+q*3:q<.55?1:Math.max(.12,1-(q-.55)*1.9))},nrm=i=>{const a=P[Math.max(0,i-1)],b=P[Math.min(N-1,i+1)],tx=b[0]-a[0],ty=b[1]-a[1],l=Math.hypot(tx,ty)||1;return [-ty/l,tx/l]};
+    const up=[],dn=[];for(let i=0;i<N;i++){const [nx,ny]=nrm(i),r=rad(i),s=ny>0?1:-1;up.push([P[i][0]-nx*r*s,P[i][1]-ny*r*s]);dn.push([P[i][0]+nx*r*s,P[i][1]+ny*r*s])}
+    // legs
+    for(const li of [7,10,30,33]){if(li>=N)continue;const [x,y]=P[li],r=rad(li),k=Math.sin(t*3+li);c.strokeStyle='#1a2a44';c.lineWidth=r*.7;c.lineCap='round';c.beginPath();c.moveTo(x,y);c.quadraticCurveTo(x+r*1.4,y+r*1.6,x+r*(.6+k*.4),y+r*2.6);c.stroke();c.strokeStyle='#4a78a8';c.lineWidth=r*.45;c.stroke();c.strokeStyle='#f0ead8';c.lineWidth=1.4;for(let f=-1;f<=1;f++){c.beginPath();c.moveTo(x+r*(.6+k*.4),y+r*2.6);c.lineTo(x+r*(.6+k*.4)+f*r*.4+r*.2,y+r*3.05);c.stroke()}}
+    c.lineCap='butt';c.beginPath();c.moveTo(...up[0]);for(let i=1;i<N;i++)c.lineTo(...up[i]);for(let i=N-1;i>=0;i--)c.lineTo(...dn[i]);c.closePath();c.fillStyle=lg(c,0,dy-A-W/50,0,dy+A+W/50,[[0,'#7ab0de'],[.5,'#3c6a9c'],[1,'#1c3456']]);c.fill();c.strokeStyle='#0a1422';c.lineWidth=2.2;c.stroke();
+    // belly plates
+    for(let i=2;i<N-2;i++){const [nx,ny]=nrm(i),r=rad(i),s=ny>0?1:-1,bx=nx*s,by=ny*s,a=[P[i][0]+bx*r*.35,P[i][1]+by*r*.35],b=[P[i][0]+bx*r*.98,P[i][1]+by*r*.98],a2=[P[i+1][0]+bx*r*.35,P[i+1][1]+by*r*.35],b2=[P[i+1][0]+bx*r*.98,P[i+1][1]+by*r*.98];c.beginPath();c.moveTo(...a);c.lineTo(...b);c.lineTo(...b2);c.lineTo(...a2);c.closePath();c.fillStyle=i%2?'#e8dcb0':'#d4c494';c.fill();c.strokeStyle='rgba(120,100,60,.8)';c.lineWidth=1;c.beginPath();c.moveTo(...a);c.lineTo(...b);c.stroke()}
+    // scales: rows of overlapping scallops on the back and flank
+    if(L)for(let i=1;i<N-1;i++){const [nx,ny]=nrm(i),r=rad(i),s=ny>0?1:-1,ang=Math.atan2(P[i+1][1]-P[i][1],P[i+1][0]-P[i][0]);for(const o of [-.7,-.35,0]){const x=P[i][0]+nx*s*r*o,y=P[i][1]+ny*s*r*o;c.beginPath();c.arc(x,y,r*.32,ang+Math.PI*.5,ang+Math.PI*1.5);c.strokeStyle=o<-.5?'rgba(200,230,255,.45)':'rgba(10,24,44,.55)';c.lineWidth=1;c.stroke()}}
+    // white mane along the spine
+    for(let i=3;i<N*.8;i+=2){const [x,y]=up[i],r=rad(i),w=Math.sin(t*5+i*.7);c.beginPath();c.moveTo(x-r*.3,y);c.quadraticCurveTo(x+r*.3,y-r*1.2,x+r*(1.1+w*.2),y-r*(.9+w*.2));c.quadraticCurveTo(x+r*.4,y-r*.4,x+r*.4,y);c.closePath();c.fillStyle='#f4f0e6';c.fill();c.strokeStyle='rgba(60,60,70,.5)';c.lineWidth=.8;c.stroke()}
+    // head
+    const hx=P[0][0],hy=P[0][1],ha=Math.atan2(P[0][1]-P[2][1],P[0][0]-P[2][0]),R=W/25;c.save();c.translate(hx,hy);c.rotate(ha);
+    for(let k=0;k<5;k++){c.beginPath();c.moveTo(-R*.2,-R*.6+k*R*.25);c.bezierCurveTo(-R*1.5,-R*1.4+k*R*.4,-R*2.4,-R*.6+k*R*.5+Math.sin(t*4+k)*R*.3,-R*3.4,-R*.2+k*R*.6);c.lineTo(-R*.4,R*.2+k*R*.15);c.closePath();c.fillStyle=k%2?'#f6f2ea':'#dcd6ca';c.fill()}
+    for(const s of [-1,1]){c.beginPath();c.moveTo(R*.1,-R*.8);c.quadraticCurveTo(-R*.8,-R*2.2+s*R*.2,-R*2.2,-R*2.8+s*R*.3);c.strokeStyle='#d8d0c0';c.lineWidth=R*.28;c.lineCap='round';c.stroke();c.beginPath();c.moveTo(-R*1.0,-R*2.0+s*R*.1);c.lineTo(-R*.9,-R*2.8);c.lineWidth=R*.16;c.stroke();c.lineCap='butt'}
+    c.beginPath();c.moveTo(-R*.4,-R*.9);c.quadraticCurveTo(R*.9,-R*1.1,R*2.4,-R*.55);c.quadraticCurveTo(R*2.9,-R*.4,R*2.8,-R*.05);c.lineTo(R*.6,R*.05);c.quadraticCurveTo(-R*.3,R*.3,-R*.5,R*.6);c.closePath();c.fillStyle=lg(c,0,-R,0,R*.3,[[0,'#8ec0e8'],[1,'#3a6898']]);c.fill();c.strokeStyle='#0a1422';c.lineWidth=1.8;c.stroke();
+    const jo=.15+.12*Math.max(0,Math.sin(t*1.3));c.save();c.rotate(jo);c.beginPath();c.moveTo(-R*.3,R*.3);c.quadraticCurveTo(R*1.2,R*.75,R*2.5,R*.35);c.lineTo(R*2.5,R*.1);c.lineTo(R*.4,R*.1);c.closePath();c.fillStyle='#e0d4a8';c.fill();c.strokeStyle='#0a1422';c.stroke();c.fillStyle='#fff';for(let k=0;k<5;k++){c.beginPath();c.moveTo(R*(.9+k*.35),R*.12);c.lineTo(R*(1.02+k*.35),-R*.12);c.lineTo(R*(1.14+k*.35),R*.12);c.fill()}c.restore();
+    c.fillStyle='#5a0a0a';c.beginPath();c.moveTo(R*.5,R*.05);c.lineTo(R*2.6,R*.02);c.lineTo(R*2.4,R*.25+jo*R*2);c.closePath();c.fill();
+    c.fillStyle='#fff';for(let k=0;k<5;k++){c.beginPath();c.moveTo(R*(.8+k*.38),R*.04);c.lineTo(R*(.92+k*.38),R*.3);c.lineTo(R*(1.04+k*.38),R*.04);c.fill()}
+    c.beginPath();c.ellipse(R*.55,-R*.55,R*.26,R*.15,-.2,0,TAU);c.fillStyle='#ffd23f';c.fill();c.fillStyle='#120a00';c.fillRect(R*.52,-R*.68,R*.06,R*.26);c.strokeStyle='#0a1422';c.lineWidth=1.2;c.beginPath();c.moveTo(R*.2,-R*.8);c.quadraticCurveTo(R*.6,-R*.95,R*.95,-R*.72);c.stroke();
+    c.strokeStyle='rgba(240,236,220,.85)';c.lineWidth=1.4;for(const s of [-1,1]){c.beginPath();c.moveTo(R*2.3,-R*.35);c.bezierCurveTo(R*2.0,-R*1.6*s+Math.sin(t*3)*R*.4,R*.4,-R*1.4*s,-R*.8,-R*1.9*s+Math.cos(t*2.5)*R*.5);c.stroke()}
+    c.fillStyle='#0a1422';c.beginPath();c.arc(R*2.55,-R*.42,R*.07,0,TAU);c.fill();c.restore()}
    c.strokeStyle='rgba(170,190,220,.4)';c.lineWidth=1.2;const n=L?110:50;for(let i=0;i<n;i++){const x=(rn(i,7)*W+t*80)%W,y=(rn(i,8)*H+t*760*(.7+rn(i,9)*.6))%H;c.beginPath();c.moveTo(x,y);c.lineTo(x-7,y+20);c.stroke()}
    c.strokeStyle='rgba(120,150,190,.35)';c.lineWidth=1.5;for(let i=0;i<6;i++){const y=H*.82+i*14;c.beginPath();for(let x=0;x<=W;x+=24)c.lineTo(x,y+Math.sin(x*.02+t*2+i)*3);c.stroke()}};
  const plates={};function plate(id){if(!(id in plates)){plates[id]=null;const src=ARENA_PLATES[id];if(src&&typeof Image!=='undefined'){const im=new Image();im.onload=()=>{plates[id]=im};im.src=src}}return plates[id]}
