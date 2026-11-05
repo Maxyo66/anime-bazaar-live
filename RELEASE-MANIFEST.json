@@ -1,11 +1,1096 @@
 {
-  "source": "Completed Claude gameplay through request #42; existing approved production artwork preserved",
-  "sourceSha256": "889a688aa1f52825925c03f40a5e5eb5abde8c4c6d55e916d4dbbd5ab1d6bc08",
+  "source": "Completed Claude changes through request #52 and user-approved artwork",
+  "sourceSha256": "ed109741447bdbfab69969b2b0a714bfb9495740e757c6b918435d1877f6f135",
+  "artSha256": "8f92262196d15a17a8d0a019aaff753f9160efd67106b219fb7f98ce7f2081e7",
+  "requests": [
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52
+  ],
+  "artworkChanged": true,
+  "artworkMappings": 214,
   "files": [
     {
       "name": "ainz-preview.html",
       "bytes": 102752,
       "sha256": "bc31175cfb16dd679da99241156cf66a4c03cfc182b666319dcd82559180aba5"
+    },
+    {
+      "name": "art/approved-20261105/adamantine.webp",
+      "bytes": 49858,
+      "sha256": "ee69c6b46323e5eedeef41b012ffb896e7bc1273cda285db9bd7e5af8ec54ed1"
+    },
+    {
+      "name": "art/approved-20261105/aim_stalker.jpg",
+      "bytes": 56680,
+      "sha256": "4837cf9c0a063dacc65239546a13126cafea317fba29bdde5861d55b4e4b0aac"
+    },
+    {
+      "name": "art/approved-20261105/ainz_goal.jpg",
+      "bytes": 318040,
+      "sha256": "3308024322caa9ae5cc0d464971b848f38d734f23375f7287dd7d87871e49769"
+    },
+    {
+      "name": "art/approved-20261105/ainz_negative.jpg",
+      "bytes": 222723,
+      "sha256": "35faa0473db6d6de4d649aa56b4c0dacb23666000b12f4bb331c819e79cdfbb0"
+    },
+    {
+      "name": "art/approved-20261105/ainz_reality.jpg",
+      "bytes": 111231,
+      "sha256": "b184e24bc7b184bf886c029e73591fb20968a0e6b6688f4c522828facd11708c"
+    },
+    {
+      "name": "art/approved-20261105/ainz_skull.webp",
+      "bytes": 143924,
+      "sha256": "10cbba54934f9ff863611693d91ae5434dd45481de5f821b8169b6aaa01910b6"
+    },
+    {
+      "name": "art/approved-20261105/ainz_time.jpg",
+      "bytes": 298240,
+      "sha256": "592092343e0e9d4fedea1d9b661da1933d398e6413f070bfc56629c025a61ef7"
+    },
+    {
+      "name": "art/approved-20261105/akaza_annihilation.jpg",
+      "bytes": 146930,
+      "sha256": "037727980a678a9d49f67dd3ee1a36b1a684e892ac0cbd8674fabc54c0c6b610"
+    },
+    {
+      "name": "art/approved-20261105/akaza_regen.jpg",
+      "bytes": 79196,
+      "sha256": "c73eccf2fc8f66d07b8eaa7e35a9b5b25c8d4645661a89c7e91794b4a8da8956"
+    },
+    {
+      "name": "art/approved-20261105/all_for_one.jpg",
+      "bytes": 33307,
+      "sha256": "a4494f4e709bfcba8f8a4540ccfeefa236d9677e3e767c34e9e53f2ae1378b25"
+    },
+    {
+      "name": "art/approved-20261105/arcade_coin.png",
+      "bytes": 74374,
+      "sha256": "443167f56f09544d9ee170de59432afd1a66106a2f43764fd30a7e1ca323240a"
+    },
+    {
+      "name": "art/approved-20261105/ashisogi.png",
+      "bytes": 652471,
+      "sha256": "efa0e16674f06c857dfd6ba578a62541f4ac3a7511cf7c22c2f38a9c72682f22"
+    },
+    {
+      "name": "art/approved-20261105/aura_rally.png",
+      "bytes": 620014,
+      "sha256": "16e061dfbe1f08d417115c081da39a91c96c5b9b05d2e6745a3fee0b045c611e"
+    },
+    {
+      "name": "art/approved-20261105/aura_soldier.jpg",
+      "bytes": 489947,
+      "sha256": "00a1c749a97a1c81de447eedab49059a018621178dec3ddfdeff7c817f6020df"
+    },
+    {
+      "name": "art/approved-20261105/aura_weigh.webp",
+      "bytes": 17050,
+      "sha256": "d4a2e5c6b2589c34004192f34bd07faf292dca333ac88834ba8a9fa2aafdb1d4"
+    },
+    {
+      "name": "art/approved-20261105/automail.webp",
+      "bytes": 138760,
+      "sha256": "351b77ab1e0a07ee8a969ef250de6fce7688d1957b39c50c39e13e1611eb2fc6"
+    },
+    {
+      "name": "art/approved-20261105/avdol.png",
+      "bytes": 4196527,
+      "sha256": "cb9aaf7a265fa6a25eaae23857e4e9ce7319da0a88c817eeb3da4c26f6fd1a2f"
+    },
+    {
+      "name": "art/approved-20261105/bakugo.png",
+      "bytes": 301106,
+      "sha256": "ff3dc38af9d7fe63dd5603c984903facd933afcd82db999b69fd258fda29b812"
+    },
+    {
+      "name": "art/approved-20261105/beast_titan.jpg",
+      "bytes": 624501,
+      "sha256": "22e34c1de5884d53cbdbf2f6827eb57b37d6fc88e930639aa61e5d2e7befa290"
+    },
+    {
+      "name": "art/approved-20261105/beerus_hakai.jpg",
+      "bytes": 464906,
+      "sha256": "a37863aafc617c9ef93d6902d2bf0665ed9d3508c8aca9c0b73befe8ef0d72f3"
+    },
+    {
+      "name": "art/approved-20261105/bento.webp",
+      "bytes": 128978,
+      "sha256": "047913808812d86ef879b280c52369ed0dfbc39d8ee9a60088d8cf5a71e54a11"
+    },
+    {
+      "name": "art/approved-20261105/berserker_armor.jpg",
+      "bytes": 34934,
+      "sha256": "011185955abb38b4205f46ec1c758230354cefe0e37af282b00a17f4e4ad0289"
+    },
+    {
+      "name": "art/approved-20261105/bingo_book.webp",
+      "bytes": 452206,
+      "sha256": "8ee71dd39a879fa8a400b3992b5f6e15fd19c05a3203e0481caea9b8b73724d3"
+    },
+    {
+      "name": "art/approved-20261105/biwa.jpg",
+      "bytes": 501171,
+      "sha256": "cfe8b385be4de5c15bfbf7e157ec9938bf3c190fc778a3a06bdd20ade6bf2e8a"
+    },
+    {
+      "name": "art/approved-20261105/black_tea.png",
+      "bytes": 33744,
+      "sha256": "552bb1e8bc1dfd5bc5cf6a8a562a72d6bc4f182e73281685a26222ba3c4cb685"
+    },
+    {
+      "name": "art/approved-20261105/blackwhip.png",
+      "bytes": 1613253,
+      "sha256": "a5544364769c66b5d199231bb2ea923b5beb5a81ea8f2134adb200a6779c81cf"
+    },
+    {
+      "name": "art/approved-20261105/blindfold.png",
+      "bytes": 111208,
+      "sha256": "ee8b121c8c186bc46a18276fbd88f49ac36d81daa0f44159929aa165e4ca149a"
+    },
+    {
+      "name": "art/approved-20261105/blood_art.jpg",
+      "bytes": 146601,
+      "sha256": "531bef2df8f426d6f0095f3d93e39832a5022f646fd3b7f9259f834a3aa853aa"
+    },
+    {
+      "name": "art/approved-20261105/blue.png",
+      "bytes": 101507,
+      "sha256": "202a44ab2b94c60192bd8959696d795c6d2f5ac4f974ffe9afa2509ad62ecace"
+    },
+    {
+      "name": "art/approved-20261105/bokuto.webp",
+      "bytes": 549322,
+      "sha256": "74cf3a31994565cdf4451c33cd6df3767ee69c214641e59d5a1cfb20ecb9caf8"
+    },
+    {
+      "name": "art/approved-20261105/book_zeref.webp",
+      "bytes": 403678,
+      "sha256": "c856377de6b79f3ff328f4110b4cd7b0376b2b93d21198ecf75b06621bfe21da"
+    },
+    {
+      "name": "art/approved-20261105/cart_cannon.jpg",
+      "bytes": 324130,
+      "sha256": "d6f7097787aafb5fd1eb7535385d7380e9b34332f6152f1b0f6604299340f3ec"
+    },
+    {
+      "name": "art/approved-20261105/cero.jpg",
+      "bytes": 218933,
+      "sha256": "148310be48ee39eb5741744082b31837c3c4de6fc0ad36c6aa85a663bda3fa76"
+    },
+    {
+      "name": "art/approved-20261105/chain_jail.png",
+      "bytes": 1160866,
+      "sha256": "c4c2e8f1b27de62169624119d356409ebf30a51ab5fc691ebcf0434fae5574fa"
+    },
+    {
+      "name": "art/approved-20261105/chainsaw_man.png",
+      "bytes": 1341032,
+      "sha256": "6dfc90e1358061d539b62da24caed8bb5701b8037e68a9ca79a639805b0b80ca"
+    },
+    {
+      "name": "art/approved-20261105/cnp.png",
+      "bytes": 125934,
+      "sha256": "79739a2cb1d9e25e57f67bb02df753418d90a82eb75af5852ced8a54154ca56d"
+    },
+    {
+      "name": "art/approved-20261105/croquettes.png",
+      "bytes": 198377,
+      "sha256": "d8c2543fffc0aafe974f7c41550629f1f4cde58c9221e520830ba40dcd46826f"
+    },
+    {
+      "name": "art/approved-20261105/curse_veil.jpg",
+      "bytes": 312223,
+      "sha256": "62ce2e389b9147fa10596fad510b33d36d5e3f4f15a77ed7a26e0af06c53ae57"
+    },
+    {
+      "name": "art/approved-20261105/daki_obi.png",
+      "bytes": 265944,
+      "sha256": "7d000729e5df9a1775cf27a895d30c2d6333be90e09031141846b1212c4e3489"
+    },
+    {
+      "name": "art/approved-20261105/daki_sickle.jpg",
+      "bytes": 147001,
+      "sha256": "dd53a68b763969d375de561108e08aaa67f855e20f6e28b866a40eabfa87fd46"
+    },
+    {
+      "name": "art/approved-20261105/darby_soul.png",
+      "bytes": 1773002,
+      "sha256": "d35381f372062ec33872c438cb15eab7ba93b93fe98cc877cbcd2c7ad8864212"
+    },
+    {
+      "name": "art/approved-20261105/dart.webp",
+      "bytes": 14982,
+      "sha256": "1aeb9657cf8ec3fc8d22dcf4f4045f5df35d252e0a1b64b502a5ed2929ca7a66"
+    },
+    {
+      "name": "art/approved-20261105/death_beam.jpg",
+      "bytes": 429978,
+      "sha256": "f51750bfae50c6d36a4151657e2aca4786eb05d9d7abc049025c60d09f09c5ab"
+    },
+    {
+      "name": "art/approved-20261105/decay.jpg",
+      "bytes": 313649,
+      "sha256": "275da8b975f1c88dd1449e504642ea8fd3e25482cf44b5f39c196632836de3ca"
+    },
+    {
+      "name": "art/approved-20261105/def_magic.png",
+      "bytes": 924579,
+      "sha256": "6e1165107160a49006219d0dfd9f8491dbbbc93308420c6152858c865323d950"
+    },
+    {
+      "name": "art/approved-20261105/delaware.png",
+      "bytes": 66290,
+      "sha256": "da5bc4f46f1c8489fbaa81478819d496112033fa8dd33076d58d5a81d4e4c473"
+    },
+    {
+      "name": "art/approved-20261105/dio_roadroller.jpg",
+      "bytes": 601668,
+      "sha256": "ff002d3b58b208d123fb23f79113627ba7c2512523cacbc02793b82712aed88d"
+    },
+    {
+      "name": "art/approved-20261105/dragon_roar.png",
+      "bytes": 133156,
+      "sha256": "9cdd6ed5a6e4957bd8f7fe59e8e868791a66eaa70d9baa70ff59d5c76b15819d"
+    },
+    {
+      "name": "art/approved-20261105/drum.webp",
+      "bytes": 50814,
+      "sha256": "59c40370d69637dfa95e0068f8f3bea1fb4b5b1f145523153bdb139d77488ebd"
+    },
+    {
+      "name": "art/approved-20261105/engineRestart.png",
+      "bytes": 119711,
+      "sha256": "76c419c0bf9b22869c94ffed94ef4f591764250747ff1c6a1f113091cd26eb61"
+    },
+    {
+      "name": "art/approved-20261105/enmu_flesh.jpg",
+      "bytes": 52334,
+      "sha256": "8e1dbca1d6c1ca8e9ca20362da50db13f16e81633bdfb0ae9c97d300ebfef429"
+    },
+    {
+      "name": "art/approved-20261105/enmu_slumber.jpg",
+      "bytes": 85821,
+      "sha256": "41d5241e05a9867e28af106041ba0e25d670a7612f5420bc7a65e17a0d30d920"
+    },
+    {
+      "name": "art/approved-20261105/enmu_ticket.jpg",
+      "bytes": 289516,
+      "sha256": "c7627851ee4a3e8cd93074a5fd3db51f70c2f20f1bfc5b7724a30375d0dcfc2b"
+    },
+    {
+      "name": "art/approved-20261105/erwin.png",
+      "bytes": 1374879,
+      "sha256": "24d48c75e3fc8de0f629df901d72c046c6e35ca263ba8c3021ed41c65714402a"
+    },
+    {
+      "name": "art/approved-20261105/fallen_down.jpg",
+      "bytes": 292508,
+      "sha256": "c882e595e660a6312cf824ea5f392dbc1328a81128257eb3568f9cb570e1035d"
+    },
+    {
+      "name": "art/approved-20261105/father_alch.jpg",
+      "bytes": 344312,
+      "sha256": "c42744fc3180bf2dde22ca83f6b6d36cb5c519152ebf9a646699660e137066e5"
+    },
+    {
+      "name": "art/approved-20261105/father_god.jpg",
+      "bytes": 214178,
+      "sha256": "bd202d34b2c130ee6ca6cf45213450ccd66529a802c559edea9c03d0d96c624a"
+    },
+    {
+      "name": "art/approved-20261105/fire_fist.png",
+      "bytes": 42170,
+      "sha256": "04b25670c75bcefd926581903a0cfc30012f3a9b5ed479f46838a94678bae861"
+    },
+    {
+      "name": "art/approved-20261105/five_leaf.webp",
+      "bytes": 40098,
+      "sha256": "71fdbf26435cca285e60205dbfbda8a456608d3b13ac82949da06a44033c327e"
+    },
+    {
+      "name": "art/approved-20261105/flyer.png",
+      "bytes": 489640,
+      "sha256": "eca08ed22d4a0caa89baec250eda0a452383216e088ccd185ffd5f26501e8708"
+    },
+    {
+      "name": "art/approved-20261105/frieza_ki.jpg",
+      "bytes": 492542,
+      "sha256": "6ab9950b19fe4b124725a550b873ea9541c80da534f867450cd705368298dfcb"
+    },
+    {
+      "name": "art/approved-20261105/frog_kumite.webp",
+      "bytes": 45004,
+      "sha256": "a3360885e7fc0d3d203174f646214933ba236d0889f48cc4d57c60f0786c8f91"
+    },
+    {
+      "name": "art/approved-20261105/ft_harden.jpg",
+      "bytes": 89512,
+      "sha256": "9eeda297963e2f70943a6b837f09d45e3217d3e9bcb7f523683956bff74ffb06"
+    },
+    {
+      "name": "art/approved-20261105/ft_scream.jpg",
+      "bytes": 80493,
+      "sha256": "fa30f13f3ba015ef051695b20e6fcee5f138fb66c8183b9abadf870082e80e1e"
+    },
+    {
+      "name": "art/approved-20261105/fubuki.png",
+      "bytes": 845040,
+      "sha256": "40963bc2d1885a05568635052270158663c3adc4febba6520e0f341d6e4afdf4"
+    },
+    {
+      "name": "art/approved-20261105/fuga.jpg",
+      "bytes": 371542,
+      "sha256": "d22982e1712ba382d78cd8632fa10fd92b54ca13359de5ad105bbd1a4847c233"
+    },
+    {
+      "name": "art/approved-20261105/full_counter.webp",
+      "bytes": 248764,
+      "sha256": "14686f8c6e0dbc2cbee0c521d67618de9fb2d7ff9d53fea2bd36c9e25bae2a14"
+    },
+    {
+      "name": "art/approved-20261105/full_cowl.png",
+      "bytes": 99480,
+      "sha256": "c8400ecbbaab3a86f92545c48df419226925e34170d9834058da9509f2c49cc6"
+    },
+    {
+      "name": "art/approved-20261105/gakuran.png",
+      "bytes": 2771725,
+      "sha256": "e5fe860ae61b4378291e58980d5317ff6c7428dfd47535ddecde136c3475a7fc"
+    },
+    {
+      "name": "art/approved-20261105/garou_cells.jpg",
+      "bytes": 215848,
+      "sha256": "14850fbbf612181f6c6f4446160745f13b277e2b3caacfda6ef2df4e3916303e"
+    },
+    {
+      "name": "art/approved-20261105/garou_fist.jpg",
+      "bytes": 45157,
+      "sha256": "e372316dd547a5a470187b7aa1c23d5166b62b700f0bebca26328d71b6e755c8"
+    },
+    {
+      "name": "art/approved-20261105/geass.webp",
+      "bytes": 47112,
+      "sha256": "16600e4dee7b2807e46e5b4d0ab59e37afff26d3ec8ebc5670cf50805e90ada6"
+    },
+    {
+      "name": "art/approved-20261105/geryu_telekin.jpg",
+      "bytes": 75010,
+      "sha256": "8f16a923eddf19eb42c023f31766dae997108c3691b140a347bc701241957b46"
+    },
+    {
+      "name": "art/approved-20261105/giga_drill.png",
+      "bytes": 93332,
+      "sha256": "9bbceefd7b9b17b5c493ec01cb70428990e28341bd90b37796cb80fb54f5944f"
+    },
+    {
+      "name": "art/approved-20261105/ginjo_armor.jpg",
+      "bytes": 341437,
+      "sha256": "03457803cc92a9bc45549516d29ad19c1690c86a4bf561730531b33cbadb8822"
+    },
+    {
+      "name": "art/approved-20261105/ginjo_blade.jpg",
+      "bytes": 203515,
+      "sha256": "04806ee3b18385b8d77bb2f9ce75af8d39abcb7ffb0654b21f9bbbca3c432621"
+    },
+    {
+      "name": "art/approved-20261105/ginyu_change.jpg",
+      "bytes": 58515,
+      "sha256": "6d834acb20d202ff1e51b8a9b3147b8b24df98b5a37486c88ac1172fe441c9b9"
+    },
+    {
+      "name": "art/approved-20261105/ginyu_jeice.jpg",
+      "bytes": 105186,
+      "sha256": "aa0cd4c61f712b2fb9d83e76a61474d6fbf6256a5a576547fd8af176d4ab0ba5"
+    },
+    {
+      "name": "art/approved-20261105/ginyu_recoome.jpg",
+      "bytes": 82118,
+      "sha256": "c4f825da5c18e8ef0e53f193991718ba8d94cc49ec72cebee9bb1296da510b16"
+    },
+    {
+      "name": "art/approved-20261105/gk_kaioken.jpg",
+      "bytes": 97949,
+      "sha256": "5905ae9555d4c33895fa8d94286e96d5789f0208cbc3ebd7ab2f8b3693898b73"
+    },
+    {
+      "name": "art/approved-20261105/gk_kame.jpg",
+      "bytes": 350760,
+      "sha256": "1eefb9e4f2fedd5a6b42f7a407c5966dcc404e6e39d8b08fe3395a0585420627"
+    },
+    {
+      "name": "art/approved-20261105/gravity_room.png",
+      "bytes": 2649502,
+      "sha256": "d2169ec0ff0fcbcc97d7708de9d454868b6db477cd246d2594df31d67df55304"
+    },
+    {
+      "name": "art/approved-20261105/great_fireball.png",
+      "bytes": 144244,
+      "sha256": "17f471c8580c2924d6bdbf0a5982879188f48e8e4ecbd2be4203d658e77f479d"
+    },
+    {
+      "name": "art/approved-20261105/grenade_gauntlet.jpg",
+      "bytes": 91719,
+      "sha256": "d3283a5c3f12447f4ba303733ffb7e8e6205fc1850e22a00582591dbbfaabc2b"
+    },
+    {
+      "name": "art/approved-20261105/grimoire.png",
+      "bytes": 86824,
+      "sha256": "ff1ab85b951579747aceeb7b3e2ff70ef0555f0dc1431068ac76facf225407f4"
+    },
+    {
+      "name": "art/approved-20261105/guild_card.webp",
+      "bytes": 142850,
+      "sha256": "3e4f0e1a94fe6d302b53c2a7ded0ccac6fa3148aefe824d532cf95bc49d8eb74"
+    },
+    {
+      "name": "art/approved-20261105/guild_mark.png",
+      "bytes": 187426,
+      "sha256": "c33110bd70a7c172668a6998a6824507d5e7ebafabf21bd713bcc5403f06ca69"
+    },
+    {
+      "name": "art/approved-20261105/hanami_bud.jpg",
+      "bytes": 589644,
+      "sha256": "90062af5f3c30c073f3f278de58c66fa314a9982542b20cfc1e138db8ed1e2a9"
+    },
+    {
+      "name": "art/approved-20261105/hanami_field.jpg",
+      "bytes": 39586,
+      "sha256": "d2e475fb489b01e91b0b45f1e9df524ef4eb542c4ade96480c3b64ee00882b83"
+    },
+    {
+      "name": "art/approved-20261105/hanami_roots.jpg",
+      "bytes": 331171,
+      "sha256": "2418672e5a87ec59838dc369021d08157622763682252a7e78b0d8ba287c10fe"
+    },
+    {
+      "name": "art/approved-20261105/hand_grab.jpg",
+      "bytes": 504620,
+      "sha256": "c4da8c1afb2368f5b8f39890706653ddcfd51e8fe8c49b46cc638be18d8a8ec6"
+    },
+    {
+      "name": "art/approved-20261105/healing_pod.png",
+      "bytes": 249448,
+      "sha256": "f1d4026d1baa1841e432909c81a4e6dfb5acf75774cd694032b9712c89279aec"
+    },
+    {
+      "name": "art/approved-20261105/himmel.png",
+      "bytes": 2906277,
+      "sha256": "6688d9472bcbfbd3dbe8525434d642d194694fd8de31eca689bd54c7682ac630"
+    },
+    {
+      "name": "art/approved-20261105/hiraishin.jpg",
+      "bytes": 80720,
+      "sha256": "08574f9e3cce4b471d7c04127840ab6899c9ee7eb9d478cb13d54cb652ff245b"
+    },
+    {
+      "name": "art/approved-20261105/hogyoku.jpg",
+      "bytes": 238789,
+      "sha256": "ec761f1dc87bfd564469b3c58a32732892868585bc91f928a66730dccd18838f"
+    },
+    {
+      "name": "art/approved-20261105/ice_devil.webp",
+      "bytes": 264166,
+      "sha256": "f3540aacc4ada6c9e19d3da939469ca7967ee3de95df3c8e3a78784be551deda"
+    },
+    {
+      "name": "art/approved-20261105/ifrit_ember.webp",
+      "bytes": 1478618,
+      "sha256": "cf41be266a3bb5a72624412ad8cba31012a9d0f275aedbb6d779d6ff33b1d57c"
+    },
+    {
+      "name": "art/approved-20261105/iggy.png",
+      "bytes": 113380,
+      "sha256": "0532a45c5f433c61d51fe4225a84a2c46675760ca705797b77726d3b307e66d9"
+    },
+    {
+      "name": "art/approved-20261105/infinity.png",
+      "bytes": 1402215,
+      "sha256": "b2dbf6b655c475a3aea2327f5e64088e68fb129e874a6821b4b6be92bb6725bc"
+    },
+    {
+      "name": "art/approved-20261105/jaw_bite.jpg",
+      "bytes": 373120,
+      "sha256": "bbd898cbeaaf2b96b03595bce3244d349291772d8d0a91adae664cb8de68f091"
+    },
+    {
+      "name": "art/approved-20261105/joseph.png",
+      "bytes": 1760553,
+      "sha256": "0c38941f182189bd59e6ec77633e5903719162b409c3bd1776262b231a26cd14"
+    },
+    {
+      "name": "art/approved-20261105/kagune.png",
+      "bytes": 537076,
+      "sha256": "9c155501fbf8d22ba3933afe2dfa1f2360a098834d0f034c90405968612d881a"
+    },
+    {
+      "name": "art/approved-20261105/kaguya_byakugan.jpg",
+      "bytes": 30074,
+      "sha256": "7a70da8df382d9164ceda8c9ed870b4d4d7fd67f28aa395a43c852b3386e09b1"
+    },
+    {
+      "name": "art/approved-20261105/kaguya_tsb.jpg",
+      "bytes": 371093,
+      "sha256": "922a3680c6027ba733f4365018a0262c46241a98d04434f28aeae9a6cd9b00f2"
+    },
+    {
+      "name": "art/approved-20261105/kaioken20.png",
+      "bytes": 607406,
+      "sha256": "d9ea77f4d15c17fa8bdefb83d3d8dfaafefa89f86393a340eace49acc0855846"
+    },
+    {
+      "name": "art/approved-20261105/kakuja.png",
+      "bytes": 1697308,
+      "sha256": "1058c153065a46babd341efbd02df6903b68585314436854fd30d505651133e0"
+    },
+    {
+      "name": "art/approved-20261105/kakyoin.png",
+      "bytes": 147193,
+      "sha256": "8655457276baf4eb2e74fc60e1de5bdcf2b178856d6a682fc91c67a44a2484e5"
+    },
+    {
+      "name": "art/approved-20261105/katana_draw.jpg",
+      "bytes": 80563,
+      "sha256": "f0f4bcfc66a2dbc0df6fd9e8959a361b7eabe69e0df0e70cb00be7d7478be4a1"
+    },
+    {
+      "name": "art/approved-20261105/katana_iai.png",
+      "bytes": 236188,
+      "sha256": "4ec7f4c1d05f22bc2b988465d4d25087fa630eb382e9f855fb2341fd7c09aadb"
+    },
+    {
+      "name": "art/approved-20261105/katana_portrait.jpg",
+      "bytes": 166120,
+      "sha256": "a459dd99e64759ed45496c8beb89f57b345cbd315cd65163c936796871315939"
+    },
+    {
+      "name": "art/approved-20261105/king.png",
+      "bytes": 675439,
+      "sha256": "29c9c2f6d8058ab3dfdfe6d8faf56979a4c78ce5d40bacfc7c812626a5fd6cea"
+    },
+    {
+      "name": "art/approved-20261105/king_armor.jpg",
+      "bytes": 453451,
+      "sha256": "057241d9d7e00637017d0b186bda88a64c4ea1d3d2f38b86c979d9aa9e528320"
+    },
+    {
+      "name": "art/approved-20261105/kisame_prison.jpg",
+      "bytes": 126493,
+      "sha256": "28de6ec471dea21181c7314f8abd8911103cf5f8b24d5496d7d91a67db2117d9"
+    },
+    {
+      "name": "art/approved-20261105/kisame_sharks.jpg",
+      "bytes": 480847,
+      "sha256": "a6ee9d461e2036ece3b1959992c43b363e43fa0f1bb1071d09edf480d6c72661"
+    },
+    {
+      "name": "art/approved-20261105/kisaragi.png",
+      "bytes": 2182500,
+      "sha256": "4e0041a51c643149a0f3bd87a92d874bccd408e6dc230bb170eb2785754cbea0"
+    },
+    {
+      "name": "art/approved-20261105/kobeni.png",
+      "bytes": 128527,
+      "sha256": "daef4616043be04e6e1a91b18bb8785185d6e6755e721822ef4ae88d50e700de"
+    },
+    {
+      "name": "art/approved-20261105/kurohitsugi.jpg",
+      "bytes": 248142,
+      "sha256": "fbb52c3e9f373dcf05b934e20cd5258c9138a9133a480c2d15c052755372318f"
+    },
+    {
+      "name": "art/approved-20261105/kuroko.png",
+      "bytes": 160426,
+      "sha256": "e4652a9f6fb3435937cc50f849f495f7c8a7b9b4828c6a4a5b25983751bccf4c"
+    },
+    {
+      "name": "art/approved-20261105/lab5_seal.jpg",
+      "bytes": 89069,
+      "sha256": "85b645eac1dd22c3a9f624989ed00108deb2edc2553406a071a6ffdce0b97d8f"
+    },
+    {
+      "name": "art/approved-20261105/lacrima.png",
+      "bytes": 126109,
+      "sha256": "acb28e16d6f8f15aa6a9b8a47379985a4ec36fff80b0eec49f40ad588979dcbf"
+    },
+    {
+      "name": "art/approved-20261105/level6_shift.jpg",
+      "bytes": 194005,
+      "sha256": "7464d114bf135ce7fbf4f1f82a066ed4c36fd3f122f0049de9ef90e970deb74e"
+    },
+    {
+      "name": "art/approved-20261105/license.png",
+      "bytes": 343479,
+      "sha256": "5abd9bc05de6989f100eef1a35707f85dde3f1923a14e431a057eb3577e2e947"
+    },
+    {
+      "name": "art/approved-20261105/lust_lance.png",
+      "bytes": 199076,
+      "sha256": "73aff6286b30c9eb4b3fce02cfa1ab898110981814d9c680d0926348e9941027"
+    },
+    {
+      "name": "art/approved-20261105/madara_fire.jpg",
+      "bytes": 446107,
+      "sha256": "4e021d5fdceb8165d2159de17f64e34933570375c8b2764e77cc3966d0156e4f"
+    },
+    {
+      "name": "art/approved-20261105/mahito_body.jpg",
+      "bytes": 19202,
+      "sha256": "b493ad682ea7321b36d51eff0a0f94e1eba4252b1eaf183af89575b40636ca5d"
+    },
+    {
+      "name": "art/approved-20261105/mahito_idle.jpg",
+      "bytes": 23711,
+      "sha256": "4c2729cc9c6bb187af70a0eb6bfe5d4146279e55b8600c1968f04f1b51899381"
+    },
+    {
+      "name": "art/approved-20261105/mahito_soul.jpg",
+      "bytes": 384692,
+      "sha256": "928c4539aabfe2e9b4873090a5b17f4585e19ec6fe10f074435e6f5ddb5be639"
+    },
+    {
+      "name": "art/approved-20261105/mako.png",
+      "bytes": 247009,
+      "sha256": "10669cdebc1505bd030f1608e9a5d0727b147c4a3eba5a14f76b426e647bef0a"
+    },
+    {
+      "name": "art/approved-20261105/mana_crystal.webp",
+      "bytes": 139420,
+      "sha256": "d06f3eb7251745d8b66c0f13c58a1cf712c82c9c5bf92fbdfc22893077a3f92b"
+    },
+    {
+      "name": "art/approved-20261105/megumi.png",
+      "bytes": 88782,
+      "sha256": "c4238a564374e39965b9b14f2fe49398968066e62860325e9b9887ec2c5c9b38"
+    },
+    {
+      "name": "art/approved-20261105/meruem_gungi.jpg",
+      "bytes": 177496,
+      "sha256": "34b4d4ab319c3ea5b08af97d352a4a86f3f714ce9aeba6f650ff5a7baf351d9e"
+    },
+    {
+      "name": "art/approved-20261105/meteor.jpg",
+      "bytes": 422812,
+      "sha256": "e7d5551a8f71050c7370c10f79acc2295fa8a0b67de19aaf28162c2c2dedf62a"
+    },
+    {
+      "name": "art/approved-20261105/mikasa.png",
+      "bytes": 728060,
+      "sha256": "5f8dee88c669ac3dc2f5afbce4aeb7fab6bd83e075ce5c030bc7b3cd70527271"
+    },
+    {
+      "name": "art/approved-20261105/mimic.webp",
+      "bytes": 1060672,
+      "sha256": "45b7a3d976aa3aa520f44738652db5e78fafa1fb5399c4cafac270616f179432"
+    },
+    {
+      "name": "art/approved-20261105/moon_teeth.jpg",
+      "bytes": 25879,
+      "sha256": "6bd76459df68ca1971cbd5d916711ad225f01efb8be5e0c75988ad518adf8383"
+    },
+    {
+      "name": "art/approved-20261105/murasame.png",
+      "bytes": 303270,
+      "sha256": "56524893c3dac6f029c029677432aea4ac41e92e34ce20130e60905ed2a35a13"
+    },
+    {
+      "name": "art/approved-20261105/mustang.png",
+      "bytes": 440833,
+      "sha256": "f01f790f84cb2df3d7615472614483c32ca89008f8e54b4fbddb83b8ddf12ab9"
+    },
+    {
+      "name": "art/approved-20261105/muzan_regen.jpg",
+      "bytes": 72183,
+      "sha256": "ef111286c96486b728c603c046e58daedc8c4284d534fc1d6c6ec63989ee19ee"
+    },
+    {
+      "name": "art/approved-20261105/nen_ten.webp",
+      "bytes": 111816,
+      "sha256": "1d0e12ba06a87cb967c49f354802ecd2d2b2e257ef1e574c1bc2c7dc187f6c9e"
+    },
+    {
+      "name": "art/approved-20261105/ninja_shuriken.jpg",
+      "bytes": 1228549,
+      "sha256": "572f0e16df80f3add5c8e85ca094f1080a0dd49baff05322a84a8fc5cf0abb12"
+    },
+    {
+      "name": "art/approved-20261105/nomu_regen.jpg",
+      "bytes": 24958,
+      "sha256": "961941eefeadaadf3eee409f1f0676f18e5f3507cc3a84a01b08483ceb5993c3"
+    },
+    {
+      "name": "art/approved-20261105/notebook.webp",
+      "bytes": 504978,
+      "sha256": "1cc134237df0475051da5f15f9c12a2e490269469a8fe449d8fb6583c3f337fa"
+    },
+    {
+      "name": "art/approved-20261105/nudist_beach.png",
+      "bytes": 450413,
+      "sha256": "94031f62663abc528600c0dd4f2589cc8d23bbdd8a93f5f753eb4168e4e9898d"
+    },
+    {
+      "name": "art/approved-20261105/nui_cut.jpg",
+      "bytes": 117053,
+      "sha256": "6eadcece8a587da6c20f7f6c9c2b98c4a7580f3c11c15dc5fbf70db36b03b1fb"
+    },
+    {
+      "name": "art/approved-20261105/nui_parasol.png",
+      "bytes": 202161,
+      "sha256": "b1acee52cbb5d645f9425ccc0fc70841b28e0d6254c30d713cb85177edd24f03"
+    },
+    {
+      "name": "art/approved-20261105/nui_portrait.jpg",
+      "bytes": 50054,
+      "sha256": "69daa82180245a4597f91f384597459a796f919412aa3ac889ba8ef641a65057"
+    },
+    {
+      "name": "art/approved-20261105/nui_slash.png",
+      "bytes": 172486,
+      "sha256": "5e2edf8b7662ceb61f267bc67a579641229ab5f172d34f64898383add749e00d"
+    },
+    {
+      "name": "art/approved-20261105/nui_threads.png",
+      "bytes": 236120,
+      "sha256": "b59709f9227a1906d7a8c2f7ac0d02f98c63bcdb298e975f8e7b335957a908d1"
+    },
+    {
+      "name": "art/approved-20261105/odm.png",
+      "bytes": 2048796,
+      "sha256": "c2cd1b42f3e7d0457d082145e71873ec01d6ae91df2aec3dddfbde43dc675ca7"
+    },
+    {
+      "name": "art/approved-20261105/ofa100.png",
+      "bytes": 60933,
+      "sha256": "d8b9f5c3ea0114684dc65be937af2901f9d6b19c72a21c3dbbc3766d806cb9c5"
+    },
+    {
+      "name": "art/approved-20261105/ofa5.png",
+      "bytes": 86158,
+      "sha256": "15acf6793a66ad20cd403d6d52d7e310d8d52b2b789d8a5a7f35cc94a32ca685"
+    },
+    {
+      "name": "art/approved-20261105/offense_armor.jpg",
+      "bytes": 187361,
+      "sha256": "f7ca0c9d61ca5d8e630540ddc9e1f6a94691460ff0bb9ee85bf59814cd45be20"
+    },
+    {
+      "name": "art/approved-20261105/ora_rush.png",
+      "bytes": 82786,
+      "sha256": "c978e5afa18c31cfe49ed68bb204df769670119ec3471a7b971fbd6b7e3085bc"
+    },
+    {
+      "name": "art/approved-20261105/paper_bomb.jpg",
+      "bytes": 276644,
+      "sha256": "d153c52d38b3939cb87274ea9deeb28ec98b1d528bcba05a75cd255a0f8a27c7"
+    },
+    {
+      "name": "art/approved-20261105/philosopher_stone.png",
+      "bytes": 974134,
+      "sha256": "1e0fa199a5e1c74ec3bda4aa8e2d650eba2a0fa4d0ead747f1eadf70e168ad17"
+    },
+    {
+      "name": "art/approved-20261105/pitou_doctor.jpg",
+      "bytes": 318809,
+      "sha256": "fdd461e38cb7f07ba3b5224e5b6aa7dbe1bac5bb6d730b82533a413c2828a48e"
+    },
+    {
+      "name": "art/approved-20261105/poison_cooking.webp",
+      "bytes": 28086,
+      "sha256": "2f3b21cb94ca9eadb8728299b70870a4d805cd32bd818111a65502ded40c7388"
+    },
+    {
+      "name": "art/approved-20261105/polnareff.png",
+      "bytes": 1265693,
+      "sha256": "3a126a2c486ae0f3fcfe4445fb4c844a65ce37e9708a6a6674332f1576dd31fd"
+    },
+    {
+      "name": "art/approved-20261105/potion.png",
+      "bytes": 89382,
+      "sha256": "f91c3f33786c1114ae59ec0e7ecceca3e050af5f53280526c9b3f1af3edf9d51"
+    },
+    {
+      "name": "art/approved-20261105/pouch.jpg",
+      "bytes": 72735,
+      "sha256": "50eed02cf2ac7cfdf7bb59eb8b44ab4efa01f53a1756e0e4a3450133784e916e"
+    },
+    {
+      "name": "art/approved-20261105/predator.png",
+      "bytes": 445502,
+      "sha256": "2b1248839a7cc5f1f4cde78d84b2b2422980c557254ff89c93d270b40b7f0e3c"
+    },
+    {
+      "name": "art/approved-20261105/pure_titans.jpg",
+      "bytes": 749251,
+      "sha256": "74ea07d2682521e78b57874c4e9a727d48ca3ca777ad04e89907395812c14f33"
+    },
+    {
+      "name": "art/approved-20261105/queen_iceoni.jpg",
+      "bytes": 586082,
+      "sha256": "5cbc3b535c68c5c1e3afa671750b8043f28174399711182800db28535dd1f66a"
+    },
+    {
+      "name": "art/approved-20261105/reze.png",
+      "bytes": 436336,
+      "sha256": "d8c7c439e125821465ac3d30f089f5aff19dabbe7caa78be0d1769f7ff069bab"
+    },
+    {
+      "name": "art/approved-20261105/rinnegan.jpg",
+      "bytes": 53614,
+      "sha256": "8a41db528e977bda7a61ed24e75c74a2a0977563e9bcdbd684356aa187cd4e86"
+    },
+    {
+      "name": "art/approved-20261105/sai_acid.jpg",
+      "bytes": 333564,
+      "sha256": "28851acc5780932eea3ee36f20cfd401ab8742fc96096280a3e38c6a7529393e"
+    },
+    {
+      "name": "art/approved-20261105/scissor_blade.png",
+      "bytes": 715374,
+      "sha256": "d175443f8d37d487a4eef09e034939d60152e751cd0105c1e04ee30081e9de32"
+    },
+    {
+      "name": "art/approved-20261105/seastone.jpg",
+      "bytes": 124084,
+      "sha256": "05b544b750c51dcc67cfe3e7bbecaed801c00e2cade0e939794659c0da4cc76c"
+    },
+    {
+      "name": "art/approved-20261105/senketsu.jpg",
+      "bytes": 247694,
+      "sha256": "22bc24e0589040a6d43421bca0e93c584fc354005882361fd348a3ad42aadd96"
+    },
+    {
+      "name": "art/approved-20261105/senketsuResolve.jpg",
+      "bytes": 60579,
+      "sha256": "0da7d20adc4d0d6f4494d4bbf9fcfd7d5a863efe2c1fc1e3ae048ffa6a5e7112"
+    },
+    {
+      "name": "art/approved-20261105/serious_punch.png",
+      "bytes": 969322,
+      "sha256": "4422a1f3d991ae5b2072969082d3ae81372ca6dc05fd73c3d622277fbf9b7b48"
+    },
+    {
+      "name": "art/approved-20261105/shadow_igris.png",
+      "bytes": 1145365,
+      "sha256": "e8e2c6e5349c0e1c55ad25a884b7890917bb5a01c076aee8f78b3935e2e39bc1"
+    },
+    {
+      "name": "art/approved-20261105/shalltear_einherjar.jpg",
+      "bytes": 258489,
+      "sha256": "98d20d1fe058735dc4c2e88c28298ec71d27cb89b5b34baac27c285ef94d5517"
+    },
+    {
+      "name": "art/approved-20261105/shalltear_frenzy.jpg",
+      "bytes": 156003,
+      "sha256": "7e6cc78bd249ef8dbc2c7d7c3872a22b0ad8f5ef1f96890b79009c625caa6801"
+    },
+    {
+      "name": "art/approved-20261105/shig_crumble.jpg",
+      "bytes": 418961,
+      "sha256": "5d8dceb64953c7dec5845a7ffc78f60014d6c339692f7b5d6204759e61018100"
+    },
+    {
+      "name": "art/approved-20261105/shokugeki.png",
+      "bytes": 496988,
+      "sha256": "ad305707d0c9daf229a81e2afc505c184adfc25472cc7de5e83194e8b7dfbe6a"
+    },
+    {
+      "name": "art/approved-20261105/shoot_style.png",
+      "bytes": 58868,
+      "sha256": "877588b32ae2219f8473335c4daae43dcc251b2669d31260729da08d8549d557"
+    },
+    {
+      "name": "art/approved-20261105/shrine.jpg",
+      "bytes": 32475,
+      "sha256": "1e3a33394bce10f045dee19de7fce23bc7899a9c0fe99f177674fc6bccc8cf61"
+    },
+    {
+      "name": "art/approved-20261105/side_hops.png",
+      "bytes": 21027,
+      "sha256": "0cc5aa7ed64711fd9e15f81d28ca4a33f76c17461fc786dc1e9ef655f9ffaabb"
+    },
+    {
+      "name": "art/approved-20261105/sisters.png",
+      "bytes": 1389462,
+      "sha256": "66f42c67744c2d9716315b2415158be9e0da64e5da586684c544662790df2303"
+    },
+    {
+      "name": "art/approved-20261105/six_eyes.png",
+      "bytes": 1717529,
+      "sha256": "42c91734b3e83f2a51844288fed5c948bcf1b524e9d4ba9d6247ee0a465193d3"
+    },
+    {
+      "name": "art/approved-20261105/six_rods.webp",
+      "bytes": 53534,
+      "sha256": "0906f7baaaea9f6d93ab03f2e10212b5f92ca4d92910c2c9b575b861a1997ba0"
+    },
+    {
+      "name": "art/approved-20261105/sky_roar.png",
+      "bytes": 405779,
+      "sha256": "c409349d7ec64274512924f5b31da3408cbbeeef6f7182e19856129e9a13ad16"
+    },
+    {
+      "name": "art/approved-20261105/smoke_bomb.jpg",
+      "bytes": 89725,
+      "sha256": "4ce65925bd06243c674a8d16eac90631ba5c157d1c8af698cb86ca1c22d2bb97"
+    },
+    {
+      "name": "art/approved-20261105/snake_swallow.jpg",
+      "bytes": 510367,
+      "sha256": "c4ca5cbaeebad1e4f6e002c86f5862b58042d4a11e43732b2adcc76ad5164f99"
+    },
+    {
+      "name": "art/approved-20261105/star_finger.png",
+      "bytes": 8373341,
+      "sha256": "9d3fd4537bcd1f0f4b1024e54a7ff6504e758d7fe735b85f5619e375d150f104"
+    },
+    {
+      "name": "art/approved-20261105/stone.png",
+      "bytes": 147469,
+      "sha256": "72dd3e126ef75e9ab70ab2c1d5e88db8ac9895231744e36ca1a5e31f4ee4d895"
+    },
+    {
+      "name": "art/approved-20261105/summon_scroll.webp",
+      "bytes": 106054,
+      "sha256": "0a5dc98a71fb82512ef0f3f06d5e4b9605643579145c797b96e2bba37e407de0"
+    },
+    {
+      "name": "art/approved-20261105/supernova.jpg",
+      "bytes": 268201,
+      "sha256": "31e016353fc449bf5bf57c84e36e15fcc66ff04f1c3536857136881b96fb9064"
+    },
+    {
+      "name": "art/approved-20261105/susanoo.jpg",
+      "bytes": 399242,
+      "sha256": "67fed385dba5ec623b7a426082d1e85d9b96e999518ae637f00fd924e7e068d8"
+    },
+    {
+      "name": "art/approved-20261105/tea.webp",
+      "bytes": 15506,
+      "sha256": "345d22086376866e3e05b0730e510e5d78b865c420ee7e981d8274c2f2906505"
+    },
+    {
+      "name": "art/approved-20261105/toga_drain.png",
+      "bytes": 43275,
+      "sha256": "30a12584ed27264741897c7e632698abc268cf6be6a265f433131328bc21f038"
+    },
+    {
+      "name": "art/approved-20261105/toga_transform.jpg",
+      "bytes": 20117,
+      "sha256": "625407425838e9efbf781ba3b72f5d64ebe50144af7d1a3771c7dbfda81c2ff3"
+    },
+    {
+      "name": "art/approved-20261105/tsukishima_book.jpg",
+      "bytes": 396872,
+      "sha256": "9ecbee225b6e1714b2ea67328cf6ef67c46be48c481a9cc99294e5d4285ee74f"
+    },
+    {
+      "name": "art/approved-20261105/uiharu.png",
+      "bytes": 318849,
+      "sha256": "afc7c0303f03f13801e72f52fd2efd3970b1aa106245b5d621127d50def0ca89"
+    },
+    {
+      "name": "art/approved-20261105/unlimited_void.webp",
+      "bytes": 29108,
+      "sha256": "a90802455bc8dffeb9ebda58d8bbf7df7e15ba0836038625f19d5b1e2405906f"
+    },
+    {
+      "name": "art/approved-20261105/vanguard_gas.jpg",
+      "bytes": 256577,
+      "sha256": "670d1dba3c5c2cd8ed2a7c596c4f141bcc0039d16ae0f7a5fb9049622d3f8b1d"
+    },
+    {
+      "name": "art/approved-20261105/vanguard_magnet.jpg",
+      "bytes": 25565,
+      "sha256": "6a27187fcd06c5267c23dd01bf1a16bf188a022e26a6b8160165ccd5d826b3ab"
+    },
+    {
+      "name": "art/approved-20261105/vi_cream.png",
+      "bytes": 1328346,
+      "sha256": "3402b93327c984ac8d5210e661ef05ac65ecb92a708ad908aad1e90fe0c01a16"
+    },
+    {
+      "name": "art/approved-20261105/watch.webp",
+      "bytes": 292260,
+      "sha256": "8a7489b497597a506f2964c95d34fb3ebedaae4ca574c78f9231ac3689de8201"
+    },
+    {
+      "name": "art/approved-20261105/whis_rewind.jpg",
+      "bytes": 363480,
+      "sha256": "ae7f79b632b0ff75cceaa3c5309f0db9a1115216e4c8a5e9e3c2795a8ae11355"
+    },
+    {
+      "name": "art/approved-20261105/wings_freedom.png",
+      "bytes": 147773,
+      "sha256": "740e8da8a8f037cd6a81751b4889b0184ec32a9f54eb6135280b568f8bfded9b"
+    },
+    {
+      "name": "art/approved-20261105/winry.png",
+      "bytes": 282126,
+      "sha256": "737ec78c097944cf5b190116512e493df1f01d8c31d6cb3a2a246c5ef1cdca7c"
+    },
+    {
+      "name": "art/approved-20261105/xc_dollhouse.jpg",
+      "bytes": 124543,
+      "sha256": "d0ddce72cd68973a36816f8b0aadf847c8a9dc8d92e83aa13a0d6a1538f87803"
+    },
+    {
+      "name": "art/approved-20261105/yhwach_almighty.jpg",
+      "bytes": 25776,
+      "sha256": "701be22933c4f4790550e732470eb2815b187a7aabf890b1389c5140951566b7"
+    },
+    {
+      "name": "art/approved-20261105/yhwach_auswahlen.jpg",
+      "bytes": 571016,
+      "sha256": "56e75a5846d4d7e807cbef48139503d9372e2dd421fae25c2ecfb63fdb7ad13d"
+    },
+    {
+      "name": "art/approved-20261105/yhwach_blut.jpg",
+      "bytes": 326530,
+      "sha256": "bb8909fac8b6e27416eb7092a297af2fdb8b522a264d473d93e162230713cd18"
+    },
+    {
+      "name": "art/approved-20261105/yuji.png",
+      "bytes": 1818157,
+      "sha256": "105890c673bcafc917880d084059233717f1bbc2238d8f84f92da0e7a68adaa5"
+    },
+    {
+      "name": "art/approved-20261105/zd_blast.jpg",
+      "bytes": 111371,
+      "sha256": "8540b928bd5872ea59525265879d2c6a2a073c8fd1548b94be013d74acd43b4d"
+    },
+    {
+      "name": "art/approved-20261105/zd_monster.jpg",
+      "bytes": 99447,
+      "sha256": "0cf8df4a9f9db299761fc45e0d872d4a79f2db6cd0b77b5180879c3601f602bf"
+    },
+    {
+      "name": "art/approved-20261105/zd_scouter.jpg",
+      "bytes": 126388,
+      "sha256": "56470cd9657c095679b8a14b0728d73dd13e0868bf84d50129edd94637e22b32"
+    },
+    {
+      "name": "art/approved-20261105/zeke_scream.jpg",
+      "bytes": 534441,
+      "sha256": "7fd8203c4b4edf485ab40ba7198d20f354bf4c259b859872669594e30c5056d4"
+    },
+    {
+      "name": "art/approved-20261105/zetsu_clone.jpg",
+      "bytes": 530621,
+      "sha256": "db083729ef06bea31906fea15250fee956fc184a6eec252ac817613d647e91ac"
+    },
+    {
+      "name": "art/approved-20261105/zetsu_spore.jpg",
+      "bytes": 167861,
+      "sha256": "9282d9dbb5faa0bc45bfe4d52549807dbf74a9e988dd0fdcb911f60035e76d07"
     },
     {
       "name": "art/bosses/father.jpg",
@@ -963,14 +2048,29 @@
       "sha256": "a73944e7d431d1ca5620788fb4c6fef7e1b5a542222066e22b938916c90e0352"
     },
     {
+      "name": "collection-browser.js",
+      "bytes": 14640,
+      "sha256": "7f3a6acb54d11d2d81430367d9c85154c139ca9538b7fa869e8a8bf6c54e0e7c"
+    },
+    {
+      "name": "data/art.js",
+      "bytes": 31857,
+      "sha256": "8f92262196d15a17a8d0a019aaff753f9160efd67106b219fb7f98ce7f2081e7"
+    },
+    {
+      "name": "data/rival-ghosts.js",
+      "bytes": 73403,
+      "sha256": "d7fde10704295f0bc519f22a6352e71f9fe4d4cd24cc1e40284a984e5c5eb8f2"
+    },
+    {
       "name": "ghost-sync.js",
       "bytes": 9737,
       "sha256": "e7886b1df0a4805a5af319665bd621a7dcf6a3146bc1a0dcd9e6ea763412d6c0"
     },
     {
       "name": "index.html",
-      "bytes": 865138,
-      "sha256": "889a688aa1f52825925c03f40a5e5eb5abde8c4c6d55e916d4dbbd5ab1d6bc08"
+      "bytes": 828069,
+      "sha256": "ed109741447bdbfab69969b2b0a714bfb9495740e757c6b918435d1877f6f135"
     },
     {
       "name": "recent-artwork.html",
@@ -978,18 +2078,15 @@
       "sha256": "3a1942f67a6ae1a47c3d02f50eff9740c447f2d91f4e8a46fd5ad7dbbc539b5a"
     },
     {
+      "name": "save-code.js",
+      "bytes": 1161,
+      "sha256": "e73aa51bc74931425190e8f8c19e7291d0c8d2bc832486891f2c3e62b8e0c62c"
+    },
+    {
       "name": "shop-preview.html",
       "bytes": 108999,
       "sha256": "097e0064f7e214e1715219e41abd77779b76c41ab3304862b1828e083ecf6ba2"
     }
   ],
-  "deployment_note": "GitHub Pages disables server-dependent automatic friend updates; manual codes remain available.",
-  "createdUtc": "2026-11-02T07:16:40.511563+00:00",
-  "requests": [
-    39,
-    40,
-    41,
-    42
-  ],
-  "artworkChanged": false
+  "createdUtc": "2026-11-05T19:24:15.644070+00:00"
 }
