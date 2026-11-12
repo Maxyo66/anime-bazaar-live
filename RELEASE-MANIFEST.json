@@ -1,20 +1,37 @@
 {
-  "source": "Completed Claude changes through request #52 and user-approved artwork",
-  "sourceSha256": "ed109741447bdbfab69969b2b0a714bfb9495740e757c6b918435d1877f6f135",
+  "source": "Anime Bazaar release: Claude requests #53-#79 plus corrected 6-second Golden Conqueror’s Haki; approved artwork mappings retained.",
+  "sourceSha256": "df6a13ae4271e0d6e474647aa3c65d606b09231f82405a10b4cb9da6491b0464",
   "artSha256": "8f92262196d15a17a8d0a019aaff753f9160efd67106b219fb7f98ce7f2081e7",
   "requests": [
-    43,
-    44,
-    45,
-    46,
-    47,
-    48,
-    49,
-    50,
-    51,
-    52
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79
   ],
-  "artworkChanged": true,
+  "artworkChanged": false,
   "artworkMappings": 214,
   "files": [
     {
@@ -1518,9 +1535,19 @@
       "sha256": "5de43c6d90e0a60b95664d51e30773001528503c49dc5cfe00f4e13764ab37e6"
     },
     {
+      "name": "art/items/jinwoo/jinwoo_system.jpg",
+      "bytes": 57822,
+      "sha256": "f827f440cd38b3f1380ead4b6c08dfc09c2a124adfdeb5ce54d9657609d72204"
+    },
+    {
       "name": "art/items/jinwoo/kasaka-fang-weapon.png",
       "bytes": 172636,
       "sha256": "802d0f9a62adb2b3127cddb250ffe1348d2aee9e8c1cc7fe131d17ce0ddb74bb"
+    },
+    {
+      "name": "art/items/jinwoo/kasaka_fang.jpg",
+      "bytes": 75233,
+      "sha256": "346b0e2c5a56978a6bcc4b7289a8c3e599e74df85a33d2b1d91c61f391b49264"
     },
     {
       "name": "art/items/jinwoo/monarch-domain-ep13.jpg",
@@ -2064,13 +2091,13 @@
     },
     {
       "name": "ghost-sync.js",
-      "bytes": 9737,
-      "sha256": "e7886b1df0a4805a5af319665bd621a7dcf6a3146bc1a0dcd9e6ea763412d6c0"
+      "bytes": 9828,
+      "sha256": "4add207c760cd2bdfe9f65fa68d3cfaee6a8decb088bd30228b64c1f2a222048"
     },
     {
       "name": "index.html",
-      "bytes": 828069,
-      "sha256": "ed109741447bdbfab69969b2b0a714bfb9495740e757c6b918435d1877f6f135"
+      "bytes": 1000618,
+      "sha256": "df6a13ae4271e0d6e474647aa3c65d606b09231f82405a10b4cb9da6491b0464"
     },
     {
       "name": "recent-artwork.html",
@@ -2079,13 +2106,13 @@
     },
     {
       "name": "save-code.js",
-      "bytes": 1161,
-      "sha256": "e73aa51bc74931425190e8f8c19e7291d0c8d2bc832486891f2c3e62b8e0c62c"
+      "bytes": 4160,
+      "sha256": "2a49f4d74a434b0f9d5d51bd3d70bab234672151a8b22d35cb068a7ac7322838"
     },
     {
       "name": "shop-preview.html",
-      "bytes": 108999,
-      "sha256": "097e0064f7e214e1715219e41abd77779b76c41ab3304862b1828e083ecf6ba2"
+      "bytes": 111925,
+      "sha256": "7ac0a2b6780494dc4c3feef695628e63e35f8f712d5890a9a1a1c40aa1621e0e"
     }
   ],
   "createdUtc": "2026-11-05T19:24:15.644070+00:00"
