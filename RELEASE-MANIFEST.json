@@ -2091,8 +2091,8 @@
     },
     {
       "name": "ghost-sync.js",
-      "bytes": 9828,
-      "sha256": "4add207c760cd2bdfe9f65fa68d3cfaee6a8decb088bd30228b64c1f2a222048"
+      "bytes": 9730,
+      "sha256": "541ffe58dde5e46726ca44a40f338ec1b59b7b99c6af419141422fedffac340a"
     },
     {
       "name": "index.html",
@@ -2111,8 +2111,8 @@
     },
     {
       "name": "shop-preview.html",
-      "bytes": 111925,
-      "sha256": "7ac0a2b6780494dc4c3feef695628e63e35f8f712d5890a9a1a1c40aa1621e0e"
+      "bytes": 111935,
+      "sha256": "12c72a997a22009d51a324ae0a85ce19568d7a235dfeeb86da641f72f532131f"
     }
   ],
   "createdUtc": "2026-11-05T19:24:15.644070+00:00"
