@@ -1,0 +1,21 @@
+ANIME BAZAAR — CHANGELOG FOR PLAYERS
+Updates #53–#79 | November 12, 2026
+
+BUFFS & BUILD UPGRADES
+- 18 hero kits were rebuilt or rebalanced: Luffy, Tanjiro, Gojo, Edward, Frieren, Deku, Ichigo, Levi, Saitama, Sung Jinwoo, Ainz, Denji, Maomao, Mikoto Misaka, Ryuko, Jotaro, Andy & Fuuko, and Shinra. Expect new passives, item effects, and team-up synergies; not every change is a straight buff.
+- Gold Trial skills now awaken their hero’s passive without a limited-use cap. Trial rewards were tuned to make the skill and Ultimate routes closer in strength.
+- Examples: Deku’s Full Cowl can build Weapon damage; Levi’s blades and ODM Gear reward critical hits; Shinra and his allies gain stronger Heat and team synergies.
+- Conqueror’s Haki now freezes the enemy’s two largest items for 6 seconds at the start of a fight.
+
+NERFS & CHALLENGE TUNING
+- Gear Fourth now comes with a 3-second Slow after its burst, adding a recovery cost to Luffy’s power spike.
+- Some of the strongest Ultimate builds were toned down while base and Trial-skill routes received more support.
+- Enemies were adjusted to keep later fights challenging. For example, DIO now has 1,000 HP, and the Company 8 sparring rival’s HP increased from 720 to 1,000.
+
+OTHER CHANGES
+- Thirteen attack animations were redrawn or refined to better match the anime, including Shinra’s Maki, Adolla Link, and Corna moves.
+- Fights at 2× speed and faster use calmer effects, with less screen shake, fewer flashes, and less overlapping impact text.
+- Fusion asks for confirmation, and item tooltips stay out of the way while dragging items.
+- Friend invites and shorter share codes are available. On this GitHub-hosted version, manual save/friend codes work; automatic friend updates are not enabled.
+
+Have fun, and thanks for playing!
