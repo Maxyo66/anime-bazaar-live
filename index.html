@@ -4098,7 +4098,13 @@ const FriendSync=(()=>{
   function pull(force=false){if(!on||cloudGame())return Promise.resolve(0);if(pulling)return pulling;if(!force&&Date.now()-lastPull<60000)return Promise.resolve(0);
     lastPull=Date.now();pulling=pullNow().catch(()=>0).finally(()=>{pulling=null});return pulling}
   if(on){setTimeout(()=>{push();pull(true)},1500);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')pull()})}
-  return {on,push,pull,readyId,creds};
+  // Shared rival pool: upload a finished day's board, and fetch everyone else's boards for a day and difficulty
+  async function boardNow(snap){if(!creds().claimed&&!(await push()))return false;const c=creds();if(!c.claimed)return false;
+    const r=await call('/b/'+c.id,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:c.secret,board:{...snap,tag:String(myName()||'').slice(0,24)}})});return r.status===200}
+  function board(snap){if(!on||cloudGame()||!snap)return Promise.resolve(false);return Promise.resolve(pushing).then(()=>boardNow(snap)).catch(()=>false)}
+  async function pool(day,diff){if(!on||cloudGame())return [];const c=creds();
+    const r=await call('/pool/'+day+'?diff='+encodeURIComponent(diff||'casual')+(c.claimed?'&not='+c.id:''));return r.status===200&&r.data&&Array.isArray(r.data.boards)?r.data.boards:[]}
+  return {on,push,pull,readyId,creds,board,pool};
 })();
 // ================= share codes (progress travels as text, so friends need no write access) =================
 let FRIENDS=store.get('animeBazaarFriends',{});
@@ -4211,7 +4217,9 @@ let DB=null;const SHARED={};
   loadPlayers();if(SCREEN==='title'||SCREEN==='hof')render();
 }catch(e){}})();
 function fetchShared(day){
-  if(!DB||SHARED[day])return;SHARED[day]=[];
+  if(!DB){if(!FriendSync.on||!S||(SHARED[day]&&SHARED[day].diff===S.diff))return;const a=SHARED[day]=[];a.diff=S.diff;
+    FriendSync.pool(day,S.diff).then(b=>{if(SHARED[day]===a){const n=b.slice();n.diff=a.diff;SHARED[day]=n}}).catch(()=>{});return}
+  if(SHARED[day])return;SHARED[day]=[];
   DB.collection('boards').where('day','==',day).limit(30).get().then(snap=>{SHARED[day]=snap.docs.map(d=>cleanBoard(d.data())).filter(Boolean)}).catch(()=>{});
 }
 function cleanBoard(b){
@@ -4244,7 +4252,7 @@ function cleanBoard(b){
   if(b.heroId==='levi'&&b.skills&&b.skills.surveyDiscipline===1)skills.surveyDiscipline=1;
   const c=b.cos&&typeof b.cos==='object'?b.cos:{};
   const cos={skin:SKINS[c.skin]&&SKINS[c.skin].hero===b.heroId?c.skin:null,frames:FRAMES[c.frames]?c.frames:null,themes:THEMES[c.themes]?c.themes:null,title:TITLE_DEFS[c.title]?c.title:null};
-  return {cos,heroId:b.heroId,heroRules:Number.isInteger(b.heroRules)&&b.heroRules>0&&b.heroRules<1000?b.heroRules:1,ownerId:typeof b.ownerId==='string'&&b.ownerId.length<120?b.ownerId:null,hp:Math.max(100,Math.min(5000,+b.hp||300)),items:fit,skills};
+  return {cos,heroId:b.heroId,heroRules:Number.isInteger(b.heroRules)&&b.heroRules>0&&b.heroRules<1000?b.heroRules:1,ownerId:typeof b.ownerId==='string'&&b.ownerId.length<120?b.ownerId:null,...(typeof b.tag==='string'&&b.tag.trim()?{tag:b.tag.replace(/[<>]/g,'').slice(0,24)}:{}),hp:Math.max(100,Math.min(5000,+b.hp||300)),items:fit,skills};
 }
 const HERO_BOARD_RULES={goku:2,edward:2};
 const ghostBoardCompatible=b=>b&&(b.heroRules||1)===(HERO_BOARD_RULES[b.heroId]||1);
@@ -5014,7 +5022,7 @@ function genGhost(day){
   if(src&&src[1]){
     const s=src[1],h=heroById(s.heroId);
     const ttl=s.cos&&s.cos.title?' · '+TITLE_DEFS[s.cos.title].name:'';
-    const who=src[0]==='local'?' (your past run)':s.ownerId&&s.ownerId===CLOUD.uid?' (your past run)':s.ownerId?` (${esc(playerName(s.ownerId))}${ttl})`:` (another player${ttl})`;
+    const who=src[0]==='local'?' (your past run)':s.ownerId&&s.ownerId===CLOUD.uid?' (your past run)':s.tag?` (${esc(String(s.tag).slice(0,24))}${ttl})`:s.ownerId?` (${esc(playerName(s.ownerId))}${ttl})`:` (another player${ttl})`;
     const sk=s.cos&&s.cos.skin&&SKINS[s.cos.skin];
     return {name:h.name+who,heroId:h.id,icon:sk?sk.emblem:h.emblem,color:sk?sk.color:h.color,aura:sk?sk.aura:null,skin:sk||null,cos:s.cos,hp:s.hp,skills:s.skills,items:s.items.map(i=>Object.assign(mkInst(i.id,i.tier,i.ench,i.bonus),{slot:i.slot??undefined}))};
   }
@@ -5026,7 +5034,7 @@ function genGhost(day){
 function snapshotBoard(){return {heroRules:HERO_BOARD_RULES[S.hero.id]||1,cos:{skin:META.equip.skins[S.hero.id]||null,frames:META.equip.frames,themes:META.equip.themes,title:META.equip.titles},heroId:S.hero.id,ownerId:CLOUD.uid||null,diff:S.diff,day:S.day,hp:maxHp(),skills:{...S.skills},items:S.board.map(i=>({id:i.id,tier:i.tier,ench:i.ench,bonus:i.bonus,slot:i.slot,...(i.id==='exchange'?{exchangeMode:i.exchangeMode==='transmute'?'transmute':'protect'}:{})}))}}
 function saveGhost(){
   const snap=snapshotBoard();
-  if(!S.daily){const mine=store.get(myBoardsKey(),[]);mine.push(snap);store.set(myBoardsKey(),mine.slice(-12));window.GhostSync?.queueBoard(snap);FriendSync.push()}
+  if(!S.daily){const mine=store.get(myBoardsKey(),[]);mine.push(snap);store.set(myBoardsKey(),mine.slice(-12));window.GhostSync?.queueBoard(snap);FriendSync.push();FriendSync.board(snap)}
   const g=store.get('animeBazaarGhosts',{});(g[S.day]=g[S.day]||[]).push(snap);g[S.day]=g[S.day].slice(-6);store.set('animeBazaarGhosts',g);
   if(DB&&!S.daily)DB.collection('boards').add({...snap,at:Date.now()}).catch(()=>{});
 }
