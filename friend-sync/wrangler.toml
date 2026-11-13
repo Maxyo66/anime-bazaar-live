@@ -1,0 +1,9 @@
+# Anime Bazaar automatic friend updates. See README.md. Fill database_id after `wrangler d1 create`.
+name = "anime-bazaar-friends"
+main = "worker.js"
+compatibility_date = "2026-06-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "anime-bazaar-friends"
+database_id = "f72e2609-b35c-468b-9fee-beaec3ee75cd"

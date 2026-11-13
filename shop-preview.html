@@ -154,7 +154,7 @@ body.drag-inv #sellzone{display:grid!important;place-items:center;padding:10px;b
 .fusion{margin-top:8px;font-size:13px;background:#0006;border:1px solid #c471f5;border-radius:10px;padding:6px 10px}
 .tiername{font-weight:900;color:var(--tc)}
 .modal{position:fixed;inset:0;background:radial-gradient(circle,#2a1406cc,#000e);display:grid;place-items:center;z-index:50;padding:16px;overflow:auto}
-.modal .box{max-width:680px;width:100%;padding:20px}
+.modal .box{max-width:680px;width:100%;padding:20px}.intent{margin:8px 0;text-align:left}.intent p{margin:3px 0}.rules{text-align:left;margin:8px 0 4px;padding-left:20px;line-height:1.45}.rules li{margin:4px 0}.rulesintro{padding:10px 14px;margin:8px 0;border-radius:12px}.rulesintro h3{margin:0 0 4px}.runstat{cursor:pointer}
 .ultbox{text-align:center}
 .ultbox .card{--u:100px;margin:14px auto}
 /* combat */
@@ -539,6 +539,12 @@ details.logwrap .log{margin-top:6px}
 .ar-paths-b{border-color:#9cf0ff;--arc:#9cf0ff;background:linear-gradient(#0005,#0008),linear-gradient(#c8a870,#8a6a3a)}
 /* Weisse */
 .ar-weisse{--arc:#ffd23f;background:linear-gradient(#5a4a2a,#2a2010)}
+.ar-beerus{--arc:#c99aff;background:linear-gradient(#2a1440,#5a2a6a 55%,#1a0e20)}
+.ar-gorteau{--arc:#8affb0;background:linear-gradient(#081410,#123024 60%,#06100c)}
+.ar-kaguya{--arc:#e8f4ff;background:linear-gradient(#2e4468,#7f9cc0 60%,#6f86a6)}
+.ar-wahrwelt{--arc:#9fd0ff;background:linear-gradient(#05060c,#1a2030 60%,#d8dce4)}
+.choice.calam{animation:calamPulse 2.2s ease-in-out infinite}@keyframes calamPulse{0%,100%{box-shadow:0 0 0 2px #ff7a9a,0 0 14px #ff7a9a66}50%{box-shadow:0 0 0 3px #ffd23f,0 0 26px #ff7a9acc}}
+body.anim-off .choice.calam{animation:none}
 .ar-weisse .ar-l1{background:linear-gradient(100deg,transparent 30%,#ffd23f44 45%,#fff6 50%,#ffd23f44 55%,transparent 70%) 0 0/300% 100%;animation:arSweep 6s ease-in-out infinite}
 .ar-weisse .ar-l2{background:repeating-linear-gradient(90deg,#d9a44a33 0 40px,transparent 40px 46px,#b8860b33 46px 90px),linear-gradient(transparent 40%,#d9a44a55);clip-path:inset(30% 0 0 0)}
 .ap-glint{width:6px;height:6px;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);animation-name:arTwinkle;filter:drop-shadow(0 0 4px #ffd23f)}

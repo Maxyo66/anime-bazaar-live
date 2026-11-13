@@ -1,7 +1,7 @@
 {
-  "source": "Anime Bazaar release: Claude requests #53-#79 plus corrected 6-second Golden Conqueror’s Haki; approved artwork mappings retained.",
-  "sourceSha256": "df6a13ae4271e0d6e474647aa3c65d606b09231f82405a10b4cb9da6491b0464",
-  "artSha256": "8f92262196d15a17a8d0a019aaff753f9160efd67106b219fb7f98ce7f2081e7",
+  "source": "Anime Bazaar release: Claude requests #80-#85, approved Pass 22-23 artwork, and live Cloudflare friend updates.",
+  "sourceSha256": "06c2ed261bd0484774aedec357d9ae45f250ed1f6011dd782dc24db7f3bd30cd",
+  "artSha256": "6dd923b7388e641f7bb18ae1f1c006389ec8a618f5bbe70287b7f187ceffd947",
   "requests": [
     53,
     54,
@@ -29,10 +29,16 @@
     76,
     77,
     78,
-    79
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85
   ],
-  "artworkChanged": false,
-  "artworkMappings": 214,
+  "artworkChanged": true,
+  "artworkMappings": 232,
   "files": [
     {
       "name": "ainz-preview.html",
@@ -1110,6 +1116,101 @@
       "sha256": "9282d9dbb5faa0bc45bfe4d52549807dbf74a9e988dd0fdcb911f60035e76d07"
     },
     {
+      "name": "art/approved-20261112/pass22-23/alchemy_lance.jpg",
+      "bytes": 492307,
+      "sha256": "e7c0982931f83afbea977d17daa83dfee6b192c950bb70d4f1cd6ec20dcc67ad"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/barrier_break.jpg",
+      "bytes": 205693,
+      "sha256": "772fb7e74165761bcd1c29941922ca106099dc83b22d06028a6dacee1d4f36b9"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/crew_rally.jpg",
+      "bytes": 641770,
+      "sha256": "0288572da1f201778beb1e55015dffcb8fa8b49ad7975aba67d725bb27a850b1"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/domain.jpg",
+      "bytes": 226288,
+      "sha256": "ec2d735dbe29cb8296ec20a738b8254d1bfd8e1a8ab88047e2e8e2b0c7525b2b"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/extraction.jpg",
+      "bytes": 76377,
+      "sha256": "4caeed719782750b3e6e66d9d4b012b6529a7bb96fae2ab7320535625a2ae846"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/forger.jpg",
+      "bytes": 537937,
+      "sha256": "62100f63e0cf436bb0be60060d4245d04138efff8634b6409ecc0a6d0cc77091"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/gate_truth.jpg",
+      "bytes": 196225,
+      "sha256": "a1c32bd1b226641b7c769f44a0f8a25cab8bf13f1a54fcaffdf0882167c6fa8f"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/jotaro_cap.jpg",
+      "bytes": 414550,
+      "sha256": "165c01f304713d3a4ca7da458ec977076816ab575c86f5f8189633ec93786f87"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/jotaro_portrait.jpg",
+      "bytes": 171209,
+      "sha256": "0c766d2ea770ee1bfe7d1d30afbce83713d6c073f7d99986946290255e285406"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/ora_barrage.jpg",
+      "bytes": 168126,
+      "sha256": "f1d70a5888b87aa2c4ee15a9eb731ea64cc510e0dd8883d169437e08222a696f"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/red.jpg",
+      "bytes": 501209,
+      "sha256": "11494f27bcb44a9fd870023a00751bb3d59eb1be1c4b550b35fd99536fa6642f"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/rulers_authority.jpg",
+      "bytes": 294835,
+      "sha256": "8c56a9415cc4f090856911977abfc7f2c213bb57a270996bf94969d51dbda36e"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/spin_slash.jpg",
+      "bytes": 618722,
+      "sha256": "f8ec18ffceac191ae7e5436bb37230dae1b72809e0a5da7d50da980d543a7d28"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/star_platinum.jpg",
+      "bytes": 140194,
+      "sha256": "610d4e5f87eef75f84414fddfc86274c92fa03944f404e715095d61397d74b42"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/star_world.jpg",
+      "bytes": 150867,
+      "sha256": "b59a2b759fcbe4edd8212d84eeba0adf77710812f5dd1330e2ca4cea030478a2"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/stella.jpg",
+      "bytes": 459795,
+      "sha256": "5ac31b02ccc45c84b2135a1887b2640cf703f34ca7f935bda7404bb8f736147d"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/strix.jpg",
+      "bytes": 417811,
+      "sha256": "3803d08509b8d3b050e5724cca42f7ac401185b2ec3094bb41bb8e36b8b9c908"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/thousand_years.jpg",
+      "bytes": 126777,
+      "sha256": "a60e6d344c423841fa479d2184d4c26ddf04758252ff5ae800f0a356845b5b3b"
+    },
+    {
+      "name": "art/approved-20261112/pass22-23/zoltraak.jpg",
+      "bytes": 295199,
+      "sha256": "6c6e2f25cd138f4988155bd74d352cbfd6f571b26048cdd99c225be4d87d87d3"
+    },
+    {
       "name": "art/bosses/father.jpg",
       "bytes": 20499,
       "sha256": "395c4f86481117faf387766def7ec4a4434bfadbb32dfe60642cb92596da8ce6"
@@ -1210,19 +1311,14 @@
       "sha256": "8696377b954771f870dce2f9097b3034f2016a9a16002506178cad8718b72d69"
     },
     {
-      "name": "art/heroes/gojo.jpg",
-      "bytes": 43820,
-      "sha256": "2deac38112b84532572f755cc5911e70b545a096406a30819dec8068ee503dee"
-    },
-    {
       "name": "art/heroes/goku.jpg",
       "bytes": 22954,
       "sha256": "17b5ecaaa8edc3d97c42eadbe3733e21c04f0634b4b78dae2009eabb1c0d60d0"
     },
     {
-      "name": "art/heroes/ichigo-tybw-part3.png",
-      "bytes": 1238947,
-      "sha256": "2bea9019091ed014fcd4f1ec6cc58577c3dfd9ef127b201be0a0e45afec5f956"
+      "name": "art/heroes/ichigo-bankai-ep58.png",
+      "bytes": 158820,
+      "sha256": "6df91dc8773f0a18402ba96d0552501fa737877bff1e9f2ebc81bcbec5f115d2"
     },
     {
       "name": "art/heroes/jinwoo.jpg",
@@ -1240,21 +1336,6 @@
       "sha256": "abd0e1d211311759cd719788d86090ecb74b8a710f25d481b0ecd9f3405da253"
     },
     {
-      "name": "art/heroes/misaka.png",
-      "bytes": 142658,
-      "sha256": "06990674dccc7d8735886baef6b55f72bfcc5c9472a7ce3b717c64b3e687bcc2"
-    },
-    {
-      "name": "art/heroes/naruto.jpg",
-      "bytes": 56547,
-      "sha256": "ab7125371f5794f2e08fd6d1de9bf0ada2d3bb8475845cadd39879ac27d1bd7c"
-    },
-    {
-      "name": "art/heroes/ryuko.png",
-      "bytes": 101185,
-      "sha256": "bf97310a7c93c30d03d8f2cce4163621357dcafc4daef143eacaf12c04515bf3"
-    },
-    {
       "name": "art/heroes/saitama.jpg",
       "bytes": 21324,
       "sha256": "fc7438b20714279244417af287b7442683de7bc75b1e60d4c5a70c3d11fe7cad"
@@ -1263,11 +1344,6 @@
       "name": "art/heroes/shinra.jpg",
       "bytes": 110614,
       "sha256": "0567e37c913ad823b7f0e1929896c0a38687b0fa2ad080af91be9acc33d8013b"
-    },
-    {
-      "name": "art/heroes/tanjiro.jpg",
-      "bytes": 79653,
-      "sha256": "7c042997217abe4c776ba82be706fe7f54b7334ddd557685ab8617f2a7a31a78"
     },
     {
       "name": "art/heroes/vegeta.jpg",
@@ -2081,8 +2157,8 @@
     },
     {
       "name": "data/art.js",
-      "bytes": 31857,
-      "sha256": "8f92262196d15a17a8d0a019aaff753f9160efd67106b219fb7f98ce7f2081e7"
+      "bytes": 33519,
+      "sha256": "242216e2894c33f74f916a54213bec7b917a764d549d8887b5d3cee72317b12c"
     },
     {
       "name": "data/rival-ghosts.js",
@@ -2091,13 +2167,13 @@
     },
     {
       "name": "ghost-sync.js",
-      "bytes": 9730,
-      "sha256": "541ffe58dde5e46726ca44a40f338ec1b59b7b99c6af419141422fedffac340a"
+      "bytes": 9828,
+      "sha256": "4add207c760cd2bdfe9f65fa68d3cfaee6a8decb088bd30228b64c1f2a222048"
     },
     {
       "name": "index.html",
-      "bytes": 1000618,
-      "sha256": "df6a13ae4271e0d6e474647aa3c65d606b09231f82405a10b4cb9da6491b0464"
+      "bytes": 1039257,
+      "sha256": "06c2ed261bd0484774aedec357d9ae45f250ed1f6011dd782dc24db7f3bd30cd"
     },
     {
       "name": "recent-artwork.html",
@@ -2111,8 +2187,8 @@
     },
     {
       "name": "shop-preview.html",
-      "bytes": 111935,
-      "sha256": "12c72a997a22009d51a324ae0a85ce19568d7a235dfeeb86da641f72f532131f"
+      "bytes": 112773,
+      "sha256": "bb107e0572f8872e34db7e7c1b2e5b48359b633a062fe2bd3d1b05bfe2d6201e"
     }
   ],
   "createdUtc": "2026-11-05T19:24:15.644070+00:00"

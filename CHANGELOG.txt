@@ -1,21 +1,21 @@
 ANIME BAZAAR — CHANGELOG FOR PLAYERS
-Updates #53–#79 | November 12, 2026
+Updates #53–#85 | November 13, 2026
 
-BUFFS & BUILD UPGRADES
-- 18 hero kits were rebuilt or rebalanced: Luffy, Tanjiro, Gojo, Edward, Frieren, Deku, Ichigo, Levi, Saitama, Sung Jinwoo, Ainz, Denji, Maomao, Mikoto Misaka, Ryuko, Jotaro, Andy & Fuuko, and Shinra. Expect new passives, item effects, and team-up synergies; not every change is a straight buff.
-- Gold Trial skills now awaken their hero’s passive without a limited-use cap. Trial rewards were tuned to make the skill and Ultimate routes closer in strength.
-- Examples: Deku’s Full Cowl can build Weapon damage; Levi’s blades and ODM Gear reward critical hits; Shinra and his allies gain stronger Heat and team synergies.
-- Conqueror’s Haki now freezes the enemy’s two largest items for 6 seconds at the start of a fight.
+BUFFS & REWARDS
+- 18 hero kits were rebuilt or rebalanced, with new passives, item effects and team-up synergies. Gold Trial skills now awaken their hero’s passive without a use cap, and Trial rewards were balanced against Ultimates.
+- Monster and elite rewards now offer three different items, including one the enemy used. A Trial win still gives a normal reward if you missed its bonus objective.
+- Winning a Calamity guarantees its exclusive item and grants double gold and XP. Each Calamity also has its own animated arena.
+- Examples of hero upgrades: Deku’s Full Cowl builds Weapon damage; Levi’s blades and ODM Gear reward critical hits; Shinra and allies gain stronger Heat and team synergies.
 
-NERFS & CHALLENGE TUNING
-- Gear Fourth now comes with a 3-second Slow after its burst, adding a recovery cost to Luffy’s power spike.
-- Some of the strongest Ultimate builds were toned down while base and Trial-skill routes received more support.
-- Enemies were adjusted to keep later fights challenging. For example, DIO now has 1,000 HP, and the Company 8 sparring rival’s HP increased from 720 to 1,000.
+NERFS & CHALLENGE
+- Gear Fourth now applies a 3-second Slow after Luffy’s burst. Some top-end Ultimate builds were toned down while base and Trial-skill builds gained support.
+- Bosses can no longer be skipped. Losing a boss costs half the prestige of losing to a rival and can end the run.
+- Monsters and bosses have coordinated item combos. Boss health was lowered 5% to offset those combos; enemy descriptions no longer give away explicit counters.
 
 OTHER CHANGES
-- Thirteen attack animations were redrawn or refined to better match the anime, including Shinra’s Maki, Adolla Link, and Corna moves.
-- Fights at 2× speed and faster use calmer effects, with less screen shake, fewer flashes, and less overlapping impact text.
-- Fusion asks for confirmation, and item tooltips stay out of the way while dragging items.
-- Friend invites and shorter share codes are available. On this GitHub-hosted version, manual save/friend codes work; automatic friend updates are not enabled.
+- Conqueror’s Haki freezes the enemy’s two largest items for 6 seconds at the start of a fight.
+- Thirteen attack animations were redrawn or refined to better match the anime. Fights at 2× speed and faster have calmer effects.
+- Friend invites now update boards automatically after you connect, powered by the Cloudflare service. No need to exchange a new code each time a friend plays.
+- Fusion asks for confirmation, item tooltips stay out of the way while dragging, and the game now shows your run’s wins and losses more clearly.
 
 Have fun, and thanks for playing!
