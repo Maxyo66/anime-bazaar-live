@@ -1,5 +1,5 @@
 ANIME BAZAAR — CHANGELOG FOR PLAYERS
-Updates #53–#85 | November 13, 2026
+Updates #53–#86 | November 13, 2026
 
 BUFFS & REWARDS
 - 18 hero kits were rebuilt or rebalanced, with new passives, item effects and team-up synergies. Gold Trial skills now awaken their hero’s passive without a use cap, and Trial rewards were balanced against Ultimates.
@@ -8,14 +8,14 @@ BUFFS & REWARDS
 - Examples of hero upgrades: Deku’s Full Cowl builds Weapon damage; Levi’s blades and ODM Gear reward critical hits; Shinra and allies gain stronger Heat and team synergies.
 
 NERFS & CHALLENGE
-- Gear Fourth now applies a 3-second Slow after Luffy’s burst. Some top-end Ultimate builds were toned down while base and Trial-skill builds gained support.
-- Bosses can no longer be skipped. Losing a boss costs half the prestige of losing to a rival and can end the run.
-- Monsters and bosses have coordinated item combos. Boss health was lowered 5% to offset those combos; enemy descriptions no longer give away explicit counters.
+- Gear Fourth now applies a 3-second Slow after Luffy’s burst. Some top-end Ultimates were tuned down, and boss fights are 5% shorter to balance coordinated enemy combos.
+- Bosses can no longer be skipped. Losing to a boss costs half the rival loss and can end the run.
+- Monsters and bosses have coordinated item combos. Enemy descriptions no longer give away explicit counters.
 
-OTHER CHANGES
+RIVALS & OTHER CHANGES
+- Players now share a rival pool without exchanging invite codes. While online, each finished day can add your board; rivals are matched by day and difficulty, and you will not face your own boards.
 - Conqueror’s Haki freezes the enemy’s two largest items for 6 seconds at the start of a fight.
 - Thirteen attack animations were redrawn or refined to better match the anime. Fights at 2× speed and faster have calmer effects.
-- Friend invites now update boards automatically after you connect, powered by the Cloudflare service. No need to exchange a new code each time a friend plays.
-- Fusion asks for confirmation, item tooltips stay out of the way while dragging, and the game now shows your run’s wins and losses more clearly.
+- Friend invites also update boards automatically after you connect. Fusion asks for confirmation, item tooltips stay out of the way while dragging, and the game shows your run’s wins and losses more clearly.
 
 Have fun, and thanks for playing!
