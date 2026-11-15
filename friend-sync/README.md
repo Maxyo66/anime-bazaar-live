@@ -16,3 +16,9 @@ This Cloudflare Worker and D1 database power the live game's online features. Pl
 The Worker uses the existing anime-bazaar-friends D1 database and its boards table. CREATE TABLE IF NOT EXISTS initializes the table without deleting friend records. The live Worker has already been updated; do not rerun deployment unless changing server code. Worker endpoint checks and the two-browser regression test do not create live rival records.
 
 Tests: tests/friend_sync.cjs and tests/global_pool.cjs.
+
+## Anonymous run stats (#87)
+
+- When the Settings > Privacy switch is on (default), a completed non-Daily run can send a summary for game balancing. It contains hero, difficulty, result, day, wins/losses, final item build, fights and hidden pairs. Rival player names are removed.
+- The summary has a random run ID and does not include the player name, profile ID or friend-sync ID. The server stores only a hash of the IP address for a limit of 40 submissions per day; run records expire after 180 days.
+- The public stats page at /stats.html shows aggregate totals only. The server does not expose individual run records there.

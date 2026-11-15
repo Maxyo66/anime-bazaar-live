@@ -1,5 +1,12 @@
 ANIME BAZAAR — CHANGELOG FOR PLAYERS
-Updates #53–#86 | November 13, 2026
+Updates #53–#92 | November 15, 2026
+
+LATEST UPDATES (#87–#92)
+- Optional anonymous balancing stats: when enabled, completed non-Daily runs share a gameplay summary (hero, difficulty, result, build, fights and hidden pairs). No player name or profile ID is included. The Worker keeps only a hashed IP for its 40-per-day limit; run summaries expire after 180 days. Toggle it in Settings > Privacy; it is on by default. View aggregate totals at https://maxyo66.github.io/anime-bazaar-live/stats.html.
+- Every player card now has its own attack animation. Optional effect textures can be turned on or off in Settings.
+- Each hour now has one market, one event, one fight and a free pick. Shops scale to higher tiers, the Forge upgrades items for gold, and free item upgrades are available at levels 10, 15 and 20.
+- 64 new events include a story event for every hero, item-tag choices and four new quests.
+- Day 9 offers a four-step Expedition for a Legendary relic. Elites on days 3–8 can drop a Gate Key; losing in the Expedition ends it without a prestige penalty.
 
 BUFFS & REWARDS
 - 18 hero kits were rebuilt or rebalanced, with new passives, item effects and team-up synergies. Gold Trial skills now awaken their hero’s passive without a use cap, and Trial rewards were balanced against Ultimates.

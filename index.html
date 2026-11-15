@@ -903,7 +903,7 @@ body.anim-off .ap,body.anim-off .arena-title{display:none}
 
 /* Inspection never covers mouse hit targets; moving across the roster switches immediately. */
 #hero-inspect{pointer-events:none;max-height:calc(100dvh - 20px)}
-.home-heroes .hero .avatar{border:1px solid #c8a66c88;box-shadow:none;background:#191419}
+.home-heroes .hero .avatar{border:1px solid #c8a66c88;box-shadow:none;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--hc) 60%,#fff),var(--hc) 45%,color-mix(in srgb,var(--hc) 45%,#000))}
 /* Portrait source replacements remain under review; retain established image framing. */
 .compact-howto{font-size:13px;line-height:1.6}.compact-howto summary{cursor:pointer;font-weight:700;color:#e5c88e}.compact-howto ul{margin:10px 0 0;padding-left:22px}.compact-howto li+li{margin-top:6px}
 
@@ -1215,7 +1215,68 @@ const HFX=(()=>{
   c.beginPath();c.moveTo(-9,-19);c.lineTo(-11,-12);c.lineTo(-7,-17);c.moveTo(9,-19);c.lineTo(11,-12);c.lineTo(7,-17);c.fillStyle='#ffd83a';c.fill();c.stroke();
   c.restore()}
  const lgx=c=>{const g=c.createLinearGradient(-5,-25,5,-19);g.addColorStop(0,'#f4f6fa');g.addColorStop(1,'#9aa4ae');return g};
- function hitAt(b,color,big,txt,txtColor){impact(b,color,big);if(big)impactFrame(b);if(txt)sfxText({x:b.x+30,y:b.y-50},txt,txtColor||color,big?46:30)}
+ function hitAt(b,color,big,txt,txtColor){impact(b,color,big);if(SPR.on()&&!lite()){const rot=Math.random()*TAU;add({dur:big?.5:.35,draw(c,k){const f=1-k,q=ease(Math.min(1,k/.4));SPR.draw(c,'k_light_01',b.x,b.y,(big?230:150)*(.6+q*.6),{tint:color,add:true,alpha:f*.85});SPR.draw(c,big?'k_star_08':'k_star_06',b.x,b.y,(big?200:120)*(.5+q*.7),{tint:'#ffffff',add:true,alpha:f,rot});if(big)SPR.draw(c,'k_spark_03',b.x,b.y,170*(.7+q*.5),{tint:color,add:true,alpha:f*.8,rot:-rot})}})}if(big)impactFrame(b);if(txt)sfxText({x:b.x+30,y:b.y-50},txt,txtColor||color,big?46:30)}
+ // ---- sprite texture layer (Claude 2026-11-14, Max 23:00 "use any and all you think might fit"): one atlas of licensed effect textures
+ // (Kenney Particle Pack CC0; ColdVibeGames/Sketchvibe hand-drawn flames; Kalponic Studio Stylized VFX) drawn over the code-drawn attacks.
+ // Settings > Effect textures turns it off (SET.spriteFx=false). Missing atlas = attacks still draw as before.
+ const SPR=(()=>{const M={"k_smoke_01":[0,0],"k_smoke_04":[128,0],"k_smoke_07":[256,0],"k_smoke_10":[384,0],"k_fire_01":[512,0],"k_fire_02":[640,0],"k_flame_01":[768,0],"k_flame_04":[896,0],"k_spark_01":[1024,0],"k_spark_02":[1152,0],"k_spark_03":[1280,0],"k_spark_04":[1408,0],"k_spark_05":[0,128],"k_spark_06":[128,128],"k_spark_07":[256,128],"k_star_04":[384,128],"k_star_06":[512,128],"k_star_08":[640,128],"k_light_01":[768,128],"k_flare_01":[896,128],"k_circle_05":[1024,128],"k_magic_02":[1152,128],"k_magic_03":[1280,128],"k_slash_01":[1408,128],"k_slash_02":[0,256],"k_slash_03":[128,256],"k_slash_04":[256,256],"k_scorch_02":[384,256],"k_twirl_01":[512,256],"k_twirl_02":[640,256],"k_trace_03":[768,256],"k_muzzle_02":[896,256],"k_scratch_01":[1024,256],"k_dirt_02":[1152,256],"flame_1":[1280,256],"flame_2":[1408,256],"flame_3":[0,384],"flame_4":[128,384],"flame_5":[256,384],"flame_6":[384,384],"flameblue_1":[512,384],"flameblue_2":[640,384],"flameblue_3":[768,384],"flameblue_4":[896,384],"flameblue_5":[1024,384],"flameblue_6":[1152,384],"flamepurple_1":[1280,384],"flamepurple_2":[1408,384],"flamepurple_3":[0,512],"flamepurple_4":[128,512],"flamepurple_5":[256,512],"flamepurple_6":[384,512],"ksmoke_1":[512,512],"ksmoke_2":[640,512],"ksmoke_3":[768,512],"ksmoke_4":[896,512],"ksmoke_5":[1024,512],"ksmoke_6":[1152,512],"ksmoke_7":[1280,512],"ksmoke_8":[1408,512],"kslash_1":[0,640],"kslash_2":[128,640],"kslash_3":[256,640],"kslash_4":[384,640],"kslash_5":[512,640],"kslash_6":[640,640],"kslash_7":[768,640],"kslash_8":[896,640]},C=128;let img=null,ok=false;const tint={};
+  function load(){if(img||typeof Image==='undefined')return;img=new Image();img.onload=()=>{ok=true};img.src=(typeof window!=='undefined'&&window.VFX_ATLAS_URL)||'assets/vfx/vfx-atlas.webp'}
+  function src(n,col){const p=M[n];if(!p)return null;if(!col)return [img,p[0],p[1]];const key=n+col;let cv=tint[key];if(!cv){cv=document.createElement('canvas');cv.width=cv.height=C;const x=cv.getContext('2d');x.drawImage(img,p[0],p[1],C,C,0,0,C,C);x.globalCompositeOperation='source-in';x.fillStyle=col;x.fillRect(0,0,C,C);tint[key]=cv}return [cv,0,0]}
+  const on=()=>ok&&!(typeof SET!=='undefined'&&SET.spriteFx===false);
+  function draw(c,n,x,y,size,o={}){if(!on())return false;const s=src(n,o.tint);if(!s)return false;c.save();c.translate(x,y);if(o.rot)c.rotate(o.rot);if(o.alpha!=null)c.globalAlpha*=Math.max(0,o.alpha);if(o.add)c.globalCompositeOperation='lighter';const w=size*(o.sx||1),h=size*(o.sy||1);c.drawImage(s[0],s[1],s[2],C,C,-w/2,-h/2,w,h);c.restore();return true}
+  load();return {draw,on,load}})();
+ const flameN=(col)=>col==='blue'?'flameblue':col==='purple'?'flamepurple':'flame';
+ // Hand-drawn flame tongue, animated on twos
+ function flameSpr(c,x,y,size,t,col,i=0,o={}){return SPR.draw(c,flameN(col)+'_'+(1+((step(t)+i)%6)),x,y,size,o)}
+ // Texture explosion: fire core, smoke ring and sparks
+ function boom(x,y,R,col='#ff8a2a'){if(!SPR.on())return;add({dur:.7,draw(c,k,t){const q=ease(Math.min(1,k/.5)),f=1-k;
+  SPR.draw(c,'k_smoke_07',x,y-10*q,R*(1+q*1.4),{tint:'#3a3036',alpha:.75*f,rot:k});SPR.draw(c,'k_fire_01',x,y,R*(.8+q),{tint:col,add:true,alpha:f,rot:-k*2});
+  SPR.draw(c,'k_flare_01',x,y,R*2.4*(1-k*.5),{tint:'#fff2c0',add:true,alpha:f*.9});SPR.draw(c,'k_scorch_02',x,y,R*(1+q*.8),{tint:col,add:true,alpha:f*.6,rot:k*3})}})}
+ // ---- card animation pass helpers (Claude 2026-11-14, #88: every player card gets its own animation) ----
+ const fo=k=>k>.82?Math.max(0,(1-k)/.18):1;
+ const arcAt=(a,b,q,h=0)=>{const p=lerp(a,b,q);p.y-=Math.sin(q*Math.PI)*h;return p};
+ function puff(c,x,y,r,col,s=0){c.fillStyle=col;for(let i=0;i<6;i++){const an=i/6*TAU+s*.3;c.beginPath();c.arc(x+Math.cos(an)*r*.55,y+Math.sin(an)*r*.45,r*(.5+.12*Math.sin(i*3+s)),0,TAU);c.fill()}c.beginPath();c.arc(x,y,r*.7,0,TAU);c.fill()}
+ function starP(c,x,y,r,n,col,rot=0){c.beginPath();for(let i=0;i<n*2;i++){const an=rot+i/(n*2)*TAU,rr=i%2?r*.45:r;c.lineTo(x+Math.cos(an)*rr,y+Math.sin(an)*rr)}c.closePath();c.fillStyle=col;c.fill()}
+ function blade(c,len,w,col,edge='#fff'){c.beginPath();c.moveTo(0,-w/2);c.lineTo(len*.86,-w/2);c.lineTo(len,0);c.lineTo(len*.86,w/2);c.lineTo(0,w/2);c.closePath();outline(c,col,2);c.strokeStyle=edge;c.lineWidth=1;c.beginPath();c.moveTo(4,-w/2+1.5);c.lineTo(len*.85,-w/2+1.5);c.stroke()}
+ function claws(c,x,y,q,col,n=3,len=90,ang=-.9){c.save();c.translate(x,y);c.rotate(ang);for(let i=0;i<n;i++){const off=(i-(n-1)/2)*16,l=len*q;c.beginPath();c.moveTo(-len/2,off-6);c.quadraticCurveTo(0,off+6,-len/2+l,off-4);c.lineWidth=7-i%2;c.strokeStyle=INK;c.stroke();c.lineWidth=4;c.strokeStyle=col;c.stroke()}c.restore()}
+ // Small hand-drawn props for the relic, food and gear cards. Drawn around (0,0) at about 50px.
+ const EMB={
+  pill(c){c.save();c.rotate(-.5);c.beginPath();c.roundRect(-16,-8,32,16,8);outline(c,'#8a5a2a',2.5);c.fillStyle='#c88a4a';c.beginPath();c.ellipse(-6,-3,6,2.5,0,0,TAU);c.fill();c.restore()},
+  license(c){c.beginPath();c.roundRect(-26,-17,52,34,4);outline(c,'#2a2a2a',2.5);c.strokeStyle='#e8e8e8';c.lineWidth=2;c.beginPath();c.arc(-8,0,9,0,TAU);c.stroke();c.font='900 13px Arial Black,sans-serif';c.fillStyle='#e8e8e8';c.textAlign='center';c.fillText('H',-8,5);
+   c.fillStyle='#ffd23f';c.fillRect(5,-8,15,3);c.fillRect(5,-1,15,3);c.fillRect(5,6,10,3)},
+  donburi(c,t){c.beginPath();c.moveTo(-26,-2);c.quadraticCurveTo(-24,22,0,22);c.quadraticCurveTo(24,22,26,-2);c.closePath();outline(c,'#2a3a7a',2.5);c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(-20,8);c.lineTo(20,8);c.stroke();
+   c.beginPath();c.ellipse(0,-3,24,7,0,0,TAU);outline(c,'#f6f0de',2);c.beginPath();c.ellipse(2,-6,15,5,0,0,TAU);outline(c,'#b5652a',1.5);c.fillStyle='#5a8a2a';c.fillRect(-4,-9,6,2);
+   c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=2;for(const sx of [-10,0,10]){c.beginPath();c.moveTo(sx,-14);c.quadraticCurveTo(sx+5+jit(sx,step(t),2),-22,sx,-30);c.stroke()}},
+  shades(c){c.lineJoin='miter';for(const d of [-1,1]){c.beginPath();c.moveTo(d*3,-4);c.lineTo(d*34,-14);c.lineTo(d*22,6);c.closePath();outline(c,'#e8302a',2.5);c.fillStyle='rgba(255,255,255,.5)';c.beginPath();c.moveTo(d*10,-4);c.lineTo(d*24,-9);c.lineTo(d*20,-5);c.closePath();c.fill()}
+   c.strokeStyle=INK;c.lineWidth=3;c.beginPath();c.moveTo(-4,-4);c.lineTo(4,-4);c.stroke()},
+  apple(c){c.beginPath();c.moveTo(0,-14);c.bezierCurveTo(-26,-26,-30,12,-8,20);c.quadraticCurveTo(0,17,8,20);c.bezierCurveTo(30,12,26,-26,0,-14);outline(c,'#d81a2a',2.5);
+   c.fillStyle='#f6e6c8';c.beginPath();c.arc(20,0,8,-1.9,1.9);c.fill();c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.moveTo(0,-14);c.lineTo(3,-24);c.stroke();c.beginPath();c.ellipse(9,-22,7,3,-.4,0,TAU);outline(c,'#4a9a3a',1.5);
+   c.fillStyle='rgba(255,255,255,.55)';c.beginPath();c.ellipse(-12,-6,4,7,-.4,0,TAU);c.fill()},
+  fairy(c){c.beginPath();c.moveTo(-20,14);c.quadraticCurveTo(-24,-4,-8,-14);c.quadraticCurveTo(-4,-24,6,-22);c.quadraticCurveTo(0,-14,8,-8);c.quadraticCurveTo(18,-4,22,6);c.quadraticCurveTo(10,-2,4,4);
+   c.quadraticCurveTo(10,16,26,20);c.quadraticCurveTo(4,24,-2,10);c.quadraticCurveTo(-8,18,-20,14);c.closePath();outline(c,'#e8302a',2.5)},
+  wings(c){for(const [d,f] of [[-1,'#f4f4f4'],[1,'#2a5ad8']]){c.beginPath();c.moveTo(0,16);for(let i=0;i<4;i++){c.lineTo(d*(8+i*7),-14+i*7);c.lineTo(d*(4+i*7),-4+i*7)}c.lineTo(0,18);c.closePath();outline(c,f,2)}},
+  card(c){c.beginPath();c.roundRect(-24,-16,48,32,4);outline(c,'#c89a3a',2.5);c.fillStyle='#6a4a1a';c.font='900 10px sans-serif';c.textAlign='center';c.fillText('RANK',0,-3);c.font='900 14px Arial Black,sans-serif';c.fillText('S',0,12)},
+  cloche(c,t){c.beginPath();c.ellipse(0,12,30,7,0,0,TAU);outline(c,'#e8e8f0',2.5);c.fillStyle='#c8102e';c.font='900 13px serif';c.textAlign='center';c.fillText('食戟',0,-2)},
+  crystal(c,t){c.beginPath();c.moveTo(0,-26);c.lineTo(14,-6);c.lineTo(8,20);c.lineTo(-8,20);c.lineTo(-14,-6);c.closePath();outline(c,'#6ac8ff',2.5);c.fillStyle='rgba(255,255,255,.55)';c.beginPath();c.moveTo(0,-22);c.lineTo(6,-6);c.lineTo(0,14);c.closePath();c.fill()},
+  lacrima(c,t){c.beginPath();c.ellipse(0,0,13,19,0,0,TAU);outline(c,'#46d86a',2.5);c.strokeStyle='rgba(255,255,255,.6)';c.lineWidth=2;c.beginPath();c.moveTo(-3,-12);c.lineTo(4,-2);c.lineTo(-2,8);c.stroke();
+   c.fillStyle='rgba(20,80,30,.6)';for(let i=0;i<3;i++){c.beginPath();c.moveTo(-6+i*5,6);c.lineTo(-3+i*5,12);c.lineTo(i*5,6);c.fill()}},
+  bingo(c){c.beginPath();c.roundRect(-20,-24,40,48,3);outline(c,'#3a3a2a',2.5);c.fillStyle='#f0ead6';c.fillRect(-14,-18,28,22);c.fillStyle='#2a2a2a';c.beginPath();c.arc(0,-10,5,0,TAU);c.fill();c.fillRect(-7,-5,14,8);
+   c.strokeStyle='#c8102e';c.lineWidth=3;c.beginPath();c.moveTo(-15,-19);c.lineTo(15,5);c.moveTo(15,-19);c.lineTo(-15,5);c.stroke();c.fillStyle='#f0ead6';c.fillRect(-14,9,28,3);c.fillRect(-14,14,20,3)},
+  scroll(c,t){c.fillStyle='#f0e2b8';c.fillRect(-26,-12,52,24);c.strokeStyle=INK;c.lineWidth=2;c.strokeRect(-26,-12,52,24);for(const d of [-1,1]){c.beginPath();c.roundRect(d*28-5,-16,10,32,4);outline(c,'#c8302a',2)}
+   c.fillStyle='#2a2a2a';c.font='900 14px serif';c.textAlign='center';c.fillText('口寄',0,5)},
+  flamesword(c,t){c.save();c.rotate(-.8);c.fillStyle='#7a5a2a';c.fillRect(-26,-3,14,6);c.fillStyle='#ffd23f';c.fillRect(-13,-8,4,16);c.translate(-9,0);blade(c,40,8,'#ffb02e');c.restore();
+   c.globalCompositeOperation='lighter';for(let i=0;i<6;i++)glow(c,-6+i*5+jit(i,step(t),3),-6-i*5,10,'rgba(255,120,30,.55)');c.globalCompositeOperation='source-over'},
+  smile(c){c.beginPath();for(let i=0;i<14;i++){const an=i/14*TAU,r=i%2?16:20;c.lineTo(Math.cos(an)*r,Math.sin(an)*r+2)}c.closePath();outline(c,'#8a3ac8',2.5);c.strokeStyle='#ffd23f';c.lineWidth=2;for(let i=0;i<5;i++){c.beginPath();c.arc(0,2,6+i*2.4,.4+i*.3,1.6+i*.3);c.stroke()}
+   c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.moveTo(0,-16);c.lineTo(2,-24);c.stroke()}
+ };
+ // An item card's prop pops up, glints, then its power flows to the target (own hero for self items)
+ function emblemFx(a,b,style,col,o){const word=o.word,big=o.big;add({dur:1.15,at:.7,hit(){ring(b.x,b.y,col,10,big?110:80,.5,5);sparks(b.x,b.y-10,col,14,200,.5,3,-120);if(word)sfxText({x:b.x+20,y:b.y-60},word,col,30)},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+   const up=ease(Math.min(1,k/.3)),x=a.x,y=a.y-30-40*up,s=.4+.8*up+(k>.3&&k<.45?.12*Math.sin((k-.3)/.15*Math.PI):0);
+   c.globalCompositeOperation='lighter';glow(c,x,y,60*up,col.length===7?col+'66':col);c.globalCompositeOperation='source-over';
+   c.save();c.translate(x,y);c.scale(s,s);c.rotate(jit(1,step(t),.03));(EMB[style]||EMB.crystal)(c,t,col);c.restore();
+   if(k>.3&&k<.46){const g=(k-.3)/.16;c.strokeStyle='#fff';c.lineWidth=3;c.globalAlpha=1-g;c.beginPath();c.moveTo(x-30+60*g,y-26);c.lineTo(x-14+60*g,y+26);c.stroke();c.globalAlpha=fo(k)}
+   if(k>.45){const q=ease(Math.min(1,(k-.45)/.25));for(let i=0;i<10;i++){const qi=Math.max(0,q-i*.04),p=arcAt({x,y},b,qi,40);c.globalCompositeOperation='lighter';glow(c,p.x,p.y,14-i,col.length===7?col+'cc':col)}}
+   c.restore()}})}
  const K={
   // Rubber arm stretches across, the fist lands, the arm snaps back
   stretch(a,b,col,o){const n=o.count||1,big=o.big,skin=o.toon?'#ffffff':'#f0c49b';
@@ -2418,6 +2479,386 @@ const HFX=(()=>{
       if(k>.8){const q=(k-.8)/.2;c.globalCompositeOperation='lighter';glow(c,tx,ty,30+90*q,'rgba(255,120,30,'+(.7*(1-q))+')');glow(c,tx,ty,20+50*q,'rgba(255,230,160,'+(.6*(1-q))+')');
         c.strokeStyle='rgba(20,10,10,'+(1-q)+')';c.lineWidth=6;c.beginPath();c.arc(tx,ty,70*q,0,TAU);c.stroke()}
       c.restore()}})},
+  // ---- #88 card animations: neutral items (Claude 2026-11-14). Researched looks noted per kind. ----
+  // Prop cards (pill, licence, donburi, Kamina's shades, Ryuk's apple, guild mark, cards, crystals, scrolls...)
+  emblem(a,b,col,o){emblemFx(a,b,o.style||'crystal',col,o)},
+  // Soldier Pill (Naruto): the small brown pill is swallowed and chakra flares up round the ninja
+  soldierpill(a,b,col,o){emblemFx(a,b,'pill',col,{word:'兵糧丸'});add({dur:1.3,at:.8,draw(c,k,t){if(k<.62)return;const q=(k-.62)/.38;c.save();c.globalAlpha=1-q;c.globalCompositeOperation='lighter';
+    for(let i=0;i<14;i++){const an=i/14*TAU,h=40+jit(i,step(t),20);c.strokeStyle='rgba(120,200,255,.7)';c.lineWidth=4;c.beginPath();c.moveTo(b.x+Math.cos(an)*30,b.y+20);c.quadraticCurveTo(b.x+Math.cos(an)*40,b.y-h*q,b.x+Math.cos(an)*20,b.y-h-30*q);c.stroke()}c.restore()}})},
+  // Susanoo Ribcage (Naruto): the first stage of Susanoo, a skeletal ribcage and arm in purple chakra, closes round the user
+  susanoo(a,b,col,o){add({dur:1.4,at:.55,hit(){ring(b.x,b.y,col,20,110,.5,6)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5)),x=b.x,y=b.y+10;
+    c.globalCompositeOperation='lighter';glow(c,x,y-30,120*q,'rgba(150,80,255,.35)');
+    c.lineCap='round';c.strokeStyle='rgba(190,140,255,.95)';c.lineWidth=7;
+    c.beginPath();c.moveTo(x,y+30);c.lineTo(x,y-80*q);c.stroke();
+    for(let i=0;i<5;i++){const yy=y-70*q+i*18,w=(60+i*8)*q;for(const d of [-1,1]){c.beginPath();c.moveTo(x,yy);c.bezierCurveTo(x+d*w*.6,yy-14,x+d*w,yy+4,x+d*w*.8,yy+22);c.stroke()}}
+    c.lineWidth=9;c.beginPath();c.moveTo(x-70*q,y-60*q);c.quadraticCurveTo(x-110*q,y-10,x-80*q,y+30*q);c.stroke();
+    c.fillStyle='rgba(220,190,255,.9)';c.beginPath();c.arc(x,y-96*q,16*q,0,TAU);c.fill();c.fillStyle='rgba(60,10,120,.9)';c.beginPath();c.arc(x-6*q,y-98*q,3*q,0,TAU);c.arc(x+6*q,y-98*q,3*q,0,TAU);c.fill();
+    c.globalCompositeOperation='source-over';for(let i=0;i<8;i++){c.fillStyle='rgba(170,110,255,'+(.4*q)+')';const fx=x+jit(i,step(t),80),fy=y-20+jit(i+9,step(t),60);c.beginPath();c.arc(fx,fy,4+Math.abs(jit(i,3,3)),0,TAU);c.fill()}
+    c.restore()}})},
+  // Death Note: the black notebook opens, a name is written, and forty seconds later the heart gives out
+  deathnote(a,b,col,o){add({dur:1.8,at:.82,hit(){hitAt(b,'#c8102e',true,'心臓麻痺','#ff4a5a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+    const op=ease(Math.min(1,k/.18)),x=a.x,y=a.y-60;c.save();c.translate(x,y);
+    c.fillStyle='#111';c.strokeStyle='#888';c.lineWidth=1.5;c.beginPath();c.rect(-46*op,-26,46*op,52);c.fill();c.stroke();c.beginPath();c.rect(0,-26,46,52);c.fillStyle='#f4efe2';c.fill();c.stroke();
+    if(op<.6){c.fillStyle='#111';c.fillRect(0,-26,46,52);c.fillStyle='#ddd';c.font='700 8px serif';c.textAlign='center';c.fillText('DEATH',23,-2);c.fillText('NOTE',23,8)}
+    else{c.strokeStyle='#ccc';c.lineWidth=.6;for(let i=0;i<6;i++){c.beginPath();c.moveTo(4,-18+i*8);c.lineTo(42,-18+i*8);c.stroke()}
+     const w=Math.min(1,Math.max(0,(k-.2)/.35));c.save();c.beginPath();c.rect(3,-24,38*w,30);c.clip();c.strokeStyle='#111';c.lineWidth=1.6;c.beginPath();for(let i=0;i<34;i++){const px=4+i,py=-12+Math.sin(i*1.7)*3+Math.cos(i*.9)*2;i?c.lineTo(px,py):c.moveTo(px,py)}c.stroke();c.restore();
+     if(w>0&&w<1){c.save();c.translate(4+38*w,-12);c.rotate(.7);c.fillStyle='#222';c.fillRect(-2,-26,4,26);c.fillStyle='#c8c8c8';c.beginPath();c.moveTo(-2,0);c.lineTo(0,5);c.lineTo(2,0);c.fill();c.restore()}}
+    c.restore();
+    if(k>.55){const q=(k-.55)/.27,sec=Math.max(0,Math.ceil(40*(1-Math.min(1,q))));c.fillStyle='#fff';c.font='900 18px monospace';c.textAlign='center';c.fillText(sec+'s',b.x,b.y-74);
+     const beat=1+.25*Math.max(0,Math.sin(t*22))*(q<1?1:0);c.save();c.translate(b.x,b.y-10);c.scale(beat,beat);c.beginPath();c.moveTo(0,10);c.bezierCurveTo(-26,-8,-12,-26,0,-12);c.bezierCurveTo(12,-26,26,-8,0,10);outline(c,'#c8102e',2.5);c.restore()}
+    c.restore()}})},
+  // Geass (Code Geass): the red bird sigil glows in Lelouch's eye and flies into the target's eye, ringing it red
+  geass(a,b,col,o){const bird=(c,x,y,s)=>{c.save();c.translate(x,y);c.scale(s,s);c.strokeStyle='#ff2a3a';c.lineWidth=3;c.beginPath();c.moveTo(-18,6);c.quadraticCurveTo(-8,-14,0,-2);c.quadraticCurveTo(8,-14,18,6);c.stroke();c.beginPath();c.moveTo(-10,2);c.quadraticCurveTo(0,10,10,2);c.stroke();c.beginPath();c.moveTo(0,-2);c.lineTo(0,14);c.stroke();c.restore()};
+   add({dur:1.3,at:.72,hit(){hitAt(b,'#ff2a3a',false,'ギアス','#ff6a7a');ring(b.x,b.y-20,'#ff2a3a',6,60,.5,3)},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+    if(k<.35){const q=ease(k/.35),x=a.x,y=a.y-50;c.fillStyle='#f6e6d6';c.beginPath();c.ellipse(x,y,30,14,0,0,TAU);c.fill();c.strokeStyle=INK;c.lineWidth=2.5;c.stroke();c.fillStyle='#7a2ad8';c.beginPath();c.arc(x,y,11,0,TAU);c.fill();
+     c.globalCompositeOperation='lighter';glow(c,x,y,30*q,'rgba(255,40,60,.9)');bird(c,x,y,.45*q)}
+    else{const q=ease(Math.min(1,(k-.35)/.37)),p=arcAt({x:a.x,y:a.y-50},{x:b.x,y:b.y-20},q,30);c.globalCompositeOperation='lighter';glow(c,p.x,p.y,40,'rgba(255,40,60,.6)');bird(c,p.x,p.y,1.2+.6*Math.sin(q*Math.PI));
+     if(k>.72){c.strokeStyle='rgba(255,40,60,.9)';c.lineWidth=2;c.beginPath();c.arc(b.x,b.y-20,14+jit(1,step(t),1),0,TAU);c.stroke()}}
+    c.restore()}})},
+  // Rinkaku Kagune (Tokyo Ghoul): scaly red tentacles burst from the lower back and stab; Kakuja armours them into a centipede-like carapace
+  kagune(a,b,col,o){const kak=!!o.kakuja,n=kak?4:4;add({dur:1,at:.5,hit(){hitAt(b,'#d81a2a',kak,kak?'赫者':'赫子','#ff4a5a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.5?ease(k/.5):k<.7?1:1-(k-.7)/.3;
+    for(let i=0;i<n;i++){const sx=a.x-10+i*6,sy=a.y+10,tip={x:b.x+jit(i,3,24),y:b.y+jit(i,4,26)},len=q,m={x:(sx+tip.x)/2+(i-1.5)*30,y:Math.min(sy,tip.y)-60-i*14};
+     const P=s=>{const u=s*len;return {x:(1-u)*(1-u)*sx+2*(1-u)*u*m.x+u*u*tip.x,y:(1-u)*(1-u)*sy+2*(1-u)*u*m.y+u*u*tip.y}};
+     for(let s=0;s<=20;s++){const p=P(s/20),r=(kak?11:9)*(1-s/24);c.fillStyle=s%2?(kak?'#4a0a12':'#b0101e'):(kak?'#2a060a':'#e0202e');c.beginPath();c.arc(p.x,p.y,r,0,TAU);c.fill();
+      if(kak&&s%3===0){c.strokeStyle='#ff4a5a';c.lineWidth=1.5;c.beginPath();c.moveTo(p.x-r,p.y);c.lineTo(p.x-r-6,p.y+5);c.moveTo(p.x+r,p.y);c.lineTo(p.x+r+6,p.y+5);c.stroke()}}
+     c.globalCompositeOperation='lighter';glow(c,P(1).x,P(1).y,14,'rgba(255,60,80,.6)');c.globalCompositeOperation='source-over'}
+    if(kak){c.fillStyle='rgba(255,30,40,.95)';c.beginPath();c.arc(a.x-8,a.y-40,4,0,TAU);c.fill()}
+    c.restore()}})},
+  // Medical Pod (Dragon Ball): the glass healing tank fills with green fluid and bubbles round the fighter
+  medpod(a,b,col,o){add({dur:1.5,at:.7,hit(){sparks(b.x,b.y,'#7dff9a',14,160,.5,3,-160)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.25)),x=b.x,y=b.y,w=48,h=120*q;
+    c.fillStyle='rgba(160,200,220,.18)';c.strokeStyle='#cfe4ff';c.lineWidth=3;c.beginPath();c.roundRect(x-w,y+50-h,w*2,h,22);c.fill();c.stroke();
+    const lv=Math.min(1,Math.max(0,(k-.2)/.4));c.save();c.beginPath();c.roundRect(x-w+3,y+50-h+3,w*2-6,h-6,20);c.clip();c.fillStyle='rgba(90,230,140,.45)';c.fillRect(x-w,y+50-h*lv,w*2,h*lv);
+    for(let i=0;i<10;i++){const by=y+50-((t*80+i*37)%(h*lv+1)),bx=x-30+((i*23)%60)+Math.sin(t*6+i)*4;c.strokeStyle='rgba(220,255,230,.8)';c.lineWidth=1.5;c.beginPath();c.arc(bx,by,2+i%3,0,TAU);c.stroke()}c.restore();
+    c.fillStyle='#8a96a8';c.fillRect(x-w-4,y+44,w*2+8,12);c.fillRect(x-w-4,y+50-h-6,w*2+8,10);c.fillStyle='#5aff7a';c.fillRect(x+w-14,y+47,6,5);
+    c.strokeStyle='rgba(255,255,255,.5)';c.lineWidth=4;c.beginPath();c.moveTo(x-w+12,y+30-h*.8);c.lineTo(x-w+12,y+30);c.stroke();c.restore()}})},
+  // Ashisogi Jizō (Bleach): Mayuri's golden three-pronged blade with a baby's face at the guard; a cut paralyses the limbs
+  trident(a,b,col,o){add({dur:.9,at:.5,hit(){hitAt(b,'#c86aff',false,'疋殺地蔵','#e0a0ff');sparks(b.x,b.y,'#9a4ad8',16,200,.7,3,100)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.5?ease(k/.5):1,p=lerp({x:a.x,y:a.y-20},b,q),ang=Math.atan2(b.y-a.y+20,b.x-a.x);
+    c.save();c.translate(p.x,p.y);c.rotate(ang);c.fillStyle='#5a3a8a';c.fillRect(-90,-3,60,6);c.beginPath();c.arc(-30,0,10,0,TAU);outline(c,'#f2d8a8',2);c.fillStyle=INK;c.beginPath();c.arc(-33,-3,1.5,0,TAU);c.arc(-27,-3,1.5,0,TAU);c.fill();c.beginPath();c.arc(-30,3,2.5,0,Math.PI);c.stroke();
+    c.fillStyle='#e8b830';for(const d of [-1,0,1]){c.beginPath();c.moveTo(-20,d*10-2);c.lineTo(d?14:22,d*14);c.lineTo(-20,d*10+2);c.closePath();c.fill();c.strokeStyle=INK;c.lineWidth=1.5;c.stroke()}c.restore();
+    if(k>.5){const r=(k-.5)/.5;c.strokeStyle='rgba(170,80,230,'+(1-r)+')';c.lineWidth=3;for(let i=0;i<4;i++){c.beginPath();c.arc(b.x,b.y,18+i*14*r+r*20,0,TAU);c.stroke()}}c.restore()}})},
+  // Fireball (Uchiha Great Fireball: hand seal, then a huge ball of flame blown from the mouth); also Crusher Ball and Sphere of Destruction
+  fireball(a,b,col,o){const big=!!o.big,R=o.r||(big?46:28),core=o.core||'#fff6c0',mid=o.mid||'#ffb02e',rim=o.rim||'#ff4a1a';add({dur:o.slow?1.5:1.05,at:o.slow?.8:.68,hit(){hitAt(b,rim,big,o.word||'火遁',mid);if(big)shake(12,400);boom(b.x,b.y,R*1.6,rim)},draw(c,k,t){const lead=o.slow?.3:.22;c.save();c.globalAlpha=fo(k);
+    if(k<lead){const q=k/lead;c.globalCompositeOperation='lighter';glow(c,a.x+20,a.y-20,R*q,'rgba(255,200,100,.7)');if(o.seal){c.fillStyle='#f0c49b';c.beginPath();c.roundRect(a.x-10,a.y-60,14,24,5);c.roundRect(a.x+2,a.y-60,14,24,5);c.fill();c.strokeStyle=INK;c.lineWidth=2;c.stroke()}}
+    else{const q=ease(Math.min(1,(k-lead)/(o.slow?.5:.46))),p=lerp(a,b,q),r=R*(.5+.5*q)*(1+.05*Math.sin(t*30));
+     for(let i=1;i<8;i++){const pp=lerp(a,b,Math.max(0,q-i*.05));c.globalCompositeOperation='lighter';glow(c,pp.x,pp.y,r*(1-i*.1),'rgba(255,110,30,'+(.25-i*.025)+')')}
+     c.globalCompositeOperation='source-over';c.beginPath();for(let i=0;i<16;i++){const an=i/16*TAU,rr=r*(1+.18*Math.sin(i*5+step(t)));c.lineTo(p.x+Math.cos(an)*rr,p.y+Math.sin(an)*rr)}c.closePath();c.fillStyle=rim;c.fill();c.strokeStyle=INK;c.lineWidth=3;c.stroke();
+     c.fillStyle=mid;c.beginPath();c.arc(p.x,p.y,r*.72,0,TAU);c.fill();c.fillStyle=core;c.beginPath();c.arc(p.x-r*.15,p.y-r*.15,r*.4,0,TAU);c.fill();
+     const back=Math.atan2(a.y-b.y,a.x-b.x)-Math.PI/2;for(let i=0;i<7;i++){const an=i/7*TAU+t*4;flameSpr(c,p.x+Math.cos(an)*r*.75,p.y+Math.sin(an)*r*.75,r*1.25,t,o.flame,i,{rot:back+Math.PI})}}
+    c.restore()}})},
+  // Breath: a cone of fire, wind or energy from the mouth (Fire Dragon's Roar, Sky Dragon's Roar, King's Pteranodon flames, Recoome's mouth beam)
+  breath(a,b,col,o){const wind=o.style==='wind',c1=o.c1||(wind?'rgba(200,245,255,.55)':'rgba(255,120,30,.55)'),c2=o.c2||(wind?'rgba(255,255,255,.7)':'rgba(255,230,140,.8)');
+   add({dur:1.1,at:.55,hit(){hitAt(b,wind?'#bfefff':'#ff6a1a',!!o.big,o.word||(wind?'天竜の咆哮':'火竜の咆哮'),wind?'#e8fbff':'#ffd27a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const ang=Math.atan2(b.y-a.y,b.x-a.x),d=Math.hypot(b.x-a.x,b.y-a.y),q=ease(Math.min(1,k/.5));
+    c.translate(a.x,a.y-10);c.rotate(ang);c.globalCompositeOperation='lighter';const s=step(t);
+    for(let i=0;i<26;i++){const u=((i/26)+t*1.4)%1;if(u>q)continue;const x=u*d,w=10+u*70;
+     if(wind){c.strokeStyle=c2;c.lineWidth=3;c.beginPath();c.arc(x,0,w*.6,-1.2+jit(i,s,.3),1.2+jit(i,s,.3));c.stroke()}
+     else{glow(c,x,jit(i,s,w*.4),w*.8,c1);glow(c,x,jit(i+5,s,w*.2),w*.35,c2);if(i%2===0){c.globalCompositeOperation='source-over';flameSpr(c,x,jit(i,s,w*.3),w*1.3,t,o.flame,i,{rot:Math.PI/2});c.globalCompositeOperation='lighter'}}}
+    if(wind)for(let i=0;i<5;i++){const u=((i/5)+t*1.2)%1;if(u<q)SPR.draw(c,'k_twirl_01',u*d,0,30+u*90,{tint:'#dff8ff',add:true,alpha:.7*(1-u),rot:t*8+i})}
+    if(wind){c.strokeStyle=c1;c.lineWidth=18;c.beginPath();c.moveTo(0,0);c.lineTo(d*q,0);c.stroke()}c.restore()}})},
+  // Flying Thunder God (Naruto): Minato's three-pronged marked kunai is thrown and he flashes to it in a streak of yellow
+  hiraishin(a,b,col,o){const tgt={x:a.x+140,y:a.y-40};add({dur:1,at:.6,hit(){ring(tgt.x,tgt.y,'#ffe04a',8,80,.35,4);sfxText({x:tgt.x+20,y:tgt.y-40},'飛雷神','#ffe04a',30)},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+    const q=ease(Math.min(1,k/.5)),p=lerp({x:a.x,y:a.y-20},tgt,q);c.save();c.translate(p.x,p.y);c.rotate(q*TAU*2);
+    c.fillStyle='#cfd6de';c.strokeStyle=INK;c.lineWidth=1.5;for(const an of [-.5,0,.5]){c.save();c.rotate(an);c.beginPath();c.moveTo(0,-2);c.lineTo(18,0);c.lineTo(0,2);c.closePath();c.fill();c.stroke();c.restore()}
+    c.fillStyle='#8a6a3a';c.fillRect(-12,-2,12,4);c.beginPath();c.arc(-14,0,3,0,TAU);c.stroke();c.fillStyle='#f0e6c8';c.fillRect(-11,3,8,6);c.restore();
+    if(k>.55&&k<.75){const r=(k-.55)/.2;c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,230,70,'+(1-r)+')';c.lineWidth=10*(1-r)+2;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(tgt.x,tgt.y);c.stroke();glow(c,tgt.x,tgt.y,70*(1-r)+20,'rgba(255,240,120,.8)')}
+    c.restore()}})},
+  // Lake Tōya bokutō (Gintama): Gintoki's souvenir wooden sword with 洞爺湖 carved on it bonks the target
+  bokuto(a,b,col,o){add({dur:.7,at:.5,hit(){hitAt(b,'#c8945a',false,'洞爺湖','#ffe0a8');shake(6,200)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const sw=k<.5?-1.6+ease(k/.5)*2.4:.8,x=b.x-50,y=b.y-10;
+    c.translate(x,y);c.rotate(sw);c.fillStyle='#3a2a1a';c.fillRect(-26,-4,22,8);c.fillStyle='#2a2a2a';c.beginPath();c.ellipse(-4,0,4,9,0,0,TAU);c.fill();
+    c.beginPath();c.roundRect(0,-5,96,10,5);outline(c,'#c8945a',2);c.fillStyle='#6a4a2a';c.font='700 8px serif';c.textAlign='center';c.fillText('洞 爺 湖',50,3);
+    if(k<.5){c.strokeStyle='rgba(255,255,255,.6)';c.lineWidth=3;c.beginPath();c.arc(0,0,100,-.6,0);c.stroke()}c.restore()}})},
+  // Spirit Gun (Yu Yu Hakusho): Yusuke points his index finger, spirit energy gathers at the fingertip and fires as a blue bullet
+  spiritgun(a,b,col,o){add({dur:1.05,at:.75,hit(){hitAt(b,'#5ab8ff',true,'霊丸','#a8deff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const hx=a.x+24,hy=a.y-30;
+    c.save();c.translate(hx,hy);c.fillStyle='#f0c49b';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.roundRect(-18,-8,20,18,5);c.fill();c.stroke();c.beginPath();c.roundRect(0,-6,22,7,3);c.fill();c.stroke();c.beginPath();c.roundRect(-10,-16,7,12,3);c.fill();c.stroke();c.restore();
+    const tip={x:hx+24,y:hy-3};c.globalCompositeOperation='lighter';
+    if(k<.55){const q=k/.55;glow(c,tip.x,tip.y,10+28*q,'rgba(90,180,255,.9)');for(let i=0;i<8;i++){const an=i/8*TAU+t*4,r=40*(1-q);glow(c,tip.x+Math.cos(an)*r,tip.y+Math.sin(an)*r,6,'rgba(150,210,255,.8)')}}
+    else{const q=ease(Math.min(1,(k-.55)/.2)),p=lerp(tip,b,q);c.strokeStyle='rgba(90,180,255,.5)';c.lineWidth=22;c.beginPath();c.moveTo(lerp(tip,b,Math.max(0,q-.25)).x,lerp(tip,b,Math.max(0,q-.25)).y);c.lineTo(p.x,p.y);c.stroke();glow(c,p.x,p.y,34,'rgba(120,200,255,.95)');glow(c,p.x,p.y,14,'rgba(255,255,255,.95)')}
+    c.restore()}})},
+  // Bakudō #61 Six Rods Light Prison (Bleach): six thin plates of light slam into the target's midsection and pin it
+  sixrods(a,b,col,o){add({dur:1.3,at:.45,hit(){hitAt(b,'#fff6c0',false,'六杖光牢','#fff6c0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.globalCompositeOperation='lighter';
+    for(let i=0;i<6;i++){const an=-Math.PI/2+i/6*TAU,q=ease(Math.min(1,Math.max(0,(k-i*.04)/.3))),dist=140*(1-q)+14,x=b.x+Math.cos(an)*dist,y=b.y+Math.sin(an)*dist*.6;
+     c.save();c.translate(x,y);c.rotate(an);c.fillStyle='rgba(255,250,200,.95)';c.fillRect(-4,-26,70*(1-q)+10,52);c.restore();if(q>=1)glow(c,b.x,b.y,50,'rgba(255,250,200,.3)')}
+    c.restore()}})},
+  // Book of Zeref (Fairy Tail): the black book of E.N.D. opens and Zeref's Death Pulse, a black wave that withers life, rolls out
+  darkbook(a,b,col,o){add({dur:1.4,at:.75,hit(){hitAt(b,'#6a2a8a',true,'死の捕食','#c08aff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const op=ease(Math.min(1,k/.22)),x=a.x,y=a.y-60;
+    c.save();c.translate(x,y);c.fillStyle='#1a1018';c.strokeStyle='#8a6a3a';c.lineWidth=2;c.beginPath();c.moveTo(0,-24);c.lineTo(-40*op,-20);c.lineTo(-40*op,24);c.lineTo(0,26);c.lineTo(40*op,24);c.lineTo(40*op,-20);c.closePath();c.fill();c.stroke();
+    c.fillStyle='#c8a050';c.font='900 10px serif';c.textAlign='center';c.fillText('E.N.D.',0,4);c.restore();
+    if(k>.3){const q=ease(Math.min(1,(k-.3)/.45)),ang=Math.atan2(b.y-y,b.x-x),d=Math.hypot(b.x-x,b.y-y)*q;
+     for(let i=0;i<5;i++){c.strokeStyle='rgba(10,0,15,'+(.85-i*.12)+')';c.lineWidth=16-i*2;c.beginPath();c.arc(x,y,Math.max(1,d-i*24),ang-.5,ang+.5);c.stroke();c.strokeStyle='rgba(150,60,200,'+(.5-i*.08)+')';c.lineWidth=2;c.stroke()}}
+    c.restore()}})},
+  // Summoning scroll (Naruto): the blood-signed scroll unrolls and the summon arrives in a puff of smoke
+  scroll(a,b,col,o){add({dur:1.2,at:.65,hit(){ring(b.x,b.y,'#e8e8e8',10,80,.4,4)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const op=ease(Math.min(1,k/.35)),x=a.x,y=a.y-50;
+    c.save();c.translate(x,y);c.scale(.4+.6*op,1);EMB.scroll(c,t);c.restore();
+    if(k>.45){const q=(k-.45)/.55;for(let i=0;i<7;i++){const an=i/7*TAU,r=10+70*q;puff(c,x+Math.cos(an)*r*.6,y-10+Math.sin(an)*r*.4-q*20,18*(1-q*.4),'rgba(235,235,235,'+(.8*(1-q))+')',step(t))}
+     if(q<.4)sfxText({x:x+30,y:y-50},'ボフン','#fff',26)}c.restore()}})},
+  // AP Shot (My Hero Academia): Bakugo braces the grenade gauntlet and fires a tight, piercing cannon of explosive sweat
+  apshot(a,b,col,o){add({dur:.9,at:.48,hit(){hitAt(b,'#ffb02e',true,'APショット','#ffd27a');shake(9,300);boom(b.x,b.y,80)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const g={x:a.x+20,y:a.y-20};
+    c.save();c.translate(g.x,g.y);c.rotate(Math.atan2(b.y-g.y,b.x-g.x));c.beginPath();c.roundRect(-20,-14,34,28,6);outline(c,'#3a3a3a',2.5);c.fillStyle='#ff9a2a';c.fillRect(-14,-14,6,28);c.beginPath();c.roundRect(12,-8,12,16,3);outline(c,'#6a6a6a',2);c.restore();
+    if(k>.3){const q=ease(Math.min(1,(k-.3)/.18)),p=lerp(g,b,q);c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,170,50,.8)';c.lineWidth=14*(1-Math.max(0,k-.6));c.beginPath();c.moveTo(g.x,g.y);c.lineTo(p.x,p.y);c.stroke();c.strokeStyle='rgba(255,255,220,.95)';c.lineWidth=5;c.stroke();
+     for(let i=0;i<5;i++){const pp=lerp(g,b,i/5*q);c.strokeStyle='rgba(255,200,90,.5)';c.lineWidth=2;c.beginPath();c.ellipse(pp.x,pp.y,4,16,Math.atan2(b.y-g.y,b.x-g.x),0,TAU);c.stroke()}}
+    if(k<.3){c.globalCompositeOperation='lighter';glow(c,g.x+20,g.y,26*k/.3,'rgba(255,190,80,.9)')}c.restore()}})},
+  // Murasame (Akame ga Kill): the One-Cut Killer; a single cut and the black curse marks spread over the body
+  murasame(a,b,col,o){add({dur:1.2,at:.32,hit(){hitAt(b,'#c8102e',true,'葬る','#ff4a5a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+    if(k<.35){const q=ease(k/.35);c.strokeStyle='#fff';c.lineWidth=4*(1-q)+1;c.beginPath();c.moveTo(b.x-80+160*Math.max(0,q-.2),b.y-60+120*Math.max(0,q-.2));c.lineTo(b.x-80+160*q,b.y-60+120*q);c.stroke();c.strokeStyle='#c8102e';c.lineWidth=2;c.stroke()}
+    if(k>.3){const q=Math.min(1,(k-.3)/.5);c.strokeStyle='rgba(10,5,10,.9)';c.lineWidth=2.5;for(let i=0;i<9;i++){const an=i/9*TAU;c.beginPath();let x=b.x,y=b.y;c.moveTo(x,y);for(let s=0;s<6*q;s++){x+=Math.cos(an+jit(i,s,.8))*9;y+=Math.sin(an+jit(i,s,.8))*9;c.lineTo(x,y)}c.stroke()}
+     c.strokeStyle='#c8102e';c.lineWidth=3;c.beginPath();c.moveTo(b.x-50,b.y-38);c.lineTo(b.x+50,b.y+38);c.stroke()}c.restore()}})},
+  // Giga Drill Break (Gurren Lagann): a huge spiral drill forms and drives through the target
+  drill(a,b,col,o){add({dur:1.15,at:.62,hit(){hitAt(b,'#3ad86a',true,'ギガドリルブレイク','#a8ffb8');shake(14,450)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.3?0:ease(Math.min(1,(k-.3)/.32)),ang=Math.atan2(b.y-a.y,b.x-a.x),p=lerp({x:a.x-60,y:a.y},b,q),gr=ease(Math.min(1,k/.3));
+    c.save();c.translate(p.x,p.y);c.rotate(ang);const L=150*gr,R=46*gr,sp=t*24;
+    c.beginPath();c.moveTo(-L,-R);c.lineTo(0,0);c.lineTo(-L,R);c.closePath();outline(c,'#c8ccd4',3);
+    c.save();c.clip();c.strokeStyle='#6a707a';c.lineWidth=5;for(let i=-4;i<14;i++){const x=-L+((i*16+sp*8)%(L+40));c.beginPath();c.moveTo(x,-R);c.lineTo(x+22,R);c.stroke()}c.restore();
+    c.fillStyle='#3a3a44';c.fillRect(-L-14,-R-4,16,R*2+8);c.globalCompositeOperation='lighter';glow(c,-L/2,0,R*2.2,'rgba(60,230,110,.35)');c.restore();
+    if(q>.95){sparks(b.x,b.y,'#c8ccd4',3,300,.4,3)}c.restore()}})},
+  // Predator (That Time I Got Reincarnated as a Slime): Rimuru's blue slime body spreads into a maw and swallows the target's power
+  predator(a,b,col,o){add({dur:1.3,at:.62,hit(){hitAt(b,'#5ab8ff',false,'捕食者','#a8deff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.55)),p=lerp(a,b,q*.92),r=24+50*Math.sin(Math.min(1,q)*Math.PI*.5),bite=k>.55?Math.min(1,(k-.55)/.15):0;
+    c.fillStyle='rgba(90,170,255,.75)';c.strokeStyle='#1a4a8a';c.lineWidth=3;c.beginPath();const op=(1-bite)*1.1+.05;
+    c.moveTo(p.x,p.y);for(let i=0;i<=24;i++){const an=op+(TAU-2*op)*i/24,rr=r*(1+.08*Math.sin(i*2+t*12));c.lineTo(p.x+Math.cos(an)*rr,p.y+Math.sin(an)*rr)}c.closePath();c.fill();c.stroke();
+    c.fillStyle='rgba(255,255,255,.6)';c.beginPath();c.ellipse(p.x-r*.3,p.y-r*.45,r*.18,r*.1,-.4,0,TAU);c.fill();
+    if(k>.7){const r2=(k-.7)/.3;for(let i=0;i<8;i++){const an=i/8*TAU,pp={x:b.x+Math.cos(an)*60*(1-r2),y:b.y+Math.sin(an)*60*(1-r2)};c.globalCompositeOperation='lighter';glow(c,pp.x,pp.y,10,'rgba(150,210,255,.8)')}}
+    c.restore()}})},
+  // Wings of Freedom (Attack on Titan): the Survey Corps crest flashes and two wing-shaped blade cuts cross over the target
+  wingslash(a,b,col,o){add({dur:1,at:.55,hit(){hitAt(b,'#e8f4ff',false,'心臓を捧げよ','#cfe4ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+    if(k<.4){const q=ease(Math.min(1,k/.25));c.save();c.translate(a.x,a.y-50);c.scale(q*1.3,q*1.3);c.beginPath();c.moveTo(0,-26);c.lineTo(22,-14);c.lineTo(22,10);c.lineTo(0,26);c.lineTo(-22,10);c.lineTo(-22,-14);c.closePath();outline(c,'#6a4a2a',2.5);c.scale(.7,.7);EMB.wings(c);c.restore()}
+    else{const q=ease(Math.min(1,(k-.4)/.2));for(const [d,cl] of [[-1,'#f4f4f4'],[1,'#2a5ad8']]){c.save();c.translate(b.x,b.y);c.rotate(d*.7);c.strokeStyle=cl;c.lineWidth=8;c.beginPath();c.moveTo(-90,0);c.lineTo(-90+180*q,0);c.stroke();
+     for(let i=0;i<4;i++){c.lineWidth=3;c.beginPath();c.moveTo(-60+i*30,0);c.lineTo(-70+i*30,d*14);c.stroke()}c.restore()}}c.restore()}})},
+  // Full Counter (Seven Deadly Sins): Meliodas parries with his broken-hilt sword and the attack flies back twice as hard
+  counter(a,b,col,o){const C=o.c||'#ff4a4a';add({dur:1.2,at:.8,hit(){hitAt(b,C,true,o.word||'全反撃','#ffd27a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const g={x:a.x+40,y:a.y-20};
+    if(k<.4){const q=ease(k/.4),p=lerp(b,g,q);c.globalCompositeOperation='lighter';glow(c,p.x,p.y,24,C.length===7?C+'cc':C);c.globalCompositeOperation='source-over'}
+    c.save();c.translate(g.x,g.y);c.rotate(-1.2+(k>.35&&k<.5?(k-.35)/.15*1.4:k>=.5?1.4:0));c.fillStyle='#5a3a2a';c.fillRect(-18,-3,16,6);c.fillStyle='#c8a050';c.fillRect(-4,-9,4,18);c.translate(0,0);blade(c,34,9,'#d0d6de');c.restore();
+    if(k>.35&&k<.55){const q=(k-.35)/.2;c.strokeStyle='rgba(255,255,255,'+(1-q)+')';c.lineWidth=3;c.beginPath();c.arc(g.x,g.y,20+40*q,0,TAU);c.stroke()}
+    if(k>.5){const q=ease(Math.min(1,(k-.5)/.3)),p=lerp(g,b,q);c.globalCompositeOperation='lighter';glow(c,p.x,p.y,40,C.length===7?C+'ee':C);glow(c,p.x,p.y,16,'rgba(255,255,255,.95)')}c.restore()}})},
+  // Fire Dragon's Iron Fist (Fairy Tail): Natsu's fist ignites and he punches the flames into the target
+  flamefist(a,b,col,o){add({dur:.85,at:.55,hit(){hitAt(b,'#ff6a1a',true,'火竜の鉄拳','#ffd27a');boom(b.x,b.y,70,'#ff6a1a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.55?ease(k/.55):1,p=lerp({x:a.x,y:a.y-10},b,q),ang=Math.atan2(b.y-a.y,b.x-a.x);
+    c.globalCompositeOperation='lighter';for(let i=0;i<10;i++){const pp=lerp({x:a.x,y:a.y-10},b,Math.max(0,q-i*.04));glow(c,pp.x+jit(i,step(t),6),pp.y+jit(i+3,step(t),6),30-i*2,'rgba(255,'+(90+i*12)+',20,.5)')}
+    c.globalCompositeOperation='source-over';for(let i=0;i<5;i++){const pp=lerp({x:a.x,y:a.y-10},b,Math.max(0,q-i*.05));flameSpr(c,pp.x,pp.y,48-i*5,t,'',i,{rot:ang-Math.PI/2})}fist(c,p.x,p.y,20,'#f0c49b',ang);c.restore()}})},
+  // Poison Cooking (Reborn!): Bianchi's purple, steaming dish with skull fumes is shoved in the target's face
+  poisondish(a,b,col,o){add({dur:1.1,at:.62,hit(){hitAt(b,'#9a4ad8',false,'ポイズンクッキング','#d8a8ff');sparks(b.x,b.y,'#7a2aa8',14,180,.6,3,120)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.6)),p=arcAt({x:a.x,y:a.y-30},b,q,60);
+    c.save();c.translate(p.x,p.y);c.rotate(q*.6);c.beginPath();c.ellipse(0,8,28,7,0,0,TAU);outline(c,'#f4f4f4',2);c.beginPath();c.ellipse(0,2,22,10,0,Math.PI,TAU);outline(c,'#7a2aa8',2);
+    for(let i=0;i<3;i++){c.fillStyle='#c8ff3a';c.beginPath();c.arc(-10+i*10,-2+jit(i,step(t),2),3,0,TAU);c.fill()}
+    for(let i=0;i<3;i++){const sy=-14-((t*40+i*12)%30),sx=-12+i*12;c.fillStyle='rgba(180,110,230,.7)';c.beginPath();c.arc(sx,sy,6,0,TAU);c.fill();c.fillStyle='#2a0a3a';c.fillRect(sx-3,sy-2,2,2);c.fillRect(sx+1,sy-2,2,2)}c.restore();c.restore()}})},
+  // Berserker Armor (Berserk): the black wolf-helmed armour clamps shut, the eyes burn red and blood steams out as Guts rages
+  berserker(a,b,col,o){add({dur:1.3,at:.65,hit(){ring(b.x,b.y,'#c8102e',14,100,.5,5);sfxText({x:b.x+20,y:b.y-70},'狂戦士','#ff4a5a',32)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4)),x=b.x,y=b.y-20;
+    c.save();c.translate(x,y);c.scale(.6+.6*q,.6+.6*q);c.beginPath();c.moveTo(-26,-6);c.lineTo(-20,-30);c.lineTo(-10,-22);c.lineTo(0,-34);c.lineTo(10,-22);c.lineTo(20,-30);c.lineTo(26,-6);c.lineTo(18,20);c.lineTo(8,30);c.lineTo(-8,30);c.lineTo(-18,20);c.closePath();outline(c,'#24242a',3);
+    c.fillStyle='#3a3a44';c.beginPath();c.moveTo(-14,4);c.lineTo(0,26);c.lineTo(14,4);c.lineTo(0,10);c.closePath();c.fill();for(let i=-2;i<=2;i++){c.fillStyle='#d8d8d8';c.beginPath();c.moveTo(i*5-2,18);c.lineTo(i*5,24);c.lineTo(i*5+2,18);c.fill()}
+    c.globalCompositeOperation='lighter';for(const d of [-1,1])glow(c,d*9,-4,8+jit(d,step(t),2),'rgba(255,30,30,1)');c.restore();
+    for(let i=0;i<8;i++){const sy=y-((t*60+i*20)%80),sx=x+jit(i,7,40);c.fillStyle='rgba(200,30,40,.35)';c.beginPath();c.arc(sx,sy,6,0,TAU);c.fill()}c.restore()}})},
+  // Ice Devil's Zeroth Destruction Fist (Fairy Tail): Gray's Devil Slayer marks spread, his fist freezes black-blue and shatters the target
+  icefist(a,b,col,o){add({dur:1,at:.6,hit(){hitAt(b,'#9cd2ff',true,'滅悪','#e8f6ff');for(let i=0;i<6;i++)sparks(b.x,b.y,'#cfefff',4,320,.6,4,300)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.6?ease(Math.max(0,k-.2)/.4):1,p=lerp({x:a.x,y:a.y-10},b,q),ang=Math.atan2(b.y-a.y,b.x-a.x);
+    if(k<.3){c.strokeStyle='#111';c.lineWidth=3;for(let i=0;i<5;i++){c.beginPath();c.moveTo(a.x-10+i*5,a.y);c.lineTo(a.x-14+i*6+jit(i,1,6),a.y-40*k/.3);c.stroke()}}
+    c.save();c.translate(p.x,p.y);c.rotate(ang);for(let i=0;i<6;i++){c.save();c.rotate(i/6*TAU+.3);c.beginPath();c.moveTo(14,-5);c.lineTo(34,0);c.lineTo(14,5);c.closePath();outline(c,'#cfefff',2);c.restore()}c.restore();
+    fist(c,p.x,p.y,20,'#a8d8ff',ang);c.strokeStyle='#111';c.lineWidth=2;c.beginPath();c.moveTo(p.x-14,p.y-6);c.lineTo(p.x+6,p.y+8);c.stroke();
+    if(k>.6){const r=(k-.6)/.4;c.strokeStyle='rgba(200,240,255,'+(1-r)+')';c.lineWidth=3;for(let i=0;i<8;i++){const an=i/8*TAU;c.beginPath();c.moveTo(b.x,b.y);c.lineTo(b.x+Math.cos(an)*80*r,b.y+Math.sin(an)*80*r);c.stroke()}}c.restore()}})},
+  // ---- #88 card animations: monster loot, trophies and calamity drops (Claude 2026-11-14) ----
+  // Claw rake: three (or more) torn slashes (Saibaman, Hollow, UMA, Chimera claws)
+  claw(a,b,col,o){add({dur:.6,at:.35,hit(){hitAt(b,col,!!o.big,o.word||'ザシュッ',col)},draw(c,k){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.35));claws(c,b.x,b.y,q,col,o.n||3,o.big?130:96,o.ang||-.9);c.restore()}})},
+  // Acid spit: a glob arcs over and splashes, eating in with green smoke (Saibaman acid)
+  spit(a,b,col,o){add({dur:1,at:.5,hit(){hitAt(b,col,false,o.word||'ジュッ',col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);if(k<.5){const p=arcAt(a,b,k/.5,70);c.beginPath();c.ellipse(p.x,p.y,12,9,k*8,0,TAU);outline(c,col,2);c.fillStyle='rgba(255,255,255,.5)';c.beginPath();c.arc(p.x-3,p.y-3,3,0,TAU);c.fill()}
+    else{const q=(k-.5)/.5;for(let i=0;i<7;i++){c.fillStyle=col;c.globalAlpha=fo(k)*(1-q*.5);c.beginPath();c.ellipse(b.x+jit(i,1,30),b.y+10+jit(i,2,10),8,5,0,0,TAU);c.fill()}
+     for(let i=0;i<5;i++)puff(c,b.x+jit(i,3,30),b.y-q*50-i*6,10+q*8,'rgba(150,220,120,'+(.35*(1-q))+')',i)}c.restore()}})},
+  // Saibaman Self-Destruct: it leaps on, clings, glows and explodes
+  selfdestruct(a,b,col,o){add({dur:1.4,at:.82,hit(){hitAt(b,'#ffd27a',true,'ドカーン','#ffb43b');shake(12,400);boom(b.x,b.y,100,'#ffd27a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+    if(k<.8){const p=k<.35?arcAt(a,b,k/.35,80):{x:b.x-14,y:b.y-20},fl=k>.35?Math.max(0,Math.sin(t*(20+k*40))):0;c.save();c.translate(p.x,p.y);c.beginPath();c.ellipse(0,0,13,16,0,0,TAU);outline(c,fl>.5?'#fff6c0':'#5ab84a',2);
+     c.fillStyle=INK;c.beginPath();c.ellipse(-5,-3,3,4,.3,0,TAU);c.ellipse(5,-3,3,4,-.3,0,TAU);c.fill();c.strokeStyle='#2a6a2a';c.lineWidth=1.5;for(const d of [-1,1]){c.beginPath();c.moveTo(d*6,-14);c.quadraticCurveTo(d*10,-6,d*12,-12);c.stroke()}
+     if(k>.35){c.globalCompositeOperation='lighter';glow(c,0,0,40*(k-.35)/.45+10,'rgba(255,240,150,'+(.4+.5*fl)+')')}c.restore()}
+    else{const q=(k-.8)/.2;c.globalCompositeOperation='lighter';glow(c,b.x,b.y,40+120*q,'rgba(255,220,120,'+(1-q)+')')}c.restore()}})},
+  // Reaching hands: many demon hands crawl over and grab (Hand Demon), or one giant hand closes (Titan Grab), optionally crushing
+  hands(a,b,col,o){const one=!!o.one;add({dur:1.1,at:.6,hit(){hitAt(b,col,!!o.big,o.word||'ギュッ',col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.55)),cl=k>.6?Math.min(1,(k-.6)/.12):0;
+    const N=one?1:6;for(let i=0;i<N;i++){const sx=a.x+jit(i,1,20),sy=a.y+20,tip={x:b.x+(one?0:jit(i,2,30)),y:b.y+(one?0:jit(i,3,30))},p=lerp({x:sx,y:sy},tip,q),w=one?18:6;
+     c.strokeStyle=INK;c.lineWidth=w+4;c.beginPath();c.moveTo(sx,sy);c.quadraticCurveTo((sx+p.x)/2+jit(i,step(t),8),Math.min(sy,p.y)-30-i*8,p.x,p.y);c.stroke();c.strokeStyle=col;c.lineWidth=w;c.stroke();
+     const R=one?34:11,f=1-cl*.6;c.save();c.translate(p.x,p.y);c.rotate(Math.atan2(tip.y-sy,tip.x-sx));c.beginPath();c.ellipse(0,0,R*.7,R*.6,0,0,TAU);outline(c,col,2);
+     for(let j=0;j<4;j++){c.save();c.rotate((j-1.5)*.45*f);c.beginPath();c.roundRect(R*.4,-R*.12,R*.9*f+R*.2,R*.24,R*.12);outline(c,col,1.5);c.restore()}c.restore()}c.restore()}})},
+  // Regeneration: torn flesh knits back (cells), steam pours off (Titan), the stone pulses (Lust's core), or the dead climb back up (Zombie)
+  regen(a,b,col,o){const st=o.style||'cells';add({dur:1.25,at:.75,hit(){sparks(b.x,b.y,col,12,150,.5,3,-160);if(o.word)sfxText({x:b.x+20,y:b.y-60},o.word,col,28)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=Math.min(1,k/.75),x=b.x,y=b.y;
+    if(st==='steam'){for(let i=0;i<12;i++){const u=((t*.9+i/12)%1),sx=x+jit(i,1,40)+u*10,sy=y+20-u*110;if(!SPR.draw(c,'k_smoke_04',sx,sy,(10+u*22)*3,{tint:'#f4f4f4',alpha:.55*(1-u),rot:i+t}))puff(c,sx,sy,10+u*22,'rgba(240,240,240,'+(.5*(1-u))+')',i)}}
+    else if(st==='stone'){c.globalCompositeOperation='lighter';const pl=.6+.4*Math.sin(t*10);glow(c,x,y,40+30*pl,'rgba(255,30,50,.6)');c.globalCompositeOperation='source-over';c.beginPath();for(let i=0;i<6;i++){const an=i/6*TAU;c.lineTo(x+Math.cos(an)*14,y+Math.sin(an)*16)}c.closePath();outline(c,'#e01a2a',2);
+     for(let i=0;i<6;i++){const an=i/6*TAU+t;c.strokeStyle='rgba(255,60,80,.8)';c.lineWidth=2;c.beginPath();c.moveTo(x+Math.cos(an)*70*(1-q),y+Math.sin(an)*70*(1-q));c.lineTo(x+Math.cos(an)*(80*(1-q)+12),y+Math.sin(an)*(80*(1-q)+12));c.stroke()}}
+    else if(st==='rise'){for(let i=0;i<5;i++){const hx=x-60+i*30,h=50*ease(Math.min(1,Math.max(0,(k-i*.06)/.5)));c.fillStyle='#6a7a5a';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.roundRect(hx-5,y+40-h,10,h,4);c.fill();c.stroke();if(h>10){c.beginPath();c.arc(hx,y+40-h,7,0,TAU);c.fill();c.stroke()}}c.fillStyle='#3a2a1a';c.fillRect(x-80,y+40,160,6)}
+    else{for(let i=0;i<10;i++){const an=i/10*TAU,d=60*(1-ease(q)),px=x+Math.cos(an)*d,py=y+Math.sin(an)*d*.8;c.fillStyle=col;c.beginPath();c.arc(px,py,6+jit(i,step(t),2),0,TAU);c.fill();c.strokeStyle=col;c.lineWidth=2;c.beginPath();c.moveTo(px,py);c.lineTo(x+Math.cos(an+.4)*d*.5,y+Math.sin(an+.4)*d*.4);c.stroke()}
+     c.globalCompositeOperation='lighter';glow(c,x,y,30+30*q,col.length===7?col+'77':col)}
+    c.restore()}})},
+  // Miasma / pheromone: a drifting cloud that settles on the target (Cursed Miasma, Royal Pheromone, Smoke Bomb)
+  miasma(a,b,col,o){const C=o.c||'rgba(140,60,200,.35)';add({dur:1.3,at:.7,hit(){if(o.word)sfxText({x:b.x+20,y:b.y-60},o.word,col,28);ring(b.x,b.y,col,10,70,.5,3)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.7));
+    for(let i=0;i<12;i++){const u=Math.max(0,Math.min(1,q*1.2-i*.02)),p=lerp(a,b,u),px=p.x+jit(i,1,40),py=p.y+jit(i,2,26)-Math.sin(t*3+i)*6;if(!SPR.draw(c,['k_smoke_01','k_smoke_04','k_smoke_07'][i%3],px,py,(14+u*16)*3.2,{tint:col,alpha:.55,rot:t*.6+i}))puff(c,px,py,14+u*16,C,i+step(t)*.2)}
+    if(o.skulls)for(let i=0;i<3;i++){const sx=b.x-30+i*30,sy=b.y-30-((t*30+i*10)%30);c.fillStyle='rgba(230,220,255,.8)';c.beginPath();c.arc(sx,sy,6,0,TAU);c.fill();c.fillStyle=INK;c.fillRect(sx-3,sy-2,2,2);c.fillRect(sx+1,sy-2,2,2)}
+    if(o.hearts)for(let i=0;i<5;i++){const sx=b.x+jit(i,4,50),sy=b.y-((t*40+i*16)%60);c.fillStyle='rgba(255,140,200,.9)';c.beginPath();c.moveTo(sx,sy+5);c.bezierCurveTo(sx-8,sy-2,sx-4,sy-8,sx,sy-3);c.bezierCurveTo(sx+4,sy-8,sx+8,sy-2,sx,sy+5);c.fill()}
+    c.restore()}})},
+  // Curtain (Jujutsu Kaisen): the black veil pours down from above like liquid and seals the area in a dome
+  curtain(a,b,col,o){add({dur:1.4,at:.7,hit(){sfxText({x:b.x+20,y:b.y-80},'帳','#cfc8e8',34)},draw(c,k,t){c.save();c.globalAlpha=fo(k)*.92;const q=ease(Math.min(1,k/.6)),x=(a.x+b.x)/2,y=Math.max(a.y,b.y)+40,R=Math.abs(b.x-a.x)/2+90;
+    c.save();c.beginPath();c.rect(x-R-10,y-R-10-40,2*R+20,(R+50)*q);c.clip();c.fillStyle='rgba(8,6,14,.55)';c.beginPath();c.arc(x,y,R,Math.PI,TAU);c.fill();c.strokeStyle='#1a1426';c.lineWidth=6;c.stroke();
+    for(let i=0;i<10;i++){const dx=x-R+i*R/5+10,dy=y-R*.9+(R*.9)*q+jit(i,1,10);c.fillStyle='rgba(8,6,14,.8)';c.beginPath();c.ellipse(dx,dy-20,6,22,0,0,TAU);c.fill()}c.restore();c.restore()}})},
+  // Giant stomp: a huge foot drops and the ground cracks (Titan Stomp); kick swings it in from the side (Female Titan)
+  bigfoot(a,b,col,o){const kick=!!o.kick;add({dur:1,at:.55,hit(){hitAt(b,col,true,o.word||'ズシン',col);shake(14,450)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.55?ease(k/.55):1,x=kick?b.x-160+150*q:b.x,y=kick?b.y:b.y-200+180*q;
+    c.save();c.translate(x,y);if(kick)c.rotate(-1.2);c.beginPath();c.moveTo(-34,-120);c.lineTo(-30,0);c.quadraticCurveTo(-34,22,0,22);c.lineTo(46,22);c.quadraticCurveTo(58,12,46,2);c.lineTo(26,-4);c.lineTo(24,-120);c.closePath();outline(c,o.skin||'#e0a888',3);
+    if(o.crystal){c.fillStyle='rgba(200,240,255,.85)';c.beginPath();c.moveTo(-30,-10);c.lineTo(46,-2);c.lineTo(52,14);c.lineTo(-28,18);c.closePath();c.fill();c.strokeStyle='#fff';c.lineWidth=1.5;c.stroke()}
+    for(let i=0;i<4;i++){c.beginPath();c.ellipse(38-i*9,16-i*1.5,4.5,4,0,0,TAU);c.strokeStyle=INK;c.lineWidth=1.5;c.stroke()}c.restore();
+    if(k>.55&&!kick){const r=(k-.55)/.45;c.strokeStyle='rgba(60,40,30,'+(1-r)+')';c.lineWidth=3;for(let i=0;i<7;i++){const an=Math.PI+i/6*Math.PI;c.beginPath();c.moveTo(b.x,b.y+40);c.lineTo(b.x+Math.cos(an)*-90*r,b.y+40+Math.abs(Math.sin(an))*10*r);c.stroke()}
+     for(let i=0;i<6;i++)puff(c,b.x-80+i*32,b.y+30-r*20,12+r*14,'rgba(180,160,130,'+(.5*(1-r))+')',i)}c.restore()}})},
+  // Swarm: a crowd rushes the target (ants, zombies, headless soldiers, yakuza goons, sharks, bone spears, rock debris)
+  swarm(a,b,col,o){const st=o.style||'ants',N=o.n||(st==='bones'?7:9);add({dur:1.15,at:.62,hit(){hitAt(b,col,!!o.big,o.word||'ドドド',col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const ang=Math.atan2(b.y-a.y,b.x-a.x);
+    for(let i=0;i<N;i++){const d=i/N*.3,q=ease(Math.min(1,Math.max(0,(k-d)/.5))),st0={x:a.x-20+jit(i,1,30),y:a.y+jit(i,2,50)},en={x:b.x+jit(i,3,40),y:b.y+jit(i,4,40)},p=st==='rocks'?arcAt(st0,en,q,60+i*6):lerp(st0,en,q),bob=Math.abs(Math.sin(t*16+i))*4;if(!q)continue;
+     c.save();c.translate(p.x,p.y-bob);
+     if(st==='ants'){c.rotate(ang);c.fillStyle='#3a2a1a';for(const ox of [-9,0,9]){c.beginPath();c.ellipse(ox,0,ox?6:4,ox?5:3.5,0,0,TAU);c.fill()}c.strokeStyle='#3a2a1a';c.lineWidth=1.5;for(const lx of [-3,0,3]){c.beginPath();c.moveTo(lx,0);c.lineTo(lx-3,8);c.moveTo(lx,0);c.lineTo(lx-3,-8);c.stroke()}c.beginPath();c.moveTo(12,-2);c.lineTo(18,-7);c.moveTo(12,2);c.lineTo(18,7);c.stroke()}
+     else if(st==='sharks'){c.rotate(ang+Math.sin(t*14+i)*.15);c.beginPath();c.moveTo(22,0);c.quadraticCurveTo(8,-11,-14,-4);c.lineTo(-24,-11);c.lineTo(-20,0);c.lineTo(-24,11);c.lineTo(-14,4);c.quadraticCurveTo(8,11,22,0);outline(c,'#4a8ab8',2);c.beginPath();c.moveTo(2,-8);c.lineTo(-4,-17);c.lineTo(-8,-6);outline(c,'#4a8ab8',1.5);c.fillStyle='#fff';c.fillRect(12,1,8,2);c.fillStyle=INK;c.beginPath();c.arc(14,-3,1.5,0,TAU);c.fill()}
+     else if(st==='bones'){c.rotate(ang);c.beginPath();c.moveTo(26,0);c.lineTo(-20,-4);c.lineTo(-24,0);c.lineTo(-20,4);c.closePath();outline(c,'#f4f0e4',2);c.globalCompositeOperation='lighter';glow(c,-20,0,12,'rgba(200,200,255,.4)')}
+     else if(st==='rocks'){c.rotate(t*6+i);c.beginPath();for(let j=0;j<7;j++){const an=j/7*TAU,r=10+Math.abs(jit(i,j,5));c.lineTo(Math.cos(an)*r,Math.sin(an)*r)}c.closePath();outline(c,o.rock||'#8a7a6a',2);if(o.psy){c.strokeStyle='rgba(120,255,160,.8)';c.lineWidth=3;c.stroke()}}
+     else{const s=.8;c.scale(s,s);const body=st==='zombies'?'#6a7a5a':st==='soldiers'?'#7a7f8a':st==='souls'?'#9aa8c8':'#2a2a30',head=st==='zombies'?'#9aaa7a':st==='souls'?'#c8d0e8':'#e0b898';
+      c.beginPath();c.roundRect(-8,-6,16,22,4);outline(c,body,2);for(const d of [-1,1]){c.beginPath();c.moveTo(d*4,16);c.lineTo(d*6+Math.sin(t*16+i)*d*4,30);c.strokeStyle=INK;c.lineWidth=4;c.stroke()}
+      if(st!=='soldiers'){c.beginPath();c.arc(0,-13,8,0,TAU);outline(c,head,2)}else{c.fillStyle='#c8102e';c.beginPath();c.ellipse(0,-7,6,2,0,0,TAU);c.fill()}
+      if(st==='zombies'){c.strokeStyle=INK;c.lineWidth=4;c.beginPath();c.moveTo(6,-2);c.lineTo(20,-4);c.moveTo(6,4);c.lineTo(20,2);c.stroke()}
+      if(st==='soldiers'){c.fillStyle='#c0c8d0';c.fillRect(6,-20,3,30)}
+      if(st==='goons'){c.fillStyle='#111';c.fillRect(6,-2,14,4);c.fillStyle='#111';c.fillRect(-8,-20,16,4);if(step(t)%3===i%3){c.globalCompositeOperation='lighter';glow(c,22,0,10,'rgba(255,220,120,.9)')}}
+      if(st==='souls'){c.fillStyle=INK;c.beginPath();c.arc(-3,-14,1.5,0,TAU);c.arc(3,-12,2.5,0,TAU);c.fill();c.strokeStyle=INK;c.lineWidth=1;c.beginPath();c.moveTo(-6,-6);c.lineTo(6,-20);c.stroke()}}
+     c.restore()}c.restore()}})},
+  // Binding: Kurapika's Chain Jail coils round the target, Seastone cuffs snap shut, or Kisame's Water Prison sphere closes
+  bind(a,b,col,o){const st=o.style||'chain';add({dur:1.3,at:.62,hit(){hitAt(b,col,false,o.word||(st==='water'?'水牢':st==='cuffs'?'海楼石':'束縛の鎖'),col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.6));
+    if(st==='water'){const r=60*q;c.fillStyle='rgba(60,140,220,.35)';c.strokeStyle='rgba(160,220,255,.9)';c.lineWidth=3;c.beginPath();for(let i=0;i<=30;i++){const an=i/30*TAU,rr=r*(1+.05*Math.sin(an*5+t*8));c.lineTo(b.x+Math.cos(an)*rr,b.y+Math.sin(an)*rr)}c.fill();c.stroke();
+     c.strokeStyle='rgba(120,190,255,.9)';c.lineWidth=8;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(lerp(a,b,q).x-r*.8,lerp(a,b,q).y);c.stroke();c.fillStyle='rgba(255,255,255,.5)';c.beginPath();c.ellipse(b.x-r*.35,b.y-r*.45,r*.2,r*.1,-.5,0,TAU);c.fill()}
+    else if(st==='cuffs'){const p=lerp(a,{x:b.x,y:b.y+10},Math.min(1,q*1.1)),sh=k>.6?1:q;for(const d of [-1,1]){c.save();c.translate(p.x+d*14,p.y);c.rotate(d*(1-sh)*.9);c.lineWidth=7;c.strokeStyle=INK;c.beginPath();c.arc(0,0,12,0,TAU);c.stroke();c.lineWidth=5;c.strokeStyle='#8a96a0';c.stroke();c.restore()}
+     c.strokeStyle='#6a747e';c.lineWidth=3;c.beginPath();c.moveTo(p.x-4,p.y);c.lineTo(p.x+4,p.y);c.stroke();if(k>.6){c.strokeStyle='rgba(120,140,170,.6)';c.lineWidth=2;for(let i=0;i<3;i++){c.beginPath();c.arc(b.x,b.y,30+i*14+(k-.6)*40,0,TAU);c.stroke()}}}
+    else{const L=34,p=lerp({x:a.x+20,y:a.y-10},b,Math.min(1,q*1.4));c.strokeStyle='#cfd6de';c.lineWidth=3;const pts=[];for(let i=0;i<=L;i++){const u=i/L;let x,y;if(u<.5||q<.7){const pp=lerp({x:a.x+20,y:a.y-10},p,Math.min(1,u*2));x=pp.x;y=pp.y+Math.sin(u*20+t*10)*4}else{const an=(u-.5)*2*TAU*2.2+t*2,rr=36-((u-.5)*2)*6;x=b.x+Math.cos(an)*rr;y=b.y+Math.sin(an)*rr*.5+((u-.5)*2-.5)*50}pts.push([x,y])}
+     for(let i=0;i<pts.length;i++){const [x,y]=pts[i];c.save();c.translate(x,y);c.rotate(i%2?0:Math.PI/2);c.beginPath();c.ellipse(0,0,5,3,0,0,TAU);c.strokeStyle=INK;c.lineWidth=4;c.stroke();c.strokeStyle='#d8dee6';c.lineWidth=2;c.stroke();c.restore()}
+     c.fillStyle='#d8dee6';c.beginPath();c.moveTo(a.x+16,a.y-14);c.lineTo(a.x+26,a.y-22);c.lineTo(a.x+24,a.y-8);c.closePath();c.fill()}
+    c.restore()}})},
+  // Sword slash: a fast diagonal cut with an afterimage arc (Marine saber, King's blade, Sword of the Father)
+  slash(a,b,col,o){const n=o.n||1,big=!!o.big;add({dur:.75,at:.38,hit(){hitAt(b,col,big,o.word||'ズバッ',col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(let i=0;i<n;i++){const d=i*.1,q=ease(Math.min(1,Math.max(0,(k-d)/.3)));if(!q)continue;
+    const R=big?120:90,a0=(i%2?.8:-2.4),a1=a0+(i%2?-1:1)*2.1*q;c.save();c.translate(b.x,b.y);c.globalCompositeOperation='lighter';c.strokeStyle=col.length===7?col+'aa':col;c.lineWidth=big?18:12;c.beginPath();c.arc(0,0,R*.6,a0,a1,i%2===1);c.stroke();
+    c.strokeStyle='rgba(255,255,255,.95)';c.lineWidth=3;c.stroke();c.globalCompositeOperation='source-over';SPR.draw(c,'k_slash_0'+(1+i%4),0,0,R*1.5,{tint:col,add:true,alpha:1-Math.max(0,k-.5)*2,rot:(a0+a1)/2+Math.PI/2});c.globalCompositeOperation='lighter';if(o.flame){for(let j=0;j<8;j++){const an=a0+(a1-a0)*j/8;glow(c,Math.cos(an)*R*.6,Math.sin(an)*R*.6,16,'rgba(255,120,30,.5)')}}c.restore()}c.restore()}})},
+  // Beam: a charged mouth/hand cannon (Cero, Cero Oscuras, Recoome Eraser Gun)
+  beam(a,b,col,o){const core=o.core||'#fff',rim=o.rim||col,W0=o.w||22;add({dur:1.05,at:.58,hit(){hitAt(b,rim,!!o.big,o.word||'虚閃',rim);if(o.big)shake(10,350)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const src={x:a.x+16,y:a.y-20};
+    if(k<.4){const q=k/.4;c.globalCompositeOperation='lighter';glow(c,src.x,src.y,10+W0*1.6*q,o.dark?'rgba(30,255,140,.6)':rim.length===7?rim+'cc':rim);if(o.dark){c.globalCompositeOperation='source-over';c.fillStyle='rgba(10,10,14,.95)';c.beginPath();c.arc(src.x,src.y,W0*.8*q,0,TAU);c.fill()}}
+    else{const q=ease(Math.min(1,(k-.4)/.18)),p=lerp(src,b,q),w=W0*(k>.75?1-(k-.75)/.25:1)*(1+.1*Math.sin(t*50));c.lineCap='round';
+     if(o.dark){c.strokeStyle='rgba(30,255,140,.6)';c.lineWidth=w*1.6;c.beginPath();c.moveTo(src.x,src.y);c.lineTo(p.x,p.y);c.stroke();c.strokeStyle='rgba(8,8,12,.95)';c.lineWidth=w;c.stroke()}
+     else{c.globalCompositeOperation='lighter';c.strokeStyle=rim.length===7?rim+'bb':rim;c.lineWidth=w*1.6;c.beginPath();c.moveTo(src.x,src.y);c.lineTo(p.x,p.y);c.stroke();c.strokeStyle=core;c.lineWidth=w*.5;c.stroke()}}
+    c.restore()}})},
+  // Scale of Obedience (Frieren): Aura's golden balance weighs her mana against the target's; the heavier side takes control
+  scale(a,b,col,o){add({dur:1.6,at:.95,hit(){hitAt(b,'#e8c46a',false,'服従させる魔法','#ffe6a0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=a.x+60,y=a.y-90,tilt=k<.4?Math.sin(t*6)*.2:Math.min(.45,(k-.4)*1.2);
+    c.strokeStyle='#c8a040';c.lineWidth=4;c.beginPath();c.moveTo(x,y+70);c.lineTo(x,y);c.stroke();c.fillStyle='#c8a040';c.beginPath();c.moveTo(x-18,y+70);c.lineTo(x+18,y+70);c.lineTo(x,y+60);c.fill();
+    c.save();c.translate(x,y);c.rotate(tilt);c.lineWidth=4;c.beginPath();c.moveTo(-50,0);c.lineTo(50,0);c.stroke();for(const d of [-1,1]){c.lineWidth=1.5;c.beginPath();c.moveTo(d*50,0);c.lineTo(d*50-14,26);c.moveTo(d*50,0);c.lineTo(d*50+14,26);c.stroke();c.save();c.translate(d*50,28);c.rotate(-tilt);c.beginPath();c.ellipse(0,0,18,5,0,0,Math.PI);outline(c,'#e8c46a',2);
+     c.globalCompositeOperation='lighter';glow(c,0,-6,d<0?18:10,d<0?'rgba(200,120,255,.9)':'rgba(120,200,255,.7)');c.restore()}c.restore();
+    if(k>.6){const q=(k-.6)/.35;c.strokeStyle='rgba(200,120,255,'+(1-q*.5)+')';c.lineWidth=2;c.beginPath();c.moveTo(x+50,y+30);c.quadraticCurveTo((x+b.x)/2,y-40,b.x,b.y-30+q*10);c.stroke()}c.restore()}})},
+  // Guillotine (Frieren): Aura's headless soldier brings the great axe-blade straight down
+  bladefall(a,b,col,o){add({dur:.9,at:.55,hit(){hitAt(b,'#c0c8d0',true,'断頭台','#e8f4ff');shake(10,300)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.55?ease(k/.55):1,y=b.y-180+150*q;
+    c.save();c.translate(b.x,y);c.fillStyle='#5a4a3a';c.fillRect(-4,-90,8,70);c.beginPath();c.moveTo(-50,-22);c.lineTo(50,-22);c.lineTo(46,8);c.quadraticCurveTo(0,26,-46,8);c.closePath();outline(c,'#c0c8d0',3);c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(-44,6);c.quadraticCurveTo(0,22,44,6);c.stroke();c.restore();
+    if(k<.55){c.strokeStyle='rgba(255,255,255,.5)';c.lineWidth=2;for(let i=0;i<5;i++){c.beginPath();c.moveTo(b.x-40+i*20,y-40);c.lineTo(b.x-40+i*20,y-100);c.stroke()}}c.restore()}})},
+  // Shuriken / thrown knives: spinning stars (Shuriken Volley) or Toga's knives
+  shuriken(a,b,col,o){const n=o.n||4,knife=o.style==='knives';add({dur:.8,at:.5,hit(){hitAt(b,col,false,o.word||'シュシュッ',col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(let i=0;i<n;i++){const d=i*.05,q=ease(Math.min(1,Math.max(0,(k-d)/.42)));if(!q)continue;const p=lerp({x:a.x,y:a.y-20+(i-n/2)*10},{x:b.x+jit(i,1,20),y:b.y+jit(i,2,24)},q);
+    c.save();c.translate(p.x,p.y);if(knife){c.rotate(Math.atan2(b.y-a.y,b.x-a.x));c.fillStyle='#2a2a2a';c.fillRect(-14,-2.5,10,5);blade(c,22,6,'#d8dee6')}else{c.rotate(t*30+i);starP(c,0,0,13,4,'#9aa4ae');c.strokeStyle=INK;c.lineWidth=1.5;c.stroke();c.fillStyle='#3a3a3a';c.beginPath();c.arc(0,0,3,0,TAU);c.fill()}c.restore()}c.restore()}})},
+  // Explosive tag (Naruto): the paper tag sticks, its seal burns down, then blows
+  papertag(a,b,col,o){add({dur:1.2,at:.75,hit(){hitAt(b,'#ff8a2a',true,'起爆札','#ffd27a');boom(b.x,b.y,90)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.35)),p=k<.35?lerp(a,{x:b.x,y:b.y-6},q):{x:b.x,y:b.y-6};
+    if(k<.75){c.save();c.translate(p.x,p.y);c.rotate(.1);c.fillStyle='#f2e6c0';c.fillRect(-9,-22,18,44);c.strokeStyle=INK;c.lineWidth=1.5;c.strokeRect(-9,-22,18,44);c.fillStyle='#c8102e';c.font='900 10px serif';c.textAlign='center';c.fillText('爆',0,-4);c.fillText('封',0,10);
+     if(k>.35){const burn=(k-.35)/.4;c.fillStyle='#2a1a10';c.fillRect(-9,22-44*burn,18,44*burn);c.globalCompositeOperation='lighter';glow(c,0,22-44*burn,8,'rgba(255,150,40,1)')}c.restore()}
+    else{const r=(k-.75)/.25;c.globalCompositeOperation='lighter';glow(c,b.x,b.y,30+100*r,'rgba(255,140,40,'+(1-r)+')')}c.restore()}})},
+  // Smoke bomb: a pellet bursts into a grey cloud that hides the user
+  smoke(a,b,col,o){add({dur:1.2,at:.3,hit(){sfxText({x:b.x+20,y:b.y-60},'ボン','#e8e8e8',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4));for(let i=0;i<12;i++){const an=i/12*TAU,r=10+60*q,sx=b.x+Math.cos(an)*r,sy=b.y+Math.sin(an)*r*.6-q*14;if(!SPR.draw(c,['k_smoke_01','k_smoke_07'][i%2],sx,sy,(16+10*q)*3.4,{tint:'#d8d8dc',alpha:.7*(1-k*.5),rot:an+t}))puff(c,sx,sy,16+10*q,'rgba(200,200,205,'+(.75*(1-k*.5))+')',i)}c.restore()}})},
+  // Roar: rings of sound pressure blast out of the mouth (Disaster Roar, Feral Howl, Female Titan's scream)
+  roar(a,b,col,o){add({dur:1.1,at:.5,hit(){sfxText({x:b.x+20,y:b.y-70},o.word||'ゴアアア','#fff',38);shake(10,400)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const src={x:a.x+10,y:a.y-20},ang=Math.atan2(b.y-src.y,b.x-src.x),d=Math.hypot(b.x-src.x,b.y-src.y);
+    for(let i=0;i<6;i++){const u=((k*1.6)+i/6)%1,r=u*(o.all?d*1.2:d);c.strokeStyle=col.length===7?col+Math.floor((1-u)*200).toString(16).padStart(2,'0'):col;c.lineWidth=6*(1-u)+1;c.beginPath();if(o.all)c.arc(src.x,src.y,r,0,TAU);else c.arc(src.x,src.y,r,ang-.6,ang+.6);c.stroke()}
+    c.restore()}})},
+  // Crushing blow: a club, fist or claw slams down (Demon-Level Crush, Spiked Club, Crushing Grip)
+  slam(a,b,col,o){const st=o.style||'club';add({dur:.8,at:.5,hit(){hitAt(b,col,true,o.word||'ドゴォ',col);shake(12,350)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const sw=k<.5?-1.9+ease(k/.5)*2.2:.3,x=b.x-30,y=b.y-60;c.save();c.translate(x,y);c.rotate(sw);
+    if(st==='club'){c.fillStyle='#6a4a2a';c.fillRect(-6,-4,40,8);c.beginPath();c.roundRect(30,-14,56,28,12);outline(c,'#8a5a2a',2.5);for(let i=0;i<5;i++){c.fillStyle='#d8dee6';c.beginPath();c.moveTo(38+i*10,-14);c.lineTo(41+i*10,-24);c.lineTo(44+i*10,-14);c.fill();c.beginPath();c.moveTo(38+i*10,14);c.lineTo(41+i*10,24);c.lineTo(44+i*10,14);c.fill()}}
+    else{c.strokeStyle=INK;c.lineWidth=20;c.beginPath();c.moveTo(-10,0);c.lineTo(60,0);c.stroke();c.strokeStyle=o.skin||'#7a6a8a';c.lineWidth=15;c.stroke();fist(c,72,0,22,o.skin||'#7a6a8a',0)}
+    c.restore();if(k>.5){const r=(k-.5)/.5;c.strokeStyle='rgba(255,255,255,'+(1-r)+')';c.lineWidth=4;c.beginPath();c.ellipse(b.x,b.y+30,30+70*r,8+14*r,0,0,TAU);c.stroke()}c.restore()}})},
+  // Rule Enforcement (Undead Unluck): the Rule's tablet slams down and the punishment rings lock the target
+  rule(a,b,col,o){add({dur:1.3,at:.7,hit(){hitAt(b,'#ffe04a',false,'ルール','#ffe04a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.45)),x=b.x,y=b.y-140+80*q;
+    c.save();c.translate(x,y);c.beginPath();c.roundRect(-36,-26,72,52,6);outline(c,'#2a2a34',3);c.fillStyle='#ffe04a';c.font='900 11px sans-serif';c.textAlign='center';c.fillText('RULE',0,-8);for(let i=0;i<3;i++)c.fillRect(-24,2+i*7,48-i*10,3);c.restore();
+    if(k>.5){const r=(k-.5)/.5;for(let i=0;i<3;i++){c.strokeStyle='rgba(255,224,74,'+(1-r)+')';c.lineWidth=3;c.beginPath();c.ellipse(b.x,b.y-10+i*20,40-r*10,10,0,0,TAU);c.stroke()}}c.restore()}})},
+  // Ricochet: a shot bounces off two points before hitting from an unexpected angle (Billy's Unfair)
+  ricochet(a,b,col,o){const P=[{x:a.x+20,y:a.y-20},{x:(a.x+b.x)/2,y:Math.min(a.y,b.y)-120},{x:b.x+80,y:b.y-60},{x:b.x,y:b.y}];add({dur:.9,at:.7,hit(){hitAt(b,'#ffcf6b',false,'跳弾','#ffcf6b')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=Math.min(1,k/.7)*3,seg=Math.min(2,Math.floor(q)),u=q-seg;
+    c.strokeStyle='rgba(255,220,140,.8)';c.lineWidth=2.5;c.beginPath();c.moveTo(P[0].x,P[0].y);for(let i=1;i<=seg;i++)c.lineTo(P[i].x,P[i].y);const p=lerp(P[seg],P[seg+1],Math.min(1,u));c.lineTo(p.x,p.y);c.stroke();
+    for(let i=1;i<=seg&&i<3;i++){c.globalCompositeOperation='lighter';glow(c,P[i].x,P[i].y,16,'rgba(255,230,150,.8)');c.globalCompositeOperation='source-over'}c.fillStyle='#fff';c.beginPath();c.arc(p.x,p.y,4,0,TAU);c.fill();c.restore()}})},
+  // Fighting Poses (Dragon Ball): the Ginyu Force strikes its posing routine with a burst of colour and sparkles
+  poses(a,b,col,o){const C=['#c83ac8','#3a8ad8','#ff8a2a','#d83a3a','#3ab84a'];add({dur:1.4,at:.8,hit(){sfxText({x:b.x,y:b.y-80},'ギニュー特戦隊!','#fff',30);ring(b.x,b.y,'#fff',10,90,.5,4)},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+    for(let i=0;i<5;i++){const q=ease(Math.min(1,Math.max(0,(k-i*.08)/.25))),x=b.x-100+i*50,y=b.y+10,pose=(i%2?1:-1);if(!q)continue;c.save();c.translate(x,y);c.scale(q,q);c.strokeStyle=INK;c.lineWidth=7;
+     c.beginPath();c.moveTo(0,-10);c.lineTo(0,14);c.moveTo(0,14);c.lineTo(-10,32);c.moveTo(0,14);c.lineTo(12*pose,26);c.moveTo(0,-6);c.lineTo(-18,-20*pose);c.moveTo(0,-6);c.lineTo(18,-4+10*pose);c.stroke();c.strokeStyle=C[i];c.lineWidth=4;c.stroke();c.beginPath();c.arc(0,-18,7,0,TAU);outline(c,C[i],2);c.restore();
+     if(q>=1){starP(c,x+jit(i,step(t),20),y-40+jit(i+3,step(t),10),6,4,'#fff')}}c.restore()}})},
+  // Body Change (Dragon Ball): Ginyu thrusts his arms open and a beam of light swaps the two bodies' souls
+  bodychange(a,b,col,o){add({dur:1.4,at:.8,hit(){hitAt(b,'#ffe04a',false,'チェーンジ!!','#ffe04a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const src={x:a.x+10,y:a.y-20};
+    if(k<.3){const q=k/.3;c.strokeStyle='#c83ac8';c.lineWidth=8;for(const d of [-1,1]){c.beginPath();c.moveTo(src.x,src.y);c.lineTo(src.x+d*40*q,src.y-30*q);c.stroke()}}
+    else{const q=ease(Math.min(1,(k-.3)/.25));c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,240,140,.85)';c.lineWidth=26;c.beginPath();c.moveTo(src.x,src.y);c.lineTo(lerp(src,b,q).x,lerp(src,b,q).y);c.stroke();
+     if(k>.55){const r=(k-.55)/.4;for(const [p0,p1,cl] of [[src,b,'rgba(200,120,255,.9)'],[b,src,'rgba(120,200,255,.9)']]){const p=arcAt(p0,p1,Math.min(1,r),50*(cl[5]==='2'?1:-1));glow(c,p.x,p.y,20,cl)}}}c.restore()}})},
+  // Obi sashes (Demon Slayer): Daki's patterned sash ribbons whip out, slicing; also Meruem's tail (style tail)
+  obi(a,b,col,o){const tail=o.style==='tail',N=tail?1:5;add({dur:.95,at:.5,hit(){hitAt(b,col,!!o.big,o.word||'帯',col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.5?ease(k/.5):k<.7?1:1-(k-.7)/.3;
+    for(let i=0;i<N;i++){const sx=a.x,sy=a.y-10,tip={x:b.x+jit(i,1,tail?0:30),y:b.y+jit(i,2,tail?0:30)},m={x:(sx+tip.x)/2+jit(i,3,60),y:Math.min(sy,tip.y)-60-i*12};
+     const pts=[];for(let s=0;s<=24;s++){const u=s/24*q;pts.push({x:(1-u)*(1-u)*sx+2*(1-u)*u*m.x+u*u*tip.x,y:(1-u)*(1-u)*sy+2*(1-u)*u*m.y+u*u*tip.y+Math.sin(u*12+t*12+i)*6*(1-u)})}
+     c.lineCap='round';c.strokeStyle=INK;c.lineWidth=tail?16:12;c.beginPath();pts.forEach((p,j)=>j?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.stroke();c.strokeStyle=tail?'#3a8a5a':'#e86a9a';c.lineWidth=tail?11:8;c.stroke();
+     if(!tail){c.strokeStyle='#ffe0f0';c.lineWidth=2;c.setLineDash([4,6]);c.stroke();c.setLineDash([])}
+     if(tail){const e=pts[pts.length-1];c.beginPath();c.moveTo(e.x-8,e.y-8);c.lineTo(e.x+16,e.y);c.lineTo(e.x-8,e.y+8);c.closePath();outline(c,'#e0e8a8',2)}}c.restore()}})},
+  // Blood Sickles (Demon Slayer): Gyutaro's twin blood sickles spin out as slashing crimson wheels
+  sickles(a,b,col,o){add({dur:1,at:.55,hit(){hitAt(b,'#c8102e',false,'血鎌','#ff4a5a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(const d of [-1,1]){const q=ease(Math.min(1,k/.55)),p=arcAt(a,b,q,d*60);c.save();c.translate(p.x,p.y);c.rotate(t*25*d);
+    for(let j=0;j<2;j++){c.rotate(Math.PI);c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(10,-30,34,-24);c.quadraticCurveTo(14,-16,8,4);c.closePath();outline(c,'#a8101e',2)}c.globalCompositeOperation='lighter';glow(c,0,0,36,'rgba(200,20,40,.35)');c.restore()}c.restore()}})},
+  // Idle Transfiguration (Jujutsu Kaisen): Mahito touches the target and its soul warps, the body twisting into a stitched shape
+  idletrans(a,b,col,o){add({dur:1.4,at:.6,hit(){hitAt(b,'#8aa8c8',true,'無為転変','#c8d8ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5)),p=lerp(a,{x:b.x-20,y:b.y},q);
+    c.save();c.translate(p.x,p.y);c.beginPath();c.ellipse(0,0,16,11,0,0,TAU);outline(c,'#d8d0c8',2);for(let i=0;i<4;i++){c.beginPath();c.roundRect(10,-8+i*5,18,4,2);outline(c,'#d8d0c8',1.5)}c.strokeStyle='#5a4a6a';c.lineWidth=1.5;for(let i=-2;i<=2;i++){c.beginPath();c.moveTo(-6+i*3,-4);c.lineTo(-6+i*3,4);c.stroke()}c.restore();
+    if(k>.55){const r=(k-.55)/.45;c.strokeStyle='rgba(140,170,220,.9)';c.lineWidth=3;for(let i=0;i<6;i++){c.beginPath();for(let s=0;s<20;s++){const an=s/20*TAU,rr=30+10*Math.sin(an*3+i+t*8*r)*r+i*4;s?c.lineTo(b.x+Math.cos(an)*rr,b.y+Math.sin(an)*rr*1.2):c.moveTo(b.x+Math.cos(an)*rr,b.y+Math.sin(an)*rr*1.2)}c.closePath();c.stroke()}
+     c.strokeStyle='#3a2a4a';c.lineWidth=2;for(let i=0;i<4;i++){const sx=b.x-30+i*20;c.beginPath();c.moveTo(sx,b.y-20);c.lineTo(sx+8,b.y+10);c.stroke();for(let j=0;j<3;j++){c.beginPath();c.moveTo(sx+j*3-3,b.y-12+j*9);c.lineTo(sx+j*3+5,b.y-14+j*9);c.stroke()}}}c.restore()}})},
+  // Gifter horns: a horned charge (One Piece SMILE beasts)
+  horn(a,b,col,o){add({dur:.75,at:.5,hit(){hitAt(b,col,false,'ドスッ',col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.5?ease(k/.5):1,p=lerp(a,b,q*.94),ang=Math.atan2(b.y-a.y,b.x-a.x);c.save();c.translate(p.x,p.y);c.rotate(ang);
+    for(const d of [-1,1]){c.beginPath();c.moveTo(-10,d*8);c.quadraticCurveTo(14,d*16,30,d*4);c.quadraticCurveTo(10,d*6,-10,d*2);c.closePath();outline(c,'#f0e6c8',2)}c.beginPath();c.ellipse(-24,0,18,15,0,0,TAU);outline(c,col,2.5);c.restore();
+    if(k<.5)for(let i=0;i<5;i++){c.strokeStyle='rgba(255,255,255,.5)';c.lineWidth=2;const pp=lerp(a,b,Math.max(0,q-.12));c.beginPath();c.moveTo(pp.x-20,pp.y-20+i*10);c.lineTo(pp.x-60,pp.y-20+i*10);c.stroke()}c.restore()}})},
+  // Samehada (Naruto): Kisame's shark-scaled greatsword shaves the target and its scales suck the chakra back to him
+  samehada(a,b,col,o){add({dur:1.25,at:.45,hit(){hitAt(b,'#4a8ab8',false,'鮫肌','#a8d8ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const sw=k<.45?-1.8+ease(k/.45)*2.6:.8;c.save();c.translate(b.x-40,b.y-30);c.rotate(sw);
+    c.fillStyle='#3a5a8a';c.fillRect(-26,-4,26,8);c.beginPath();c.moveTo(0,-14);c.lineTo(100,-10);c.quadraticCurveTo(116,0,100,10);c.lineTo(0,14);c.closePath();outline(c,'#5a7aa8',2.5);
+    c.fillStyle='#c8d8e8';for(let i=0;i<9;i++)for(const d of [-1,1]){c.beginPath();c.moveTo(6+i*11,d*13);c.lineTo(10+i*11,d*21);c.lineTo(14+i*11,d*12);c.fill()}c.restore();
+    if(k>.5){const r=(k-.5)/.5;c.globalCompositeOperation='lighter';for(let i=0;i<8;i++){const p=arcAt(b,a,Math.min(1,r+i*.04),40+i*4);glow(c,p.x,p.y,10,'rgba(120,200,255,.8)')}}c.restore()}})},
+  // Lance: fingers or a spear stretch out into piercing points (Lust's Ultimate Lance, Piercing Nails)
+  lances(a,b,col,o){const n=o.n||5;add({dur:.8,at:.42,hit(){hitAt(b,col,!!o.big,o.word||'最強の矛',col)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const ext=k<.42?ease(k/.42):k<.62?1:1-(k-.62)/.38;
+    for(let i=0;i<n;i++){const st={x:a.x+10,y:a.y-20+(i-(n-1)/2)*4},en={x:b.x+(i-(n-1)/2)*12,y:b.y+(i-(n-1)/2)*16},p=lerp(st,en,ext);c.strokeStyle=INK;c.lineWidth=5;c.beginPath();c.moveTo(st.x,st.y);c.lineTo(p.x,p.y);c.stroke();c.strokeStyle=col;c.lineWidth=2.5;c.stroke();
+     c.fillStyle=col;c.beginPath();const an=Math.atan2(en.y-st.y,en.x-st.x);c.moveTo(p.x+Math.cos(an)*8,p.y+Math.sin(an)*8);c.lineTo(p.x+Math.cos(an+2.6)*5,p.y+Math.sin(an+2.6)*5);c.lineTo(p.x+Math.cos(an-2.6)*5,p.y+Math.sin(an-2.6)*5);c.fill()}c.restore()}})},
+  // Eroberung (Frieren): Linie reads a dead warrior's memory and a translucent ghost of him swings through her
+  mimicry(a,b,col,o){add({dur:1.2,at:.7,hit(){hitAt(b,'#c8a8ff',false,'模倣','#e0d0ff')},draw(c,k,t){c.save();const q=ease(Math.min(1,k/.7)),p=lerp(a,{x:b.x-40,y:b.y},q);c.globalAlpha=fo(k)*.55;
+    c.save();c.translate(p.x,p.y);c.scale(1.3,1.3);c.fillStyle='#b8a8ff';c.beginPath();c.arc(0,-34,9,0,TAU);c.fill();c.beginPath();c.moveTo(-10,-24);c.lineTo(10,-24);c.lineTo(12,6);c.lineTo(-12,6);c.closePath();c.fill();
+    c.rotate(-1+q*1.8);c.fillStyle='#e8e0ff';c.fillRect(6,-20,5,30);c.beginPath();c.moveTo(4,-26);c.quadraticCurveTo(30,-22,24,-2);c.lineTo(8,-12);c.closePath();c.fill();c.restore();
+    c.globalAlpha=fo(k);c.strokeStyle='rgba(200,180,255,.7)';c.lineWidth=2;for(let i=0;i<3;i++){const pp=lerp(a,p,i/3);c.beginPath();c.arc(pp.x,pp.y-20,6,0,TAU);c.stroke()}c.restore()}})},
+  // Afterimage: the user flickers into a trail of copies (Mimicked Footwork, Divine Reflexes)
+  afterimage(a,b,col,o){add({dur:1,at:.6,hit(){ring(b.x,b.y,col,8,70,.4,3);if(o.word)sfxText({x:b.x+20,y:b.y-60},o.word,col,28)},draw(c,k,t){c.save();for(let i=0;i<5;i++){const x=b.x+(i-2)*34*Math.sin(Math.min(1,k/.5)*Math.PI),y=b.y;c.globalAlpha=fo(k)*(.18+.14*i);
+    c.fillStyle=col;c.beginPath();c.arc(x,y-34,10,0,TAU);c.fill();c.beginPath();c.moveTo(x-11,y-22);c.lineTo(x+11,y-22);c.lineTo(x+9,y+20);c.lineTo(x-9,y+20);c.closePath();c.fill()}
+    c.globalAlpha=fo(k);c.strokeStyle='rgba(255,255,255,.6)';c.lineWidth=2;for(let i=0;i<6;i++){c.beginPath();c.moveTo(b.x-80,b.y-30+i*12);c.lineTo(b.x+80,b.y-30+i*12);c.stroke()}c.restore()}})},
+  // Psychokinetic Crush (One-Punch Man): green psychic force wraps the target and folds it inward
+  psycrush(a,b,col,o){add({dur:1.2,at:.75,hit(){hitAt(b,'#5aff8a',true,'超能力','#a8ffc8');shake(10,350)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.75));c.globalCompositeOperation='lighter';
+    for(let i=0;i<5;i++){const r=110*(1-q)+20+i*8;c.strokeStyle='rgba(90,255,140,'+(.25+q*.5)+')';c.lineWidth=4;c.beginPath();for(let s=0;s<=24;s++){const an=s/24*TAU+i,rr=r*(1+.08*Math.sin(an*6+t*14));s?c.lineTo(b.x+Math.cos(an)*rr,b.y+Math.sin(an)*rr):c.moveTo(b.x+Math.cos(an)*rr,b.y+Math.sin(an)*rr)}c.stroke()}
+    glow(c,a.x,a.y-30,30,'rgba(90,255,140,.5)');c.restore()}})},
+  // Lanza del Relámpago (Bleach): Ulquiorra forms a green spear of lightning and hurls it; it explodes like a bomb
+  lanza(a,b,col,o){add({dur:1.2,at:.7,hit(){hitAt(b,'#5aff8a',true,'雷霆の槍','#a8ffc8');shake(14,450);boom(b.x,b.y,120,'#5aff8a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const ang=Math.atan2(b.y-a.y,b.x-a.x),q=k<.35?0:ease(Math.min(1,(k-.35)/.35)),p=lerp({x:a.x,y:a.y-40},b,q);
+    c.save();c.translate(p.x,p.y);c.rotate(ang);c.globalCompositeOperation='lighter';const L=k<.35?90*k/.35:90;c.strokeStyle='rgba(90,255,140,.7)';c.lineWidth=12;c.beginPath();c.moveTo(-L,0);c.lineTo(L*.5,0);c.stroke();c.strokeStyle='#eaffef';c.lineWidth=4;c.stroke();
+    c.beginPath();c.moveTo(L*.5,-10);c.lineTo(L*.5+26,0);c.lineTo(L*.5,10);c.closePath();c.fillStyle='rgba(180,255,200,.9)';c.fill();SPR.draw(c,'k_spark_07',-L*.25,0,L*1.6,{tint:'#9affc0',add:true,sy:.5,rot:step(t)%2?Math.PI:0});
+    for(let i=0;i<4;i++){c.strokeStyle='rgba(200,255,220,.8)';c.lineWidth=1.5;c.beginPath();let x=-L;c.moveTo(x,0);for(let s=0;s<6;s++){x+=L*.25;c.lineTo(x,jit(i,s+step(t),12))}c.stroke()}c.restore();
+    if(k>.7){const r=(k-.7)/.3;c.globalCompositeOperation='lighter';glow(c,b.x,b.y,40+120*r,'rgba(90,255,140,'+(1-r)+')')}c.restore()}})},
+  // Blood Drain (My Hero Academia): Toga's syringe-tank gear jabs in and draws the target's blood up its tubes
+  syringe(a,b,col,o){add({dur:1.3,at:.45,hit(){hitAt(b,'#c8102e',false,'チウチウ','#ff6a7a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.45?ease(k/.45):1,p=lerp(a,{x:b.x-30,y:b.y},q),ang=Math.atan2(b.y-a.y,b.x-a.x);c.save();c.translate(p.x,p.y);c.rotate(ang);
+    c.fillStyle='#cfd6de';c.fillRect(30,-1,22,2);c.beginPath();c.roundRect(-20,-9,50,18,4);outline(c,'rgba(230,240,255,.7)',2);const fill=k>.45?Math.min(1,(k-.45)/.4):0;c.fillStyle='#c8102e';c.fillRect(30-50*fill,-6,50*fill,12);c.fillStyle='#5a5a6a';c.fillRect(-30,-7,10,14);c.restore();
+    c.strokeStyle='#5a5a6a';c.lineWidth=3;c.beginPath();c.moveTo(a.x,a.y);c.quadraticCurveTo((a.x+p.x)/2,a.y+30,p.x,p.y);c.stroke();c.restore()}})},
+  // Transform (My Hero Academia): Toga melts into a sludge of blood and reforms as a copy of the target
+  transform(a,b,col,o){add({dur:1.4,at:.75,hit(){sfxText({x:b.x+20,y:b.y-70},'変身','#ff8ab0',30);ring(b.x,b.y,'#ff8ab0',8,70,.4,3)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x,y=b.y;
+    if(k<.5){const q=k/.5;c.fillStyle='rgba(180,20,40,.85)';c.beginPath();c.ellipse(x,y+10+20*q,30+20*q,40*(1-q)+10,0,0,TAU);c.fill();for(let i=0;i<6;i++){c.beginPath();c.ellipse(x-30+i*12,y+30+jit(i,step(t),3),5,10*q+3,0,0,TAU);c.fill()}}
+    else{const q=ease((k-.5)/.5);c.fillStyle='rgba(180,20,40,'+(1-q)+')';c.beginPath();c.ellipse(x,y+30,50*(1-q)+10,10,0,0,TAU);c.fill();c.globalAlpha=fo(k)*q;c.fillStyle=col;c.beginPath();c.arc(x,y-34,11,0,TAU);c.fill();c.beginPath();c.moveTo(x-12,y-22);c.lineTo(x+12,y-22);c.lineTo(x+10,y+22);c.lineTo(x-10,y+22);c.closePath();c.fill();
+     c.strokeStyle='#fff';c.lineWidth=2;c.setLineDash([3,4]);c.stroke();c.setLineDash([])}c.restore()}})},
+  // Sphere of Destruction (Dragon Ball Super): Beerus lifts a finger, a tiny orb swells into a sun and is dropped
+  destruction(a,b,col,o){add({dur:1.8,at:1.1/1.8,hit(){hitAt(b,'#ffb02e',true,'破壊','#ffe0a0');shake(16,600);boom(b.x,b.y,150,'#ffb02e')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const top={x:a.x+20,y:a.y-90};
+    c.strokeStyle='#8a5ac8';c.lineWidth=6;c.beginPath();c.moveTo(a.x+10,a.y-10);c.lineTo(top.x,top.y+14);c.stroke();
+    let p=top,r;if(k<.45){r=4+46*ease(k/.45)}else{r=50;const q=ease(Math.min(1,(k-.45)/.18));p=lerp(top,b,q)}
+    c.globalCompositeOperation='lighter';glow(c,p.x,p.y,r*2.4,'rgba(255,150,40,.45)');c.globalCompositeOperation='source-over';c.beginPath();for(let i=0;i<24;i++){const an=i/24*TAU,rr=r*(1+.07*Math.sin(i*7+t*20));c.lineTo(p.x+Math.cos(an)*rr,p.y+Math.sin(an)*rr)}c.closePath();c.fillStyle='#ff7a1a';c.fill();c.strokeStyle=INK;c.lineWidth=2;c.stroke();
+    c.fillStyle='#ffd06a';c.beginPath();c.arc(p.x,p.y,r*.75,0,TAU);c.fill();c.fillStyle='#fff6d0';c.beginPath();c.arc(p.x-r*.2,p.y-r*.2,r*.35,0,TAU);c.fill();
+    if(k>.63){const r2=(k-.63)/.37;c.globalCompositeOperation='lighter';glow(c,b.x,b.y,60+200*r2,'rgba(255,200,90,'+(1-r2)+')')}c.restore()}})},
+  // Gungi Mastery (Hunter x Hunter): the Gungi board appears; Meruem's pieces advance and box the target in
+  gungi(a,b,col,o){add({dur:1.5,at:.9,hit(){hitAt(b,'#c8a050',false,'軍儀','#ffe0a0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.3)),x=b.x,y=b.y+20,S=18;
+    c.save();c.translate(x,y);c.scale(1,.45);c.globalAlpha=fo(k)*q;c.fillStyle='#c8a060';c.fillRect(-S*4.5,-S*4.5,S*9,S*9);c.strokeStyle='#6a4a2a';c.lineWidth=1.5;for(let i=0;i<=9;i++){c.beginPath();c.moveTo(-S*4.5+i*S,-S*4.5);c.lineTo(-S*4.5+i*S,S*4.5);c.moveTo(-S*4.5,-S*4.5+i*S);c.lineTo(S*4.5,-S*4.5+i*S);c.stroke()}c.restore();
+    const P=[[-3,-3],[3,-3],[-3,3],[3,3],[0,-4],[0,4]];P.forEach(([px,py],i)=>{const u=ease(Math.min(1,Math.max(0,(k-.3-i*.05)/.3))),gx=x+px*S*(1.6-u*.6),gy=y+py*S*.45*(1.6-u*.6);c.globalAlpha=fo(k)*Math.min(1,u*3);c.beginPath();c.moveTo(gx-9,gy+4);c.lineTo(gx-6,gy-10);c.lineTo(gx,gy-14);c.lineTo(gx+6,gy-10);c.lineTo(gx+9,gy+4);c.closePath();outline(c,'#f0e0c0',1.5);c.fillStyle=INK;c.font='700 8px serif';c.textAlign='center';c.fillText(i<4?'兵':'帥',gx,gy)});
+    c.restore()}})},
+  // Rinne Sharingan (Naruto): Kaguya's third eye opens on the brow, rippled red with tomoe, and pins the target with its gaze
+  thirdeye(a,b,col,o){add({dur:1.4,at:.75,hit(){hitAt(b,'#ff2a3a',false,'輪廻写輪眼','#ff8a9a');ring(b.x,b.y,'#ff2a3a',8,70,.5,3)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4)),x=a.x,y=a.y-70;
+    c.fillStyle='#f6f0f4';c.beginPath();c.ellipse(x,y,14*q+2,24*q,0,0,TAU);c.fill();c.strokeStyle=INK;c.lineWidth=2.5;c.stroke();c.fillStyle='#d8102e';c.beginPath();c.arc(x,y,12*q,0,TAU);c.fill();
+    c.strokeStyle='rgba(60,0,10,.8)';c.lineWidth=1;for(let i=1;i<4;i++){c.beginPath();c.arc(x,y,i*3*q,0,TAU);c.stroke()}
+    for(let i=0;i<9;i++){const an=i/9*TAU+t*2,rr=(4+(i%3)*3)*q;c.fillStyle=INK;c.beginPath();c.arc(x+Math.cos(an)*rr,y+Math.sin(an)*rr,1.4,0,TAU);c.fill()}
+    if(k>.45){const r=(k-.45)/.3;c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,40,60,.55)';c.lineWidth=6;c.beginPath();c.moveTo(x,y);c.lineTo(lerp({x,y},b,Math.min(1,r)).x,lerp({x,y},b,Math.min(1,r)).y);c.stroke()}c.restore()}})},
+  // Divine shield styles: Susanoo-like barriers, armour plates, crystal hardening, Blut Vene, a psychic bubble
+  guard(a,b,col,o){const st=o.style||'plate';add({dur:1.2,at:.55,hit(){ring(b.x,b.y,col,14,90,.45,5);if(o.word)sfxText({x:b.x+20,y:b.y-70},o.word,col,28)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5)),x=b.x,y=b.y;
+    if(st==='bubble'){c.globalCompositeOperation='lighter';SPR.draw(c,'k_circle_05',x,y,150*q,{tint:col,add:true,alpha:.8,rot:t});c.strokeStyle=col.length===7?col+'cc':col;c.lineWidth=4;c.beginPath();c.arc(x,y,64*q,0,TAU);c.stroke();glow(c,x,y,64*q,col.length===7?col+'33':col);
+     for(let i=0;i<3;i++){const r=((t*1.2+i/3)%1);c.strokeStyle='rgba(255,255,255,'+(.5*(1-r))+')';c.lineWidth=2;c.beginPath();c.arc(x,y,64*q*r,0,TAU);c.stroke()}}
+    else if(st==='crystal'){for(let i=0;i<9;i++){const an=i/9*TAU,rr=50*q;c.save();c.translate(x+Math.cos(an)*rr,y+Math.sin(an)*rr*.9);c.rotate(an+Math.PI/2);c.beginPath();c.moveTo(0,-22*q);c.lineTo(10,0);c.lineTo(0,14);c.lineTo(-10,0);c.closePath();outline(c,'rgba(200,240,255,.85)',2);c.restore()}}
+    else if(st==='veins'){c.strokeStyle=col;c.lineWidth=2.5;for(let i=0;i<10;i++){const an=i/10*TAU;c.beginPath();let px=x,py=y;c.moveTo(px,py);for(let s=0;s<7*q;s++){px+=Math.cos(an+jit(i,s,.7))*9;py+=Math.sin(an+jit(i,s,.7))*9;c.lineTo(px,py)}c.stroke()}c.globalCompositeOperation='lighter';glow(c,x,y,50*q,'rgba(120,170,255,.35)')}
+    else if(st==='hide'){for(let r=0;r<3;r++)for(let i=0;i<7;i++){const an=-Math.PI*.9+i/6*Math.PI*.8,rr=(40+r*14)*q;c.save();c.translate(x+Math.cos(an)*rr,y+Math.sin(an)*rr+30);c.rotate(an+Math.PI/2);c.beginPath();c.ellipse(0,0,10,7,0,0,TAU);outline(c,col,1.5);c.restore()}}
+    else{for(const d of [-1,1]){c.save();c.translate(x+d*70*(1-q)+d*18,y);c.beginPath();c.moveTo(0,-46);c.lineTo(d*30,-30);c.lineTo(d*30,20);c.lineTo(0,46);c.lineTo(-d*4,0);c.closePath();outline(c,col,3);c.strokeStyle='rgba(255,255,255,.6)';c.lineWidth=2;c.beginPath();c.moveTo(d*6,-34);c.lineTo(d*24,-24);c.stroke();c.restore()}}
+    c.restore()}})},
  };
  function play(kind,src,dst,color,o={}){const a=pt(src),b=pt(dst);if(!a||!b||VFX.reduced()||!K[kind])return false;sfxText.loud=!!(o&&(o.big||o.huge));try{K[kind](a,b,color,o||{})}finally{sfxText.loud=false}return true}
  return {play,kinds:Object.keys(K),impactFrame,sfxText,speedLines};
@@ -2475,10 +2916,51 @@ const HERO_SIGS={
  croquettes:['croquettes','#c88a3a',{self:true}],senketsu:['senketsu','#c8102e',{self:true}],blood_feed:['bloodfeed','#c8102e',{self:true}],mako:['mako','#ffd23f',{self:true}],fiber_lost:['fiberlost','#ff6b7a',{self:true}],
  jotaro_cap:['jotarocap','#1e2a4a',{self:true}],gakuran:['gakuran','#1e2a4a',{self:true}],joseph:['josephhp','#9a5ad8',{self:true}],iggy:['iggy','#c8a86a',{self:true}],
  und_regen:['undregen','#c8102e',{self:true}],union_card:['remembercard','#c8102e',{self:true}],fuuko_touch:['fuukotouch','#ffe04a',{self:true}],regen_cannon:['crimsonbullet','#c8102e',{}],unluck_undead:['unluckundead','#ffe04a',{big:true}],
- bunker_gear:['bunkercoat','#ff9a3b',{self:true}],shinra_iris:['irisprayer','#fff6d0',{self:true}],shinra_maki:['makiflare','#ff6a3a',{}],shinra_vulcan:['vulcanwrench','#ffd04a',{self:true}],hysterical_strength:['hysteria','#ff7a1a',{self:true}],adolla_link:['adollalink','#ff2a2a',{}],corna:['corna','#ff7a1a',{}]
+ bunker_gear:['bunkercoat','#ff9a3b',{self:true}],shinra_iris:['irisprayer','#fff6d0',{self:true}],shinra_maki:['makiflare','#ff6a3a',{}],shinra_vulcan:['vulcanwrench','#ffd04a',{self:true}],hysterical_strength:['hysteria','#ff7a1a',{self:true}],adolla_link:['adollalink','#ff2a2a',{}],corna:['corna','#ff7a1a',{}],
+ // #88 card animation pass (Claude 2026-11-14): neutral items, monster loot, trophies and calamity drops
+ potion:['soldierpill','#8ad8ff',{self:true}],buckler:['susanoo','#b48cff',{self:true}],dart:['deathnote','#c8102e'],hourglass:['zawarudo','#ffd23f'],pouch:['emblem','#e8e8e8',{self:true,style:'license',word:'ハンター'}],
+ bento:['emblem','#ffcf6b',{self:true,style:'donburi',word:'おそまつ!'}],drum:['emblem','#ff4a3a',{self:true,style:'shades',word:'俺を誰だと思ってやがる!'}],tea:['emblem','#ff3a4a',{self:true,style:'apple',word:'リンゴ'}],
+ chain_jail:['bind','#d8dee6',{style:'chain'}],geass:['geass','#ff2a3a'],kagune:['kagune','#d81a2a'],healing_pod:['medpod','#7dff9a',{self:true}],ashisogi:['trident','#e8b830'],
+ great_fireball:['fireball','#ff6a1a',{big:true,seal:true,word:'豪火球の術'}],dragon_roar:['breath','#ff6a1a',{word:'火竜の咆哮'}],adamantine:['guard','#3a5aa8',{self:true,style:'plate',word:'金剛の鎧'}],
+ hiraishin:['hiraishin','#ffe04a',{self:true}],bokuto:['bokuto','#c8945a'],guild_mark:['emblem','#e8302a',{self:true,style:'fairy',word:'FAIRY TAIL'}],gravity_room:['gravity','#b48cff',{self:true}],
+ spirit_gun:['spiritgun','#5ab8ff'],six_rods:['sixrods','#fff6c0'],five_leaf:['grimoire','#3a3a3a',{self:true}],book_zeref:['darkbook','#6a2a8a'],summon_scroll:['scroll','#e8e8e8',{self:true}],
+ lacrima:['emblem','#46d86a',{self:true,style:'lacrima',word:'滅竜魔法'}],nen_ten:['aura','#cfe4ff',{self:true,word:'纏'}],shokugeki:['emblem','#e8e8f0',{self:true,style:'cloche',word:'食戟'}],
+ mana_crystal:['emblem','#6ac8ff',{self:true,style:'crystal'}],ifrit_ember:['emblem','#ff8a2a',{self:true,style:'flamesword',word:'アモン'}],grenade_gauntlet:['apshot','#ffb02e'],murasame:['murasame','#c8102e'],
+ bingo_book:['emblem','#c8102e',{self:true,style:'bingo'}],giga_drill:['drill','#3ad86a',{big:true}],philosopher_stone:['philstone','#ff2a3a',{self:true}],predator:['predator','#5ab8ff'],
+ guild_card:['emblem','#c89a3a',{self:true,style:'card'}],wings_freedom:['wingslash','#e8f4ff'],sky_roar:['breath','#bfefff',{style:'wind',word:'天竜の咆哮'}],full_counter:['counter','#ff4a4a'],
+ fire_fist:['flamefist','#ff6a1a'],poison_cooking:['poisondish','#9a4ad8'],kakuja:['kagune','#8a101e',{kakuja:true}],berserker_armor:['berserker','#c8102e',{self:true}],ice_devil:['icefist','#9cd2ff'],
+ sai_claw:['claw','#5ab84a'],sai_acid:['spit','#9ade5a',{word:'ジュワッ'}],sai_self:['selfdestruct','#5ab84a'],hand_grab:['hands','#6a8a4a'],demon_regen:['regen','#c8304a',{self:true}],hand_crush:['hands','#6a8a4a',{word:'メキメキ'}],
+ curse_miasma:['miasma','#9a5ad8',{skulls:true}],curse_bite:['chomp','#8a5ad8',{word:'ガブッ'}],curse_veil:['curtain','#1a1426'],
+ titan_stomp:['bigfoot','#e0a888'],titan_steam:['regen','#f0f0f0',{self:true,style:'steam'}],titan_grab:['hands','#e0a888',{one:true}],
+ nomu_absorb:['guard','#6a8ac8',{self:true,style:'bubble',word:'ショック吸収'}],nomu_smash:['slam','#2a2a3a',{style:'fist',skin:'#3a3a4a'}],nomu_regen:['regen','#8a4a5a',{self:true}],
+ ant_mandible:['chomp','#6a4a2a',{word:'ガチン'}],ant_swarm:['swarm','#6a4a2a',{style:'ants'}],ant_pheromone:['miasma','#ff8ac8',{self:true,hearts:true,c:'rgba(255,140,200,.25)'}],
+ seastone:['bind','#8a96a0',{style:'cuffs'}],marine_rifle:['gunfire','#ffcf6b'],marine_saber:['slash','#e8f4ff'],
+ hollow_claw:['claw','#f0f0f0'],hollow_regen:['regen','#f0f0f0',{self:true}],cero:['beam','#ff2a3a',{word:'虚閃'}],
+ zombie_horde:['swarm','#6a7a5a',{style:'zombies'}],zombie_bite:['chomp','#6a7a5a'],zombie_rise:['regen','#6a7a5a',{self:true,style:'rise'}],
+ aura_scale:['scale','#e8c46a'],aura_soldier:['swarm','#7a7f8a',{style:'soldiers',n:6}],aura_guillotine:['bladefall','#c0c8d0'],
+ ninja_shuriken:['shuriken','#9aa4ae'],paper_bomb:['papertag','#ff8a2a'],smoke_bomb:['smoke','#c8c8cc',{self:true}],
+ beast_roar:['roar','#ff8a5a',{all:true}],beast_crush:['slam','#8a5a8a',{style:'fist',skin:'#8a5a8a'}],boulder:['swarm','#8a7a6a',{style:'rocks',n:8,word:'ゴゴゴ'}],
+ uma_claw:['claw','#ff8a2a'],uma_hide:['guard','#8a6a4a',{self:true,style:'hide'}],uma_rule:['rule','#ffe04a'],
+ billy_guns:['gunfire','#ffcf6b'],billy_reverse:['counter','#ffcf6b',{self:true,word:'アンフェア'}],billy_shot:['ricochet','#ffcf6b'],
+ ginyu_jeice:['fireball','#ff3a3a',{r:22,core:'#ffd0d0',mid:'#ff6a6a',rim:'#d81a1a',word:'クラッシャーボール'}],ginyu_pose:['poses','#fff',{self:true}],ginyu_recoome:['beam','#ff8ad8',{w:28,big:true,word:'イレイザーガン'}],ginyu_change:['bodychange','#ffe04a'],
+ daki_obi:['obi','#e86a9a'],daki_sickle:['sickles','#c8102e'],daki_regen:['regen','#c8304a',{self:true}],
+ mahito_idle:['idletrans','#8aa8c8'],mahito_soul:['swarm','#9aa8c8',{style:'souls',n:7,word:'多重魂'}],mahito_body:['guard','#8aa8c8',{self:true,style:'hide',word:'変形'}],
+ gift_horn:['horn','#8a5a3a'],gift_club:['slam','#8a5a2a',{style:'club'}],gift_feast:['emblem','#8a3ac8',{self:true,style:'smile'}],
+ king_flame:['breath','#ff6a1a',{word:'火龍'}],king_armor:['guard','#3a3a4a',{self:true,style:'plate',word:'ルナーリア'}],king_blade:['slash','#ff7a1a',{flame:true}],
+ kisame_same:['samehada','#4a8ab8'],kisame_sharks:['swarm','#4a8ab8',{style:'sharks',n:8,word:'千食鮫'}],kisame_prison:['bind','#5aa8ff',{style:'water'}],
+ chim_claw:['claw','#c8a050'],chim_hide:['guard','#8a7a5a',{self:true,style:'hide'}],chim_howl:['roar','#c8a050',{self:true,all:true,word:'ウオォォ'}],
+ lust_lance:['lances','#9a7aaa',{word:'最強の矛'}],lust_core:['regen','#e01a2a',{self:true,style:'stone'}],lust_nails:['lances','#9a7aaa',{n:3,word:'ブスッ'}],
+ linie_copy:['mimicry','#c8a8ff'],linie_axe:['axe','#c0c8d0'],linie_step:['afterimage','#c8a8ff',{self:true}],
+ psykos_barrage:['swarm','#8a7a6a',{style:'rocks',psy:true,n:8,word:'超能力'}],psykos_crush:['psycrush','#5aff8a'],psykos_shield:['guard','#5aff8a',{self:true,style:'bubble'}],
+ katana_draw:['slash','#e8f4ff',{word:'居合'}],katana_cord:['pullcord','#ff7a2a',{self:true}],katana_goons:['swarm','#2a2a30',{style:'goons',n:6,word:'バババ'}],
+ ulq_cero:['beam','#1aff8a',{dark:true,big:true,w:30,word:'黒虚閃'}],ulq_lanza:['lanza','#5aff8a'],ulq_regen:['regen','#d8f0e0',{self:true}],ulq_hierro:['guard','#d8f0e0',{self:true,style:'plate',word:'鋼皮'}],
+ toga_knives:['shuriken','#d8dee6',{style:'knives',n:3,word:'ザクッ'}],toga_drain:['syringe','#c8102e'],toga_transform:['transform','#ff8ab0',{self:true}],
+ ft_harden:['guard','#c8f0ff',{self:true,style:'crystal',word:'硬質化'}],ft_kick:['bigfoot','#e0a888',{kick:true,crystal:true,word:'ドゴッ'}],ft_scream:['roar','#fff',{self:true,all:true,word:'キィアアア'}],
+ beerus_sphere:['destruction','#ffb02e'],beerus_reflex:['afterimage','#8a5ac8',{self:true,word:'破壊神'}],meruem_tail:['obi','#3a8a5a',{style:'tail',word:'王'}],meruem_gungi:['gungi','#c8a050'],
+ kaguya_bones:['swarm','#f4f0e4',{style:'bones',word:'共殺の灰骨',big:true}],kaguya_byakugan:['thirdeye','#ff2a3a'],yhwach_sword:['slash','#7a9aff',{big:true,n:2,word:'全知全能'}],yhwach_blut:['guard','#5a8aff',{self:true,style:'veins',word:'血装'}]
 };
 // ================= settings =================
-const SET=Object.assign({detailPanel:false,logOpen:false,anim:'full',animSpeed:1,shake:true,cinematics:true,fightSpeed:1,autoSkipPve:false,dmgNumbers:true,combatLog:true,sfxVol:70,musicVol:50,animeVoices:true},store.get('abSettings',{}));
+const SET=Object.assign({detailPanel:false,logOpen:false,anim:'full',animSpeed:1,shake:true,cinematics:true,fightSpeed:1,autoSkipPve:false,dmgNumbers:true,combatLog:true,sfxVol:70,musicVol:50,animeVoices:true,shareStats:true,spriteFx:true},store.get('abSettings',{}));
 SET.animeVoices=SET.animeVoices!==false;
 function applySettings(){
   VFX.setCfg({level:SET.anim,shake:SET.shake,cinematics:SET.cinematics});
@@ -3809,14 +4291,15 @@ document.addEventListener('focusout',e=>{if(e.target.closest?.('.card[data-tt]')
 document.addEventListener('pointerdown',ttHide,{capture:true});
 addEventListener('scroll',ttHide,{passive:true,capture:true});
 const plainDesc=inst=>`${ITEMS[inst.id].name} (${TIERS[inst.tier]}) · CD ${cdOf(inst).toFixed(1)}s\n`+descLines(inst).join('\n').replace(/<[^>]+>/g,'');
-function rollTier(day){
+function rollTier(day){ // Claude #90 (Max 2026-11-15): shops keep pace with the run
   const r=R();
-  if(day<=3)return 0;
-  if(day<=5)return r<.8?0:1;
-  if(day<=7)return r<.5?0:r<.95?1:2;
-  if(day<=9)return r<.2?0:r<.8?1:2;
-  if(day<=11)return r<.4?1:r<.9?2:3;
-  return r<.2?1:r<.75?2:r<.98?3:4;
+  if(day<=2)return 0;
+  if(day<=3)return r<.75?0:1;
+  if(day<=5)return r<.4?0:r<.9?1:2;
+  if(day<=7)return r<.15?0:r<.65?1:2;
+  if(day<=9)return r<.35?1:r<.9?2:3;
+  if(day<=11)return r<.15?1:r<.7?2:3;
+  return r<.45?2:r<.9?3:4;
 }
 
 // ================= difficulty =================
@@ -4104,7 +4587,8 @@ const FriendSync=(()=>{
   function board(snap){if(!on||cloudGame()||!snap)return Promise.resolve(false);return Promise.resolve(pushing).then(()=>boardNow(snap)).catch(()=>false)}
   async function pool(day,diff){if(!on||cloudGame())return [];const c=creds();
     const r=await call('/pool/'+day+'?diff='+encodeURIComponent(diff||'casual')+(c.claimed?'&not='+c.id:''));return r.status===200&&r.data&&Array.isArray(r.data.boards)?r.data.boards:[]}
-  return {on,push,pull,readyId,creds,board,pool};
+  function runStats(r){if(!on||cloudGame())return Promise.resolve(false);return call('/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(r)}).then(x=>x.status===200).catch(()=>false)}
+  return {on,push,pull,readyId,creds,board,pool,runStats};
 })();
 // ================= share codes (progress travels as text, so friends need no write access) =================
 let FRIENDS=store.get('animeBazaarFriends',{});
@@ -4782,26 +5266,74 @@ function mergePass(){
 function refreshIcons(){if(!S||!Array.isArray(S.choices))return;for(const c of S.choices){const m=c&&c.mon;if(!m)continue;const d=monDef(m.name);const b=BOSSES.find(x=>x[0]===m.name);if(d)m.icon=d.icon;else if(b)m.icon=b[1]}}
 function startDay(){
   if(S.quest&&S.quest.day<S.day){S.quest=null}
-  S.hour=0;mergePass();const g=income();S.gold+=g;toast(`Day ${S.day} begins: +${g} gold`);
+  S.hour=0;if(S.exp&&S.exp.stage!=='done')S.exp.stage='out';mergePass();const g=income();S.gold+=g;toast(`Day ${S.day} begins: +${g} gold`);
   fetchShared(S.day);genChoices();
 }
 const isBossDay=()=>S.day%3===0;
 const EV_W={common:6,rare:3,legendary:1};
+// Swordsmith Village Forge (Claude #90): pay the price difference (x0.8) to raise an item one tier. Free version from level rewards.
+const forgeCost=it=>Math.max(2,Math.round((price(it.id,it.tier+1)-price(it.id,it.tier))*.8));
+function forgeOpts(free){const c=[...S.board,...S.stash].filter(i=>i.tier<MAX_TIER&&S.day>=TIER_DAY[i.tier+1]).sort((a,b)=>b.tier-a.tier||ITEMS[b.id].size-ITEMS[a.id].size).slice(0,6);
+  const o=c.map(it=>{const cost=free?0:forgeCost(it);return {label:`${ITEMS[it.id].name}: ${TIERS[it.tier]} → ${TIERS[it.tier+1]}${free?'':` (${cost} gold)`}`,act:()=>{if(!free&&S.gold<cost)return `You need ${cost} gold for that.`;if(!free)S.gold-=cost;it.tier++;sfx('merge');if(free)S.freeUps=Math.max(0,(S.freeUps||0)-1);return `Haganezuka hammers through the night. ${ITEMS[it.id].name} is now ${TIERS[it.tier]}!`}}});
+  if(!c.length)o.push({label:free?'Nothing can be upgraded yet. Save it for later':'Nothing can be upgraded yet. Leave',act:()=>'Nothing on your board can go up a tier today.'});
+  else if(!free)o.push({label:'Leave',act:()=>'You leave the forge.'});
+  return o}
+const FORGE_EV=0;
+// ---- event helpers (Claude #91) ----
+const hasTag=t=>S.board.some(i=>ITEMS[i.id].tags.includes(t));
+const evUp=(n=1,f=()=>true)=>{const c=shuffle(S.board.filter(i=>i.tier<MAX_TIER&&S.day>=TIER_DAY[i.tier+1]&&f(i))).slice(0,n);c.forEach(i=>i.tier++);return c};
+const evNames=c=>c.map(i=>`${ITEMS[i.id].name} (${TIERS[i.tier]})`).join(', ');
+const evGive=(id,t)=>acquire(id,t)?`${TIERS[t]} ${ITEMS[id].name} added.`:`No room for ${ITEMS[id].name}, so you leave it.`;
+const evSkill=()=>{S.pendingSkills++;if(!S.skillChoices)S.skillChoices=rollSkillChoices()};
+const evHP=v=>{S.skills.maxHp=(S.skills.maxHp||0)+v};
+// A hero story event: pick one of n of your hero items (a tier above the shop), or the event's own extra option
+function heroPickOpts(n,verb,extra=[]){const ids=shuffle(heroPool(S.hero.id).filter(id=>ownedTier(id)<MAX_TIER)).slice(0,n);
+  return [...ids.map(id=>{const t=Math.min(MAX_TIER,Math.max(rollTier(S.day)+1,ownedTier(id)));return {label:`${verb}: ${TIERS[t]} ${ITEMS[id].name}`,act:()=>evGive(id,t)}}),...extra]}
+// Quest rewards and progress (Claude #91): gold/XP, a hero item, random items or an enchantment
+function questPay(q){const out=[];if(q.reward){S.gold+=q.reward;out.push(`+${q.reward} gold`)}if(q.xp){gainXp(q.xp);out.push(`+${q.xp} XP`)}
+  if(q.item){const id=pick(heroPool(S.hero.id)),t=Math.min(MAX_TIER,q.itemTier??2);out.push(evGive(id,t))}
+  for(let k=0;k<(q.items||0);k++){const id=pick(ALL_SHOP.filter(x=>!ITEMS[x].hero||heroOwnsItem(S.hero.id,ITEMS[x])));out.push(evGive(id,Math.min(MAX_TIER,rollTier(S.day)+1)))}
+  if(q.ench){const c=S.board.filter(i=>!i.ench);if(c.length){const it=pick(c),k=pick(Object.keys(ENCH));it.ench=k;out.push(`${ITEMS[it.id].name} gained ${ENCH[k].name}`)}}
+  S.quest=null;setTimeout(()=>toast(`${q.title||'Quest'} complete! ${out.join(' · ')}`),1400)}
+function questWin(kind,hard){const q=S.quest;if(!q)return;
+  if(q.kind===kind&&(kind!=='elite'||hard))return questPay(q);
+  if(q.kind==='wins'&&(!q.elite||hard)&&kind!=='boss'){q.got=(q.got||0)+1;if(q.got>=q.need)questPay(q);else toast(`${q.title}: ${q.got}/${q.need}`)}}
 function pickEvent(){
-  const ok=EVENTS.map((e,i)=>({e,i})).filter(({e})=>S.day>=(e.minDay||1)&&S.day<=(e.maxDay||99)&&!(S.seenEv||[]).includes(e.title));
-  const pool=ok.length?ok:EVENTS.map((e,i)=>({e,i}));let tot=pool.reduce((a,x)=>a+EV_W[x.e.rarity||'common'],0),r=R()*tot;
+  const ok=EVENTS.map((e,i)=>({e,i})).filter(({e})=>!e.hidden&&(!e.hero||e.hero===S.hero.id)&&S.day>=(e.minDay||1)&&S.day<=(e.maxDay||99)&&!(S.seenEv||[]).includes(e.title));
+  const pool=ok.length?ok:EVENTS.map((e,i)=>({e,i})).filter(({e})=>!e.hidden&&(!e.hero||e.hero===S.hero.id));let tot=pool.reduce((a,x)=>a+EV_W[x.e.rarity||'common'],0),r=R()*tot;
   for(const x of pool){r-=EV_W[x.e.rarity||'common'];if(r<=0)return x.i}return pool[0].i;
 }
+// Claude #90 (Max 2026-11-15): Bazaar-style hours. One market (which kind rolls), one event, one fight, and a free pick.
+// ---- Day 9 Expedition (Claude #92) ----
+const EXP_DAY=9,EXP_GATES=[['fiery','🔥 Flame Gate'],['toxic','☠️ Miasma Gate'],['icy','❄️ Frost Gate']],EXP_TIER=['Bronze','Silver','Gold'];
+const expRelicPool=()=>Object.keys(ITEMS).filter(id=>ITEMS[id].special==='trophy'||ITEMS[id].special==='calamity');
+function expTraps(){const used=[],ts=shuffle([0,1,2]);return shuffle(EXP_GATES).map(([gate,label],i)=>{const t=ts[i],mon=genMonster(S.day,true,used);used.push(mon.name);
+  mon.hp=Math.round(mon.hp*(1+.2*t));mon.exp={stage:'trap',gate,t,label:`${label} trap · ${EXP_TIER[t]}`};return {type:'monster',hard:true,mon}})}
+function expGuardians(){const used=[];return [0,1,2].map(t=>{const mon=genMonster(S.day+2,true,used);used.push(mon.name);mon.hp=Math.round(mon.hp*(1.15+.2*t));mon.exp={stage:'guardian',t,label:`Gate Guardian · ${EXP_TIER[t]}`};return {type:'monster',hard:true,mon}})}
+function expWin(mon){const x=mon.exp;
+  if(x.stage==='trap'){const pool=shuffle([...new Set([...heroPool(S.hero.id),...neutralPoolFor(S.hero.id)])]).slice(0,3);
+    S.reward.items=pool.map(id=>{const it=mkInst(id,Math.min(MAX_TIER,rollTier(S.day)+x.t));it.ench=x.gate;return it});S.reward.note=`The vault behind the ${EXP_GATES.find(g=>g[0]===x.gate)[1]} opens. Next hour: the Gate Guardian.`;S.exp.stage='guardian'}
+  else{S.reward.items=shuffle(expRelicPool()).slice(0,3).map(id=>mkInst(id,[2,3,4][x.t]));S.reward.note='The Guardian falls. Claim one legendary relic.';S.exp.stage='done';META.counters.expeditions=(META.counters.expeditions||0)+1}}
+function expTicketRoll(mon){if(mon.exp||S.expTicket||S.exp||S.day<3||S.day>=EXP_DAY||R()>=.3)return;S.expTicket=true;S.reward.note=(S.reward.note?S.reward.note+' ':'')+'🗝️ It dropped a Gate Key! On Day 9 it opens the Expedition.'}
+function marketKind(){const guestOk=S.day>=2&&circleOf(S.hero.id)&&guestPool(S.hero.id,null).length;
+  const w=[['hero',40],['neutral',25],...(guestOk?[['guest',15]]:[]),...(S.day>=2?[['special',18]]:[]),...(S.day>=3?[['forge',12]]:[])];
+  let r=R()*w.reduce((a,x)=>a+x[1],0);for(const [k,v] of w){r-=v;if(r<=0)return k}return 'hero'}
+function rollGift(){const d=S.day,k=pick(['gold','gold','gold','xp','xp','hp','hp','item','item']);
+  if(k==='gold'){const v=3+Math.floor(d*1.2);return {k,v,label:`+${v} gold, +1 XP`}}
+  if(k==='xp'){const v=2+Math.floor(d/4);return {k,v,label:`+${v} XP`}}
+  if(k==='hp'){const v=10+d*4;return {k,v,label:`+${v} max HP for the run`}}
+  const id=pick(heroPool(S.hero.id)),t=Math.max(0,rollTier(d)-1);return {k,id,t,label:`Free ${TIERS[t]} ${ITEMS[id].name}`}}
 function genChoices(){
-  const base=[{type:'merchant',kind:'hero'},{type:'merchant',kind:'neutral'},{type:'event'},{type:'monster',hard:false},{type:'monster',hard:true}];
-  const guestOk=S.day>=2&&circleOf(S.hero.id)&&guestPool(S.hero.id,null).length;
-  const specOk=S.day>=2;let c=shuffle([...base,...(guestOk?[{type:'merchant',kind:'guest'}]:[]),...(specOk?[{type:'merchant',kind:'special'}]:[])]).slice(0,3);
-  if(!c.some(o=>o.type==='monster'))c[2]=base[3+rnd(2)];
+  let c=[{type:'merchant',kind:marketKind()},{type:'event'},{type:'monster',hard:R()<.5}];S.freeGift=rollGift();
   c=c.map(o=>o.kind==='guest'?{...o,tag:pickGuestTag(S.hero.id)}:o.kind==='special'?{...o,theme:pick(Object.keys(SPECIALTY))}:o);
   const bossHour=isBossDay()&&S.hour===HOURS-1&&!S.bossDoneToday;if(bossHour)c=[{type:'boss'}];
   const usedMon=[];
   S.choices=c.map(o=>o.type==='monster'?(()=>{const mon=genMonster(S.day,o.hard,usedMon);usedMon.push(mon.name);return {...o,mon}})():o.type==='boss'?{...o,mon:genBoss(S.day)}:o.type==='event'?{...o,ev:pickEvent()}:o);
   if(!bossHour&&S.day>=CALAMITY_MIN_DAY&&!S.calamityMet&&R()<CALAMITY_CHANCE){const mon=genCalamity(S.day);S.calamityMet=true;S.calamitiesSeen=[...(S.calamitiesSeen||[]),mon.name];S.choices.push({type:'monster',hard:true,mon});toast(`☄️ A Calamity has appeared: ${mon.name}! Once a run at most.`)}
+  if(!bossHour&&S.exp&&S.exp.stage==='trap')S.choices=expTraps();
+  else if(!bossHour&&S.exp&&S.exp.stage==='guardian')S.choices=expGuardians();
+  else if(!bossHour&&S.day===EXP_DAY&&S.expTicket&&!S.exp&&S.hour<=1)S.choices.push({type:'expedition'});
+  if(!bossHour&&S.freeUps>0)S.choices.push({type:'freeUp'});
   if(arcAvailable())S.choices.push({type:'ichigoArc'});
   if(tanjiroTrialAvailable())S.choices.push({type:'tanjiroTrial'});
   if(heroTrialAvailable())S.choices.push({type:'heroTrial'});
@@ -4814,7 +5346,7 @@ function finishHour(){
 }
 function gainXp(n){
   S.xp+=n;
-  while(S.xp>=XP_PER_LEVEL){S.xp-=XP_PER_LEVEL;S.level++;S.pendingSkills++;sfx('level');toast(`Level up! Level ${S.level}`)}
+  while(S.xp>=XP_PER_LEVEL){S.xp-=XP_PER_LEVEL;S.level++;S.pendingSkills++;sfx('level');toast(`Level up! Level ${S.level}`);if(S.level>=10&&S.level%5===0){S.freeUps=(S.freeUps||0)+1;toast('Level '+S.level+' reward: a free item upgrade!')}}
   if(S.pendingSkills>0&&!S.skillChoices)S.skillChoices=rollSkillChoices();
   if(S.level>=ULT_LEVEL&&!S.ultGiven&&!HERO_ULT_TRIALS[S.hero.id]){
     S.ultGiven=true;const inst=mkInst(S.hero.ult,Math.min(MAX_TIER,1+Math.floor(S.day/5)));
@@ -5041,6 +5573,7 @@ function saveGhost(){
 
 // ================= events =================
 const EVENTS=[
+ {title:'Swordsmith Village Forge',hidden:true,icon:'⚒️',text:'Haganezuka glares at your gear. "Hand it over. I\'ll make it worthy."',opts:()=>forgeOpts(false)},
  {title:'Hyperbolic Time Chamber',rarity:'rare',minDay:4,icon:'🏋️',text:'One year of training passes in a single day inside. The gravity is brutal.',opts:()=>[
    {label:'Train hard: upgrade a random board item',act:()=>{const c=S.board.filter(i=>i.tier<MAX_TIER&&S.day>=TIER_DAY[i.tier+1]);if(!c.length){gainXp(2);return 'Nothing can be upgraded yet today. +2 XP instead.'}const it=pick(c);it.tier++;return `${ITEMS[it.id].name} is now ${TIERS[it.tier]}!`}},
    {label:'Spar with Vegeta: +2 XP',act:()=>{gainXp(2);return '"Hmph. Not bad." +2 XP.'}}]},
@@ -5070,10 +5603,10 @@ const EVENTS=[
      it.id=nid;it.tier=Math.min(MAX_TIER,it.tier+1);it.bonus=0;return `${old} became a ${TIERS[it.tier]} ${ITEMS[nid].name}!`}},
    {label:'Sell him some rare minerals: +6 gold',act:()=>{S.gold+=6;return '+6 gold.'}}]},
  {title:'Hunter Exam',rarity:'common',minDay:2,icon:'📛',text:'The examiner hands you a number badge. "Pass tonight\'s duel and you\'ll earn a Hunter\'s fee."',opts:()=>{const r=10+S.day*2,fee=4+S.day;return [
-   {label:`Pay ${fee} gold to take the exam: win tonight's PvP fight for +${r} gold (lose it and the fee is gone)`,act:()=>{if(S.gold<fee)return 'You cannot afford the exam fee.';S.gold-=fee;S.quest={kind:'pvp',reward:r,day:S.day};return `Exam accepted (−${fee} gold). Win tonight's PvP fight to collect ${r} gold.`}},
+   {label:`Pay ${fee} gold to take the exam: win tonight's PvP fight for +${r} gold (lose it and the fee is gone)`,act:()=>{if(S.gold<fee)return 'You cannot afford the exam fee.';S.gold-=fee;S.quest={kind:'pvp',reward:r,day:S.day,title:'📛 Hunter Exam'};return `Exam accepted (−${fee} gold). Win tonight's PvP fight to collect ${r} gold.`}},
    {label:'Skip it: +2 gold for directions',act:()=>{S.gold+=2;return '+2 gold.'}}]}},
  {title:'Bounty Board',rarity:'common',minDay:1,maxDay:11,icon:'📋',text:'Wanted posters flutter on the board. One of them is circled in red.',opts:()=>{const r=12+S.day*2;return [
-   {label:`Take the bounty: beat an Elite monster today for +${r} gold`,act:()=>{S.quest={kind:'elite',reward:r,day:S.day};return `Bounty accepted. Defeat an Elite monster before tonight's PvP fight for ${r} gold.`}},
+   {label:`Take the bounty: beat an Elite monster today for +${r} gold`,act:()=>{S.quest={kind:'elite',reward:r,day:S.day,title:'📋 Bounty'};return `Bounty accepted. Defeat an Elite monster before tonight's PvP fight for ${r} gold.`}},
    {label:'Study the posters: +1 XP',act:()=>{gainXp(1);return '+1 XP.'}}]}},
  {title:'Capsule Corp Gacha',rarity:'common',minDay:1,icon:'💊',text:'Bulma\'s new capsule machine is humming. Every capsule holds a random item. Some are very rare.',opts:()=>{const c=5+S.day;return [
    {label:`Pull once (${c} gold)`,act:()=>{if(S.gold<c)return 'Not enough gold.';S.gold-=c;const id=pick(ALL_SHOP),t=rollTier(S.day+3);return acquire(id,t)?`The capsule pops: ${TIERS[t]} ${ITEMS[id].name}!`:'The capsule pops, but you have no room and it rolls away.'}},
@@ -5092,6 +5625,122 @@ const EVENTS=[
  {title:'Cat Burglar',rarity:'common',minDay:2,icon:'🍊',text:'Nami offers you a cut of tonight\'s heist. "No risk, no treasure."',opts:()=>{const r=10+S.day;return [
    {label:`Join the heist: 60% chance of +${r} gold, otherwise lose 5 gold`,act:()=>{if(R()<.6){S.gold+=r;return `Clean getaway! +${r} gold.`}S.gold=Math.max(0,S.gold-5);return 'The Marines show up. You drop 5 gold running away.'}},
    {label:'Decline: she tips you 2 gold anyway',act:()=>{S.gold+=2;return '+2 gold.'}}]}},
+ // ---- #91 new events (Claude 2026-11-15, Max 13:14): tiered by day, hidden options when your board has a tag, quests, trades, risks ----
+ {title:'Lost Wallet',icon:'👛',maxDay:5,text:'A frog-shaped wallet lies on the road. Gama-chan is suspiciously full.',opts:()=>[
+   {label:`Keep it: +${5+S.day} gold`,act:()=>{S.gold+=5+S.day;return `+${5+S.day} gold. Naruto will never know.`}},
+   {label:'Return it to its owner: +2 XP',act:()=>{gainXp(2);return 'Iruka thanks you with a lecture. +2 XP.'}},
+   ...(hasTag('Friend')?[{label:'🤝 (Friend) Your companion tracks the owner down: a random hero item',act:()=>{const id=pick(heroPool(S.hero.id));return evGive(id,rollTier(S.day+2))}}]:[])]},
+ {title:'Street Food Stall',icon:'🍢',text:'Yatai lanterns glow. The old man insists his skewers cure everything.',opts:()=>[
+   {label:`Eat (${2+S.day} gold): +${20+S.day*6} max HP`,act:()=>{const c=2+S.day;if(S.gold<c)return 'You can\'t afford it.';S.gold-=c;evHP(20+S.day*6);return `+${20+S.day*6} max HP for the run.`}},
+   {label:'Help at the grill: +4 gold',act:()=>{S.gold+=4;return '+4 gold.'}},
+   ...(hasTag('Food')?[{label:'🍙 (Food) Trade recipes: upgrade a random Food item',act:()=>{const c=evUp(1,i=>ITEMS[i.id].tags.includes('Food'));return c.length?`Upgraded ${evNames(c)}.`:(S.gold+=6,'No Food item could go higher today. +6 gold.')}}]:[])]},
+ {title:'Training Dummy Gauntlet',icon:'🥋',maxDay:6,text:'Rock Lee is running laps around the training ground. "Join me! Five hundred laps!"',opts:()=>[
+   {label:'Run with him: +3 XP',act:()=>{gainXp(3);return '+3 XP. Your legs are jelly.'}},
+   {label:'Take the ankle weights: +6% speed for the run',act:()=>{S.skills.speed=(S.skills.speed||0)+.06;return 'Your items are 6% faster for the rest of the run.'}},
+   ...(hasTag('Weapon')?[{label:'⚔️ (Weapon) Spar with your weapon: upgrade a random Weapon',act:()=>{const c=evUp(1,i=>ITEMS[i.id].tags.includes('Weapon'));return c.length?`Upgraded ${evNames(c)}.`:(gainXp(2),'Nothing could go higher today. +2 XP.')}}]:[])]},
+ {title:'Fortune Teller',icon:'🔮',text:'Baba the fortune teller peers into her crystal ball. "For a fee, I will show you a fighter from your future."',opts:()=>{const c=4+S.day;return [
+   {label:`Pay ${c} gold: a random item from any shop, one tier up`,act:()=>{if(S.gold<c)return 'She shoos you out.';S.gold-=c;const id=pick(ALL_SHOP);return evGive(id,Math.min(MAX_TIER,rollTier(S.day)+1))}},
+   {label:'Ask about love instead: +1 XP',act:()=>{gainXp(1);return '"Hmm... unclear." +1 XP.'}}]}},
+ {title:'Pawn Shop',icon:'🏷️',minDay:2,text:'Gintoki runs the counter today. He has no idea what anything is worth.',opts:()=>{const it=pick(S.board.filter(i=>!ITEMS[i.id].special));return [
+   ...(it?[{label:`Sell ${ITEMS[it.id].name} for double its value (${sellPrice(it)*2} gold)`,act:()=>{const g=sellPrice(it)*2;S.board=S.board.filter(x=>x!==it);S.gold+=g;return `Sold for ${g} gold. Gintoki spends it on a jumbo parfait.`}}]:[]),
+   {label:'Browse: +2 gold he owes you',act:()=>{S.gold+=2;return 'He pays back 2 of the 200 gold he owes you.'}}]}},
+ {title:'Wandering Bard',icon:'🎸',text:'Someone is playing guitar in the square. A small crowd forms.',opts:()=>[
+   {label:'Listen: +2 XP',act:()=>{gainXp(2);return '+2 XP.'}},
+   {label:'Toss a coin (1 gold): +4% crit for the run',act:()=>{if(S.gold<1)return 'Not even a coin.';S.gold-=1;S.skills.crit=(S.skills.crit||0)+.04;return 'The song stays with you. +4% crit.'}},
+   ...(hasTag('Friend')?[{label:'🤝 (Friend) Your friend joins the band: +1 skill',act:()=>{evSkill();return 'Choose a new skill.'}}]:[])]},
+ {title:'Shady Swap',icon:'🎭',minDay:2,text:'A hooded merchant offers a trade: one of your items for one of his. "Equal size, equal tier. Probably."',opts:()=>{const it=pick(S.board.filter(i=>!ITEMS[i.id].special));return [
+   ...(it?[{label:`Swap ${ITEMS[it.id].name} for a random item of the same size, one tier higher`,act:()=>{const sz=ITEMS[it.id].size,pool=ALL_SHOP.filter(id=>ITEMS[id].size===sz&&id!==it.id&&(!ITEMS[id].hero||heroOwnsItem(S.hero.id,ITEMS[id])));const nid=pick(pool),old=ITEMS[it.id].name;it.id=nid;it.tier=Math.min(MAX_TIER,it.tier+1);it.bonus=0;return `${old} became a ${TIERS[it.tier]} ${ITEMS[nid].name}.`}}]:[]),
+   {label:'Refuse: +3 gold for your time',act:()=>{S.gold+=3;return '+3 gold.'}}]}},
+ {title:'Abandoned Dojo',icon:'⛩️',minDay:2,maxDay:8,text:'Dust covers the training mats. Scrolls of forgotten techniques line the walls.',opts:()=>[
+   {label:'Study the scrolls: learn a skill',act:()=>{evSkill();return 'Choose your new skill.'}},
+   {label:'Loot the storeroom: a random item',act:()=>{const id=pick(neutralPoolFor(S.hero.id));return evGive(id,rollTier(S.day+1))}},
+   ...(hasTag('Spell')?[{label:'✨ (Spell) Decipher the sealed scroll: enchant a Spell',act:()=>{const c=S.board.filter(i=>!i.ench&&ITEMS[i.id].tags.includes('Spell'));if(!c.length){gainXp(2);return 'Every Spell is already enchanted. +2 XP.'}const it=pick(c),k=pick(Object.keys(ENCH));it.ench=k;return `${ITEMS[it.id].name} gained ${ENCH[k].name}.`}}]:[])]},
+ {title:'Arena Betting',icon:'🏟️',minDay:3,text:'The underground arena is taking bets on tonight\'s fight. Yours.',opts:()=>{const b=Math.min(S.gold,6+S.day*2);return [
+   {label:`Bet ${b} gold on yourself: win tonight's rival fight to get ${b*2} back`,act:()=>{if(b<1)return 'You have nothing to bet.';S.gold-=b;S.quest={kind:'pvp',reward:b*2,day:S.day,title:'🏟️ Arena bet: win tonight'};return `Bet placed. Win tonight for ${b*2} gold.`}},
+   {label:'Just watch: +1 XP',act:()=>{gainXp(1);return '+1 XP.'}}]}},
+ {title:'Sealing Jar',icon:'🏺',minDay:3,text:'A cursed jar hums on a shrine. Whatever it holds, it wants out.',opts:()=>[
+   {label:'Break the seal: a random item two tiers higher than usual, but lose 2 prestige',act:()=>{if(S.prestige<=2)return 'The jar won\'t open for someone so close to defeat.';S.prestige-=2;const id=pick(ALL_SHOP);return evGive(id,Math.min(MAX_TIER,rollTier(S.day)+2))+' −2 prestige.'}},
+   {label:'Reinforce the seal: +2 XP',act:()=>{gainXp(2);return '+2 XP.'}}]},
+ {title:'Rival Ambush',icon:'🗡️',minDay:3,text:'A masked rival blocks the path. "Show me what you\'ve got. Winner takes the purse."',opts:()=>{const r=12+S.day*2;return [
+   {label:`Accept: beat an Elite today for +${r} gold and +2 XP`,act:()=>{S.quest={kind:'elite',reward:r,xp:2,day:S.day,title:'🗡️ Rival ambush: beat an Elite today'};return `Challenge accepted. Beat an Elite today for ${r} gold and 2 XP.`}},
+   {label:'Slip away: +2 gold',act:()=>{S.gold+=2;return '+2 gold.'}}]}},
+ {title:'Chunin Exams',rarity:'rare',minDay:3,maxDay:8,icon:'📜',text:'The Third Hokage announces the exams. "Win three battles before the next sunset and you will be promoted."',opts:()=>[
+   {label:'Enter: win 3 fights (monsters, elites or rivals) by the end of tomorrow for a Gold hero item',act:()=>{S.quest={kind:'wins',need:3,got:0,day:S.day+1,item:true,title:'📜 Chunin Exams: win 3 fights'};return 'You enter the exams. Win 3 fights by the end of tomorrow.'}},
+   {label:'Watch from the stands: +2 XP',act:()=>{gainXp(2);return '+2 XP.'}}]},
+ {title:'Dungeon Break',rarity:'rare',minDay:4,icon:'🌀',text:'A blue gate tears open in the middle of the city. Hunters rush past you.',opts:()=>[
+   {label:'Raid it: beat a monster or Elite today for two random items',act:()=>{S.quest={kind:'wins',need:1,got:0,day:S.day,items:2,title:'🌀 Dungeon Break: win a fight today'};return 'Clear a fight today to claim the gate\'s loot.'}},
+   {label:'Sell your map of it: +8 gold',act:()=>{S.gold+=8;return '+8 gold.'}}]},
+ {title:'Hidden Leaf Hospital',icon:'🏥',minDay:2,text:'Sakura checks you over. "You\'re a mess. Sit still."',opts:()=>[
+   {label:`Full treatment (${4+S.day} gold): +${30+S.day*8} max HP`,act:()=>{const c=4+S.day;if(S.gold<c)return 'You can\'t afford it.';S.gold-=c;evHP(30+S.day*8);return `+${30+S.day*8} max HP for the run.`}},
+   {label:'Get a lecture instead: +1 XP',act:()=>{gainXp(1);return '+1 XP.'}}]},
+ {title:'Cursed Object Market',rarity:'rare',minDay:4,icon:'☠️',text:'Shady sorcerers trade in cursed fingers and worse. "Power always has a price."',opts:()=>[
+   {label:`Buy a curse: upgrade two random items, lose ${20+S.day*5} max HP`,act:()=>{const c=evUp(2);if(!c.length){S.gold+=8;return 'Nothing could go higher today. They give you 8 gold to go away.'}evHP(-(20+S.day*5));return `Upgraded ${evNames(c)}. Your body feels heavier (−${20+S.day*5} max HP).`}},
+   {label:'Walk away',act:()=>'Wise.'}]},
+ {title:'Hot Pot Night',icon:'🍲',text:'The whole crew squeezes around a bubbling hot pot. Someone brought way too much meat.',opts:()=>[
+   {label:'Eat: +25 max HP and +1 XP',act:()=>{evHP(25);gainXp(1);return '+25 max HP, +1 XP.'}},
+   ...(hasTag('Food')?[{label:'🍙 (Food) Cook the main dish: +1 skill',act:()=>{evSkill();return 'Everyone is impressed. Choose a skill.'}}]:[]),
+   ...(hasTag('Friend')?[{label:'🤝 (Friend) Share stories: +12% Friend speed for the run',act:()=>{S.skills.friendSpeed=(S.skills.friendSpeed||0)+.12;return 'Your Friends act 12% faster for the run.'}}]:[])]},
+ {title:'Blacksmith\'s Apprentice',icon:'🔨',minDay:2,text:'A nervous apprentice offers to sharpen your gear for practice. "I-I\'ve done this before! Twice!"',opts:()=>[
+   {label:'Let him try: 70% chance to upgrade a random item, 30% chance it loses its enchantment',act:()=>{if(R()<.7){const c=evUp(1);return c.length?`Success! ${evNames(c)}.`:(S.gold+=5,'Nothing could go higher today. +5 gold.')}const c=S.board.filter(i=>i.ench);if(c.length){const it=pick(c);it.ench=null;return `Oops. ${ITEMS[it.id].name} lost its enchantment.`}return 'He drops the hammer on his foot. Nothing happens.'}},
+   ...(hasTag('Weapon')?[{label:'⚔️ (Weapon) Show him proper technique: upgrade a Weapon, no risk',act:()=>{const c=evUp(1,i=>ITEMS[i.id].tags.includes('Weapon'));return c.length?`Upgraded ${evNames(c)}.`:(gainXp(2),'Nothing could go higher today. +2 XP.')}}]:[]),
+   {label:'Decline: +2 gold',act:()=>{S.gold+=2;return '+2 gold.'}}]},
+ {title:'Library of Ohara',rarity:'rare',minDay:3,icon:'📚',text:'Robin guides you through the stacks of the lost library. Forbidden history, stamped in stone.',opts:()=>[
+   {label:'Read the Poneglyph: +4 XP',act:()=>{gainXp(4);return '+4 XP.'}},
+   {label:'Copy a technique: learn a skill',act:()=>{evSkill();return 'Choose a skill.'}},
+   ...(hasTag('Relic')?[{label:'🗿 (Relic) Decode your Relic: upgrade every Relic',act:()=>{const c=S.board.filter(i=>ITEMS[i.id].tags.includes('Relic')&&i.tier<MAX_TIER&&S.day>=TIER_DAY[i.tier+1]);c.forEach(i=>i.tier++);return c.length?`Upgraded ${evNames(c)}.`:(gainXp(3),'Nothing could go higher today. +3 XP.')}}]:[])]},
+ {title:'Toxic Swamp',icon:'🧪',minDay:3,text:'Bubbling poison seeps from the ground. Something valuable glints at the bottom.',opts:()=>[
+   {label:'Dive in: a random item, lose 2 prestige',act:()=>{if(S.prestige<=2)return 'You\'re too weak to risk it.';S.prestige-=2;const id=pick(ALL_SHOP);return evGive(id,Math.min(MAX_TIER,rollTier(S.day)+1))+' −2 prestige.'}},
+   ...(hasTag('Toxin')?[{label:'☠️ (Toxin) Bottle the poison: upgrade every Toxin item',act:()=>{const c=S.board.filter(i=>ITEMS[i.id].tags.includes('Toxin')&&i.tier<MAX_TIER&&S.day>=TIER_DAY[i.tier+1]);c.forEach(i=>i.tier++);return c.length?`Upgraded ${evNames(c)}.`:(S.gold+=8,'Nothing could go higher today. +8 gold.')}}]:[]),
+   {label:'Go around: +1 XP',act:()=>{gainXp(1);return '+1 XP.'}}]},
+ {title:'Clone Factory',rarity:'rare',minDay:4,icon:'👥',text:'A lab full of glowing tanks. "We can copy anything. Once."',opts:()=>{const it=pick(S.board.filter(i=>!ITEMS[i.id].special&&ITEMS[i.id].size===1));return [
+   ...(it?[{label:`Copy ${ITEMS[it.id].name} (a Bronze copy)`,act:()=>evGive(it.id,0)}]:[]),
+   {label:`Sell them data: +${6+S.day} gold`,act:()=>{S.gold+=6+S.day;return `+${6+S.day} gold.`}}]}},
+ {title:'Tournament of Power',rarity:'legendary',minDay:7,icon:'🏆',text:'The Grand Priest smiles. "Win tonight and the Omni-King will reward you. Lose and..."',opts:()=>[
+   {label:'Enter: win tonight\'s rival fight for a Diamond hero item',act:()=>{S.quest={kind:'pvp',reward:0,item:true,itemTier:3,day:S.day,title:'🏆 Tournament of Power: win tonight'};return 'You\'re entered. Win tonight.'}},
+   {label:'Decline: +3 XP for watching',act:()=>{gainXp(3);return '+3 XP.'}}]},
+ {title:'Nen Water Divination',rarity:'rare',minDay:2,icon:'🍃',text:'Wing places a leaf on a glass of water. "Hold your hands around it and release your aura."',opts:()=>[
+   {label:`Enhancer (water rises): +${4+S.day} Weapon damage for the run`,act:()=>{S.skills.weaponDmg=(S.skills.weaponDmg||0)+4+S.day;return `The water overflows. +${4+S.day} Weapon damage.`}},
+   {label:'Emitter (water changes colour): +8% speed for the run',act:()=>{S.skills.speed=(S.skills.speed||0)+.08;return 'The water turns blue. Items 8% faster.'}},
+   {label:'Specialist (something strange happens): +8% crit for the run',act:()=>{S.skills.crit=(S.skills.crit||0)+.08;return 'The leaf spins. +8% crit.'}}]},
+ {title:'Cherry Blossom Festival',icon:'🌸',maxDay:9,text:'Petals drift everywhere. Stalls sell masks, candy apples and goldfish.',opts:()=>[
+   {label:'Goldfish scooping: +3 XP',act:()=>{gainXp(3);return '+3 XP.'}},
+   {label:'Buy a mask (3 gold): a random Friend item',act:()=>{if(S.gold<3)return 'You can\'t afford it.';S.gold-=3;const f=[...heroPool(S.hero.id),...neutralPoolFor(S.hero.id)].filter(id=>ITEMS[id].tags.includes('Friend')),pool=f.length?f:heroPool(S.hero.id);return evGive(pick(pool),rollTier(S.day))}}]},
+ {title:'Demon Hunt Contract',rarity:'rare',minDay:5,icon:'👹',text:'The Demon Slayer Corps crow lands on your shoulder. "CAW! Demon sighted! Two Elites! CAW!"',opts:()=>[
+   {label:'Take it: beat 2 Elites by the end of tomorrow for an enchantment and +20 gold',act:()=>{S.quest={kind:'wins',elite:true,need:2,got:0,day:S.day+1,ench:true,reward:20,title:'👹 Demon hunt: beat 2 Elites'};return 'The crow leads the way.'}},
+   {label:'Feed the crow: +1 XP',act:()=>{gainXp(1);return 'CAW. +1 XP.'}}]},
+ {title:'Mysterious Island',rarity:'legendary',minDay:8,icon:'🏝️',text:'Your ship washes up on an island that isn\'t on any map. Treasure, ruins, and something huge in the trees.',opts:()=>[
+   {label:'Explore the ruins: upgrade your three highest-tier items',act:()=>{const c=S.board.filter(i=>i.tier<MAX_TIER&&S.day>=TIER_DAY[i.tier+1]).sort((a,b)=>b.tier-a.tier).slice(0,3);c.forEach(i=>i.tier++);return c.length?`Upgraded ${evNames(c)}.`:(S.gold+=30,'Nothing could go higher. +30 gold.')}},
+   {label:'Dig for treasure: +45 gold',act:()=>{S.gold+=45;return '+45 gold.'}},
+   {label:'Befriend the beast: +2 skills',act:()=>{S.pendingSkills+=2;if(!S.skillChoices)S.skillChoices=rollSkillChoices();return 'Choose your skills.'}}]},
+ {title:'Gravity Training',rarity:'rare',minDay:5,icon:'🌍',text:'Capsule Corp\'s gravity room is free tonight. 100 times Earth\'s gravity.',opts:()=>[
+   {label:'Train at 100x: upgrade a random item and +2 XP, lose 1 prestige',act:()=>{if(S.prestige<=1)return 'You\'d never survive it right now.';S.prestige-=1;const c=evUp(1);gainXp(2);return (c.length?`Upgraded ${evNames(c)}. `:'')+'+2 XP. −1 prestige.'}},
+   {label:'Train at 10x: +2 XP',act:()=>{gainXp(2);return '+2 XP.'}}]},
+ {title:'Spirit Bomb',rarity:'legendary',minDay:9,icon:'🌕',text:'Everyone raises their hands to the sky. The energy of the whole crowd gathers above you.',opts:()=>[
+   {label:'Gather it into your weapons: upgrade every Weapon',act:()=>{const c=S.board.filter(i=>ITEMS[i.id].tags.includes('Weapon')&&i.tier<MAX_TIER&&S.day>=TIER_DAY[i.tier+1]);c.forEach(i=>i.tier++);return c.length?`Upgraded ${evNames(c)}.`:(S.gold+=30,'Nothing could go higher. +30 gold.')}},
+   {label:'Gather it into your friends: upgrade every Friend',act:()=>{const c=S.board.filter(i=>ITEMS[i.id].tags.includes('Friend')&&i.tier<MAX_TIER&&S.day>=TIER_DAY[i.tier+1]);c.forEach(i=>i.tier++);return c.length?`Upgraded ${evNames(c)}.`:(S.gold+=30,'Nothing could go higher. +30 gold.')}},
+   {label:'Gather it into yourself: +200 max HP',act:()=>{evHP(200);return '+200 max HP.'}}]},
+ // ---- hero story events (one per hero) ----
+ {title:'Jiraiya\'s Training',hero:'naruto',rarity:'rare',minDay:2,icon:'🐸',text:'The Pervy Sage pops out of the bushes. "Kid, I\'ll teach you something special. Choose."',opts:()=>heroPickOpts(2,'Learn it',[{label:`Sage Mode on Mount Myoboku: +${4+S.day} Weapon damage for the run`,act:()=>{S.skills.weaponDmg=(S.skills.weaponDmg||0)+4+S.day;return `+${4+S.day} Weapon damage.`}}])},
+ {title:'King Kai\'s Planet',hero:'goku',rarity:'rare',minDay:2,icon:'🪐',text:'Ten times gravity, a monkey named Bubbles and a man who loves bad jokes.',opts:()=>heroPickOpts(2,'Master it',[{label:'Catch Bubbles: +8% speed for the run',act:()=>{S.skills.speed=(S.skills.speed||0)+.08;return 'Items 8% faster.'}}])},
+ {title:'Pride of the Saiyans',hero:'vegeta',rarity:'rare',minDay:2,icon:'👑',text:'"I am the prince of all Saiyans!" Vegeta refuses to lose to Kakarot again.',opts:()=>heroPickOpts(2,'Train with it',[{label:'Push past your limit: upgrade a random item, lose 1 prestige',act:()=>{if(S.prestige<=1)return 'Not now.';S.prestige--;const c=evUp(1);return c.length?`Upgraded ${evNames(c)}. −1 prestige.`:'Nothing could go higher. −1 prestige.'}}])},
+ {title:'Rayleigh\'s Haki Training',hero:'luffy',rarity:'rare',minDay:2,icon:'🎩',text:'Two years on Rusukaina Island. Rayleigh lights his pipe: "Haki first."',opts:()=>heroPickOpts(2,'Train with it',[{label:'Learn Armament Haki: +12% crit for the run',act:()=>{S.skills.crit=(S.skills.crit||0)+.12;return '+12% crit.'}}])},
+ {title:'Urokodaki\'s Boulder',hero:'tanjiro',rarity:'rare',minDay:2,icon:'🪨',text:'"Cut the boulder." Sabito and Makomo watch from the mist.',opts:()=>heroPickOpts(2,'Learn the form',[{label:'Cut the boulder: upgrade a random Weapon',act:()=>{const c=evUp(1,i=>ITEMS[i.id].tags.includes('Weapon'));return c.length?`Upgraded ${evNames(c)}.`:(gainXp(3),'+3 XP.')}}])},
+ {title:'Jujutsu High Exchange Event',hero:'gojo',rarity:'rare',minDay:2,icon:'🏫',text:'Kyoto versus Tokyo. Gojo shows up late with souvenirs.',opts:()=>heroPickOpts(2,'Teach it',[{label:'Hand out souvenirs: +1 skill',act:()=>{evSkill();return 'Choose a skill.'}}])},
+ {title:'The Truth Behind the Gate',hero:'edward',rarity:'rare',minDay:3,icon:'🚪',text:'Truth grins at you. "Equivalent exchange, alchemist."',opts:()=>heroPickOpts(2,'Pay the toll for it',[{label:'Give up 2 prestige: upgrade two random items',act:()=>{if(S.prestige<=2)return 'Truth says you have nothing left to give.';S.prestige-=2;const c=evUp(2);return (c.length?`Upgraded ${evNames(c)}.`:'Nothing could go higher.')+' −2 prestige.'}}])},
+ {title:'Flamme\'s Grave',hero:'frieren',rarity:'rare',minDay:2,icon:'💐',text:'A field of blue moon-weed. Frieren remembers her master\'s lessons.',opts:()=>heroPickOpts(2,'Remember it',[{label:'Collect a useless spell: +3 XP',act:()=>{gainXp(3);return 'A spell that makes flowers bloom. +3 XP.'}}])},
+ {title:'All Might\'s Beach Cleanup',hero:'deku',rarity:'rare',minDay:2,icon:'🏖️',text:'Ten months of hauling trash to become a vessel for One For All.',opts:()=>heroPickOpts(2,'Earn it',[{label:'Finish the beach: +60 max HP',act:()=>{evHP(60);return '+60 max HP.'}}])},
+ {title:'Urahara\'s Shop Basement',hero:'ichigo',rarity:'rare',minDay:2,icon:'🎐',text:'Underneath the candy shop, a huge training ground. Urahara fans himself. "Shall we begin?"',opts:()=>heroPickOpts(2,'Learn it',[{label:'Train with Yoruichi: +8% speed',act:()=>{S.skills.speed=(S.skills.speed||0)+.08;return 'Items 8% faster.'}}])},
+ {title:'Survey Corps Expedition',hero:'levi',rarity:'rare',minDay:2,icon:'🐎',text:'Beyond the walls at dawn. Erwin raises his sword.',opts:()=>heroPickOpts(2,'Requisition it',[{label:`Scout the formation: +${4+S.day} Weapon damage`,act:()=>{S.skills.weaponDmg=(S.skills.weaponDmg||0)+4+S.day;return `+${4+S.day} Weapon damage.`}}])},
+ {title:'Supermarket Sale',hero:'saitama',rarity:'rare',minDay:2,icon:'🛒',text:'Cabbage is half price today. This is the most important battle of the week.',opts:()=>heroPickOpts(2,'Grab it',[{label:'Get the cabbage: +30 max HP and +6 gold',act:()=>{evHP(30);S.gold+=6;return '+30 max HP, +6 gold.'}}])},
+ {title:'Double Dungeon',hero:'jinwoo',rarity:'rare',minDay:3,icon:'🗿',text:'The statue in the temple smiles. The System window opens: "Will you accept?"',opts:()=>heroPickOpts(2,'Arise',[{label:'Accept the quest: +4 XP',act:()=>{gainXp(4);return '+4 XP. [Level up!]'}}])},
+ {title:'Nazarick Treasury',hero:'ainz',rarity:'rare',minDay:3,icon:'💀',text:'Pandora\'s Actor salutes dramatically among the piles of gold. "Wenn es meines Gottes Wille!"',opts:()=>heroPickOpts(2,'Take it',[{label:`Take some gold: +${15+S.day*2} gold`,act:()=>{S.gold+=15+S.day*2;return `+${15+S.day*2} gold.`}}])},
+ {title:'Makima\'s Request',hero:'denji',rarity:'rare',minDay:2,icon:'🐕',text:'"Denji-kun, if you do this for me, I\'ll grant you one wish."',opts:()=>heroPickOpts(2,'Get it',[{label:'Ask for bread with jam: +40 max HP',act:()=>{evHP(40);return '+40 max HP.'}}])},
+ {title:'The Inner Court Garden',hero:'maomao',rarity:'rare',minDay:2,icon:'🌿',text:'Rare herbs grow behind the jade pavilion. Jinshi pretends not to watch you taste them.',opts:()=>heroPickOpts(2,'Brew it',[{label:'Taste the poisons: +10% crit',act:()=>{S.skills.crit=(S.skills.crit||0)+.1;return '+10% crit. Delicious.'}}])},
+ {title:'Sisters Network',hero:'misaka',rarity:'rare',minDay:3,icon:'📡',text:'Ten thousand voices on the Misaka Network. "Misaka will help, says Misaka."',opts:()=>heroPickOpts(2,'Download it',[{label:'Share the load: +8% speed',act:()=>{S.skills.speed=(S.skills.speed||0)+.08;return 'Items 8% faster.'}}])},
+ {title:'Nudist Beach Hideout',hero:'ryuko',rarity:'rare',minDay:2,icon:'🏴',text:'Aikuro shows up shirtless with blueprints. "Life Fibers can be fought."',opts:()=>heroPickOpts(2,'Equip it',[{label:'Take the plans: upgrade a random Apparel or Weapon',act:()=>{const c=evUp(1,i=>ITEMS[i.id].tags.some(t=>t==='Apparel'||t==='Weapon'));return c.length?`Upgraded ${evNames(c)}.`:(gainXp(2),'+2 XP.')}}])},
+ {title:'Egypt Road Trip',hero:'jotaro',rarity:'rare',minDay:2,icon:'🐫',text:'Fifty days to Cairo. Polnareff lost the map again.',opts:()=>heroPickOpts(2,'Pick it up',[{label:'Take the scenic route: +3 XP',act:()=>{gainXp(3);return '+3 XP. Yare yare.'}}])},
+ {title:'Union Round Table',hero:'andy',rarity:'rare',minDay:3,icon:'🃏',text:'Juiz calls the Union to order. A new Rule must be captured.',opts:()=>heroPickOpts(2,'Claim it',[{label:'Take a seat at the table: +1 skill',act:()=>{evSkill();return 'Choose a skill.'}}])},
+ {title:'Company 8 Night Patrol',hero:'shinra',rarity:'rare',minDay:2,icon:'🚒',text:'An Infernal sighting downtown. Obi hands out assignments.',opts:()=>heroPickOpts(2,'Requisition it',[{label:'Douse the fire: +8 gold and +1 XP',act:()=>{S.gold+=8;gainXp(1);return '+8 gold, +1 XP.'}}])},
 ];
 
 // ================= audio (synthesized, no files) =================
@@ -5432,23 +6081,26 @@ function stageHTML(){
   if(S.phase==='heroTrial')return heroTrialHTML();
   if(S.phase==='choose'){
     const ab=actBoss(S.day),dia=(S.day-1)%3,bi=BOSSES.find(b=>b[0]===ab);
-    const quest=S.quest?`<span class="questchip">${S.quest.kind==='pvp'?'📛 Hunter Exam: win tonight\'s PvP':'📋 Bounty: beat an Elite today'} (+${S.quest.reward}g)</span>`:'';
+    const gateKey=S.expTicket?`<span class="questchip">🗝️ Gate Key: opens the Day ${EXP_DAY} Expedition</span>`:'';const quest=gateKey+(S.quest?`<span class="questchip">${S.quest.title&&S.quest.kind==='wins'?esc(S.quest.title)+` (${S.quest.got||0}/${S.quest.need}${S.quest.day>S.day?', ends tomorrow':', today'})`:S.quest.title&&!/^(📛|📋)/.test(S.quest.title)?esc(S.quest.title):S.quest.kind==='pvp'?'📛 Hunter Exam: win tonight\'s PvP':'📋 Bounty: beat an Elite today'}${S.quest.reward?` (+${S.quest.reward}g)`:''}</span>`:'');
     return `<div class="acthd"><h2>Where to next?</h2><span class="actbar">Act ${actOf(S.day)+1} · The road to ${bi?bi[1]:''} <b>${esc(ab)}</b> · ${dia===2?'Boss day':'Day '+(dia+1)+' of 3'}</span>${quest}</div>${rulesIntroHTML()}${S.choices.length===1&&S.choices[0].type==='boss'?`<p class="small bossonly">⚠ The boss blocks the road tonight. There is no way around it: losing costs ${bossLoss()} prestige.</p>`:''}<div class="choices">${S.choices.map((c,i)=>{
       if(c.type==='ichigoArc')return `<button class="choice event ev-rare" data-act="choose" data-arg="${i}"><div class="kind">Ichigo exclusive</div><div class="big">📛</div><h3>${arcState().stage==='reward'?'Claim Fullbring reward':'Xcution Invitation'}</h3><div class="small">${arcState().stage==='reward'?'Your earned reward is waiting':'Inspect a difficult optional trial'}</div></button>`;
       if(c.type==='tanjiroTrial')return `<button class="choice event ev-rare" data-act="choose" data-arg="${i}">${skillArtHTML(TRANSPARENT_WORLD_SKILL)}<div class="kind">Rare · Tanjiro exclusive</div><h3>${tanjiroTrialState().stage==='earned'?'Claim Transparent World':'Tanjuro’s Lesson'}</h3><div class="small">${tanjiroTrialState().stage==='earned'?'Your earned skill is waiting':'Inspect the two-elite mastery challenge'}</div></button>`;
       if(c.type==='heroTrial')return `<button class="choice event ev-rare" data-act="choose" data-arg="${i}">${skillArtHTML(heroTrialConfig().skill)}<div class="kind">${S.hero.short} exclusive · ${storyArc()?'story arc':'difficult trial'}</div><h3>${heroTrialState().stage==='reward'?'Claim earned reward':storyArc()?storyArc().title:heroTrialConfig().title}</h3><div class="small">${heroTrialState().stage==='reward'?'Choose an ultimate or '+heroTrialConfig().skill.name:heroTrialState().stage==='rivalReady'?'Face '+esc(storyArc().rivalForm):storyArc()?'Begin the arc: '+esc(storyArc().story.name)+', then '+esc(storyArc().rivalForm):'Inspect the ultimate unlock challenge'}</div></button>`;
+      if(c.type==='expedition')return `<button class="choice event ev-legendary" data-act="choose" data-arg="${i}"><div class="kind">Expedition · uses your Gate Key</div><div class="big">🌀</div><h3>The Double Gate</h3><div class="small">Gate trap, vault, Guardian, legendary relic. Fail and you're thrown back out.</div></button>`;
+      if(c.type==='freeUp')return `<button class="choice event ev-legendary" data-act="choose" data-arg="${i}"><div class="kind">Level reward · free</div><div class="big">⚒️</div><h3>Free upgrade</h3><div class="small">Upgrade one item a tier. Doesn't use the hour.</div></button>`;
+      if(c.type==='merchant'&&c.kind==='forge')return `<button class="choice shop" data-act="choose" data-arg="${i}"><div class="kind">Specialty Merchant</div><div class="big">⚒️</div><h3>Swordsmith Village Forge</h3><div class="small">Pay to upgrade your items</div></button>`;
       if(c.type==='merchant')return c.kind==='hero'
         ?`<button class="choice shop" data-act="choose" data-arg="${i}"><div class="kind">Merchant</div><div class="big">🛒</div><h3>${S.hero.short}'s Shop</h3><div class="small">Hero items for your build</div></button>`
         :c.kind==='special'&&MERCHANT_SCENES[c.theme]?`<button class="choice shop" data-act="choose" data-arg="${i}"><div class="kind">Specialty Merchant</div><div class="big">${MERCHANT_SCENES[c.theme].icon}</div><h3>${esc(MERCHANT_SCENES[c.theme].name)}</h3><div class="small"><b>${SPECIALTY[c.theme].only}</b> · ${esc(MERCHANT_SCENES[c.theme].speaker)}</div></button>`
         :c.kind==='guest'?`<button class="choice shop" data-act="choose" data-arg="${i}"><div class="kind">Merchant</div><div class="big">${circleShop().icon}</div><h3>${esc(circleShop().name)}</h3><div class="small">${esc(circleShop().card)}${c.tag?' · '+esc(tagPlural(c.tag))+' today':''}</div></button>`
         :`<button class="choice shop" data-act="choose" data-arg="${i}"><div class="kind">Merchant</div><div class="big">🏪</div><h3>Wandering Merchant</h3><div class="small">General goods</div></button>`;
-      if(c.type==='event'){const e=EVENTS[c.ev],rr=e.rarity||'common';return `<button class="choice event ev-${rr}" data-act="choose" data-arg="${i}"><div class="kind">${rr==='common'?'Event':rr==='rare'?'Rare Event':'Legendary Event'}</div><div class="big">${e.icon}</div><h3>${e.title}</h3><div class="small">Something is happening…</div></button>`}
+      if(c.type==='event'){const e=EVENTS[c.ev],rr=e.rarity||'common';return `<button class="choice event ev-${rr}" data-act="choose" data-arg="${i}"><div class="kind">${e.hero?S.hero.short+' story event':rr==='common'?'Event':rr==='rare'?'Rare Event':'Legendary Event'}</div><div class="big">${e.icon}</div><h3>${e.title}</h3><div class="small">Something is happening…</div></button>`}
       const m=c.mon;
       const ins=`<button class="inspect" data-act="inspect" data-arg="${i}" aria-label="Inspect ${esc(m.name)}">🔍 Inspect</button>`;
       if(c.type==='boss')return `<div class="cwrap"><button class="choice boss" data-act="choose" data-arg="${i}"><div class="kind">⚠ Boss</div><div class="big">${m.icon}</div><h3>${m.name}</h3><div class="small"><i>${m.series}</i>${ARENAS[m.name]?` · Arena: ${ARENAS[m.name].name}`:''}<br>❤️ ${m.hp} · 🛡 ${m.skills.startShield} · Reward 💰${m.gold} ⭐${m.xp} + rare item</div></button>${ins}</div>`;
       if(m.calamity)return `<div class="cwrap"><button class="choice boss calam" data-act="choose" data-arg="${i}"><div class="kind">☄️ Calamity · once a run at most</div><div class="big">${m.icon}</div><h3>${esc(m.name)}</h3><div class="small"><i>${esc(m.series)}</i><br>❤️ ${m.hp} · 🛡 ${m.skills.startShield} · Optional · exclusive item guaranteed${ARENAS[m.name]?`<br>Arena: ${esc(ARENAS[m.name].name)}`:''}</div></button>${ins}</div>`;
-      return `<div class="cwrap"><button class="choice ${m.hard?'elite':'mon'}" data-act="choose" data-arg="${i}"><div class="kind">${m.hard?'Elite Monster':'Monster'}${m.forces?` · ${esc(BOSS_SHORT[m.forces]||m.forces)}'s ${m.rank===2?'lieutenant':'forces'}`:' · Wandering'}</div><div class="big">${m.icon}</div><h3 class="${m.hard?'elite':''}">${m.name}</h3><div class="small"><i>${m.series}</i><br>❤️ ${m.hp} · ${m.items.length} items${m.buildVersion?' · themed loot':''} · Reward 💰${m.gold} ⭐${m.xp} + item</div></button>${ins}</div>`;
-    }).join('')}</div>${S.choices.some(c=>c.type==='boss')?'':`<div class="restrow"><button class="restbtn" data-act="rest">🏕️ Rest by the fire <span class="small">+${2+Math.floor(S.day/3)} gold, +1 XP</span></button></div>`}`;
+      return `<div class="cwrap"><button class="choice ${m.hard?'elite':'mon'}" data-act="choose" data-arg="${i}"><div class="kind">${m.exp?'🌀 '+esc(m.exp.label):m.hard?'Elite Monster':'Monster'}${m.forces?` · ${esc(BOSS_SHORT[m.forces]||m.forces)}'s ${m.rank===2?'lieutenant':'forces'}`:' · Wandering'}</div><div class="big">${m.icon}</div><h3 class="${m.hard?'elite':''}">${m.name}</h3><div class="small"><i>${m.series}</i><br>❤️ ${m.hp} · ${m.items.length} items${m.buildVersion?' · themed loot':''} · Reward 💰${m.gold} ⭐${m.xp} + item</div></button>${ins}</div>`;
+    }).join('')}</div>${S.choices.some(c=>c.type==='boss')?'':`<div class="restrow"><button class="restbtn" data-act="rest">🎁 Free pick <span class="small">${esc((S.freeGift||{}).label||('+'+(2+Math.floor(S.day/3))+' gold, +1 XP'))}</span></button></div>`}`;
   }
   if(S.phase==='merchant'){
     const M=S.merchant,rc=rerollCost();
@@ -5578,8 +6230,14 @@ function historyHTML(){
   ${rows||'<p class="small" style="text-align:center">No finished runs yet. Your final board shows up here after each run.</p>'}
   <div class="btns" style="justify-content:center"><button class="primary" data-act="toTitle">Back</button></div></div>`;
 }
+// Anonymous run stats (Claude 2026-11-14): one summary per finished run, no name or profile; Settings > Privacy turns it off.
+function statFight(f,w){if(!S||S.daily||!f||!f.stat||!f.stat.kind||!f.stat.foe)return;const L=S.statFights=S.statFights||[];if(L.length<120)L.push({...f.stat,won:w==='a'});
+  if(f.a&&f.a.res){const P=S.statPairs=S.statPairs||[];for(const k of Object.keys(f.a.res))if(!P.includes(k)&&P.length<30)P.push(k)}}
+function statSend(){if(!S||S.statSent||S.abandoned||S.daily||!SET.shareStats||!FriendSync.on)return;S.statSent=true;
+  const b=crypto.getRandomValues(new Uint8Array(16));let t='';for(const x of b)t+=String.fromCharCode(x);const rid=btoa(t).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  FriendSync.runStats({rid,hero:S.hero.id,diff:S.diff||'casual',result:S.wins>=WINS_NEEDED?'win':'loss',day:S.day,wins:S.wins,losses:S.losses,items:S.board.slice(0,12).map(i=>({id:i.id,tier:i.tier})),fights:(S.statFights||[]).slice(0,120),pairs:(S.statPairs||[]).slice(0,30)})}
 function endHTML(){
-  const won=S.wins>=WINS_NEEDED;
+  const won=S.wins>=WINS_NEEDED;statSend();
   return `<div class="wrap"><div class="result velvet"><h2 class="${won?'win':'lose'}">${won?'Champion!':S.abandoned?'Run Abandoned':'Run Over'}</h2>
   <p>${esc(myName())} · ${S.hero.name} · ${DIFFS[S.diff||'casual'].name} · Day ${S.day} · Hero level ${S.level}${S.daily?' · Daily '+S.daily:''}<br>🏆 ${S.wins} wins · ${S.losses} losses · ${S.bossesBeaten} bosses defeated</p>${!won&&!S.abandoned&&S.prestige<=0?`<p class="small">Your prestige ran out: every rival loss (and half of each boss loss) costs prestige, and at 0 the run ends.</p>`:''}
   ${won?`<p class="small">Title stars for ${S.hero.short}: ${'★'.repeat(mastery(S.hero.id))}${'☆'.repeat(3-mastery(S.hero.id))}</p>`:''}
@@ -5971,6 +6629,7 @@ function startCombat(enemy,kind,onEnd,preparePlayer){
   if(preparePlayer)preparePlayer(A);
   F={a:A,b:B,ticks:0,acc:0,last:0,kind,onEnd,over:false,winner:null,speed:SET.fightSpeed||1,skipping:false,log:[],projs:0,arena:kind==='boss'||enemy.calamity?ARENAS[enemy.name]||null:null};
   F.bossTrait=kind==='boss'&&enemy.bossTrait||null;if(F.bossTrait)for(const it of B.items)if(it.def.id===F.bossTrait.item)it.tr=F.bossTrait;
+  F.stat={kind:kind==='pvp'?'pvp':kind==='boss'?'boss':enemy.calamity?'calamity':(kind==='heroTrial'||kind==='arc')?'trial':kind==='practice'?null:enemy.hard?'elite':'monster',foe:String(enemy.name||'').split(' — ')[0].replace(/ \(.*\)$/,'').slice(0,60),day:S.day};
   SCREEN='combat';buildCombat();log(null,`Fight start: ${A.name} vs ${B.name}`);for(const side of [A,B])if(side.edgeGuardShield)log(side,`🖤 Armament Haki: +${side.edgeGuardShield} Shield from edge Weapons`);for(const [sd,op] of [[A,B],[B,A]])if(sd.sk&&sd.sk.openFreeze>0){const big=[...op.items].sort((x,y)=>y.def.size-x.def.size||x.idx-y.idx).slice(0,2);for(const it of big)it.freeze=Math.max(it.freeze||0,sd.sk.openFreeze);log(sd,`👑 Conqueror's Haki: ${big.map(i=>i.def.name).join(' and ')} Frozen ${sd.sk.openFreeze}s`)}
   for(const [me,foe] of [[A,B],[B,A]])for(const it of me.items)if(it.def.opening&&!it.broken){useItem(me,foe,it);log(me,`${it.def.icon} ${it.def.name}: ${kw('Head Start')}`)}
   for(const [me,foe] of [[A,B],[B,A]])rewriteStart(me,foe);
@@ -7128,7 +7787,8 @@ const bossLoss=()=>Math.max(1,Math.ceil(prestigeLoss()/2));
 // rival losses in a row (one per night, from tonight) before prestige runs out
 function lossesLeft(){let p=S.prestige,d=S.day,n=0;while(p>0&&n<60){p-=Math.max(1,lossCostOn(d));d++;n++}return n}
 const rerollCost=()=>D().reroll?3+2*(S.merchant?S.merchant.rerolls:0)+Math.floor(S.day/3):2+(S.merchant?S.merchant.rerolls:0)+Math.floor(S.day/4);
-const shopItems=pool=>{const ids=[...new Set(pool)],out=[];for(let k=0;k<4;k++){const left=ids.filter(id=>!out.some(o=>o.id===id));out.push({...mkInst(left.length?pick(left):pick(pool),rollTier(S.day)),sold:false})}return out};
+const ownedTier=id=>{let t=-1;for(const it of [...S.board,...S.stash])if(it.id===id)t=Math.max(t,it.tier);return t};
+const shopItems=pool=>{const ids=[...new Set(pool)].filter(id=>ownedTier(id)<MAX_TIER),src=ids.length?ids:pool,out=[];for(let k=0;k<4;k++){const left=src.filter(id=>!out.some(o=>o.id===id)),id=left.length?pick(left):pick(src);out.push({...mkInst(id,Math.min(MAX_TIER,Math.max(rollTier(S.day),ownedTier(id)))),sold:false})}return out};
 const ACT={
   hero:id=>newRun(id),
   daily:()=>{const d=dailyInfo();newRun(d.hero.id,d)},
@@ -7139,7 +7799,10 @@ const ACT={
   quit:()=>{saveRun();SCREEN='title'},
   hof:()=>{SCREEN='hof'},
   history:()=>{SCREEN='history'},
-  rest:()=>{if(!S||S.phase!=='choose'||S.choices.some(c=>c.type==='boss'))return;const g=2+Math.floor(S.day/3);S.gold+=g;gainXp(1);toast(`Rested: +${g} gold, +1 XP`);sfx('click');finishHour()},
+  rest:()=>{if(!S||S.phase!=='choose'||S.choices.some(c=>c.type==='boss'))return;const f=S.freeGift||{k:'gold',v:2+Math.floor(S.day/3),label:''};
+    if(f.k==='gold'){S.gold+=f.v;gainXp(1);toast(`Free pick: +${f.v} gold, +1 XP`)}else if(f.k==='xp'){gainXp(f.v);toast(`Free pick: +${f.v} XP`)}
+    else if(f.k==='hp'){S.skills.maxHp=(S.skills.maxHp||0)+f.v;toast(`Free pick: +${f.v} max HP`)}else if(!acquire(f.id,f.t)){const g=3+S.day;S.gold+=g;toast(`No room for ${ITEMS[f.id].name}: +${g} gold instead`)}else toast(`Free pick: ${TIERS[f.t]} ${ITEMS[f.id].name}`);
+    sfx('click');finishHour()},
   closeDetail:()=>{S.sel=null},
   tutOk:k=>{TUT.seen[k]=true;if(TIPS.every(t=>TUT.seen[t.k]))TUT.done=true;saveTut();coach();return 'norender'},
   tutSkip:()=>{TUT.done=true;saveTut();coach();return 'norender'},
@@ -7198,6 +7861,9 @@ const ACT={
     if(c.type==='ichigoArc'){openFullbring();return}
     if(c.type==='tanjiroTrial'){openTanjiroTrial();return}
     if(c.type==='heroTrial'){openHeroTrial();return}
+    if(c.type==='expedition'){S.expTicket=false;S.exp={stage:'trap'};S.choices=expTraps();toast('The Double Gate opens.');return}
+    if(c.type==='freeUp'){S.event={ev:FORGE_EV,opts:forgeOpts(true),free:true};S.phase='event';return}
+    if(c.type==='merchant'&&c.kind==='forge'){S.event={ev:FORGE_EV,opts:forgeOpts(false)};S.phase='event';return}
     if(c.type==='merchant'){
       const pool=c.kind==='hero'?heroPool(S.hero.id):c.kind==='special'&&specialtyPool(c.theme).length>=4?specialtyPool(c.theme):c.kind==='guest'?guestPool(S.hero.id,c.tag):neutralPoolFor(S.hero.id);
       S.merchant={kind:c.kind,tag:c.tag||null,theme:c.theme||null,pool,rerolls:0,items:shopItems(pool)};S.phase='merchant';beginMerchantVisit();
@@ -7212,13 +7878,13 @@ const ACT={
         const lesson=recordTanjiroElite(mon,boss,w);
         afterFight();
         {const r=META.seen[mon.name]||(META.seen[mon.name]={w:0,l:0});if(w==='a')r.w++;else r.l++;checkAch(null,null);saveProfile()}
-        if(!boss){(S.fought=S.fought||[]).push(mon.name);if(w==='a'&&mon.hard&&S.quest&&S.quest.kind==='elite'){S.gold+=S.quest.reward;toast(`Bounty complete! +${S.quest.reward} gold`);S.quest=null}}
+        if(!boss){(S.fought=S.fought||[]).push(mon.name);if(w==='a')questWin('elite',!!mon.hard)}
         if(boss)S.bossDoneToday=true;
         if(w==='a'){
           S.gold+=mon.gold;gainXp(mon.xp);if(boss){S.bossesBeaten++;if(!META.bosses.includes(mon.name))META.bosses.push(mon.name)}
-          S.reward={title:`Defeated ${mon.name}! +${mon.gold}g, +${mon.xp} XP${lesson?' · '+lesson:''}`,items:monsterRewardItems(mon,boss)};if(trophyRes){if(trophyRes.inst)S.reward.items.push(trophyRes.inst);S.reward.note=trophyRes.note}if(calRes){if(calRes.inst)S.reward.items.push(calRes.inst);S.reward.note=calRes.note}S.phase='reward';
+          S.reward={title:`${mon.exp?'🌀 ':''}Defeated ${mon.name}! +${mon.gold}g, +${mon.xp} XP${lesson?' · '+lesson:''}`,items:monsterRewardItems(mon,boss)};if(trophyRes){if(trophyRes.inst)S.reward.items.push(trophyRes.inst);S.reward.note=trophyRes.note}if(calRes){if(calRes.inst)S.reward.items.push(calRes.inst);S.reward.note=calRes.note}S.phase='reward';if(mon.exp)expWin(mon);else if(mon.hard)expTicketRoll(mon);
         }else if(boss){const l=bossLoss();S.prestige-=l;S.bossLosses=(S.bossLosses||0)+1;S.msg={title:'Defeated...',text:`${mon.name} was too strong. Losing to a boss costs ${l} prestige (half a rival loss).${S.prestige>0?` ${S.prestige} prestige left.`:''}${lesson?' '+lesson:''}`};S.phase='msg';if(S.prestige<=0){SCREEN='end'}}
-        else{S.msg={title:'Defeated...',text:`${mon.name} was too strong. No reward this time, but no prestige lost.${lesson?' '+lesson:''}`};S.phase='msg'}
+        else{if(mon.exp)S.exp.stage='out';S.msg={title:'Defeated...',text:`${mon.name} was too strong. ${mon.exp?'You are thrown back out of the gate and the Expedition is over. ':''}No reward this time, but no prestige lost.${lesson?' '+lesson:''}`};S.phase='msg'}
       });
       return 'norender';
     }
@@ -7255,7 +7921,7 @@ const ACT={
   right:()=>{const it=findInv(S.sel.uid);if(it&&S.board.includes(it))nudge(it,1)},
   toStash:()=>{if(S.stash.length>=STASH_MAX)return toast('Stash is full');const it=findInv(S.sel.uid);S.board=S.board.filter(x=>x!==it);S.stash.push(it)},
   toBoard:()=>{const it=findInv(S.sel.uid);if(boardUsed()+ITEMS[it.id].size>BOARD_SLOTS)return toast('Not enough board space');S.stash=S.stash.filter(x=>x!==it);boardPut(it)},
-  evOpt:i=>{const e=EVENTS[S.event.ev];const text=S.event.opts[+i].act();S.msg={title:`${e.icon} ${e.title}`,text};S.phase='msg';sfx('click')},
+  evOpt:i=>{const e=EVENTS[S.event.ev];const text=S.event.opts[+i].act();if(S.event.free){toast(text);S.event=null;S.choices=S.choices.filter(c=>c.type!=='freeUp'||S.freeUps>0);S.phase='choose';render();return}S.msg={title:`${e.icon} ${e.title}`,text};S.phase='msg';sfx('click')},
   cont:()=>{sfx('click');const merchant=merchantScene();if(S.phase==='merchant'&&merchant)toast(merchant.speaker+': '+merchant.farewell);if(S.arcReturnWithoutHour){S.arcReturnWithoutHour=false;S.phase='choose';S.choices=S.choices.filter(c=>c.type!=='ichigoArc');return}finishHour()},
   skill:i=>{const chosen=S.skillChoices[+i],k=SKILLS.find(x=>x.k===chosen.k)||chosen;gainSkill(S.skills,k);S.pendingSkills--;S.skillChoices=S.pendingSkills>0?rollSkillChoices():null;sfx('level');toast(`Learned ${k.name}`)},
   ultOk:()=>{S.ultShow=null;sfx('merge')},
@@ -7264,7 +7930,7 @@ const ACT={
     startCombat(opp,'pvp',w=>{
       saveGhost();afterFight();
       if(w==='a'){if(boardUsed()>=BOARD_SLOTS)S.fullWin=true;S.wins++;S.gold+=Math.max(1,Math.round((3+S.day)*(D().gold??1)));gainXp(1);toast(`PvP win! ${S.wins}/${WINS_NEEDED}`);
-        if(S.quest&&S.quest.kind==='pvp'){const qr=S.quest.reward;S.gold+=qr;S.quest=null;setTimeout(()=>toast(`Hunter Exam passed! +${qr} gold`),1600)}}
+        if(S.quest)questWin('pvp',false)}
       else{const l=prestigeLoss();S.prestige-=l;S.losses++;toast(`PvP ${w==='draw'?'draw':'loss'}: −${l} prestige`)}
       if(S.wins>=WINS_NEEDED||S.prestige<=0){SCREEN='end';return}
       S.day++;S.bossDoneToday=false;startDay();
@@ -7273,7 +7939,7 @@ const ACT={
   },
   speed:v=>{stopCustomSounds();F.speed=+v;updateCombat();return 'norender'},
   skip:()=>{stopCustomSounds();F.skipping=true;while(!F.over)step();F.skipping=false;updateCombat();showResult();return 'norender'},
-  combatDone:()=>{stopCustomSounds();const cb=F.onEnd,w=F.winner;SCREEN='run';S.sel=null;cb(w);window.scrollTo(0,0)},
+  combatDone:()=>{stopCustomSounds();const cb=F.onEnd,w=F.winner;statFight(F,w);SCREEN='run';S.sel=null;cb(w);window.scrollTo(0,0)},
 };
 function settingsHTML(){
   const seg=(key,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button data-act="setOpt" data-arg="${key}|${v}" class="${String(SET[key])===String(v)?'on':''}">${l}</button>`).join('')}</div>`;
@@ -7285,6 +7951,7 @@ function settingsHTML(){
    <div class="setrow"><label>Animation speed<span class="small">Effects stay readable at fast fight speeds; this makes them faster still.</span></label>${seg('animSpeed',[[1,'1×'],[1.5,'1.5×'],[2,'2×']])}</div>
    ${chk('cinematics','Ultimate cut-ins and boss intros','The dramatic banners before big moments.')}
    ${chk('shake','Screen shake','Big hits shake the screen.')}
+   ${chk('spriteFx','Effect textures','Hand-drawn flames, smoke, lightning and impact flashes layered on attacks.')}
    ${chk('animeVoices','Japanese move callouts','Short voiced callouts on a few signature moves, once per fight, when the cooldown leaves room.')}${chk('dmgNumbers','Damage numbers','Floating numbers over health bars.')}
    <div class="sethd">Items</div>
    ${chk('detailPanel','Item details panel','Click an item to open a panel with its info and buttons (Buy, Sell, Fuse, move). Off: just hover for info and drag to act. Always on for touch screens.')}
@@ -7294,6 +7961,8 @@ function settingsHTML(){
    ${chk('combatLog','Combat log','Show the play-by-play under fights.')}
    <div class="sethd">Audio</div>
    ${rng('sfxVol','Sound effects volume')}${rng('musicVol','Music volume')}
+   <div class="sethd">Privacy</div>
+   ${chk('shareStats','Share anonymous run stats','When a run ends, its hero, difficulty, result, final board and fight results are sent without your name or profile, to help balance the game.')}
    <div class="sethd">Help</div>
    <div class="setrow"><label>Tutorial<span class="small">Show the beginner tips again from the start.</span></label><button data-act="tutReplay">Replay tutorial</button></div>
    <div class="btns" style="justify-content:center"><button class="primary" data-act="closeSettings">Done</button></div></div>`;

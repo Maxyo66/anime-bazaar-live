@@ -1,6 +1,6 @@
 {
-  "source": "Anime Bazaar release: Claude requests #80–#86, approved Pass 22–23 artwork, and the shared Cloudflare rival pool.",
-  "sourceSha256": "1a518112fc14dd8ed383d791ac739a96ba2c284cd168e7147acc667036e4d8ed",
+  "source": "Anime Bazaar release: Claude requests #80–#92, approved Pass 22–23 artwork, anonymous stats, Bazaar-style days and shared rival pool.",
+  "sourceSha256": "b1b468b11e49dbcfb0c9065363a7c19f7ad91387f31d19bfb258f13c6c781505",
   "artSha256": "6dd923b7388e641f7bb18ae1f1c006389ec8a618f5bbe70287b7f187ceffd947",
   "requests": [
     53,
@@ -36,9 +36,15 @@
     83,
     84,
     85,
-    86
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92
   ],
-  "artworkChanged": true,
+  "artworkChanged": false,
   "artworkMappings": 232,
   "files": [
     {
@@ -2173,8 +2179,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 1040555,
-      "sha256": "1a518112fc14dd8ed383d791ac739a96ba2c284cd168e7147acc667036e4d8ed"
+      "bytes": 1163780,
+      "sha256": "b1b468b11e49dbcfb0c9065363a7c19f7ad91387f31d19bfb258f13c6c781505"
     },
     {
       "name": "recent-artwork.html",
@@ -2188,9 +2194,24 @@
     },
     {
       "name": "shop-preview.html",
-      "bytes": 112773,
-      "sha256": "bb107e0572f8872e34db7e7c1b2e5b48359b633a062fe2bd3d1b05bfe2d6201e"
+      "bytes": 112890,
+      "sha256": "caf94f43c94adb143c17a59fe983eadf9fc4ed4a2628101bc88741a96304ce19"
+    },
+    {
+      "name": "stats.html",
+      "bytes": 7103,
+      "sha256": "586007b298842b0200deed176eb0a1c13370307af1efb0b9a3fc9c47b7f2567c"
+    },
+    {
+      "name": "assets/vfx/vfx-atlas.webp",
+      "bytes": 174100,
+      "sha256": "7f09d0c3ed3e3e5e071e9ec55cbe3b9d80b50e2bc5147a5160300beb24693cf6"
+    },
+    {
+      "name": "assets/vfx/CREDITS.txt",
+      "bytes": 556,
+      "sha256": "4c24e99508aa4b6679282725dc6ab7207948ee74c8201a057b1a2f3d1c5cf714"
     }
   ],
-  "createdUtc": "2026-11-13T22:50:00.000Z"
+  "createdUtc": "2026-11-15T18:51:25.000Z"
 }
