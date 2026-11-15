@@ -1,0 +1,5 @@
+Effect textures in vfx-atlas.webp (assembled by Claude 2026-11-14 for Anime Bazaar; used inside the game only):
+- Kenney Particle Pack (www.kenney.nl), CC0 1.0.
+- "Animated Hand-Drawn Flames" by ColdVibeGames / Sketchvibe (itch.io): commercial use allowed; the pack itself may not be redistributed or resold.
+- "Free Stylized Sprite VFX" by Kalponic Studio (itch.io): commercial use allowed; credit appreciated; not for resale as assets.
+The original packs are kept outside this repository (Documents/Game-Assets/VFX-Packs). Do not add the raw packs here.
