@@ -1,6 +1,6 @@
 {
-  "source": "Anime Bazaar release: Claude requests #87–#98, hero-item expansions, balance audit, events, animations and anonymous stats.",
-  "sourceSha256": "631059ab3a27d94b3e8296b4c7d9b2c427e09a20ec570d22f93bc00c16209da3",
+  "source": "Anime Bazaar release: Claude requests #87–#99, including completed hidden item-pair discoveries.",
+  "sourceSha256": "4dc379eef6d84739422d58ebf9fb6e40d88fc623a23405491f4ed5f3120318cf",
   "artSha256": "6dd923b7388e641f7bb18ae1f1c006389ec8a618f5bbe70287b7f187ceffd947",
   "requests": [
     53,
@@ -48,7 +48,8 @@
     95,
     96,
     97,
-    98
+    98,
+    99
   ],
   "artworkChanged": false,
   "artworkMappings": 232,
@@ -2170,13 +2171,13 @@
     },
     {
       "name": "data/art.js",
-      "bytes": 33519,
-      "sha256": "242216e2894c33f74f916a54213bec7b917a764d549d8887b5d3cee72317b12c"
+      "bytes": 33520,
+      "sha256": "d06ff954d4e4d04929fe9507bf96d4d6eff8bd7988ee6269c284511f171c51aa"
     },
     {
       "name": "data/rival-ghosts.js",
-      "bytes": 73403,
-      "sha256": "d7fde10704295f0bc519f22a6352e71f9fe4d4cd24cc1e40284a984e5c5eb8f2"
+      "bytes": 73404,
+      "sha256": "22b65c05163788a86c9a52abb32c63cee6de625afcdf9380a99456565914220d"
     },
     {
       "name": "ghost-sync.js",
@@ -2185,8 +2186,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 1309671,
-      "sha256": "631059ab3a27d94b3e8296b4c7d9b2c427e09a20ec570d22f93bc00c16209da3"
+      "bytes": 1312353,
+      "sha256": "4dc379eef6d84739422d58ebf9fb6e40d88fc623a23405491f4ed5f3120318cf"
     },
     {
       "name": "recent-artwork.html",
@@ -2195,8 +2196,8 @@
     },
     {
       "name": "save-code.js",
-      "bytes": 4160,
-      "sha256": "2a49f4d74a434b0f9d5d51bd3d70bab234672151a8b22d35cb068a7ac7322838"
+      "bytes": 4236,
+      "sha256": "e9a6e5c56270cf53991f9c604c2534109f9b86367c991d941db6326c7be2e29f"
     },
     {
       "name": "shop-preview.html",
@@ -2219,5 +2220,5 @@
       "sha256": "b150db49fed49ca441740ee68f115d17867ce1452fd8d91859697e2b209b5acb"
     }
   ],
-  "createdUtc": "2026-11-17T07:50:05.000Z"
+  "createdUtc": "2026-11-17T07:54:05.000Z"
 }

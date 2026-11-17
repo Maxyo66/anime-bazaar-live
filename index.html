@@ -113,6 +113,13 @@ h1,h2,h3{font-family:Bangers,Impact,sans-serif;letter-spacing:1px;font-weight:40
 .card .gem{position:absolute;bottom:-5px;left:50%;transform:translateX(-50%) rotate(45deg);width:10px;height:10px;background:var(--gem);border:1px solid #000a;z-index:6;box-shadow:0 0 6px var(--gem)}
 .card .price{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:900;color:#3a1d05;z-index:7;white-space:nowrap;
   background:linear-gradient(#ffe48a,#e0a028);border:1px solid #fff0b8;border-radius:10px;padding:0 7px;box-shadow:0 2px 4px #000a}
+.card.res-on{box-shadow:0 0 0 2px #ffd23f,0 0 14px 2px rgba(255,210,63,.55);animation:respulse 1.6s ease-in-out infinite alternate}
+@keyframes respulse{from{box-shadow:0 0 0 2px #ffd23f,0 0 8px 1px rgba(255,210,63,.35)}to{box-shadow:0 0 0 2px #ffe680,0 0 18px 4px rgba(255,210,63,.7)}}
+.card .resbadge{position:absolute;top:30px;left:5px;font-size:clamp(11px,calc(var(--u,84px) * .17),15px);z-index:6;filter:drop-shadow(0 0 4px #ffd23f)}
+.ttx.res-active{border-left:3px solid #ffd23f;background:#2e2410!important;background-image:none!important;color:#ffeab0}
+.ttx.res-active b{color:#ffd23f}.ttx.res-active i{color:#d8c79a}
+.card.connection-pair{outline:2px dashed #ffd23f;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.card.res-on{animation:none}}
 .card .fusehint{position:absolute;top:22px;right:3px;font-size:12px;z-index:6;animation:pulse .8s infinite alternate}
 .card .cdf{position:absolute;left:0;right:0;top:0;height:0;background:#000000b0;z-index:3;border-bottom:2px solid #ffffffaa}
 .card.idle .cdf{border:0}
@@ -4951,6 +4958,8 @@ function regenScalingHTML(inst){
  if(SCREEN==='run'&&S&&S.board.includes(inst)){const sources=S.board.filter(it=>allFx(it).some(f=>f.t==='regen')).map(it=>ITEMS[it.id].name);return `<div class="ttx"><b>Regeneration setup</b><br>Starts at ${S.skills.startRegen||0} Regeneration. Active sources: ${sources.length?sources.map(esc).join(', '):'none on your board'}. Bonus uses the stat built during combat, not the number of Regeneration items.</div>`}
  return '';
 }
+function pairTipHTML(inst){const ps=activePairs(inst);if(!ps.length)return '';
+ return ps.map(r=>{const o=ITEMS[r.a===inst.id?r.b:r.a];return `<div class="ttx res-active">✨ <b>Hidden pair active: ${esc(r.name)}</b> (with ${esc(o?o.name:'?')})<br>${esc(r.desc)}${r.why?`<br><i>${esc(r.why)}</i>`:''}</div>`}).join('')}
 function ttHTML(inst,isShopOffer=false){
   const d=ITEMS[inst.id],series=d.src||(d.hero&&heroById(d.hero).series);
   const fxs=d.fx.map(fx=>{const [ic,col]=FXI[fx.t]||['•','#fff'];return `<li style="--fc:${col}"><span class="tti">${ic}</span><span>${fxText(fx,inst)}</span></li>`}).join('');
@@ -4973,10 +4982,10 @@ function ttHTML(inst,isShopOffer=false){
       <div class="ttcd" title="Cooldown">⏱<b>${cdOf(inst).toFixed(1)}</b>s</div></div>
     <div class="tttags">${d.tags.map(t=>`<span>${t}</span>`).join('')}</div>
     <ul class="ttfx">${fxs||'<li><span class="tti">·</span><span>No direct effect</span></li>'}</ul>
-    ${chips.length?`<div class="ttchips">${chips.join('')}</div>`:''}${extra.join('')}${shopHint}${boardSynergyHTML(inst)}${regenScalingHTML(inst)}
+    ${chips.length?`<div class="ttchips">${chips.join('')}</div>`:''}${extra.join('')}${shopHint}${pairTipHTML(inst)}${boardSynergyHTML(inst)}${regenScalingHTML(inst)}
     ${series||sell?`<div class="ttf">${series?`<i>${esc(series)}</i>`:'<i></i>'}${sell}</div>`:''}</div>`;
 }
-function clearBoardConnections(){document.querySelectorAll('.connection-source,.connection-target,.connection-blocked').forEach(c=>c.classList.remove('connection-source','connection-target','connection-blocked'))}
+function clearBoardConnections(){document.querySelectorAll('.connection-source,.connection-target,.connection-blocked,.connection-pair').forEach(c=>c.classList.remove('connection-source','connection-target','connection-blocked','connection-pair'))}
 function showBoardConnections(inst){
  clearBoardConnections();if(!S||SCREEN!=='run'||!S.board.includes(inst))return;
  const items=S.board.map(x=>({inst:x,slot:x.slot,def:ITEMS[x.id]})),me={items},it=items.find(x=>x.inst===inst);
@@ -4987,6 +4996,8 @@ function showBoardConnections(inst){
   if(fx.readyBonus){relevant=true;targets(me,it,'adj').filter(isW).forEach(x=>peers.add(x.inst))}
   if(['charge','haste'].includes(fx.t)&&['adj','adjWeapon','adjSpell','rightWeapon','right','left'].includes(fx.to)){relevant=true;targets(me,it,fx.to).forEach(x=>peers.add(x.inst))}
  }
+ const mates=new Set(activePairs(inst).map(r=>r.a===inst.id?r.b:r.a));
+ if(mates.size)for(const c of document.querySelectorAll('.board .card[data-drag="inv"]')){const x=TTI.get(+c.dataset.tt);if(x&&x!==inst&&mates.has(x.id))c.classList.add('connection-pair')}
  if(!relevant)return;
  for(const c of document.querySelectorAll('.board .card[data-drag="inv"]')){const x=TTI.get(+c.dataset.tt);if(x===inst)c.classList.add('connection-source');else if(blocked.has(x))c.classList.add('connection-blocked');else if(peers.has(x))c.classList.add('connection-target')}
 }
@@ -6632,9 +6643,10 @@ function cardHTML(inst,o={}){
   const scaling=d.fx.find(f=>f.per||f.perRegen||f.chargedBonus||f.donorBonus||f.readyBonus),flankFx=d.fx.find(f=>f.t==='flank');
   const contractFx=d.fx.find(f=>f.t==='contract'),positionFx=d.fx.find(f=>f.position);
   const scalingHint=positionFx?`<div class="synergy-badge" title="${esc(placementText(positionFx,inst).replace(/<[^>]*>/g,''))}">${positionFx.position.kind==='isolated'?'Clear space':'Touching '+positionFx.position.tag}</div>`:flankFx?`<div class="synergy-badge" title="${esc(baseFxText(flankFx,inst).replace(/<[^>]*>/g,''))}">Flank: Weapon | Weapon</div>`:contractFx?`<div class="synergy-badge">Contract ${contractFx.d}s</div>`:d.id==='exchange'?`<div class="synergy-badge">${inst.exchangeMode==='transmute'?'Transmute':'Protect'}</div>`:scaling?`<div class="synergy-badge" title="${esc(fxText(scaling,inst).replace(/<[^>]*>/g,''))}">${scaling.per?`+${scaling.per.v*VAL_MULT[inst.tier]} per ${esc(scaling.per.tag)}`:scaling.chargedBonus?`Charge: +${scaling.chargedBonus*VAL_MULT[inst.tier]}`:scaling.donorBonus?`First: +${scaling.donorBonus*VAL_MULT[inst.tier]} per Tool`:scaling.readyBonus?`Ready: +${scaling.readyBonus*VAL_MULT[inst.tier]}`:`+${scaling.perRegen.v*VAL_MULT[inst.tier]} per Regen (max +${scaling.perRegen.max*VAL_MULT[inst.tier]})`}</div>`:'';
-  return `<div class="card t${inst.tier} s${d.size} ${o.id?'':'idle'} ${o.sel?'sel':''} ${o.sold?'sold':''}" style="--s:${d.size};--hc:${hc};grid-column:${o.slot!=null?(o.slot+1)+' / ':''}span ${d.size}" ${o.act?`data-act="${o.act}" data-arg="${o.arg}" tabindex="0" role="button"`:''} ${o.drag?`data-drag="${o.drag}"`:''} data-tt="${ttKey(inst)}" aria-label="${esc(d.name+' ('+TIERS[inst.tier]+'): '+plainDesc(inst).split('\n').slice(1).join('. '))}" ${o.id?`id="${o.id}"`:''}>
+  const pairs=o.drag==='inv'||SCREEN==='combat'?activePairs(inst):[];
+  return `<div class="card t${inst.tier} s${d.size} ${o.id?'':'idle'} ${o.sel?'sel':''} ${o.sold?'sold':''} ${pairs.length?'res-on':''}" style="--s:${d.size};--hc:${hc};grid-column:${o.slot!=null?(o.slot+1)+' / ':''}span ${d.size}" ${o.act?`data-act="${o.act}" data-arg="${o.arg}" tabindex="0" role="button"`:''} ${o.drag?`data-drag="${o.drag}"`:''} data-tt="${ttKey(inst)}" aria-label="${esc(d.name+' ('+TIERS[inst.tier]+'): '+plainDesc(inst).split('\n').slice(1).join('. '))}" ${o.id?`id="${o.id}"`:''}>
     <div class="in"><div class="ic">${d.icon}</div>${artImage(art,'art',d.name)}<div class="cdf"></div>${scalingHint}<div class="nm">${d.name}</div></div>
-    <div class="cdl">${cdOf(inst).toFixed(1)}</div>${inst.ench?`<div class="en">${ENCH[inst.ench].icon}</div>`:''}${fusable?'<div class="fusehint" title="Can fuse">🧬</div>':''}<div class="gem"></div>${inst.tier===2||inst.tier===4?'<i class="shine"></i>':''}${o.price!=null?`<div class="price">💰${o.price}</div>`:''}</div>`;
+    <div class="cdl">${cdOf(inst).toFixed(1)}</div>${inst.ench?`<div class="en">${ENCH[inst.ench].icon}</div>`:''}${fusable?'<div class="fusehint" title="Can fuse">🧬</div>':''}${pairs.length?`<div class="resbadge" title="${esc('Hidden pair active: '+pairs.map(r=>r.name).join(', '))}">✨</div>`:''}<div class="gem"></div>${inst.tier===2||inst.tier===4?'<i class="shine"></i>':''}${o.price!=null?`<div class="price">💰${o.price}</div>`:''}</div>`;
 }
 function homeIcon(action,icon,label,primary=false){return `<button class="home-icon${primary?' primary':''}" data-act="${action}" title="${esc(label)}" aria-label="${esc(label)}" data-label="${esc(label)}"><span aria-hidden="true">${icon}</span></button>`}
 function titleHTML(){
@@ -7075,7 +7087,7 @@ function addScreenNavigation(app){
 }
 
 function render(){
-  hideHeroInspect();
+  hideHeroInspect();if(SCREEN==='run')discoverBoardPairs();
   const app=$('#app');syncShine();applyStyle();ttHide();document.body.classList.toggle('nopanel',!usePanel());
   if(SCREEN==='title')app.innerHTML=titleHTML();
   else if(SCREEN==='lab')app.innerHTML=labHTML();
@@ -7344,11 +7356,20 @@ function resOnUse(me,foe,it){if(!me.res)return;for(const r of RESONANCES){if(!me
   if(e.once){me.resOnce=me.resOnce||{};const key=r.id+':'+e.k;if(me.resOnce[key])continue;me.resOnce[key]=true}
   if(e.k==='onUse'){const out=e.fx.map(f=>applyFx(me,foe,it,f,1)).filter(Boolean);if(out.length)log(me,`✨ ${r.name}: ${out.join(', ')}`)}
   else{let n=0;for(const o of me.items)if(o.def.id===e.to&&o!==it&&!o.broken){chargeCombatItem(o,e.v);n++}if(n)log(me,`✨ ${r.name}: ${ITEMS[e.to].name} charge ${e.v}s`)}}}}
+function activePairs(inst){ // #99: hidden pairs completed on the player's board (or live in this fight) that include this card
+ try{if(!inst)return [];let ids=null;
+  if(SCREEN==='combat'&&F&&F.a&&F.a.items.some(o=>o.inst===inst))return RESONANCES.filter(r=>F.a.res&&F.a.res[r.id]&&(r.a===inst.id||r.b===inst.id));
+  if(S&&S.board&&S.board.includes(inst))ids=new Set(S.board.map(x=>x.id));if(!ids)return [];
+  return RESONANCES.filter(r=>(r.a===inst.id||r.b===inst.id)&&ids.has(r.a)&&ids.has(r.b))}catch(e){return []}}
+function discoverBoardPairs(){ // #99: completing a pair on your board discovers it, no fight needed
+ try{if(!S||!S.board)return;const ids=new Set(S.board.map(x=>x.id)),seen=resonanceFound();
+  for(const r of RESONANCES)if(ids.has(r.a)&&ids.has(r.b)&&!seen.includes(r.id)){seen.push(r.id);try{store.set('animeBazaarResonance',[...seen])}catch(e){}
+   if(typeof toast==='function')setTimeout(()=>toast(`✨ Hidden pair discovered: ${r.name}! ${r.desc}`),60)}}catch(e){}}
 function resonanceFound(){try{return store.get('animeBazaarResonance',[])||[]}catch(e){return []}}
 function rewriteStart(me,foe){const live=id=>me.items.some(o=>o.def.id===id&&!o.broken);me.res={};
   if(me.items.some(o=>o.def.weights&&!o.broken)){for(const w of me.items)if(isW(w)){w.slow+=2;w.haste=Math.min(6,w.haste+3)}log(me,'🥋 Weighted Gi: Weapons start weighed down, then fly once the weights come off')}
   for(const r of RESONANCES)if(live(r.a)&&live(r.b)){me.res[r.id]=true;log(me,`✨ <b>Resonance: ${r.name}</b> · ${r.desc}${r.why?` <i>${r.why}</i>`:''}`);
-   if(me.key==='a'&&!F.skipping){const seen=resonanceFound();if(!seen.includes(r.id)){try{store.set('animeBazaarResonance',[...seen,r.id])}catch(e){}if(typeof toast==='function')toast(`✨ Resonance discovered: ${r.name}! ${r.desc}${r.why?' '+r.why:''}`);if(SET.cinematics&&SET.anim==='full'&&(SET.fightSpeed||1)<2)VFX.cutin({emblem:'✨',hero:'RESONANCE DISCOVERED',move:r.name.toUpperCase()+'!',color:'#ffd23f'})}}}
+   if(me.key==='a'){const seen=resonanceFound();if(!seen.includes(r.id)){try{store.set('animeBazaarResonance',[...seen,r.id])}catch(e){}if(!F.skipping&&typeof toast==='function')toast(`✨ Resonance discovered: ${r.name}! ${r.desc}${r.why?' '+r.why:''}`);if(!F.skipping&&SET.cinematics&&SET.anim==='full'&&(SET.fightSpeed||1)<2)VFX.cutin({emblem:'✨',hero:'RESONANCE DISCOVERED',move:r.name.toUpperCase()+'!',color:'#ffd23f'})}}}
   if(me.heroId==='ichigo'&&me.sk&&me.sk.fbResonance===1)for(const o of me.items)if(o.def.tags.includes('Apparel'))o.cd*=.7;
   me.resMult={};me.resCrit={};me.resHeal={};for(const r of RESONANCES)if(me.res[r.id]&&r.fx)for(const e of r.fx){if(e.k==='heal')me.resHeal[e.item]=(me.resHeal[e.item]||1)*e.v;if(e.k==='crit')me.resCrit[e.item]=(me.resCrit[e.item]||0)+e.v;if(e.k==='mult')me.resMult[e.item]=(me.resMult[e.item]||1)*e.v;if(e.k==='start')for(const o of me.items)if(o.def.id===e.item&&!o.broken)o.prog=Math.max(o.prog,Math.min(o.cd-.05,e.v))}
   if(me.res.honored_one)for(const o of me.items)if(o.def.tags.includes('Spell'))o.cd*=.85;
