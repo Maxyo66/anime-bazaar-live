@@ -1,7 +1,12 @@
 ANIME BAZAAR — CHANGELOG FOR PLAYERS
-Updates #53–#92 | November 15, 2026
+Updates #53–#98 | November 17, 2026
 
-LATEST UPDATES (#87–#92)
+LATEST UPDATES (#93–#98)
+- 54 new hero items were added for nine heroes, with 18 new hidden item-pair synergies.
+- The item audit made effects within each hero pool more distinct and rebalanced 23 outliers. Twelve repetitive events were redesigned with different choices and mechanics.
+- Owned monster loot now shows its sell price. Five attack animations were refined, building on the unique animation for every card.
+
+EARLIER UPDATES (#87–#92)
 - Optional anonymous balancing stats: when enabled, completed non-Daily runs share a gameplay summary (hero, difficulty, result, build, fights and hidden pairs). No player name or profile ID is included. The Worker keeps only a hashed IP for its 40-per-day limit; run summaries expire after 180 days. Toggle it in Settings > Privacy; it is on by default. View aggregate totals at https://maxyo66.github.io/anime-bazaar-live/stats.html.
 - Every player card now has its own attack animation. Optional effect textures can be turned on or off in Settings.
 - Each hour now has one market, one event, one fight and a free pick. Shops scale to higher tiers, the Forge upgrades items for gold, and free item upgrades are available at levels 10, 15 and 20.
