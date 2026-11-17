@@ -1,6 +1,6 @@
 {
-  "source": "Anime Bazaar release: Claude #87–#99 plus approved card and portrait artwork.",
-  "sourceSha256": "bebf8eec8ada01f221d91d4964ef40b1338272692c37deac8e9bc0336da82974",
+  "source": "Anime Bazaar release: Claude updates through #99, approved artwork and player-focused Guild Ledger UI polish.",
+  "sourceSha256": "0a0f8296339cfeb094f753076b93dea77c6f18b73107e1192d01432ee2238074",
   "artSha256": "110484e90cd09178d759820ef9069a3e9e559007585f045f1310435fbe4a779c",
   "requests": [
     53,
@@ -2246,8 +2246,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 1312358,
-      "sha256": "bebf8eec8ada01f221d91d4964ef40b1338272692c37deac8e9bc0336da82974"
+      "bytes": 1316061,
+      "sha256": "0a0f8296339cfeb094f753076b93dea77c6f18b73107e1192d01432ee2238074"
     },
     {
       "name": "recent-artwork.html",
@@ -2270,5 +2270,5 @@
       "sha256": "5268f6d0905768cd41736d9bff2070b7b63a4933b6338dbef2274e265f6cf889"
     }
   ],
-  "createdUtc": "2026-11-17T22:59:27.826Z"
+  "createdUtc": "2026-11-17T23:31:30.000Z"
 }

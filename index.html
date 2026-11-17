@@ -931,6 +931,17 @@ body.anim-off .ap,body.anim-off .arena-title{display:none}
 /* hover popups never block a drag (Claude 2026-11-06) */
 body.is-dragging .rarpop,body.is-dragging [role=tooltip]{display:none!important}
 body.is-dragging .rarkey{pointer-events:none}
+
+/* Guild Ledger UI refresh */
+:root{--text:#f3f1e9;--muted:#c2c0b6;--accent:#d8bc82;--brass:#c3a66a;--brass2:#716243;--wood1:#34343a;--wood2:#3d3d42;--wood3:#2d2d33;--ink:#11131a}
+body{background:radial-gradient(ellipse at 50% -10%,#394149 0,transparent 52%),radial-gradient(circle at 10% 20%,#81644622,transparent 24%),linear-gradient(180deg,#242a31 0%,#191e25 50%,#11131a 100%);background-attachment:fixed}
+body::before{height:calc(18px + env(safe-area-inset-top,0px));background:linear-gradient(180deg,#2e343b 0%,#242a31 76%,#a68a56 77%,#52472f 82%,#1a1d23 84%);-webkit-mask:none;mask:none;filter:none;box-shadow:0 2px 8px #0008}
+.wood{background:linear-gradient(#0005,#0007),repeating-linear-gradient(92deg,#34343a 0 8px,#3b3b40 8px 13px,#2d2d33 13px 21px,#3b3b40 21px 25px);border:1px solid #857451;border-radius:12px;box-shadow:inset 0 0 0 1px #16171a,0 6px 18px #0008}
+.velvet{background:linear-gradient(155deg,#302833,#211d25);border:1px solid #75654e;border-radius:14px;box-shadow:inset 0 0 0 1px #16151b,0 6px 18px #0008}.home-masthead{border-bottom:1px solid #c3a66a55}
+.home-profile-actions .home-icon{width:auto;min-width:61px;height:48px;padding:4px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:9px;box-shadow:none;background:#292e34;border:1px solid #5f5a4b;text-shadow:none}.home-profile-actions .home-icon.primary{background:linear-gradient(#dfc58d,#b99a5e);color:#24201a;border-color:#f0dfb8}.home-icon-glyph{font-size:17px;line-height:18px}.home-icon-label{font-size:9px;line-height:11px;white-space:nowrap;font-weight:800;letter-spacing:.02em}.home-profile-actions .home-icon::after{display:none}
+.home-audio-tools .iconbtn{width:48px;height:48px;padding:3px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:9px;box-shadow:none;background:#292e34;border:1px solid #5f5a4b;text-shadow:none}.home-audio-tools .iconbtn::after{content:attr(data-short-label);font:800 8px/10px Nunito,system-ui,sans-serif;white-space:nowrap;color:#e2d2b7}
+.cos-intro{margin:0 0 14px;padding:10px 13px;border-left:3px solid #c3a66a;background:#20262d;color:#d7d1c3;border-radius:0 9px 9px 0;font-size:13px;line-height:1.5}.cgrid .ctile{background:linear-gradient(155deg,#303039,#1e2026);border:1px solid #766749;transition:border-color .16s,background .16s,transform .16s}.ctile:hover{transform:translateY(-2px);border-color:#e7d2a1}.ctile .cprev .avatar{width:76px;height:76px;box-shadow:0 0 0 3px #202127,0 0 0 7px var(--brass),0 0 20px var(--aura,#0000)}.ctile.locked .cprev{filter:grayscale(.3) brightness(.9)}.ctile.locked .cname{color:#f2d59a}.ctile button[data-act=previewFx]{border-style:dashed;background:#2a2d33}
+@media(max-width:640px){.home-profile-actions{display:grid;grid-template-columns:repeat(5,minmax(52px,1fr));width:100%;gap:4px}.home-profile-actions .home-icon{min-width:0;width:100%;padding:3px 2px}.home-icon-label{font-size:8px}.home-profile-actions .home-menu{grid-column:1/-1}.home-profile-actions .home-audio-tools{grid-column:1/-1;border-left:0;padding:4px 0 0;justify-content:center}.home-audio-tools .iconbtn{flex:1 1 0}}
 </style>
 </head>
 <body>
@@ -5093,7 +5104,7 @@ const FXS={confetti:{name:'Confetti',parts:['🟥','🟨','🟩','🟦','🟪'],
  fireworks:{name:'Fireworks',parts:['🎆','🎇','✨'],rise:true,excl:true},cursed_fx:{name:'Cursed Flames',parts:['🟣','💜','🔮'],rise:true,excl:true}};
 const STYLES={ramen:{name:'Ichiraku Ramen',price:400},manga:{name:'Shonen Manga',price:400},neon:{name:'Neon Cyber',price:400}};
 const COS={skins:SKINS,frames:FRAMES,themes:THEMES,titles:TITLE_DEFS,fx:FXS,styles:STYLES};
-const COS_LABEL={skins:'Hero skin',frames:'Card frame',themes:'Board theme',titles:'Title',fx:'Victory effect',styles:'UI style'};
+const COS_LABEL={skins:'Avatar style',frames:'Card frame',themes:'Board theme',titles:'Title',fx:'Victory effect',styles:'UI style'};
 const STYLE_LEVELS={ramen:8,manga:14,neon:20};
 function applyStyle(){const st=META&&META.equip.styles;for(const k of Object.keys(STYLES))document.body.classList.toggle('ui-'+k,st===k)}
 const cosName=(k,id)=>COS[k]&&COS[k][id]?COS[k][id].name:'?';
@@ -6537,7 +6548,7 @@ function startMusic(){
 }
 function stopMusic(){clearInterval(MUS.timer);MUS.timer=null}
 document.addEventListener('pointerdown',()=>{if(ac()&&AUDIO.musicOn&&SCREEN!=='lab')startMusic()},{capture:true});
-const soundBtns=()=>`<button class="iconbtn" data-act="settings" aria-label="Settings" title="Settings">⚙️</button><button class="iconbtn" data-act="toggleSfx" aria-label="Toggle sound effects" title="Sound effects">${AUDIO.sfxOn?'🔊':'🔇'}</button><button class="iconbtn" data-act="toggleMusic" aria-label="Toggle music" title="Music" style="${AUDIO.musicOn?'':'opacity:.5'}">🎵</button>`;
+const soundBtns=()=>`<button class="iconbtn" data-act="settings" data-short-label="Settings" aria-label="Settings" title="Settings">⚙️</button><button class="iconbtn" data-act="toggleSfx" data-short-label="SFX" aria-label="Toggle sound effects" title="Sound effects">${AUDIO.sfxOn?'🔊':'🔇'}</button><button class="iconbtn" data-act="toggleMusic" data-short-label="Music" aria-label="Toggle music" title="Music" style="${AUDIO.musicOn?'':'opacity:.5'}">🎵</button>`;
 // Dedicated attack sounds and move callouts. Audio data is in audio/bank.js (window.CUSTOM_AUDIO_BANK).
 const CUSTOM_AUDIO_BANK=window.CUSTOM_AUDIO_BANK||{};
 const ANIME_VOICE_META={"purple": {"name": "Hollow Purple", "duration": 2.3, "voice": true, "source": "https://www.myinstants.com/ja/instant/hollow-purple-6717/", "status": "Japanese detected; episode unverified"}, "final_flash": {"name": "Final Flash", "duration": 2.65, "voice": true, "source": "https://www.myinstants.com/en/instant/vegeta-final-flash/", "status": "Japanese detected; episode unverified"}, "detroit": {"name": "Detroit Smash", "duration": 4.85, "voice": true, "source": "https://www.myinstants.com/en/instant/midoria-izuku-detroit-smash-18429/", "status": "Japanese detected; episode unverified"}, "shadow_clone": {"name": "Shadow Clone", "duration": 2.0, "voice": true, "source": "https://www.myinstants.com/en/instant/kage-bunshin-no-jutsu-naruto-21667/", "status": "Japanese detected; episode unverified"}};
@@ -6648,7 +6659,7 @@ function cardHTML(inst,o={}){
     <div class="in"><div class="ic">${d.icon}</div>${artImage(art,'art',d.name)}<div class="cdf"></div>${scalingHint}<div class="nm">${d.name}</div></div>
     <div class="cdl">${cdOf(inst).toFixed(1)}</div>${inst.ench?`<div class="en">${ENCH[inst.ench].icon}</div>`:''}${fusable?'<div class="fusehint" title="Can fuse">🧬</div>':''}${pairs.length?`<div class="resbadge" title="${esc('Hidden pair active: '+pairs.map(r=>r.name).join(', '))}">✨</div>`:''}<div class="gem"></div>${inst.tier===2||inst.tier===4?'<i class="shine"></i>':''}${o.price!=null?`<div class="price">💰${o.price}</div>`:''}</div>`;
 }
-function homeIcon(action,icon,label,primary=false){return `<button class="home-icon${primary?' primary':''}" data-act="${action}" title="${esc(label)}" aria-label="${esc(label)}" data-label="${esc(label)}"><span aria-hidden="true">${icon}</span></button>`}
+function homeIcon(action,icon,label,primary=false){const short={collection:'Collection',achievements:'Awards',editProfile:'Profile',players:'Players',share:'Share'}[action]||label;return `<button class="home-icon${primary?' primary':''}" data-act="${action}" title="${esc(label)}" aria-label="${esc(label)}" data-label="${esc(label)}"><span class="home-icon-glyph" aria-hidden="true">${icon}</span><span class="home-icon-label">${esc(short)}</span></button>`}
 function titleHTML(){
   const saved=store.get(runKey(),null);
   const sh=saved&&saved.S&&heroById(saved.S.heroId);
@@ -7018,7 +7029,7 @@ function cosTile(k,id,def){
   else if(owned)act=`<button class="primary" data-act="equip" data-arg="${k}|${id}">Equip</button>`;
   else if(def.excl)act=`<span class="small">🔒 ${esc(unlockHint(k,id))}</span>`;
   else act=`<button data-act="buyCos" data-arg="${k}|${id}" ${META.ryo<def.price?'disabled':''}>💴 ${def.price}</button><span class="small">${esc(unlockHint(k,id))?'or '+esc(unlockHint(k,id)):''}</span>`;
-  return `<div class="ctile ${eqd?'on':''} ${owned?'':'locked'}"><div class="cprev">${cosPreview(k,id.startsWith('default:')?id.slice(8):id)}</div><div class="cname">${esc(name)}</div>${act}${k==='fx'&&owned?`<button data-act="previewFx" data-arg="${id}">Preview</button>`:''}</div>`;
+  return `<div class="ctile ${eqd?'on':''} ${owned?'':'locked'}"><div class="cprev">${cosPreview(k,id.startsWith('default:')?id.slice(8):id)}</div><div class="cname">${esc(name)}</div>${act}${k==='fx'?`<button data-act="previewFx" data-arg="${id}">${owned?'Preview':'Try effect'}</button>`:''}</div>`;
 }
 function collectionHTML(){
   const tabs=Object.keys(COS).map(k=>`<button data-act="colTab" data-arg="${k}" class="${COL_TAB===k?'on':''}">${COS_LABEL[k]}s</button>`).join('');
@@ -7028,7 +7039,7 @@ function collectionHTML(){
   const lv=levelOf(META.xp);
   return `<div class="wrap"><h1 class="title" style="font-size:clamp(40px,8vw,72px)">Collection</h1>
    <div class="pbar wood"><div class="lvl"><b>Lv ${lv.level}</b><span class="xpbar2"><i style="width:${lv.need?lv.into/lv.need*100:100}%"></i></span><span class="small">${lv.need?`${lv.into}/${lv.need} XP`:'Max level'}</span><b class="ryo">💴 ${META.ryo} Ryo</b></div></div>
-   <div class="seg" style="display:flex;flex-wrap:wrap;margin:0 auto 14px;width:fit-content;max-width:100%">${tabs}</div>${body}
+   <div class="seg" style="display:flex;flex-wrap:wrap;margin:0 auto 14px;width:fit-content;max-width:100%">${tabs}</div><p class="cos-intro">${COL_TAB==='skins'?'Avatar styles change the colors, emblem and aura around your hero portrait. They do not replace card artwork.':'Cosmetics are visual only. Preview them before equipping or unlocking.'}</p>${body}
    <div class="lbl"><span>LEVEL ROAD</span><span class="small">+20 Ryo every level</span></div>
    <div class="road">${Array.from({length:MAX_LEVEL-1},(_,i)=>i+2).map(l=>{const r=LEVEL_REWARDS[l];const got=lv.level>=l;return `<div class="rstep ${got?'got':''}"><b>${l}</b><span>${r.ryo?'💴 '+r.ryo:esc(cosName(r.k,r.id))}</span></div>`}).join('')}</div>
    <div class="btns" style="justify-content:center"><button data-act="achievements">🏅 Achievements</button><button class="primary" data-act="toTitle">Back</button></div></div>`;
