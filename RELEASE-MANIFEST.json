@@ -1,7 +1,7 @@
 {
-  "source": "Anime Bazaar release: Claude requests #87–#99, including completed hidden item-pair discoveries.",
-  "sourceSha256": "4dc379eef6d84739422d58ebf9fb6e40d88fc623a23405491f4ed5f3120318cf",
-  "artSha256": "6dd923b7388e641f7bb18ae1f1c006389ec8a618f5bbe70287b7f187ceffd947",
+  "source": "Anime Bazaar release: Claude #87–#99 plus approved card and portrait artwork.",
+  "sourceSha256": "bebf8eec8ada01f221d91d4964ef40b1338272692c37deac8e9bc0336da82974",
+  "artSha256": "110484e90cd09178d759820ef9069a3e9e559007585f045f1310435fbe4a779c",
   "requests": [
     53,
     54,
@@ -51,8 +51,8 @@
     98,
     99
   ],
-  "artworkChanged": false,
-  "artworkMappings": 232,
+  "artworkChanged": true,
+  "artworkMappings": 238,
   "files": [
     {
       "name": "ainz-preview.html",
@@ -610,14 +610,14 @@
       "sha256": "a459dd99e64759ed45496c8beb89f57b345cbd315cd65163c936796871315939"
     },
     {
-      "name": "art/approved-20261105/king.png",
-      "bytes": 675439,
-      "sha256": "29c9c2f6d8058ab3dfdfe6d8faf56979a4c78ce5d40bacfc7c812626a5fd6cea"
-    },
-    {
       "name": "art/approved-20261105/king_armor.jpg",
       "bytes": 453451,
       "sha256": "057241d9d7e00637017d0b186bda88a64c4ea1d3d2f38b86c979d9aa9e528320"
+    },
+    {
+      "name": "art/approved-20261105/king.png",
+      "bytes": 675439,
+      "sha256": "29c9c2f6d8058ab3dfdfe6d8faf56979a4c78ce5d40bacfc7c812626a5fd6cea"
     },
     {
       "name": "art/approved-20261105/kisame_prison.jpg",
@@ -1325,6 +1325,11 @@
       "sha256": "8696377b954771f870dce2f9097b3034f2016a9a16002506178cad8718b72d69"
     },
     {
+      "name": "art/heroes/gojo-hidden-inventory-episode5.jpg",
+      "bytes": 76652,
+      "sha256": "0a01ef98df9695ad75e6d0eb82271f7a3a0f1cfe487486601de2dee8c4dabea9"
+    },
+    {
       "name": "art/heroes/goku.jpg",
       "bytes": 22954,
       "sha256": "17b5ecaaa8edc3d97c42eadbe3733e21c04f0634b4b78dae2009eabb1c0d60d0"
@@ -1348,6 +1353,21 @@
       "name": "art/heroes/maomao.jpg",
       "bytes": 30026,
       "sha256": "abd0e1d211311759cd719788d86090ecb74b8a710f25d481b0ecd9f3405da253"
+    },
+    {
+      "name": "art/heroes/misaka-railgun-t-option3.jpg",
+      "bytes": 125153,
+      "sha256": "1f05fe193da6d88baa33ab2f2935dc404fd851848cf28e6292dfa64a065987b6"
+    },
+    {
+      "name": "art/heroes/naruto-original-ep1-anime.jpg",
+      "bytes": 110256,
+      "sha256": "71b890b4aa0adbb1b16a4afa4d68aa4ef028c09b1e63396e3226c65fe9a9356d"
+    },
+    {
+      "name": "art/heroes/ryuko-anime-frame-option4.jpg",
+      "bytes": 69028,
+      "sha256": "4714ab0d2bac336755e7d522bb9bf750840d62fee9d1fdaf80af99178d8f4e5d"
     },
     {
       "name": "art/heroes/saitama.jpg",
@@ -1400,6 +1420,11 @@
       "sha256": "c9a727f076d9a4679b5d1dec0d77df2913b27f36d22d94f59bafb52299b6b38b"
     },
     {
+      "name": "art/items/andy/crimson_bullet-episode14.jpg",
+      "bytes": 136650,
+      "sha256": "8f8157c9ef415f69f557e56a91f8a091a8d0e27859beacba112d81e4c62258e7"
+    },
+    {
       "name": "art/items/andy/crimson-crescent-moon-ep07.jpg",
       "bytes": 363615,
       "sha256": "f5a3e352c278fb8f064c378085b1ebbe689ca28b6c56afa3409191d0722b4283"
@@ -1410,9 +1435,9 @@
       "sha256": "4086c9b5dd4cbd05786a9c8216c794621bb1f78a70d45e0d1ff040318e1c6ec8"
     },
     {
-      "name": "art/items/andy/crimson_bullet-episode14.jpg",
-      "bytes": 136650,
-      "sha256": "8f8157c9ef415f69f557e56a91f8a091a8d0e27859beacba112d81e4c62258e7"
+      "name": "art/items/andy/dead_road-bahamut-2023.jpg",
+      "bytes": 492454,
+      "sha256": "06d371e5b95f71b0a1e37fe1e0ea6521a884f0a1959f9929850f5c836786fd4d"
     },
     {
       "name": "art/items/andy/dead-line-victor-ep22.jpg",
@@ -1420,24 +1445,19 @@
       "sha256": "f2908df495ddc07570c332cd347a2183b2617285b3c295b9c4e2993637365315"
     },
     {
-      "name": "art/items/andy/dead_road-bahamut-2023.jpg",
-      "bytes": 492454,
-      "sha256": "06d371e5b95f71b0a1e37fe1e0ea6521a884f0a1959f9929850f5c836786fd4d"
-    },
-    {
       "name": "art/items/andy/fuuko_touch-episode17.jpg",
       "bytes": 217619,
       "sha256": "0939888f584df3e0a54fa22aeea86730fcf42c1283de429d1843c3cc49e8c97f"
     },
     {
-      "name": "art/items/andy/parts-bullet-finger-official.jpg",
-      "bytes": 1983309,
-      "sha256": "f414b0d38ea0d51aaf36e5ef29ba9575baa337f679e133496b24f14fa82cc892"
-    },
-    {
       "name": "art/items/andy/parts_bullet_head-episode4.jpg",
       "bytes": 152699,
       "sha256": "df9253ea531d4e23643d8eb7dfe62b744f9ebf9624c13e7ca7e0ad6d2fd81a92"
+    },
+    {
+      "name": "art/items/andy/parts-bullet-finger-official.jpg",
+      "bytes": 1983309,
+      "sha256": "f414b0d38ea0d51aaf36e5ef29ba9575baa337f679e133496b24f14fa82cc892"
     },
     {
       "name": "art/items/andy/remember-episode8.jpg",
@@ -1460,6 +1480,21 @@
       "sha256": "bd3ad3159c067ffe104469a45a69b5a609b97a45d3371156fd750334bd21781c"
     },
     {
+      "name": "art/items/deku/fa-jin.jpg",
+      "bytes": 44527,
+      "sha256": "0f875c611d1e1e26d0148df551647df73e3fe6ced8a8ded64050c36f89852ccb"
+    },
+    {
+      "name": "art/items/deku/smokescreen.jpg",
+      "bytes": 66029,
+      "sha256": "84485aee87d79617a528fa20e9a0d1ec5de1051163cea25c82a64c147d4f04a8"
+    },
+    {
+      "name": "art/items/edward/ling-yao.jpg",
+      "bytes": 86162,
+      "sha256": "71bb9319bfd5cd2d4a06730e40efc8939e8de68f3a3fe97084a9504749a727de"
+    },
+    {
       "name": "art/items/fern.jpg",
       "bytes": 23089,
       "sha256": "16badecb5b838a4eb9a5209c8e4ec835a3a094deab51f6dd88938a4c8f570a00"
@@ -1468,6 +1503,21 @@
       "name": "art/items/flowers.jpg",
       "bytes": 54036,
       "sha256": "bbfae48a3d3a9890a51025f84bceed1da45e3b9e3ed056cf1eb932c089093d2c"
+    },
+    {
+      "name": "art/items/frieren/eisen.png",
+      "bytes": 189704,
+      "sha256": "8c4c2c7fa8eb1566e48b2f8a692d6f0a23b59ac923ebec5dc72c42a734d3c4e5"
+    },
+    {
+      "name": "art/items/frieren/heiter.png",
+      "bytes": 108755,
+      "sha256": "dbc008ab1fc5e68acd7e5aeb3124e2d6da7aa3157735094215b06c957bfa943b"
+    },
+    {
+      "name": "art/items/frieren/judradjim.jpg",
+      "bytes": 131183,
+      "sha256": "b84d13653104864521ee019641fb3a2022302aac49003e6bd286c83186629e5f"
     },
     {
       "name": "art/items/gaoshun.jpg",
@@ -1630,14 +1680,14 @@
       "sha256": "f827f440cd38b3f1380ead4b6c08dfc09c2a124adfdeb5ce54d9657609d72204"
     },
     {
-      "name": "art/items/jinwoo/kasaka-fang-weapon.png",
-      "bytes": 172636,
-      "sha256": "802d0f9a62adb2b3127cddb250ffe1348d2aee9e8c1cc7fe131d17ce0ddb74bb"
-    },
-    {
       "name": "art/items/jinwoo/kasaka_fang.jpg",
       "bytes": 75233,
       "sha256": "346b0e2c5a56978a6bcc4b7289a8c3e599e74df85a33d2b1d91c61f391b49264"
+    },
+    {
+      "name": "art/items/jinwoo/kasaka-fang-weapon.png",
+      "bytes": 172636,
+      "sha256": "802d0f9a62adb2b3127cddb250ffe1348d2aee9e8c1cc7fe131d17ce0ddb74bb"
     },
     {
       "name": "art/items/jinwoo/monarch-domain-ep13.jpg",
@@ -2050,11 +2100,6 @@
       "sha256": "a070b4c5aa6bc5eb44272375abed8bab63debc8e27ffb1d53f3579821d06b708"
     },
     {
-      "name": "art/review/BZ-NEXT-ART-20261029/boros-cannon-1920.jpg",
-      "bytes": 94446,
-      "sha256": "dbf7a7a72705743490290da82fdbe7b1963679018a80feba055997376e875c06"
-    },
-    {
       "name": "art/review/BZ-NEXT-ART-20261029/boros_meteor.webp",
       "bytes": 117908,
       "sha256": "d09c6a98158d9b182e4a06afabb5837696ed149d15cf28347356ff690a935d45"
@@ -2063,6 +2108,11 @@
       "name": "art/review/BZ-NEXT-ART-20261029/boros_regen-refined-frame62.png",
       "bytes": 287449,
       "sha256": "042475fca39430b66fbb9f81d5681caac3261889229adc85dca290ecf3f32897"
+    },
+    {
+      "name": "art/review/BZ-NEXT-ART-20261029/boros-cannon-1920.jpg",
+      "bytes": 94446,
+      "sha256": "dbf7a7a72705743490290da82fdbe7b1963679018a80feba055997376e875c06"
     },
     {
       "name": "art/review/BZ-NEXT-ART-20261029/heroForFun.jpg",
@@ -2160,6 +2210,16 @@
       "sha256": "839c0072f28d627cce77fa23b33222bcff8238f1d89e1a508d47343c6c959a0d"
     },
     {
+      "name": "assets/vfx/CREDITS.txt",
+      "bytes": 561,
+      "sha256": "b150db49fed49ca441740ee68f115d17867ce1452fd8d91859697e2b209b5acb"
+    },
+    {
+      "name": "assets/vfx/vfx-atlas.webp",
+      "bytes": 174100,
+      "sha256": "7f09d0c3ed3e3e5e071e9ec55cbe3b9d80b50e2bc5147a5160300beb24693cf6"
+    },
+    {
       "name": "audio/bank.js",
       "bytes": 660199,
       "sha256": "a73944e7d431d1ca5620788fb4c6fef7e1b5a542222066e22b938916c90e0352"
@@ -2171,8 +2231,8 @@
     },
     {
       "name": "data/art.js",
-      "bytes": 33520,
-      "sha256": "d06ff954d4e4d04929fe9507bf96d4d6eff8bd7988ee6269c284511f171c51aa"
+      "bytes": 34005,
+      "sha256": "110484e90cd09178d759820ef9069a3e9e559007585f045f1310435fbe4a779c"
     },
     {
       "name": "data/rival-ghosts.js",
@@ -2186,8 +2246,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 1312353,
-      "sha256": "4dc379eef6d84739422d58ebf9fb6e40d88fc623a23405491f4ed5f3120318cf"
+      "bytes": 1312358,
+      "sha256": "bebf8eec8ada01f221d91d4964ef40b1338272692c37deac8e9bc0336da82974"
     },
     {
       "name": "recent-artwork.html",
@@ -2208,17 +2268,7 @@
       "name": "stats.html",
       "bytes": 7165,
       "sha256": "5268f6d0905768cd41736d9bff2070b7b63a4933b6338dbef2274e265f6cf889"
-    },
-    {
-      "name": "assets/vfx/vfx-atlas.webp",
-      "bytes": 174100,
-      "sha256": "7f09d0c3ed3e3e5e071e9ec55cbe3b9d80b50e2bc5147a5160300beb24693cf6"
-    },
-    {
-      "name": "assets/vfx/CREDITS.txt",
-      "bytes": 561,
-      "sha256": "b150db49fed49ca441740ee68f115d17867ce1452fd8d91859697e2b209b5acb"
     }
   ],
-  "createdUtc": "2026-11-17T07:54:05.000Z"
+  "createdUtc": "2026-11-17T22:59:27.826Z"
 }
