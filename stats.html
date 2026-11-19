@@ -11,12 +11,13 @@
 button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit}button.on{border-color:var(--acc);color:var(--acc)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
 .tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.tile b{display:block;font-size:22px}.tile span{color:var(--dim);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:12px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;overflow:auto}
-table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:4px 6px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
-th{color:var(--dim);font-weight:600}td.n{text-align:right;font-variant-numeric:tabular-nums}.pct{display:inline-block;min-width:40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px}
+.card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;overflow:hidden}
+table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:13px}th,td{padding:4px 6px;text-align:left;border-bottom:1px solid var(--line);white-space:normal;overflow-wrap:anywhere}
+th{color:var(--dim);font-weight:600}td.n{text-align:right;font-variant-numeric:tabular-nums}.pct{display:inline-block;min-width:0}
 .meter{display:inline-block;height:6px;border-radius:3px;background:var(--line);width:60px;vertical-align:middle;margin-left:6px;overflow:hidden}.meter i{display:block;height:100%}
 .hint{color:var(--dim);font-size:12px;margin:6px 0 0}.err{color:var(--bad)}
+@media(max-width:600px){.wrap{padding:12px}.grid{grid-template-columns:minmax(0,1fr)}.meter{display:none}}
 </style></head><body><div class="wrap">
 <h1>Anime Bazaar balance stats</h1>
 <p class="sub">From anonymous summaries of finished runs (hero, difficulty, result, final board, fights). Small samples are hidden or marked.</p>
