@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- Anime Bazaar balance stats (Claude 2026-11-14). Totals from anonymous run summaries on the friend-sync server
-     (GET /stats). No player names or IDs exist on the server. Open it from the live site so item names load. -->
+     (GET /stats, optional ?diff= and ?since=YYYY-MM-DD; the page also accepts ?since=). No player names or IDs exist on the server. Open it from the live site so item names load. -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Anime Bazaar Stats</title>
 <style>
@@ -21,12 +21,12 @@ th{color:var(--dim);font-weight:600}td.n{text-align:right;font-variant-numeric:t
 </style></head><body><div class="wrap">
 <h1>Anime Bazaar balance stats</h1>
 <p class="sub">From anonymous summaries of finished runs (hero, difficulty, result, final board, fights). Small samples are hidden or marked.</p>
-<div class="bar" id="diffs"></div>
+<div class="bar"><span id="diffs" class="bar" style="margin:0"></span><label class="hint" style="margin:0">Runs since <input type="date" id="since" style="background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;font:inherit"></label></div>
 <div id="out"><p class="sub">Loading…</p></div>
 </div>
 <script>
 const SERVER=(new URLSearchParams(location.search).get('server')||'https://anime-bazaar-friends.animebazaar.workers.dev').replace(/\/+$/,'');
-const MIN=5;let DIFF='',NAMES={};
+const MIN=5;let DIFF='',SINCE=new URLSearchParams(location.search).get('since')||'',NAMES={};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pct=(a,b)=>b?Math.round(100*a/b):0;
 const meter=p=>`<span class="meter"><i style="width:${p}%;background:${p>=55?'var(--good)':p<=35?'var(--bad)':'var(--acc)'}"></i></span>`;
@@ -38,7 +38,7 @@ async function loadNames(){try{const h=await (await fetch('index.html',{cache:'n
 function table(rows,cols){return `<table><tr>${cols.map(c=>`<th>${c[0]}</th>`).join('')}</tr>${rows.map(r=>`<tr>${cols.map(c=>`<td class="${c[2]||''}">${c[1](r)}</td>`).join('')}</tr>`).join('')}</table>`}
 function render(d){
   const R=d.runs||{runs:0,wins:0};
-  if(!R.runs){document.getElementById('out').innerHTML='<p class="sub">No finished runs reported yet. Stats appear once players on the current version finish runs.</p>';return}
+  if(!R.runs){document.getElementById('out').innerHTML=`<p class="sub">No finished runs reported${SINCE?' since '+esc(SINCE):''} yet. Stats appear once players on the current version finish runs.</p>`;return}
   const heroes=(d.heroes||[]).filter(h=>!DIFF||h.diff===DIFF);
   // The API reports each final-board item's total appearances and appearances
   // on winning runs. Derive the losing-board count instead of reusing the total.
@@ -62,7 +62,8 @@ function render(d){
    <div class="card"><h2>Day lost runs ended</h2>${table((d.endDays||[]).slice().sort((a,b)=>a.day-b.day),[['Day',x=>x.day,'n'],['Runs',x=>x.runs,'n']])}</div>
   </div>`}
 async function load(){document.getElementById('diffs').innerHTML=[['','All'],['casual','Casual'],['normal','Normal'],['hard','Hard']].map(([v,l])=>`<button class="${DIFF===v?'on':''}" data-d="${v}">${l}</button>`).join('');
-  try{const d=await (await fetch(SERVER+'/stats'+(DIFF?'?diff='+DIFF:''),{cache:'no-store'})).json();render(d)}catch(e){document.getElementById('out').innerHTML='<p class="err">Could not reach the stats server.</p>'}}
+  try{const d=await (await fetch(SERVER+'/stats?'+new URLSearchParams({...(DIFF&&{diff:DIFF}),...(SINCE&&{since:SINCE})}),{cache:'no-store'})).json();render(d)}catch(e){document.getElementById('out').innerHTML='<p class="err">Could not reach the stats server.</p>'}}
 document.getElementById('diffs').addEventListener('click',e=>{const b=e.target.closest('button');if(b){DIFF=b.dataset.d;load()}});
+const sinceBox=document.getElementById('since');sinceBox.value=SINCE;sinceBox.addEventListener('change',()=>{SINCE=sinceBox.value;load()});
 loadNames().then(load);
 </script></body></html>

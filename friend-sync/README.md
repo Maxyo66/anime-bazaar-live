@@ -22,3 +22,4 @@ Tests: tests/friend_sync.cjs and tests/global_pool.cjs.
 - When the Settings > Privacy switch is on (default), a completed non-Daily run can send a summary for game balancing. It contains hero, difficulty, result, day, wins/losses, final item build, fights and hidden pairs. Rival player names are removed.
 - The summary has a random run ID and does not include the player name, profile ID or friend-sync ID. The server stores only a hash of the IP address for a limit of 40 submissions per day; run records expire after 180 days.
 - The public stats page at /stats.html shows aggregate totals only. The server does not expose individual run records there.
+- Filters: `/stats?diff=hard` limits to one difficulty, and `/stats?since=2026-11-19` counts only runs finished on or after that date (UTC), so balance reports can skip runs from before a patch. The stats page has a matching "Runs since" date box and also accepts `stats.html?since=2026-11-19`.
