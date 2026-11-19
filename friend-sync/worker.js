@@ -8,7 +8,7 @@
 // One board per player, day, difficulty and hero (newest wins); boards older than 90 days are dropped.
 // Anonymous run stats (Claude 2026-11-14, Max): when a run ends the game sends a short summary under a random run ID
 // (hero, difficulty, result, final board, fights won/lost, hidden pairs). No player ID, name or IP is stored (only a
-// hashed IP for a daily limit). GET /stats returns totals only, for balancing. Runs older than 180 days are dropped.
+// hashed IP for a daily limit). GET /stats returns totals only, for balancing (?diff= and ?since= filter them). Runs older than 180 days are dropped.
 const ID = /^[A-Za-z0-9_-]{22}$/, SECRET = /^[A-Za-z0-9_-]{43}$/, CODE = /^AB2:[A-Za-z0-9_-]+$/;
 const MAX_CODE = 20000, MAX_BODY = 24000, MAX_IDS = 50, MIN_GAP_MS = 5000, NEW_PER_IP_PER_DAY = 20;
 const BOARD_MAX = 6000, POOL_LIMIT = 40, BOARD_GAP_MS = 2000, BOARD_TTL_MS = 90 * 864e5, DIFFS = ['casual', 'normal', 'hard'];
@@ -93,8 +93,10 @@ export async function handle(request, store, now = Date.now()) {
     return json({ ok: true });
   }
   if (request.method === 'GET' && parts[0] === 'stats' && parts.length === 1) {
-    const diff = url.searchParams.get('diff');
-    return json(await store.stats(DIFFS.includes(diff) ? diff : null, now - RUN_TTL_MS));
+    // ?since=YYYY-MM-DD (UTC) or a ms timestamp counts only runs finished from then on, e.g. after a balance patch.
+    const diff = url.searchParams.get('diff'), sinceRaw = url.searchParams.get('since') || '';
+    const since = /^\d{4}-\d{2}-\d{2}$/.test(sinceRaw) ? Date.parse(sinceRaw + 'T00:00:00Z') : /^\d{10,15}$/.test(sinceRaw) ? Number(sinceRaw) : NaN;
+    return json(await store.stats(DIFFS.includes(diff) ? diff : null, Math.max(now - RUN_TTL_MS, Number.isFinite(since) ? since : 0)));
   }
   return json({ error: 'not found' }, 404);
 }
