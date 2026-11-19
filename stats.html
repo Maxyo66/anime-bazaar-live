@@ -39,7 +39,11 @@ function render(d){
   const R=d.runs||{runs:0,wins:0};
   if(!R.runs){document.getElementById('out').innerHTML='<p class="sub">No finished runs reported yet. Stats appear once players on the current version finish runs.</p>';return}
   const heroes=(d.heroes||[]).filter(h=>!DIFF||h.diff===DIFF);
-  const items=(d.items||[]).filter(i=>i.runs>=MIN).map(i=>({...i,p:pct(i.wins,i.runs)}));
+  // The API reports each final-board item's total appearances and appearances
+  // on winning runs. Derive the losing-board count instead of reusing the total.
+  const itemTotals=(d.items||[]).map(i=>({...i,wins:Number(i.wins)||0,losses:Math.max(0,(Number(i.runs)||0)-(Number(i.wins)||0)),p:pct(i.wins,i.runs)}));
+  const winningItems=itemTotals.filter(i=>i.wins>=MIN);
+  const losingItems=itemTotals.filter(i=>i.losses>=MIN).map(i=>({...i,lossPct:pct(i.losses,i.runs)}));
   const foes=(d.foes||[]).filter(f=>f.fights>=MIN&&f.kind!=='pvp').map(f=>({...f,p:pct(f.won,f.fights)}));
   const pairs=(d.pairs||[]).map(x=>({...x,p:pct(x.wins,x.runs)}));
   const wr=r=>`<span class="pct">${pct(r.wins,r.runs)}%</span>${meter(pct(r.wins,r.runs))}`;
@@ -49,8 +53,8 @@ function render(d){
   <div class="grid">
    <div class="card"><h2>Heroes</h2>${table(heroes.sort((a,b)=>b.runs-a.runs),[['Hero',h=>esc(nm(h.hero))+(h.runs<MIN?' <span class="hint">(few runs)</span>':'')],['Diff',h=>esc(h.diff)],['Runs',h=>h.runs,'n'],['Win rate',wr],['Avg day',h=>h.avgDay,'n'],['Avg wins',h=>h.avgWins,'n']])}</div>
    <div class="card"><h2>Hardest monsters, bosses and trials</h2>${table(foes.sort((a,b)=>a.p-b.p).slice(0,25),[['Foe',f=>esc(f.foe)],['Kind',f=>esc(f.kind)],['Fights',f=>f.fights,'n'],['Players won',f=>`<span class="pct">${f.p}%</span>${meter(f.p)}`]])}<p class="hint">Only foes fought ${MIN}+ times.</p></div>
-   <div class="card"><h2>Items in winning boards</h2>${table(items.sort((a,b)=>b.p-a.p||b.runs-a.runs).slice(0,25),[['Item',i=>esc(nm(i.item))],['Final boards',i=>i.runs,'n'],['Run win rate',i=>`<span class="pct">${i.p}%</span>${meter(i.p)}`]])}<p class="hint">Share of runs with the item on the final board that were won (${MIN}+ runs).</p></div>
-   <div class="card"><h2>Items in losing boards</h2>${table(items.sort((a,b)=>a.p-b.p||b.runs-a.runs).slice(0,25),[['Item',i=>esc(nm(i.item))],['Final boards',i=>i.runs,'n'],['Run win rate',i=>`<span class="pct">${i.p}%</span>${meter(i.p)}`]])}</div>
+   <div class="card"><h2>Items in winning boards</h2>${table(winningItems.sort((a,b)=>b.wins-a.wins||b.p-a.p).slice(0,25),[['Item',i=>esc(nm(i.item))],['Winning boards',i=>i.wins,'n'],['Run win rate',i=>`<span class="pct">${i.p}%</span>${meter(i.p)}`]])}<p class="hint">Items appearing on final boards of won runs (${MIN}+ winning boards). Rate is wins among all runs with that item.</p></div>
+   <div class="card"><h2>Items in losing boards</h2>${table(losingItems.sort((a,b)=>b.losses-a.losses||b.lossPct-a.lossPct).slice(0,25),[['Item',i=>esc(nm(i.item))],['Losing boards',i=>i.losses,'n'],['Run loss rate',i=>`<span class="pct">${i.lossPct}%</span>`]])}<p class="hint">Items appearing on final boards of lost runs (${MIN}+ losing boards).</p></div>
    <div class="card"><h2>Most used items</h2>${table((d.items||[]).slice().sort((a,b)=>b.runs-a.runs).slice(0,25),[['Item',i=>esc(nm(i.item))],['Final boards',i=>i.runs,'n'],['Avg tier',i=>i.avgTier??'','n']])}</div>
    <div class="card"><h2>Hidden pairs players found</h2>${table(pairs.sort((a,b)=>b.runs-a.runs).slice(0,30),[['Pair',x=>esc(nm(x.pair))],['Runs',x=>x.runs,'n'],['Win rate',x=>`<span class="pct">${x.p}%</span>${meter(x.p)}`]])}</div>
    <div class="card"><h2>Day lost runs ended</h2>${table((d.endDays||[]).slice().sort((a,b)=>a.day-b.day),[['Day',x=>x.day,'n'],['Runs',x=>x.runs,'n']])}</div>
