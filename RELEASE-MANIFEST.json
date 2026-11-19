@@ -1,6 +1,6 @@
 {
-  "source": "Anime Bazaar release: Claude updates through #99, approved artwork and player-focused Guild Ledger UI polish.",
-  "sourceSha256": "0a0f8296339cfeb094f753076b93dea77c6f18b73107e1192d01432ee2238074",
+  "source": "Anime Bazaar release: Claude updates through #100 (utility cards scale with rarity), approved artwork and Guild Ledger UI polish.",
+  "sourceSha256": "b35a1f8f3aa69a101f7e1c518a9c72c3c80e51d4039f1e5776ae4ccf05d9e817",
   "artSha256": "110484e90cd09178d759820ef9069a3e9e559007585f045f1310435fbe4a779c",
   "requests": [
     53,
@@ -49,7 +49,8 @@
     96,
     97,
     98,
-    99
+    99,
+    100
   ],
   "artworkChanged": true,
   "artworkMappings": 238,
@@ -2246,8 +2247,8 @@
     },
     {
       "name": "index.html",
-      "bytes": 1316061,
-      "sha256": "0a0f8296339cfeb094f753076b93dea77c6f18b73107e1192d01432ee2238074"
+      "bytes": 1317892,
+      "sha256": "b35a1f8f3aa69a101f7e1c518a9c72c3c80e51d4039f1e5776ae4ccf05d9e817"
     },
     {
       "name": "recent-artwork.html",
@@ -2270,5 +2271,5 @@
       "sha256": "5268f6d0905768cd41736d9bff2070b7b63a4933b6338dbef2274e265f6cf889"
     }
   ],
-  "createdUtc": "2026-11-17T23:31:30.000Z"
+  "createdUtc": "2026-11-19T20:37:48.000Z"
 }

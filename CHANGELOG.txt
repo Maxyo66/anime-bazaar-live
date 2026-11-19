@@ -1,7 +1,11 @@
 ANIME BAZAAR — CHANGELOG FOR PLAYERS
-Updates #53–#99 | November 17, 2026
+Updates #53–#100 | November 19, 2026
 
-LATEST UPDATES (#93–#99)
+LATEST UPDATE (#100)
+- Utility cards (Freeze, Haste, charge, dodge and similar effects) now get stronger at every rarity, with longer effects and faster cooldowns from Bronze to Legendary.
+- Small tuning to the Kaguya fight and the Accelerator hero trial.
+
+EARLIER UPDATES (#93–#99)
 - 54 new hero items were added for nine heroes, with 18 new hidden item-pair synergies.
 - The item audit made effects within each hero pool more distinct and rebalanced 23 outliers. Twelve repetitive events were redesigned with different choices and mechanics.
 - Owned monster loot now shows its sell price. Five attack animations were refined, building on the unique animation for every card. Hidden item pairs reveal their effect when completed, with both cards highlighted and discoveries recorded even if the fight is skipped.
