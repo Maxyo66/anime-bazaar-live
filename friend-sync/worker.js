@@ -9,6 +9,10 @@
 // Anonymous run stats (Claude 2026-11-14, Max): when a run ends the game sends a short summary under a random run ID
 // (hero, difficulty, result, final board, fights won/lost, hidden pairs). No player ID, name or IP is stored (only a
 // hashed IP for a daily limit). GET /stats returns totals only, for balancing (?diff= and ?since= filter them). Runs older than 180 days are dropped.
+// Private admin view (Claude 2026-11-19, Max): GET /admin serves a page for Max only; GET /admin/players returns every stored
+// profile's share code (the same name, hero records and dailies friends already see) with first/last check-in and board count.
+// Locked by the ADMIN_KEY Worker secret (npx wrangler secret put ADMIN_KEY); without that secret both answer 404. No new data is collected.
+import { ADMIN_PAGE } from './admin-page.js';
 const ID = /^[A-Za-z0-9_-]{22}$/, SECRET = /^[A-Za-z0-9_-]{43}$/, CODE = /^AB2:[A-Za-z0-9_-]+$/;
 const MAX_CODE = 20000, MAX_BODY = 24000, MAX_IDS = 50, MIN_GAP_MS = 5000, NEW_PER_IP_PER_DAY = 20;
 const BOARD_MAX = 6000, POOL_LIMIT = 40, BOARD_GAP_MS = 2000, BOARD_TTL_MS = 90 * 864e5, DIFFS = ['casual', 'normal', 'hard'];
@@ -19,7 +23,7 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), { status
 async function sha(text) { const b = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))); return [...b].map(x => x.toString(16).padStart(2, '0')).join(''); }
 
 // store: { get(id), put(row), many(ids), newSince(ipHash, t) }
-export async function handle(request, store, now = Date.now()) {
+export async function handle(request, store, now = Date.now(), env = {}) {
   const url = new URL(request.url), parts = url.pathname.split('/').filter(Boolean);
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
   if (request.method === 'GET' && !parts.length) return json({ ok: true, service: 'anime-bazaar-friends' });
@@ -98,7 +102,26 @@ export async function handle(request, store, now = Date.now()) {
     const since = /^\d{4}-\d{2}-\d{2}$/.test(sinceRaw) ? Date.parse(sinceRaw + 'T00:00:00Z') : /^\d{10,15}$/.test(sinceRaw) ? Number(sinceRaw) : NaN;
     return json(await store.stats(DIFFS.includes(diff) ? diff : null, Math.max(now - RUN_TTL_MS, Number.isFinite(since) ? since : 0)));
   }
+  if (request.method === 'GET' && parts[0] === 'admin') return admin(request, url, parts, store, env);
   return json({ error: 'not found' }, 404);
+}
+
+// Admin answers carry no CORS headers, so only the page served from this Worker can read them.
+const ADMIN_HEADERS = { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex', 'Referrer-Policy': 'no-referrer', 'X-Frame-Options': 'DENY' };
+const ADMIN_PAGE_SIZE = 500;
+async function admin(request, url, parts, store, env) {
+  const key = typeof env.ADMIN_KEY === 'string' ? env.ADMIN_KEY : '';
+  const nope = () => new Response(JSON.stringify({ error: 'not found' }), { status: 404, headers: { ...ADMIN_HEADERS, 'Content-Type': 'application/json' } });
+  if (key.length < 16) return nope();
+  if (parts.length === 1) return new Response(ADMIN_PAGE, { headers: { ...ADMIN_HEADERS, 'Content-Type': 'text/html; charset=utf-8',
+    'Content-Security-Policy': "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https://maxyo66.github.io; img-src data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'" } });
+  if (parts.length !== 2 || parts[1] !== 'players') return nope();
+  const given = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
+  if (!given || await sha('admin:' + given) !== await sha('admin:' + key)) return new Response(JSON.stringify({ error: 'wrong key' }), { status: 401, headers: { ...ADMIN_HEADERS, 'Content-Type': 'application/json' } });
+  const offset = Math.max(0, Math.min(1e6, Math.floor(Number(url.searchParams.get('offset')) || 0)));
+  const rows = await store.players(offset, ADMIN_PAGE_SIZE);
+  const players = rows.map(r => ({ id: r.id, code: r.code, created: r.created, updated: r.updated, boards: r.boards || 0, lastBoard: r.lastBoard || 0 }));
+  return new Response(JSON.stringify({ players, next: rows.length === ADMIN_PAGE_SIZE ? offset + rows.length : null }), { headers: { ...ADMIN_HEADERS, 'Content-Type': 'application/json' } });
 }
 
 export function d1Store(db) {
@@ -148,6 +171,7 @@ export function d1Store(db) {
         endDays: await q(`SELECT r.day, COUNT(*) AS runs FROM runs r WHERE ${w} AND r.result = 'loss' GROUP BY r.day ORDER BY r.day`),
       } },
     async newSince(ipHash, t) { await init(); const r = await db.prepare('SELECT COUNT(*) AS n FROM profiles WHERE ip_hash = ? AND created > ?').bind(ipHash, t).first(); return r ? r.n : 0 },
+    async players(offset, limit) { await init(); return (await db.prepare('SELECT p.id, p.code, p.created, p.updated, b.n AS boards, b.last AS lastBoard FROM profiles p LEFT JOIN (SELECT owner, COUNT(*) AS n, MAX(at) AS last FROM boards GROUP BY owner) b ON b.owner = p.id ORDER BY p.updated DESC, p.id LIMIT ? OFFSET ?').bind(limit, offset).all()).results || [] },
   };
 }
 
@@ -172,13 +196,14 @@ export function memoryStore() {
     async put(r) { m.set(r.id, { ...r }) },
     async many(ids) { return ids.filter(id => m.has(id)).map(id => { const r = m.get(id); return { id, code: r.code, updated: r.updated } }) },
     async newSince(ipHash, t) { return [...m.values()].filter(r => r.ip_hash === ipHash && r.created > t).length },
+    async players(offset, limit) { return [...m.values()].sort((a, b) => b.updated - a.updated || (a.id < b.id ? -1 : 1)).slice(offset, offset + limit).map(r => { const bs = [...bm.values()].filter(x => x.owner === r.id); return { id: r.id, code: r.code, created: r.created, updated: r.updated, boards: bs.length, lastBoard: bs.reduce((t, x) => Math.max(t, x.at), 0) } }) },
   };
 }
 
 let shared = null;
 export default {
   async fetch(request, env) {
-    try { shared ||= d1Store(env.DB); return await handle(request, shared) }
+    try { shared ||= d1Store(env.DB); return await handle(request, shared, Date.now(), env) }
     catch (e) { return json({ error: 'server error' }, 500) }
   },
 };

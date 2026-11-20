@@ -21,5 +21,14 @@ Tests: tests/friend_sync.cjs and tests/global_pool.cjs.
 
 - When the Settings > Privacy switch is on (default), a completed non-Daily run can send a summary for game balancing. It contains hero, difficulty, result, day, wins/losses, final item build, fights and hidden pairs. Rival player names are removed.
 - The summary has a random run ID and does not include the player name, profile ID or friend-sync ID. The server stores only a hash of the IP address for a limit of 40 submissions per day; run records expire after 180 days.
-- The public stats page at /stats.html shows aggregate totals only. The server does not expose individual run records there.
-- Filters: `/stats?diff=hard` limits to one difficulty, and `/stats?since=2026-11-19` counts only runs finished on or after that date (UTC), so balance reports can skip runs from before a patch. The stats page has a matching "Runs since" date box and also accepts `stats.html?since=2026-11-19`.
+- The totals are shown on the private admin panel's Balance tab (the public stats.html page was retired on 2026-11-19). GET /stats itself stays open: it returns aggregate totals only, never individual run records.
+- Filters: `/stats?diff=hard` limits to one difficulty, and `/stats?since=2026-11-19` counts only runs finished on or after that date (UTC), so balance reports can skip runs from before a patch. The admin Balance tab has a matching "Runs since" date box.
+
+## Private player list (admin)
+
+- `/admin` on the Worker is a private page for Max with two tabs. Balance: the run stats totals (heroes, items, foes, pairs, end days) with difficulty and runs-since filters. Players: every stored friend-sync profile (player name, runs, titles, best runs, dailies, achievements) with first seen and last played, sortable to see who plays the most and who is best. Click a player for their per-hero records.
+- It reads only what the profiles table already holds; nothing new is collected. Run stats stay anonymous and are not linked to players.
+- Locked by a Worker secret: `npx wrangler secret put ADMIN_KEY` (run in friend-sync/, paste a long random key, at least 16 characters). Without the secret, `/admin` answers 404. The page asks for the key once and can remember it in that browser.
+- Settings > Privacy tells players their profile is visible to the developer.
+
+Test: tests/admin_panel.cjs.

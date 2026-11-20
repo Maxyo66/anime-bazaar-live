@@ -366,6 +366,15 @@ body.anim-off .card.fire{transform:none}
 .runwrap .top .dayb{color:#ffd77a}
 .runwrap .top .xpbar{max-width:110px;margin-top:3px}
 .runwrap .top .stat{padding:3px 8px;font-size:12px}
+.xpstat{position:relative;display:inline-flex;align-items:center;gap:5px;margin-top:2px;font-size:12px;font-weight:900;color:#f4e8d4;cursor:help;white-space:nowrap;border-radius:6px}.xpstat:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.xppips{display:inline-flex;gap:3px}.xppips i{display:block;width:10px;height:9px;border-radius:3px;background:#0009;box-shadow:inset 0 0 0 1px var(--brass2)}
+.xppips i.on{background:linear-gradient(90deg,#ffd77a,#ff9a3c);box-shadow:inset 0 0 0 1px #ffe3a3,0 0 6px #ff9a3c99}
+.xppips.bar{width:54px;height:9px;border-radius:3px;background:#0009;box-shadow:inset 0 0 0 1px var(--brass2);overflow:hidden}.xppips.bar i{width:auto;height:100%;border-radius:0;box-shadow:none}
+.xpstat.close .xppips i:not(.on){animation:xpPulse 1.6s ease-in-out infinite}@keyframes xpPulse{50%{box-shadow:inset 0 0 0 1px #ffd77a,0 0 7px #ffd77a}}body.anim-off .xpstat.close .xppips i{animation:none}
+.xpnum{font-size:.9em;color:#ffe3a3}
+.xppop{font-weight:600;white-space:normal;line-height:1.35;letter-spacing:0}.xpstat:hover .xppop,.xpstat:focus .xppop{display:grid;gap:6px}
+.xprow{font-size:13px;color:#f4e8d4}
+@media(max-width:640px){.runwrap .top{position:relative}.xpstat{position:static}.xppop{left:8px;right:8px;top:calc(100% + 6px);width:auto}}
 .runwrap .top .warnbtn{margin-left:auto}
 .runwrap .top .pstat .pname{display:none}
 .topbtns{display:flex;gap:4px;flex:none}
@@ -3454,12 +3463,267 @@ const HFX=(()=>{
     c.fillStyle='#c88a6a';for(const d of [-1,1])for(let i=0;i<3;i++)c.fillRect(d*6+(i-1)*1.5,8+(i%2),1,1);c.strokeStyle=INK;c.beginPath();c.moveTo(-2,13);c.lineTo(2,13);c.stroke();
     if(k>.18){c.strokeStyle='#ffe04a';c.lineWidth=2;for(const d of [-1,1]){c.beginPath();c.moveTo(d*10,-8);c.lineTo(d*16,-12);c.lineTo(d*14,-15);c.lineTo(d*21,-19);c.stroke();c.beginPath();c.moveTo(d*12,-3);c.lineTo(d*19,-4);c.lineTo(d*17,-7);c.lineTo(d*24,-8);c.stroke()}}c.restore();
     if(k>.3){const q=Math.min(1,(k-.3)/.5),px=lerp({x:b.x+220,y:y-10},{x:b.x+75,y:y-10},q);c.strokeStyle='#ffe04a';c.lineWidth=3;c.setLineDash([6,5]);c.beginPath();c.arc(px.x,px.y,16,0,TAU);c.stroke();c.setLineDash([]);c.fillStyle='rgba(255,90,70,.9)';c.beginPath();c.arc(px.x,px.y,9,0,TAU);c.fill();c.strokeStyle='rgba(255,230,80,.5)';c.lineWidth=2;c.beginPath();c.moveTo(px.x+12,px.y);c.lineTo(px.x+60,px.y);c.stroke()}c.restore()}})},
+  // ---- #101 batch 4 hero item animations (Claude 2026-11-19): one per new card ----
+  // Ichigo
+  // Orihime: Soten Kisshun - two hairpin fairies spread a golden oval dome over you, restoring what was lost
+  orihimeshield(a,b,col,o){add({dur:1.3,at:.55,hit(){sfxText({x:b.x,y:b.y-110},'双天帰盾','#ffd0e8',28);sparks(b.x,b.y,'#ffe0f0',14,140)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5));
+    for(const d of [-1,1]){const x=b.x+d*(30+50*q),y=b.y-60+10*Math.sin(t*9+d);c.fillStyle='#ffb0d0';c.beginPath();c.moveTo(x,y-8);c.lineTo(x+6,y);c.lineTo(x,y+8);c.lineTo(x-6,y);c.closePath();c.fill();c.strokeStyle=INK;c.lineWidth=1.5;c.stroke();glow(c,x,y,16,'rgba(255,220,240,.7)')}
+    c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,215,120,.85)';c.lineWidth=4;c.beginPath();c.ellipse(b.x,b.y,80*q,58*q,0,0,TAU);c.stroke();c.fillStyle='rgba(255,220,140,.18)';c.fill();c.restore()}})},
+  // Chad: Brazo Izquierda del Diablo - the white-and-red demon arm winds up and fires a skull-shaped blast
+  brazodiablo(a,b,col,o){add({dur:1.2,at:.6,hit(){hitAt(b,'#ff6a5a',true,'魔人の一撃','#fff0e0');shake(8,300)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=Math.min(1,k/.6),p=lerp(a,b,ease(Math.max(0,(k-.35)/.25)));
+    c.save();c.translate(a.x+30,a.y-10);c.fillStyle='#f4f0ea';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.roundRect(-10,-12,40,24,10);c.fill();c.stroke();c.fillStyle='#c8202a';c.fillRect(0,-12,6,24);c.fillRect(14,-12,6,24);fist(c,36,0,13,'#f4f0ea',0);c.restore();
+    if(k>.35&&k<.65){c.globalCompositeOperation='lighter';glow(c,p.x,p.y,40,'rgba(255,120,90,.9)');c.fillStyle='#fff';c.beginPath();c.arc(p.x,p.y,14,0,TAU);c.fill();c.fillStyle=INK;c.beginPath();c.arc(p.x-5,p.y-2,3,0,TAU);c.arc(p.x+5,p.y-2,3,0,TAU);c.fill()}c.restore()}})},
+  // Uryu: Licht Regen - a Quincy bow of blue reishi fires a rain of arrows that falls on the target
+  lichtregen(a,b,col,o){add({dur:1.3,at:.75,hit(){hitAt(b,'#9cd2ff',false,'リヒト・レーゲン','#e0f4ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.globalCompositeOperation='lighter';
+    c.strokeStyle='rgba(150,210,255,.95)';c.lineWidth=3;c.beginPath();c.arc(a.x+20,a.y-20,28,-1.2,1.2);c.stroke();c.beginPath();c.moveTo(a.x+20+28*Math.cos(-1.2),a.y-20+28*Math.sin(-1.2));c.lineTo(a.x+20-8*(k<.3?k/.3:1),a.y-20);c.lineTo(a.x+20+28*Math.cos(1.2),a.y-20+28*Math.sin(1.2));c.lineWidth=1;c.stroke();
+    if(k>.3)for(let i=0;i<14;i++){const q=Math.min(1,(k-.3-i*.02)/.4);if(q<=0)continue;const x=b.x-70+i*11+jit(i,1,8),y=b.y-160+150*q;c.strokeStyle='rgba(170,225,255,.9)';c.lineWidth=2;c.beginPath();c.moveTo(x-6,y-22);c.lineTo(x,y);c.stroke()}c.restore()}})},
+  // Yoruichi: Shunko - a flash of wind-lightning across her shoulders and back, then a palm strike from behind
+  shunko(a,b,col,o){add({dur:1.0,at:.55,hit(){hitAt(b,'#c8a0ff',false,'瞬閧','#f0e0ff');speedLines(b,'#e8d8ff',.3,20)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const s=step(t),q=ease(Math.min(1,k/.5)),x=a.x+(b.x-a.x+40)*q,y=a.y+(b.y-a.y)*q;
+    chibi(c,x,y,1.4,{body:'#2a2238',skin:'#8a5a3a',hair:'#5a3a8a',pose:1,lean:.25});c.globalCompositeOperation='lighter';for(let i=0;i<5;i++)zap(c,x-18,y-24+i*6,x+18,y-28+i*7,s+i,'rgba(220,200,255,.8)',2);c.restore()}})},
+  // Byakuya: Senbonzakura - the blade scatters into a stream of a thousand pink petal-blades that engulf the target
+  senbonzakura(a,b,col,o){add({dur:1.4,at:.7,hit(){hitAt(b,'#ff9ac8',false,'散れ','#ffe0f0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(let i=0;i<40;i++){const q=Math.min(1,Math.max(0,k*1.6-i*.012)),p=arcAt(a,b,q,60+jit(i,3,40));
+    petal(c,p.x+jit(i,1,16)+Math.cos(t*8+i)*10*q,p.y+jit(i,2,16)+Math.sin(t*8+i)*10*q,5,t*6+i,i%3?'#ff9ac8':'#ffd0e4')}c.restore()}})},
+  // Kenpachi: a huge two-handed swing; his yellow reiatsu flares like a skull behind him
+  kenpachi(a,b,col,o){add({dur:1.3,at:.65,hit(){hitAt(b,'#e8d040',true,'剣八','#fff8c0');impactFrame(b);shake(12,400)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.6));
+    c.globalCompositeOperation='lighter';glow(c,a.x,a.y-40,90*q,'rgba(240,210,60,.5)');c.globalCompositeOperation='source-over';chibi(c,a.x+20,a.y,1.6,{body:'#2a2a2a',trim:'#f0f0f0',hair:'#2a2a2a',pose:2});
+    c.save();c.translate(a.x+20,a.y-30);c.rotate(-2.2+2.6*q);blade(c,130,10,'#c8c8d0');c.restore();if(k>.55&&k<.75){c.strokeStyle='rgba(255,240,140,.9)';c.lineWidth=8;c.beginPath();c.arc(a.x+20,a.y-30,130,-.9,.6);c.stroke()}c.restore()}})},
+  // Levi
+  // Petra: she signals the squad with a green flare that arcs overhead, and adjacent allies pick up the pace
+  petraral(a,b,col,o){add({dur:1.2,at:.6,hit(){sfxText({x:a.x,y:a.y-130},'了解!','#c8f0c0',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x-30,a.y,1.3,{body:'#6a4a2a',trim:'#e8e0c8',hair:'#e0a060',pose:2});const q=Math.min(1,k/.7),p=arcAt({x:a.x-30,y:a.y-30},{x:a.x+60,y:a.y-120},q,40);
+    c.globalCompositeOperation='lighter';glow(c,p.x,p.y,26,'rgba(120,255,140,.9)');c.strokeStyle='rgba(160,255,170,.6)';c.lineWidth=4;c.beginPath();c.moveTo(a.x-30,a.y-30);c.quadraticCurveTo(a.x,a.y-120,p.x,p.y);c.stroke();c.restore()}})},
+  // Oluo: a cocky spinning slash... and he bites his tongue at the end
+  oluobite(a,b,col,o){add({dur:1.2,at:.5,hit(){hitAt(b,'#c0a080',false,'ガブッ','#ffe0c0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.45)),x=a.x+(b.x-a.x-50)*q;
+    chibi(c,x,b.y,1.4,{body:'#6a4a2a',trim:'#e8e0c8',hair:'#c8a070',pose:1,lean:t*14*(k<.45)});c.save();c.translate(x,b.y-10);c.rotate(t*14);blade(c,40,5,'#c8d0d8');c.rotate(Math.PI);blade(c,40,5,'#c8d0d8');c.restore();
+    if(k>.6){c.fillStyle='#e04050';c.beginPath();c.ellipse(x+6,b.y-14,5,3,0,0,TAU);c.fill();sfxText({x:x,y:b.y-70},'!!','#ff6070',22)}c.restore()}})},
+  // Eld & Gunther: two Survey Corps soldiers swing in on ODM wires from both sides and cross their blades
+  eldgunther(a,b,col,o){add({dur:1.2,at:.6,hit(){hitAt(b,'#8fb0a0',false,'挟撃','#e0f0e8')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.6));for(const d of [-1,1]){const x=b.x+d*(160-130*q),y=b.y-40+20*q;
+    c.strokeStyle='#5a5a5a';c.lineWidth=1.5;c.beginPath();c.moveTo(b.x+d*200,b.y-200);c.lineTo(x,y);c.stroke();chibi(c,x,y,1.2,{body:'#6a4a2a',trim:'#e8e0c8',hair:d<0?'#e8d080':'#3a2a1a',pose:1,lean:-d*.3})}
+    if(k>.55&&k<.75){c.strokeStyle='rgba(230,240,235,.95)';c.lineWidth=5;c.beginPath();c.moveTo(b.x-40,b.y-40);c.lineTo(b.x+40,b.y+40);c.moveTo(b.x+40,b.y-40);c.lineTo(b.x-40,b.y+40);c.stroke()}c.restore()}})},
+  // Kenny: anti-personnel ODM pistols - two shotgun blasts in a cloud of smoke, his hat tilted low
+  kennyshotgun(a,b,col,o){add({dur:1.1,at:.4,hit(){hitAt(b,'#d8d8d8',false,'バン!','#fff');sparks(b.x,b.y,'#ffe0a0',12,220)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x+10,a.y,1.4,{body:'#2a2a2a',hair:'#3a3a3a',pose:1,extra(c){c.fillStyle='#2a2a2a';c.fillRect(-14,-30,28,4);c.fillRect(-8,-38,16,9)}});
+    for(const [i,kk] of [[0,.35],[1,.55]])if(k>kk&&k<kk+.2){const p={x:a.x+60,y:a.y-14+i*10};puff(c,p.x+20,p.y,16,'rgba(200,200,200,.6)',step(t));c.globalCompositeOperation='lighter';glow(c,p.x,p.y,24,'rgba(255,220,140,.95)');c.globalCompositeOperation='source-over';
+     c.strokeStyle='rgba(255,230,160,.8)';c.lineWidth=2;for(let j=0;j<6;j++){c.beginPath();c.moveTo(p.x,p.y);c.lineTo(b.x+jit(j,i,30),b.y+jit(j+4,i,30));c.stroke()}}c.restore()}})},
+  // Ackerman Awakening: the Ackerman's eyes go cold; a red pulse and the world slows around you
+  ackermanawaken(a,b,col,o){add({dur:1.4,at:.4,hit(){sfxText({x:b.x,y:b.y-120},'覚醒','#ff4040',34);ring(b.x,b.y,'#ff3030',10,120,.5,5)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4));
+    c.fillStyle='rgba(60,0,0,'+(.25*q)+')';c.fillRect(0,0,c.canvas.width,c.canvas.height);c.translate(b.x,b.y-40);c.scale(3,3);c.fillStyle='#f2c9a0';c.strokeStyle=INK;c.lineWidth=1;c.beginPath();c.ellipse(0,0,16,9,0,0,TAU);c.fill();c.stroke();
+    for(const d of [-1,1]){c.fillStyle='#fff';c.beginPath();c.ellipse(d*7,0,4.5,2,0,0,TAU);c.fill();c.stroke();c.fillStyle='rgb('+Math.round(40+200*q)+',30,30)';c.beginPath();c.arc(d*7,0,1.4,0,TAU);c.fill()}c.fillStyle=INK;c.fillRect(-16,-9,32,4);c.restore()}})},
+  // Beast Titan Takedown: Levi spirals through a rain of thrown rocks and carves the giant in a blur of slashes
+  beasttakedown(a,b,col,o){add({dur:1.6,at:1.1,hit(){hitAt(b,'#e8e8e8',true,'獣の巨人','#fff');impactFrame(b);shake(10,380)},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(let i=0;i<6;i++){const y=b.y-180+((k*2+i*.17)%1)*260;c.fillStyle='#7a6a5a';c.beginPath();c.arc(b.x-120+i*45,y,6+i%3*3,0,TAU);c.fill()}
+    const q=Math.min(1,k/.7),ang=q*TAU*2.5,x=lerp(a,b,q).x+Math.cos(ang)*40,y=lerp(a,b,q).y+Math.sin(ang)*30;chibi(c,x,y,1.2,{body:'#2a2a2a',trim:'#e8e0c8',hair:'#1a1a1a',pose:1,lean:ang});
+    if(k>.65)for(let i=0;i<6;i++){c.strokeStyle='rgba(255,255,255,'+(.9-i*.12)+')';c.lineWidth=3;c.beginPath();c.arc(b.x,b.y,30+i*12,i+k*10,i+k*10+1.4);c.stroke()}c.restore()}})},
+  // Saitama
+  // Silverfang: Water Stream Rock Smashing Fist - flowing hands trace circles of water that turn the blow aside, then strike
+  silverfangflow(a,b,col,o){add({dur:1.3,at:.7,hit(){hitAt(b,'#c0e0ff',false,'流水岩砕拳','#eaf6ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x+40,a.y,1.4,{body:'#3a3a4a',hair:'#e8e8e8',pose:1});c.globalCompositeOperation='lighter';
+    for(let i=0;i<3;i++){c.strokeStyle='rgba(150,210,255,'+(.8-i*.2)+')';c.lineWidth=4-i;c.beginPath();c.arc(a.x+70,a.y-10,26+i*12,t*6+i,t*6+i+4.2);c.stroke()}if(k>.55){const p=lerp({x:a.x+70,y:a.y-10},b,(k-.55)/.2);glow(c,p.x,p.y,28,'rgba(180,230,255,.9)')}c.restore()}})},
+  // Tatsumaki: she floats with a green aura, rips chunks of ground up and hurls them
+  tatsumakitk(a,b,col,o){add({dur:1.4,at:.85,hit(){hitAt(b,'#50e080',true,'戦慄','#d8ffe8');shake(8,300)},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.globalCompositeOperation='lighter';glow(c,a.x,a.y-30,70,'rgba(80,230,130,.45)');c.globalCompositeOperation='source-over';
+    chibi(c,a.x,a.y-20+Math.sin(t*5)*4,1.3,{body:'#1a3a2a',hair:'#3ac070',long:true,pose:2});for(let i=0;i<5;i++){const q=Math.min(1,Math.max(0,(k-.2)/.6)),p=arcAt({x:a.x-60+i*30,y:a.y+20},{x:b.x+jit(i,1,40),y:b.y+jit(i,2,30)},q,120);
+     c.fillStyle='#8a7a6a';c.strokeStyle='#50e080';c.lineWidth=2;c.beginPath();c.moveTo(p.x-10,p.y-6);c.lineTo(p.x+8,p.y-9);c.lineTo(p.x+11,p.y+6);c.lineTo(p.x-7,p.y+9);c.closePath();c.fill();c.stroke()}c.restore()}})},
+  // Metal Bat: a fighting-spirit aura and a home-run swing of the steel bat
+  metalbat(a,b,col,o){add({dur:1.1,at:.55,hit(){hitAt(b,'#c0c0c0',false,'カキーン','#fff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.55));chibi(c,b.x-70,b.y,1.4,{body:'#1a1a2a',hair:'#3a2a2a',pose:1,lean:.2});
+    c.save();c.translate(b.x-60,b.y-14);c.rotate(-2.4+2.8*q);c.fillStyle='#b8b8c0';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.moveTo(0,-3);c.lineTo(70,-7);c.lineTo(70,7);c.lineTo(0,3);c.closePath();c.fill();c.stroke();c.restore();
+    c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,90,60,.5)';c.lineWidth=3;for(let i=0;i<4;i++){c.beginPath();c.moveTo(b.x-80+i*7,b.y+20);c.lineTo(b.x-84+i*7+jit(i,step(t),6),b.y-50);c.stroke()}c.restore()}})},
+  // Mumen Rider: he rings his bicycle bell and charges in on the bike - "Justice Crash!"
+  mumenrider(a,b,col,o){add({dur:1.3,at:.6,hit(){sfxText({x:b.x,y:b.y-120},'ジャスティスクラッシュ!','#ffe040',22);ring(b.x,b.y,'#ffe040',10,90)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x-140+140*ease(Math.min(1,k/.6)),y=b.y+10;
+    c.strokeStyle=INK;c.lineWidth=3;for(const d of [-1,1]){c.beginPath();c.arc(x+d*22,y+14,13,0,TAU);c.stroke()}c.beginPath();c.moveTo(x-22,y+14);c.lineTo(x,y-2);c.lineTo(x+22,y+14);c.moveTo(x,y-2);c.lineTo(x+16,y-12);c.stroke();
+    chibi(c,x,y-26,1.1,{body:'#2a7a3a',hair:'#3a2a1a',pose:1,extra(c){c.fillStyle='#2a7a3a';c.beginPath();c.arc(0,-22,11,Math.PI,0);c.fill();c.stroke();c.fillStyle='#ffe040';c.fillRect(-11,-24,22,3)}});c.restore()}})},
+  // 100 Push-Ups a Day: a quick training montage - push-ups, sit-ups, squats and a run - and a sweat drop
+  pushups(a,b,col,o){add({dur:1.4,at:.9,hit(){sfxText({x:b.x,y:b.y-120},'100回!','#ffd060',28)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const ph=Math.min(3,Math.floor(k*4)),bob=Math.abs(Math.sin(t*14))*8;
+    const P={body:'#f0e8c8',skin:'#f2c9a0',hair:'#f2c9a0'};if(ph===0){c.save();c.translate(b.x,b.y+10);c.rotate(Math.PI/2.2);chibi(c,0,-bob,1.1,{...P,pose:2});c.restore()}else if(ph===1)chibi(c,b.x,b.y+bob,1.2,{...P,pose:2});else if(ph===2)chibi(c,b.x,b.y+10-bob,1.2-.1*Math.sin(t*14),P);else chibi(c,b.x+Math.sin(t*10)*20,b.y,1.2,{...P,pose:1});
+    c.fillStyle='#9cd2ff';c.beginPath();c.ellipse(b.x+16,b.y-50,3,5,0,0,TAU);c.fill();c.fillStyle='#fff';c.font='900 16px Arial Black';c.textAlign='center';c.fillText(['腕立て','腹筋','スクワット','10km'][ph],b.x,b.y+60);c.restore()}})},
+  // Serious Sneeze: Saitama sneezes; the shockwave rolls across the screen
+  sneeze(a,b,col,o){add({dur:1.3,at:.5,hit(){hitAt(b,'#fff0a0',true,'ハックション','#fff');impactFrame(a);shake(14,450)},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.translate(a.x+20,a.y-20);c.scale(2.4,2.4);c.fillStyle='#f2c9a0';c.strokeStyle=INK;c.lineWidth=1.2;c.beginPath();c.arc(0,0,14,0,TAU);c.fill();c.stroke();
+    c.beginPath();k<.4?c.ellipse(5,7,2,1,0,0,TAU):c.ellipse(6,6,4,4,0,0,TAU);c.fillStyle=INK;c.fill();c.restore();if(k>.4){c.save();c.globalAlpha=fo(k);const r=(k-.4)*700;c.strokeStyle='rgba(255,250,220,.8)';c.lineWidth=10;c.beginPath();c.arc(a.x+40,a.y-20,r,-.6,.6);c.stroke();c.lineWidth=4;c.beginPath();c.arc(a.x+40,a.y-20,r*.8,-.5,.5);c.stroke();c.restore()}}})},
+  // Jinwoo
+  // Beru: the ant shadow lunges with wings buzzing and claws raking, spraying acid
+  beruant(a,b,col,o){add({dur:1.1,at:.55,hit(){hitAt(b,'#8a6ad8',false,'王の蟻','#e8dcff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.55)),p=lerp(a,b,q*.8);c.fillStyle='#1a1428';c.strokeStyle='#8a6ad8';c.lineWidth=2;
+    c.beginPath();c.ellipse(p.x,p.y,24,14,0,0,TAU);c.fill();c.stroke();c.beginPath();c.ellipse(p.x+26,p.y-6,12,10,0,0,TAU);c.fill();c.stroke();for(const d of [-1,1]){c.beginPath();c.ellipse(p.x-4,p.y-16,22,6,d*.5+Math.sin(t*40)*.3,0,TAU);c.strokeStyle='rgba(180,160,255,.6)';c.stroke()}
+    if(k>.45)claws(c,b.x,b.y,Math.min(1,(k-.45)/.2),'#a88aff',3,80);if(k>.55)for(let i=0;i<5;i++){c.fillStyle='#9aff5a';c.beginPath();c.arc(b.x+jit(i,1,30),b.y+jit(i,2,30)+(k-.55)*40,3,0,TAU);c.fill()}c.restore()}})},
+  // Kaisel: the shadow wyvern sweeps low over your board, and its wingbeat drives your Shadows on
+  kaiselwyvern(a,b,col,o){add({dur:1.3,at:.6,hit(){sfxText({x:a.x,y:a.y-120},'カイセル','#9ab0ff',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=a.x-160+320*k,y=a.y-70-Math.sin(k*Math.PI)*30,f=Math.sin(t*16)*.6;c.fillStyle='#141828';c.strokeStyle='#5a70d8';c.lineWidth=2;
+    for(const d of [-1,1]){c.beginPath();c.moveTo(x,y);c.lineTo(x-20,y+d*(40+30*f));c.lineTo(x-40,y+d*10);c.closePath();c.fill();c.stroke()}c.beginPath();c.ellipse(x,y,28,8,0,0,TAU);c.fill();c.stroke();c.beginPath();c.moveTo(x+26,y);c.lineTo(x+40,y-6);c.lineTo(x+40,y+4);c.fill();c.fillStyle='#8ab0ff';c.fillRect(x+30,y-3,3,2);c.restore()}})},
+  // Bellion: the Grand Marshal unrolls his two-handed blade-whip in one enormous arc
+  bellionwhip(a,b,col,o){add({dur:1.5,at:.85,hit(){hitAt(b,'#8a60d8',true,'大元帥','#e8dcff');impactFrame(b);shake(12,420)},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.globalCompositeOperation='lighter';glow(c,a.x,a.y-50,80,'rgba(120,80,220,.45)');c.globalCompositeOperation='source-over';
+    chibi(c,a.x,a.y-10,2,{body:'#1a1a2a',hair:'#3a2a5a',pose:2,extra(c){c.fillStyle='#4a3a8a';c.beginPath();c.moveTo(-8,-30);c.lineTo(-4,-40);c.lineTo(0,-30);c.lineTo(4,-40);c.lineTo(8,-30);c.fill();c.stroke()}});
+    const q=Math.min(1,k/.85);c.strokeStyle='#c8c0e0';c.lineWidth=5;c.beginPath();c.moveTo(a.x,a.y-50);for(let i=1;i<=20;i++){const s=i/20*q,p=arcAt({x:a.x,y:a.y-50},b,s,140);c.lineTo(p.x+Math.sin(i+t*10)*8,p.y)}c.stroke();c.strokeStyle='rgba(140,100,255,.7)';c.lineWidth=2;c.stroke();c.restore()}})},
+  // Kamish's Wrath: two dagger slashes cross in an X with a red dragon-flame afterglow
+  kamishwrath(a,b,col,o){add({dur:1.0,at:.5,hit(){hitAt(b,'#ff5050',false,'カミッシュ','#ffe0e0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(const [i,kk] of [[0,.2],[1,.4]])if(k>kk){const q=Math.min(1,(k-kk)/.15),d=i?1:-1;
+    c.strokeStyle='rgba(255,80,60,.6)';c.lineWidth=12;c.beginPath();c.moveTo(b.x-60,b.y-60*d);c.lineTo(b.x-60+120*q,b.y-60*d+120*d*q);c.stroke();c.strokeStyle='#fff';c.lineWidth=3;c.stroke();
+    c.save();c.translate(b.x-60+120*q,b.y-60*d+120*d*q);c.rotate(d*Math.PI/4);blade(c,40,6,'#8a2020');c.restore()}c.restore()}})},
+  // Stealth: Jinwoo fades into shadow and reappears behind the target
+  stealthstab(a,b,col,o){add({dur:1.2,at:.6,hit(){sfxText({x:b.x,y:b.y-110},'隠密','#c8b8ff',28)},draw(c,k,t){c.save();const fade=k<.4?1-k/.4:k<.6?0:(k-.6)/.4;c.globalAlpha=Math.max(0,Math.min(1,fade))*fo(k);
+    chibi(c,k<.5?a.x:b.x+50,k<.5?a.y:b.y,1.3,{body:'#1a1a24',hair:'#141414',pose:k<.5?0:1,lean:k<.5?0:-.3});c.globalAlpha=.6*(1-fade);puff(c,k<.5?a.x:b.x+50,a.y,26,'rgba(40,30,60,.8)',step(t));c.restore()}})},
+  // Dagger Rush: a spray of thrown daggers, one after another, thudding into the target
+  daggerrush(a,b,col,o){add({dur:1.0,at:.6,hit(){hitAt(b,'#a88aff',false,'ドドド','#e8dcff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(let i=0;i<6;i++){const q=Math.min(1,Math.max(0,(k-i*.07)/.35));if(!q)continue;const p=lerp({x:a.x,y:a.y-10+jit(i,1,14)},{x:b.x+jit(i,2,20),y:b.y+jit(i,3,20)},q);
+    c.save();c.translate(p.x,p.y);c.rotate(Math.atan2(b.y-a.y,b.x-a.x));blade(c,22,4,'#c8c8d8');c.restore()}c.restore()}})},
+  // Ainz
+  // Albedo: the black-armoured Guardian Overseer plants her halberd, raising a wall of dark shield in front of you
+  albedoguard(a,b,col,o){add({dur:1.3,at:.5,hit(){sfxText({x:b.x,y:b.y-120},'守護者統括','#e0d8ff',26);ring(b.x,b.y,'#c8c0ff',20,90)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5));
+    chibi(c,b.x+50,b.y,1.5,{body:'#1a1a22',hair:'#141414',long:true,extra(c){c.fillStyle='#f0f0f0';c.beginPath();c.moveTo(-9,-27);c.lineTo(-13,-38);c.lineTo(-5,-29);c.moveTo(9,-27);c.lineTo(13,-38);c.lineTo(5,-29);c.fill();c.stroke()}});
+    c.strokeStyle='#8a80c8';c.lineWidth=4;c.beginPath();c.moveTo(b.x+66,b.y+30);c.lineTo(b.x+66,b.y-70);c.stroke();c.fillStyle='rgba(40,30,70,'+(.5*q)+')';c.strokeStyle='rgba(200,190,255,.9)';c.lineWidth=3;c.beginPath();c.roundRect(b.x+20-8,b.y-60*q,16,120*q,6);c.fill();c.stroke();c.restore()}})},
+  // Cocytus: four-armed insect warrior; four blades come down at once, frost spreading where they land
+  cocytusfrost(a,b,col,o){add({dur:1.4,at:.75,hit(){hitAt(b,'#a0e0ff',true,'コキュートス','#eaf8ff');shake(10,360)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.75)),x=a.x+40;c.fillStyle='#8ac8e0';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.ellipse(x,a.y,18,30,0,0,TAU);c.fill();c.stroke();c.beginPath();c.ellipse(x,a.y-40,12,14,0,0,TAU);c.fill();c.stroke();
+    for(let i=0;i<4;i++){c.save();c.translate(x,a.y-14+i*8);c.rotate(-1.8+i*.25+2*q);blade(c,70,6,'#d8f0ff');c.restore()}if(k>.7){c.strokeStyle='rgba(200,240,255,.9)';c.lineWidth=2;for(let i=0;i<10;i++){const an=i/10*TAU;c.beginPath();c.moveTo(b.x,b.y);c.lineTo(b.x+Math.cos(an)*60*(k-.7)/.3,b.y+Math.sin(an)*40*(k-.7)/.3);c.stroke()}}c.restore()}})},
+  // Sebas Tian: the butler straightens his gloves, then a two-hit palm and knee, perfectly precise
+  sebaspalm(a,b,col,o){add({dur:1.0,at:.5,hit(){hitAt(b,'#e0e0e0',false,'執事','#fff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x-60;chibi(c,x,b.y,1.4,{body:'#1a1a1a',trim:'#f0f0f0',hair:'#e8e8e8',pose:k>.3?1:0,extra(c){c.fillStyle='#e8e8e8';c.fillRect(-6,-10,12,4)}});
+    if(k>.35&&k<.7){c.globalCompositeOperation='lighter';glow(c,b.x-20,b.y-10,30,'rgba(255,255,255,.9)');c.strokeStyle='#fff';c.lineWidth=2;for(let i=0;i<6;i++){const an=i/6*TAU;c.beginPath();c.moveTo(b.x-20,b.y-10);c.lineTo(b.x-20+Math.cos(an)*36,b.y-10+Math.sin(an)*36);c.stroke()}}c.restore()}})},
+  // Aura & Mare: Aura's whip cracks and a beast pounces; Mare's staff raises the ground under the enemy
+  auramare(a,b,col,o){add({dur:1.4,at:.8,hit(){hitAt(b,'#80d060',false,'闇妖精','#e8ffe0');shake(6,240)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x-20,a.y,1.1,{body:'#c83a3a',hair:'#e8c060',skin:'#c88a5a'});chibi(c,a.x+20,a.y,1.1,{body:'#e8e8f0',hair:'#e8c060',skin:'#c88a5a',long:true});
+    const q=Math.min(1,k/.6),p=arcAt({x:a.x,y:a.y},b,q,50);c.fillStyle='#3a5a2a';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.ellipse(p.x,p.y,20,12,0,0,TAU);c.fill();c.stroke();c.beginPath();c.arc(p.x+18,p.y-6,8,0,TAU);c.fill();c.stroke();
+    if(k>.55){const h=Math.min(1,(k-.55)/.2)*50;c.fillStyle='#7a5a3a';for(let i=0;i<5;i++){c.beginPath();c.moveTo(b.x-50+i*25,b.y+40);c.lineTo(b.x-40+i*25,b.y+40-h-jit(i,1,10));c.lineTo(b.x-30+i*25,b.y+40);c.fill();c.stroke()}}c.restore()}})},
+  // Demiurge: the demon in his suit commands "Kneel!" - Dominating Curse forces the target down
+  demiurgekneel(a,b,col,o){add({dur:1.3,at:.6,hit(){sfxText({x:b.x,y:b.y-120},'平伏したまえ','#ff8060',26);shake(6,240)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x+30,a.y,1.4,{body:'#c87a2a',hair:'#1a1a1a',extra(c){c.fillStyle='#d8d8d8';c.beginPath();c.rect(-7,-19,14,3);c.fill()}});
+    c.strokeStyle='#c0c0c0';c.lineWidth=3;c.beginPath();c.moveTo(a.x+30,a.y+20);c.quadraticCurveTo(a.x+10,a.y+40,a.x,a.y+30);c.stroke();if(k>.4){const q=Math.min(1,(k-.4)/.3);c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,100,60,.85)';c.lineWidth=3;
+     for(let i=0;i<3;i++){c.beginPath();c.ellipse(b.x,b.y+30,60-i*15,14-i*3,0,0,TAU*q);c.stroke()}c.fillStyle='rgba(255,90,40,.15)';c.fillRect(b.x-60,b.y-80,120,110*q)}c.restore()}})},
+  // Ring of Shooting Star: a ring flashes, and a wish streaks down from the sky as a falling star
+  shootingstar(a,b,col,o){add({dur:1.5,at:.9,hit(){sfxText({x:b.x,y:b.y-130},'星に願いを','#fff080',28);ring(b.x,b.y,'#fff080',10,140,.6,6)},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.globalCompositeOperation='lighter';
+    c.strokeStyle='rgba(255,240,140,.95)';c.lineWidth=4;c.beginPath();c.arc(b.x,b.y+10,10,0,TAU);c.stroke();glow(c,b.x,b.y+10,30*(k<.3?k/.3:1),'rgba(255,240,160,.8)');if(k>.3){const q=Math.min(1,(k-.3)/.6),x=b.x+180-180*q,y=b.y-260+260*q;
+     starP(c,x,y,16,5,'rgba(255,250,200,.95)',t*4);c.strokeStyle='rgba(255,240,170,.6)';c.lineWidth=6;c.beginPath();c.moveTo(x,y);c.lineTo(x+60,y-80);c.stroke()}c.restore()}})},
+  // Denji
+  // Himeno: the Ghost Devil's invisible hands (shown faintly) reach out and grip the enemy's items
+  ghostdevil(a,b,col,o){add({dur:1.3,at:.6,hit(){sfxText({x:b.x,y:b.y-120},'幽霊の悪魔','#d0d0f0',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k)*.75;const q=ease(Math.min(1,k/.6));for(let i=0;i<4;i++){const s=lerp({x:a.x,y:a.y-40+i*20},{x:b.x+jit(i,1,40),y:b.y-30+i*20},q);
+    c.strokeStyle='rgba(210,210,240,.7)';c.lineWidth=7;c.beginPath();c.moveTo(a.x,a.y-40+i*20);c.quadraticCurveTo((a.x+s.x)/2,s.y-40,s.x,s.y);c.stroke();c.fillStyle='rgba(230,230,255,.8)';c.beginPath();c.arc(s.x,s.y,9,0,TAU);c.fill();for(let f=0;f<4;f++){c.fillRect(s.x+6,s.y-8+f*5,8,2)}}c.restore()}})},
+  // Kishibe: the veteran hunter blurs in close with twin knives - fast, quiet, and through the guard
+  kishibeknife(a,b,col,o){add({dur:1.0,at:.45,hit(){hitAt(b,'#c8c8c8',false,'岸辺','#fff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4));chibi(c,a.x+(b.x-a.x-40)*q,b.y,1.4,{body:'#1a1a1a',trim:'#e8e8e8',hair:'#8a8a8a',pose:1,lean:.4});
+    if(k>.4)for(let i=0;i<3;i++){c.strokeStyle='rgba(240,240,250,'+(.9-i*.25)+')';c.lineWidth=3;c.beginPath();c.moveTo(b.x-30+i*8,b.y-40);c.lineTo(b.x+30-i*8,b.y+40);c.stroke()}c.restore()}})},
+  // Angel Devil: a halo and white wings; a touch drains the enemy's lifespan as light flows back to you
+  angeldrain(a,b,col,o){add({dur:1.4,at:.6,hit(){hitAt(b,'#fff8e0',false,'寿命','#fffbe8')},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(const d of [-1,1]){c.fillStyle='#f8f8f8';c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.ellipse(a.x+d*24,a.y-20,22,10,d*.6,0,TAU);c.fill();c.stroke()}
+    chibi(c,a.x,a.y,1.3,{body:'#f0f0f0',hair:'#e8d8a0'});c.strokeStyle='#ffe060';c.lineWidth=3;c.beginPath();c.ellipse(a.x,a.y-52,10,3,0,0,TAU);c.stroke();if(k>.5){c.globalCompositeOperation='lighter';for(let i=0;i<8;i++){const q=((k-.5)*2+i/8)%1,p=lerp(b,a,q);glow(c,p.x,p.y,10,'rgba(255,245,200,.8)')}}c.restore()}})},
+  // Beam: the Shark Fiend dives into the floor like water and bursts up under the target, jaws first
+  beamshark(a,b,col,o){add({dur:1.2,at:.7,hit(){hitAt(b,'#5080c0',false,'チェンソー様!','#e0eeff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=Math.min(1,k/.6),x=a.x+(b.x-a.x)*q;c.fillStyle='#3a5a8a';c.strokeStyle=INK;c.lineWidth=2;
+    if(k<.6){c.beginPath();c.moveTo(x-10,b.y+40);c.lineTo(x,b.y+14);c.lineTo(x+12,b.y+40);c.closePath();c.fill();c.stroke();c.strokeStyle='rgba(150,190,255,.6)';c.beginPath();c.moveTo(x-40,b.y+42);c.lineTo(x+20,b.y+42);c.stroke()}
+    else{const up=Math.min(1,(k-.6)/.15)*60;c.beginPath();c.ellipse(b.x,b.y+40-up,16,30,0,0,TAU);c.fill();c.stroke();c.fillStyle='#fff';for(let i=0;i<5;i++){c.beginPath();c.moveTo(b.x-12+i*6,b.y+18-up);c.lineTo(b.x-9+i*6,b.y+26-up);c.lineTo(b.x-6+i*6,b.y+18-up);c.fill()}}c.restore()}})},
+  // Starter Rope Whip: Denji yanks the starter cord from his chest and lashes it out like a whip, chainsaw teeth on the end
+  ropewhip(a,b,col,o){add({dur:1.1,at:.6,hit(){hitAt(b,'#c4452f',false,'ブルン','#ffe0d8')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.6));c.strokeStyle='#3a3a3a';c.lineWidth=3;c.beginPath();c.moveTo(a.x+10,a.y-10);
+    for(let i=1;i<=16;i++){const s=i/16*q,p=lerp({x:a.x+10,y:a.y-10},b,s);c.lineTo(p.x,p.y+Math.sin(i*1.2+k*14)*16*(1-q))}c.stroke();const e=lerp({x:a.x+10,y:a.y-10},b,q);c.save();c.translate(e.x,e.y);c.rotate(t*20);c.fillStyle='#c8c8c8';starP(c,0,0,12,8,'#c8c8c8');c.restore();
+    c.fillStyle='#c4452f';c.beginPath();c.arc(a.x+10,a.y-10,4,0,TAU);c.fill();c.restore()}})},
+  // Head Chainsaw: the chainsaw bursts from his forehead and he headbutts twice, spraying blood
+  headchainsaw(a,b,col,o){add({dur:1.0,at:.5,hit(){hitAt(b,'#c4452f',false,'ギャリ','#ffd8d0');sparks(b.x,b.y,'#c4452f',10,180)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.45)),x=a.x+(b.x-a.x-40)*q+(k>.6?Math.sin(t*30)*6:0);
+    chibi(c,x,b.y,1.5,{body:'#2a2a2a',hair:'#e0a040',pose:1,lean:.3,extra(c){c.save();c.translate(2,-30);c.rotate(-.3);c.fillStyle='#b8b8b8';c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.roundRect(-3,-22,7,24,2);c.fill();c.stroke();for(let i=0;i<6;i++){c.beginPath();c.moveTo(4,-20+i*4);c.lineTo(7,-18+i*4);c.stroke()}c.restore()}});c.restore()}})},
+  // Maomao
+  // Consort Gyokuyou: the red-haired consort of the Jade Pavilion offers a cup of tea; jade light washes the poison away
+  gyokuyou(a,b,col,o){add({dur:1.3,at:.6,hit(){sfxText({x:b.x,y:b.y-120},'翡翠宮','#a0f0c0',28);sparks(b.x,b.y,'#a0ffc8',12,120)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,b.x-60,b.y,1.4,{body:'#c83a5a',trim:'#f0d060',hair:'#c83a2a',long:true});
+    c.fillStyle='#f0f0e0';c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.roundRect(b.x-42,b.y-6,12,9,2);c.fill();c.stroke();c.globalCompositeOperation='lighter';glow(c,b.x,b.y,70*ease(Math.min(1,k/.6)),'rgba(80,220,140,.4)');c.restore()}})},
+  // Xiaolan: the chatty palace maid hurries by with a laundry basket full of snacks
+  xiaolan(a,b,col,o){add({dur:1.3,at:.6,hit(){sfxText({x:b.x,y:b.y-110},'ねえねえ!','#ffc0d0',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x-120+180*k;chibi(c,x,b.y+Math.abs(Math.sin(t*14))*-4,1.2,{body:'#7a9ac8',hair:'#3a2a1a',pose:2});
+    c.fillStyle='#c8a060';c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.roundRect(x-14,b.y-52,28,12,3);c.fill();c.stroke();c.fillStyle='#f0e0c0';for(let i=0;i<3;i++){c.beginPath();c.arc(x-8+i*8,b.y-54,4,0,TAU);c.fill()}c.restore()}})},
+  // Lakan: the monocled strategist places a Go stone; lines across the board pin the enemy's biggest pieces
+  lakango(a,b,col,o){add({dur:1.3,at:.6,hit(){sfxText({x:b.x,y:b.y-120},'パチッ','#f0e0c0',28)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5));c.strokeStyle='rgba(240,220,170,.75)';c.lineWidth=1.5;
+    for(let i=-3;i<=3;i++){c.beginPath();c.moveTo(b.x-90,b.y+i*22);c.lineTo(b.x-90+180*q,b.y+i*22);c.stroke();c.beginPath();c.moveTo(b.x+i*22,b.y-90);c.lineTo(b.x+i*22,b.y-90+180*q);c.stroke()}
+    if(k>.45){const s=Math.min(1,(k-.45)/.15);for(const [x,y,w] of [[0,0,0],[22,-22,1],[-22,22,0]]){c.fillStyle=w?'#f4f4f0':'#141414';c.beginPath();c.arc(b.x+x,b.y+y,10*s,0,TAU);c.fill();c.strokeStyle=INK;c.stroke()}}c.restore()}})},
+  // Flour Dust Explosion: a sack of flour bursts into a hanging cloud, one spark, and the whole room goes up
+  dustexplosion(a,b,col,o){add({dur:1.4,at:.8,hit(){hitAt(b,'#ffd890',true,'粉塵爆発','#fff4d8');boom(b.x,b.y,90);impactFrame(b);shake(12,420)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=Math.min(1,k/.7);
+    c.fillStyle='rgba(250,245,230,'+(.6*q)+')';for(let i=0;i<14;i++){c.beginPath();c.arc(b.x+jit(i,1,70)*q,b.y+jit(i,2,50)*q,14+i%4*5,0,TAU);c.fill()}if(k>.65&&k<.8){c.globalCompositeOperation='lighter';glow(c,b.x,b.y,30,'rgba(255,220,120,1)')}if(k>.78){c.globalCompositeOperation='lighter';glow(c,b.x,b.y,140*(k-.78)/.22+40,'rgba(255,150,60,.7)')}c.restore()}})},
+  // White Face Powder: a powder puff dabs pale makeup; the lead in it seeps through as a grey haze
+  facepowder(a,b,col,o){add({dur:1.2,at:.55,hit(){sfxText({x:b.x,y:b.y-110},'おしろい','#f0f0f0',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const dab=Math.abs(Math.sin(t*10))*10;c.fillStyle='#f6f2ee';c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.ellipse(b.x-30,b.y-40+dab,16,10,0,0,TAU);c.fill();c.stroke();
+    c.fillStyle='#e8b0c0';c.fillRect(b.x-34,b.y-54+dab,8,6);for(let i=0;i<10;i++){const q=(k*1.5+i/10)%1;c.fillStyle='rgba(140,140,150,'+(.5*(1-q))+')';c.beginPath();c.arc(b.x+jit(i,1,30),b.y-20+q*50,4+q*6,0,TAU);c.fill()}c.restore()}})},
+  // Pufferfish Soup: a steaming bowl, a spiky puffer on top; Maomao tastes it and blushes with delight
+  pufferfish(a,b,col,o){add({dur:1.3,at:.6,hit(){hitAt(b,'#f0c060',false,'フグ','#fff0c0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.fillStyle='#e8e0d0';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.arc(a.x+40,a.y,22,0,Math.PI);c.closePath();c.fill();c.stroke();
+    const r=10+6*Math.min(1,k/.4);c.fillStyle='#f0c060';c.beginPath();c.arc(a.x+40,a.y-8,r,0,TAU);c.fill();c.stroke();for(let i=0;i<10;i++){const an=i/10*TAU;c.beginPath();c.moveTo(a.x+40+Math.cos(an)*r,a.y-8+Math.sin(an)*r);c.lineTo(a.x+40+Math.cos(an)*(r+5),a.y-8+Math.sin(an)*(r+5));c.stroke()}
+    for(let i=0;i<3;i++){c.strokeStyle='rgba(255,255,255,.5)';c.beginPath();c.moveTo(a.x+30+i*10,a.y-20);c.quadraticCurveTo(a.x+25+i*10,a.y-40-k*20,a.x+32+i*10,a.y-55-k*20);c.stroke()}if(k>.4){const p=lerp({x:a.x+40,y:a.y},b,(k-.4)/.25);c.fillStyle='#9a4ad8';c.beginPath();c.arc(p.x,p.y,6,0,TAU);c.fill()}c.restore()}})},
+  // Misaka
+  // Ruiko Saten: Level 0 with a metal bat and a big grin - she swings for luck and a lucky charm spins out to the item beside her
+  satenbat(a,b,col,o){add({dur:1.2,at:.5,hit(){sfxText({x:a.x,y:a.y-120},'ラッキー!','#9cd2ff',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4));chibi(c,a.x,a.y,1.3,{body:'#d8d0b8',trim:'#3a5aa8',hair:'#2a2a3a',long:true,pose:1});
+    c.save();c.translate(a.x+10,a.y-12);c.rotate(-2+2.4*q);c.fillStyle='#c0c0c8';c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.moveTo(0,-2);c.lineTo(46,-5);c.lineTo(46,5);c.lineTo(0,2);c.closePath();c.fill();c.stroke();c.restore();
+    if(k>.4){const p=arcAt({x:a.x+40,y:a.y-20},{x:a.x+110,y:a.y-10},Math.min(1,(k-.4)/.4),50);starP(c,p.x,p.y,10,4,'#9cd2ff',t*8)}c.restore()}})},
+  // Misaki Shokuhou: Mental Out - she points her TV remote, a star sparkles in her eye, and the enemy's items lock up
+  mentalout(a,b,col,o){add({dur:1.3,at:.6,hit(){sfxText({x:b.x,y:b.y-120},'心理掌握','#ffe060',28);ring(b.x,b.y,'#ffe060',10,90)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x,a.y,1.4,{body:'#d8d0b8',trim:'#3a5aa8',hair:'#ffe08a',long:true,pose:1,extra(c){starP(c,3.5,-17,3,4,'#ffe060',t*4)}});
+    c.fillStyle='#2a2a3a';c.fillRect(a.x+22,a.y-10,14,6);if(k>.3){const q=Math.min(1,(k-.3)/.3);c.globalCompositeOperation='lighter';for(let i=0;i<4;i++){const r=(q*120+i*30)%120;c.strokeStyle='rgba(255,230,100,'+(1-r/120)+')';c.lineWidth=3;c.beginPath();c.arc(a.x+36,a.y-8,r,-.4,.4);c.stroke()}
+     for(let i=0;i<5;i++)starP(c,b.x+jit(i,1,50),b.y+jit(i,2,40),7,4,'rgba(255,240,120,'+q+')',t*3+i)}c.restore()}})},
+  // Harumi Kiyama: Multi Skill - one after another, fire, ice and wind powers from different espers burst from her hands
+  multiskill(a,b,col,o){add({dur:1.4,at:.85,hit(){hitAt(b,'#80ffa0',false,'多才能力','#e8ffe8')},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x,a.y,1.3,{body:'#f0f0f0',hair:'#6a5a8a',long:true,pose:1});const cols=['#ff7a3a','#9cd2ff','#a0ffb0','#ffe060'];
+    for(let i=0;i<4;i++){const q=Math.min(1,Math.max(0,(k-i*.15)/.35));if(!q||q>=1)continue;const p=lerp({x:a.x+30,y:a.y-10},b,q);c.globalCompositeOperation='lighter';glow(c,p.x,p.y,22,cols[i]);c.globalCompositeOperation='source-over';
+     if(i===1)starP(c,p.x,p.y,10,6,'#e0f4ff',t*3);if(i===3)zap(c,p.x-20,p.y,p.x+20,p.y,step(t),'#ffe060',2)}c.restore()}})},
+  // Electromaster Hacking: lines of glowing code run down the cables into the enemy's machines
+  emhack(a,b,col,o){add({dur:1.3,at:.65,hit(){sfxText({x:b.x,y:b.y-120},'ハッキング','#ffb02e',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.font='bold 12px monospace';c.fillStyle='rgba(255,180,60,.9)';for(let col2=0;col2<8;col2++){const x=b.x-70+col2*20;for(let r=0;r<6;r++){const y=b.y-90+((k*200+r*24+col2*13)%160);c.fillText(((col2*7+r*3+step(t))%2)?'1':'0',x,y)}}
+    c.strokeStyle='rgba(255,190,80,.8)';c.lineWidth=2;zap(c,a.x,a.y-10,b.x-70,b.y,step(t),'rgba(255,200,90,.9)',2);c.restore()}})},
+  // Magnetic Wall Run: she sprints straight up a steel wall, iron sand rippling under her feet
+  wallrun(a,b,col,o){add({dur:1.2,at:.6,hit(){sfxText({x:a.x,y:a.y-140},'磁力','#ffb02e',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.fillStyle='#5a5a6a';c.fillRect(a.x+40,a.y-160,14,190);const y=a.y-ease(Math.min(1,k/.8))*140;
+    c.save();c.translate(a.x+30,y);c.rotate(-Math.PI/2);chibi(c,0,0,1.1,{body:'#d8d0b8',trim:'#3a5aa8',hair:'#c88a3a',pose:1});c.restore();c.globalCompositeOperation='lighter';for(let i=0;i<4;i++)zap(c,a.x+40,y-10+i*6,a.x+54,y-14+i*6,step(t)+i,'rgba(255,190,80,.8)',1.5);c.restore()}})},
+  // One Billion Volts: a thundercloud gathers overhead and a single massive bolt slams down
+  billionvolts(a,b,col,o){add({dur:1.5,at:.9,hit(){hitAt(b,'#ffe080',true,'10億ボルト','#fff8d0');impactFrame(b);shake(16,500)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=Math.min(1,k/.8);c.fillStyle='rgba(40,40,60,'+(.7*q)+')';for(let i=0;i<7;i++){c.beginPath();c.arc(b.x-90+i*30,b.y-200+jit(i,1,10),30,0,TAU);c.fill()}
+    c.globalCompositeOperation='lighter';if(k<.85)for(let i=0;i<3;i++)if(Math.sin(t*30+i*7)>.6)zap(c,b.x-80+i*60,b.y-190,b.x-70+i*60,b.y-150,step(t)+i,'rgba(255,240,160,.7)',2);
+    if(k>.85){for(let i=0;i<3;i++)zap(c,b.x+jit(i,9,10),b.y-200,b.x,b.y,step(t)+i*3,i?'rgba(255,230,120,.8)':'#fff',i?6:10);glow(c,b.x,b.y,120,'rgba(255,240,150,.8)')}c.restore()}})},
+  // Ryuko
+  // Barazo: the back-alley doctor rolls up with a giant syringe - questionable, but it works
+  barazodoc(a,b,col,o){add({dur:1.3,at:.65,hit(){sfxText({x:b.x,y:b.y-120},'闇医者','#a0e0a0',26);sparks(b.x,b.y,'#a0ffa0',10,120)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,b.x-60,b.y,1.4,{body:'#f0f0f0',hair:'#3a2a1a',extra(c){c.fillStyle='#e8e8e8';c.fillRect(-11,-20,22,4)}});
+    const q=ease(Math.min(1,k/.6));c.save();c.translate(b.x-40+20*q,b.y-20);c.rotate(-.2);c.fillStyle='rgba(200,255,200,.7)';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.rect(0,-7,40,14);c.fill();c.stroke();c.beginPath();c.moveTo(40,0);c.lineTo(58,0);c.stroke();c.fillStyle='#c8c8c8';c.fillRect(-14+12*q,-4,14,8);c.restore();c.restore()}})},
+  // Mataro: the little brother lifts the enemy's guard right off them while they aren't looking, then runs off with a grin
+  mataro(a,b,col,o){add({dur:1.2,at:.5,hit(){sfxText({x:b.x,y:b.y-110},'いただき!','#ff6070',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=k<.5?a.x+(b.x-a.x)*ease(k/.5):b.x-(b.x-a.x)*ease((k-.5)/.5);chibi(c,x,b.y+10,1.0,{body:'#3a3a3a',hair:'#2a2a2a',pose:1,lean:k<.5?.3:-.3});
+    if(k>.5){c.fillStyle='rgba(150,190,255,.85)';c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.moveTo(x-8,b.y-40);c.lineTo(x+8,b.y-40);c.lineTo(x+8,b.y-28);c.lineTo(x,b.y-22);c.lineTo(x-8,b.y-28);c.closePath();c.fill();c.stroke()}c.restore()}})},
+  // Guts: the Mankanshoku family's pug leaps in front of you and takes the hit, then flops over unbothered
+  gutsdog(a,b,col,o){add({dur:1.2,at:.5,hit(){sfxText({x:b.x+30,y:b.y-100},'わん!','#e0c040',28);ring(b.x+30,b.y,'#e0c040',10,60)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const p=arcAt({x:b.x-60,y:b.y+20},{x:b.x+30,y:b.y},Math.min(1,k/.45),60);c.fillStyle='#d8b880';c.strokeStyle=INK;c.lineWidth=2;
+    c.beginPath();c.ellipse(p.x,p.y,18,12,k>.7?1.4:0,0,TAU);c.fill();c.stroke();c.beginPath();c.arc(p.x+16,p.y-8,10,0,TAU);c.fill();c.stroke();c.fillStyle=INK;c.beginPath();c.ellipse(p.x+20,p.y-6,4,3,0,0,TAU);c.fill();c.beginPath();c.arc(p.x+14,p.y-11,1.5,0,TAU);c.fill();c.restore()}})},
+  // Senketsu Shippu: Senketsu's jets unfold from her back and she blasts into the air
+  shippu(a,b,col,o){add({dur:1.2,at:.5,hit(){sfxText({x:a.x,y:a.y-140},'疾風','#ff6070',30);speedLines(a,'#ffd0d8',.3,18)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const y=a.y-ease(Math.min(1,k/.6))*70;
+    chibi(c,a.x,y,1.4,{body:'#1a1a2a',trim:'#d8283a',hair:'#1a1a2a',pose:2,extra(c){c.fillStyle='#d8283a';c.strokeStyle=INK;for(const d of [-1,1]){c.beginPath();c.moveTo(d*8,-4);c.lineTo(d*24,4);c.lineTo(d*10,8);c.closePath();c.fill();c.stroke()}}});
+    c.globalCompositeOperation='lighter';for(const d of [-1,1])glow(c,a.x+d*28,y+18,18+Math.sin(t*40)*4,'rgba(255,120,80,.9)');c.restore()}})},
+  // Senketsu Senjin: spikes erupt from the uniform as armour, and the spines lash out at close range
+  senjin(a,b,col,o){add({dur:1.2,at:.55,hit(){hitAt(b,'#d8283a',false,'戦刃','#ffe0e4')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5));chibi(c,a.x+30,a.y,1.5,{body:'#1a1a2a',trim:'#d8283a',hair:'#1a1a2a'});
+    c.fillStyle='#d8283a';c.strokeStyle=INK;c.lineWidth=1.5;for(let i=0;i<10;i++){const an=-Math.PI+i/9*Math.PI,r=20+30*q;c.beginPath();c.moveTo(a.x+30+Math.cos(an-.12)*18,a.y-10+Math.sin(an-.12)*18);c.lineTo(a.x+30+Math.cos(an)*r,a.y-10+Math.sin(an)*r);c.lineTo(a.x+30+Math.cos(an+.12)*18,a.y-10+Math.sin(an+.12)*18);c.fill();c.stroke()}c.restore()}})},
+  // Rampaging Senketsu: too much blood - Senketsu swells into a monstrous red form and smashes down
+  rampage(a,b,col,o){add({dur:1.5,at:.9,hit(){hitAt(b,'#ff2020',true,'暴走','#ffe0e0');impactFrame(b,'#3a0008');shake(14,480)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.7));c.fillStyle='rgba(120,0,10,'+(.3*q)+')';c.fillRect(0,0,c.canvas.width,c.canvas.height);
+    c.fillStyle='#8a1020';c.strokeStyle=INK;c.lineWidth=3;c.beginPath();for(let i=0;i<14;i++){const an=i/14*TAU,r=(40+50*q)*(i%2?1:.7)+jit(i,step(t),6);c.lineTo(a.x+40+Math.cos(an)*r,a.y-30+Math.sin(an)*r)}c.closePath();c.fill();c.stroke();
+    c.fillStyle='#ffe020';for(const d of [-1,1]){c.beginPath();c.ellipse(a.x+40+d*16,a.y-40,6,3,d*.3,0,TAU);c.fill()}if(k>.75)fist(c,lerp({x:a.x+40,y:a.y-30},b,(k-.75)/.15).x,b.y,30,'#8a1020',0);c.restore()}})},
+  // Shinra
+  // Captain Obi: the Company 8 captain with no powers at all plants himself in front of his team, muscles flexed
+  obicaptain(a,b,col,o){add({dur:1.3,at:.55,hit(){sfxText({x:b.x,y:b.y-120},'大隊長','#ffb080',28);ring(b.x,b.y,'#ef6b35',20,100)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4));
+    chibi(c,b.x+40,b.y,1.6+.15*q,{body:'#2a2a2a',trim:'#e8c040',hair:'#2a2a2a',pose:2,skin:'#e0a880'});c.strokeStyle='rgba(255,180,120,.8)';c.lineWidth=3;for(let i=0;i<5;i++){c.beginPath();c.moveTo(b.x+40,b.y-50);c.lineTo(b.x+40+Math.cos(-2.6+i*.4)*70*q,b.y-50+Math.sin(-2.6+i*.4)*70*q);c.stroke()}c.restore()}})},
+  // Tamaki: Cat's Tail - flaming cat ears and tails flick out and tangle the enemy
+  tamakicat(a,b,col,o){add({dur:1.2,at:.6,hit(){sfxText({x:b.x,y:b.y-110},'にゃ!','#ff9090',30)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x,a.y,1.3,{body:'#2a2a2a',trim:'#e8c040',hair:'#2a2a2a',long:true,extra(c){c.fillStyle='#ff8a3a';for(const d of [-1,1]){c.beginPath();c.moveTo(d*4,-26);c.lineTo(d*10,-36);c.lineTo(d*10,-24);c.fill()}}});
+    c.globalCompositeOperation='lighter';for(let i=0;i<2;i++){const q=Math.min(1,k/.6);c.strokeStyle='rgba(255,140,60,.85)';c.lineWidth=6;c.beginPath();c.moveTo(a.x,a.y+10);for(let s=1;s<=10;s++){const p=lerp({x:a.x,y:a.y+10},{x:b.x,y:b.y+(i?20:-20)},s/10*q);c.lineTo(p.x,p.y+Math.sin(s+t*12+i)*12)}c.stroke()}c.restore()}})},
+  // Hinawa: Takehisa Hinawa reloads; his gunpowder pyrokinesis guides the shells - your Weapons tick faster
+  hinawagun(a,b,col,o){add({dur:1.2,at:.6,hit(){sfxText({x:a.x,y:a.y-120},'装填','#e0c080',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x,a.y,1.3,{body:'#2a2a2a',trim:'#e8c040',hair:'#1a1a1a',pose:1,extra(c){c.strokeStyle=INK;c.lineWidth=1.2;c.strokeRect(-7,-20,5,4);c.strokeRect(2,-20,5,4)}});
+    c.fillStyle='#4a4a4a';c.fillRect(a.x+16,a.y-14,26,7);for(let i=0;i<3;i++){const q=Math.min(1,Math.max(0,(k-.2-i*.12)/.25));if(!q)continue;c.fillStyle='#d8a040';c.beginPath();c.roundRect(a.x+40-20*q,a.y-60+50*q+i*2,5,10,2);c.fill()}c.restore()}})},
+  // Matchbox: Company 8's fire engine roars up, siren flashing, and the crew piles out
+  matchbox(a,b,col,o){add({dur:1.4,at:.7,hit(){sfxText({x:a.x,y:a.y-130},'マッチボックス','#ff6040',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=a.x-200+220*ease(Math.min(1,k/.7));c.fillStyle='#d83020';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.roundRect(x-60,a.y-30,120,40,6);c.fill();c.stroke();
+    c.fillStyle='#9cd2ff';c.fillRect(x+30,a.y-24,22,14);c.fillStyle='#2a2a2a';for(const d of [-36,36]){c.beginPath();c.arc(x+d,a.y+12,10,0,TAU);c.fill()}c.fillStyle=Math.sin(t*20)>0?'#ff3030':'#3060ff';c.fillRect(x+10,a.y-38,14,8);c.fillStyle='#fff';c.font='900 14px Arial Black';c.fillText('8',x-10,a.y-6);c.restore()}})},
+  // Sho Kusakabe: the Knight of the Ashen Flame stops the flow of heat in his space; a blue starfield freezes the target as his sword falls
+  shouniverse(a,b,col,o){add({dur:1.4,at:.8,hit(){hitAt(b,'#c0d0ff',false,'宇宙','#eef2ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5));c.fillStyle='rgba(10,12,40,'+(.55*q)+')';c.beginPath();c.arc(b.x,b.y,110*q,0,TAU);c.fill();for(let i=0;i<18;i++)starP(c,b.x+jit(i,1,100)*q,b.y+jit(i,2,90)*q,2+i%3,4,'#e0e8ff');
+    if(k>.5){const s=Math.min(1,(k-.5)/.3);chibi(c,b.x-50+40*s,b.y-20,1.3,{body:'#f0f0f0',hair:'#f0f0f8',pose:1});c.save();c.translate(b.x-30+40*s,b.y-30);c.rotate(-1+1.6*s);blade(c,60,5,'#d8e0ff');c.restore()}c.restore()}})},
+  // Benimaru: the Asakusa captain hurls his matoi and wreathes it in blazing crimson flame; Japanese-style fireworks over the target
+  benimaru(a,b,col,o){add({dur:1.5,at:.85,hit(){hitAt(b,'#ff5020',true,'紅丸','#fff0d8');boom(b.x,b.y,80);shake(12,420)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=Math.min(1,k/.8),p=arcAt({x:a.x,y:a.y-20},b,q,100);
+    c.save();c.translate(p.x,p.y);c.rotate(t*10);c.strokeStyle='#5a3a1a';c.lineWidth=4;c.beginPath();c.moveTo(-26,0);c.lineTo(26,0);c.stroke();c.fillStyle='#f0f0f0';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.arc(26,0,10,0,TAU);c.fill();c.stroke();c.restore();
+    c.globalCompositeOperation='lighter';glow(c,p.x,p.y,40,'rgba(255,90,40,.8)');if(!flameSpr(c,p.x,p.y-10,70,t,'red'))glow(c,p.x,p.y-10,30,'rgba(255,160,60,.7)');c.restore()}})},
+  // Jotaro
+  // Josuke: Crazy Diamond punches, and the cracks it leaves knit back together - what's broken is fixed
+  crazydiamond(a,b,col,o){add({dur:1.3,at:.5,hit(){hitAt(b,'#ff90c0',false,'ドラァ!','#ffe0f0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.fillStyle='rgba(255,140,200,.45)';c.strokeStyle='rgba(255,180,220,.9)';c.lineWidth=2;c.beginPath();c.ellipse(a.x+30,a.y-40,22,30,0,0,TAU);c.fill();c.stroke();
+    const q=ease(Math.min(1,k/.45));fist(c,a.x+40+(b.x-a.x-60)*q,b.y-10,16,'#ff9ad0',0);if(k>.45){const r=1-Math.min(1,(k-.45)/.4);c.strokeStyle='rgba(255,255,255,'+r+')';c.lineWidth=2;for(let i=0;i<6;i++){c.beginPath();c.moveTo(b.x,b.y);c.lineTo(b.x+jit(i,1,40)*r,b.y+jit(i,2,40)*r);c.stroke()}
+     for(let i=0;i<5;i++)starP(c,b.x+jit(i,3,40),b.y+jit(i,4,40),4,4,'rgba(255,220,240,'+(1-r)+')')}c.restore()}})},
+  // Okuyasu: The Hand swipes, and a clean strip of space is simply gone - the enemy's Shield included
+  thehand(a,b,col,o){add({dur:1.2,at:.55,hit(){hitAt(b,'#4060ff',false,'ガオン','#e0e8ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.fillStyle='rgba(60,90,255,.45)';c.strokeStyle='rgba(120,150,255,.9)';c.lineWidth=2;c.beginPath();c.ellipse(a.x+30,a.y-40,22,30,0,0,TAU);c.fill();c.stroke();
+    const q=ease(Math.min(1,k/.5));c.save();c.translate(b.x-80+80*q,b.y-50+50*q);c.rotate(.8);c.fillStyle='#4a6aff';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.roundRect(-14,-10,28,20,6);c.fill();c.stroke();c.restore();
+    if(k>.5){c.fillStyle='#000';c.globalAlpha=fo(k)*(1-(k-.5));c.save();c.translate(b.x,b.y);c.rotate(.8);c.fillRect(-90,-8,180,16);c.restore()}c.restore()}})},
+  // Koichi: Echoes Act 3 slaps the target and "3 FREEZE" pins it to the ground under its own weight
+  echoes3(a,b,col,o){add({dur:1.2,at:.5,hit(){sfxText({x:b.x,y:b.y-110},'3 FREEZE','#40e070',30);shake(6,240)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4)),x=a.x+(b.x-a.x-30)*q;c.fillStyle='#40c060';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.ellipse(x,b.y-30,12,16,0,0,TAU);c.fill();c.stroke();c.fillStyle='#f0f0f0';c.fillRect(x-8,b.y-36,16,4);
+    if(k>.4){c.fillStyle='#40e070';c.font='900 22px Arial Black';c.textAlign='center';for(let i=0;i<3;i++)c.fillText('S',b.x-30+i*30,b.y-40+Math.min(1,(k-.4)/.3)*60);c.strokeStyle='rgba(60,220,110,.7)';c.lineWidth=3;c.beginPath();c.moveTo(b.x-50,b.y+30);c.lineTo(b.x+50,b.y+30);c.stroke()}c.restore()}})},
+  // Rohan: Heaven's Door - the target's face opens up like a book, and Rohan writes an order in its pages
+  heavensdoor(a,b,col,o){add({dur:1.4,at:.7,hit(){sfxText({x:b.x,y:b.y-120},'ヘブンズ・ドアー','#f0d890',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5));c.translate(b.x,b.y-10);c.fillStyle='#f6f0e0';c.strokeStyle=INK;c.lineWidth=2;
+    for(const d of [-1,1]){c.save();c.scale(d*q,1);c.beginPath();c.moveTo(0,-30);c.lineTo(40,-26);c.lineTo(40,30);c.lineTo(0,34);c.closePath();c.fill();c.stroke();c.restore()}c.strokeStyle='rgba(60,50,40,.7)';c.lineWidth=1;for(let i=0;i<6;i++){const w=Math.min(1,Math.max(0,(k-.45)*3-i*.2))*30;c.beginPath();c.moveTo(4,-20+i*9);c.lineTo(4+w,-20+i*9);c.stroke()}
+    if(k>.4){c.strokeStyle='#2a2a2a';c.lineWidth=2;c.beginPath();c.moveTo(20+Math.sin(t*20)*8,-10+k*30);c.lineTo(36,-30+k*30);c.stroke()}c.restore()}})},
+  // Jolyne: Stone Free unravels her into string, which loops around the target as a web
+  stonefree(a,b,col,o){add({dur:1.2,at:.6,hit(){hitAt(b,'#4080ff',false,'オラァ!','#e0ecff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x,a.y,1.3,{body:'#2a5a3a',hair:'#3a2a5a',pose:1,extra(c){c.fillStyle='#f0e040';c.beginPath();c.arc(-6,-28,3,0,TAU);c.arc(6,-28,3,0,TAU);c.fill()}});const q=Math.min(1,k/.6);
+    c.strokeStyle='rgba(90,140,255,.95)';c.lineWidth=2;c.beginPath();c.moveTo(a.x+16,a.y-6);for(let i=1;i<=24;i++){const s=i/24*q,p=lerp({x:a.x+16,y:a.y-6},b,s);c.lineTo(p.x,p.y+Math.sin(i*1.7)*6)}c.stroke();if(k>.55)for(let i=0;i<4;i++){c.beginPath();c.ellipse(b.x,b.y,40-i*8,26-i*5,i*.4,0,TAU*Math.min(1,(k-.55)/.25));c.stroke()}c.restore()}})},
  };
+ // ---- #101 batch 4 animation helpers (Claude 2026-11-19) ----
+ // A small chibi figure: legs, body, arms, head and hair, in the character's own colours. pose: 0 stand, 1 lunge, 2 arms up
+ function chibi(c,x,y,s,p){c.save();c.translate(x,y);c.scale(s,s);c.lineJoin='round';c.lineCap='round';const pose=p.pose||0,lean=p.lean||0;c.rotate(lean);
+  c.strokeStyle=INK;c.lineWidth=1.6;c.fillStyle=p.legs||p.body;for(const d of [-1,1]){c.beginPath();c.roundRect(d*5-3,8,6,16,2);c.fill();c.stroke()}
+  c.fillStyle=p.body;c.beginPath();c.roundRect(-10,-8,20,20,5);c.fill();c.stroke();if(p.trim){c.fillStyle=p.trim;c.fillRect(-10,0,20,3)}
+  c.fillStyle=p.body;for(const d of [-1,1]){c.save();c.translate(d*10,-5);c.rotate(pose===2?-d*2.4:pose===1&&d>0?-1.4:d*.35);c.beginPath();c.roundRect(-3,0,6,15,3);c.fill();c.stroke();c.fillStyle=p.skin||'#f2c9a0';c.beginPath();c.arc(0,16,3,0,TAU);c.fill();c.stroke();c.fillStyle=p.body;c.restore()}
+  c.fillStyle=p.skin||'#f2c9a0';c.beginPath();c.arc(0,-18,10,0,TAU);c.fill();c.stroke();
+  c.fillStyle=p.hair||INK;c.beginPath();c.arc(0,-20,10.5,Math.PI*1.05,Math.PI*1.95);c.lineTo(10,-16);c.lineTo(5,-22);c.lineTo(-5,-22);c.lineTo(-10,-16);c.closePath();c.fill();c.stroke();
+  if(p.long){c.beginPath();c.moveTo(-10,-18);c.quadraticCurveTo(-15,-2,-9,6);c.lineTo(-6,-14);c.moveTo(10,-18);c.quadraticCurveTo(15,-2,9,6);c.lineTo(6,-14);c.fill();c.stroke()}
+  c.fillStyle=INK;c.beginPath();c.arc(-3.5,-17,1.3,0,TAU);c.arc(3.5,-17,1.3,0,TAU);c.fill();if(p.extra)p.extra(c);c.restore()}
+ // A jagged lightning bolt from (x1,y1) to (x2,y2)
+ function zap(c,x1,y1,x2,y2,seed,col,w=3){c.beginPath();c.moveTo(x1,y1);for(let i=1;i<8;i++){const q=i/8;c.lineTo(x1+(x2-x1)*q+jit(i,seed,14),y1+(y2-y1)*q+jit(i+9,seed,14))}c.lineTo(x2,y2);c.strokeStyle=col;c.lineWidth=w;c.stroke()}
+ // A simple sakura/petal ellipse
+ function petal(c,x,y,r,rot,col){c.save();c.translate(x,y);c.rotate(rot);c.beginPath();c.ellipse(0,0,r,r*.5,0,0,TAU);c.fillStyle=col;c.fill();c.restore()}
  function play(kind,src,dst,color,o={}){const a=pt(src),b=pt(dst);if(!a||!b||VFX.reduced()||!K[kind])return false;sfxText.loud=!!(o&&(o.big||o.huge));try{K[kind](a,b,color,o||{})}finally{sfxText.loud=false}return true}
  return {play,kinds:Object.keys(K),impactFrame,sfxText,speedLines};
 })();
 // Item → hero signature (kind, color, options). Checked before the older VFX_MAP / CUSTOM_SIGNATURES effects.
-const HERO_SIGS={riza:['sniper','#ffe0a0'],armstrong:['strongarm','#c8a070'],flame_snap:['flameline','#ff6a1a'],ling:['dao','#c8e0ff'],alch_cannon:['stonecannon','#9a8a7a',{big:true}],izumi:['izumiclap','#7ab8ff',{self:true}],heiter:['goddess','#ffe8a0',{self:true}],eisen:['eisen','#c0c8d0'],sorganeil:['sorganeil','#c8b8ff'],judradjim:['judradjim','#c8e0ff'],vollzanbel:['hellfire','#ff4a1a',{big:true}],ubel:['reelseiden','#e8e8f0'],nana_float:['floatquirk','#5aff8a',{self:true}],danger_sense:['dangersense','#ffe04a',{self:true}],fa_jin:['fajin','#5aff8a'],smokescreen:['smokescreen','#9a9aa2'],todoroki:['halfcold','#9cd2ff'],iida:['recipro','#5ab8ff'],
+const HERO_SIGS={orihime:['orihimeshield','#ffb0d0',{self:true}],chad:['brazodiablo','#7a4a2a'],uryu:['lichtregen','#a8d8ff'],yoruichi:['shunko','#b090ff'],byakuya:['senbonzakura','#ff9ac8'],kenpachi:['kenpachi','#e8d040',{big:true}],petra:['petraral','#e0c080',{self:true}],oluo:['oluobite','#c0a080'],eld_gunther:['eldgunther','#8fb0a0'],kenny:['kennyshotgun','#c8c8c8'],ackerman_awaken:['ackermanawaken','#ff3030',{self:true}],beast_takedown:['beasttakedown','#e8e8e8',{big:true}],silverfang:['silverfangflow','#c0e0ff'],tatsumaki:['tatsumakitk','#50e080'],metal_bat:['metalbat','#a8a8a8'],mumen:['mumenrider','#ffe040',{self:true}],pushups:['pushups','#ffd060',{self:true}],serious_sneeze:['sneeze','#fff0a0',{big:true}],beru:['beruant','#6040a0'],kaisel:['kaiselwyvern','#4060c0'],bellion:['bellionwhip','#503080',{big:true}],kamish:['kamishwrath','#c04040'],stealth:['stealthstab','#303040',{self:true}],dagger_rush:['daggerrush','#8e67d5'],albedo:['albedoguard','#e0e0ff',{self:true}],cocytus:['cocytusfrost','#a0e0ff',{big:true}],sebas:['sebaspalm','#c8c8c8'],aura_mare:['auramare','#60c060'],demiurge:['demiurgekneel','#ff6040'],shooting_star:['shootingstar','#fff080',{self:true}],himeno:['ghostdevil','#c0c0e0'],kishibe:['kishibeknife','#b8b8b8'],angel_devil:['angeldrain','#fff8e0'],beam:['beamshark','#5080c0'],rope_whip:['ropewhip','#c4452f'],head_chainsaw:['headchainsaw','#c4452f'],gyokuyou:['gyokuyou','#ffd0a0',{self:true}],xiaolan:['xiaolan','#ffb0c0',{self:true}],lakan:['lakango','#604020'],dust_explosion:['dustexplosion','#fff0d0',{big:true}],face_powder:['facepowder','#f0f0f0'],pufferfish:['pufferfish','#f0c060'],saten:['satenbat','#80c0ff',{self:true}],shokuhou:['mentalout','#ffe060'],kiyama:['multiskill','#80ffa0'],hacking:['emhack','#ffb02e'],wall_run:['wallrun','#ffb02e'],billion_volts:['billionvolts','#ffe080',{big:true}],barazo:['barazodoc','#80c080',{self:true}],mataro:['mataro','#d8283a'],guts:['gutsdog','#e0c040'],shippu:['shippu','#d8283a'],senjin:['senjin','#d8283a'],rampage:['rampage','#ff2020',{big:true}],obi:['obicaptain','#ef6b35',{self:true}],tamaki:['tamakicat','#ff8080'],hinawa:['hinawagun','#a08060'],matchbox:['matchbox','#e03020'],sho:['shouniverse','#c0d0ff'],benimaru:['benimaru','#ff5020',{big:true}],josuke:['crazydiamond','#ff90c0'],okuyasu:['thehand','#4060ff'],koichi:['echoes3','#40c060'],rohan:['heavensdoor','#e0c080'],jolyne:['stonefree','#4080ff'],riza:['sniper','#ffe0a0'],armstrong:['strongarm','#c8a070'],flame_snap:['flameline','#ff6a1a'],ling:['dao','#c8e0ff'],alch_cannon:['stonecannon','#9a8a7a',{big:true}],izumi:['izumiclap','#7ab8ff',{self:true}],heiter:['goddess','#ffe8a0',{self:true}],eisen:['eisen','#c0c8d0'],sorganeil:['sorganeil','#c8b8ff'],judradjim:['judradjim','#c8e0ff'],vollzanbel:['hellfire','#ff4a1a',{big:true}],ubel:['reelseiden','#e8e8f0'],nana_float:['floatquirk','#5aff8a',{self:true}],danger_sense:['dangersense','#ffe04a',{self:true}],fa_jin:['fajin','#5aff8a'],smokescreen:['smokescreen','#9a9aa2'],todoroki:['halfcold','#9cd2ff'],iida:['recipro','#5ab8ff'],
  ramen:['ramen','#ffd27a',{self:true}],sage_mode:['sage','#ffb84d',{self:true}],kurama:['kurama','#ff5a1a',{self:true}],sexy_jutsu:['sexyjutsu','#ff6aa8'],baryon:['baryon','#ff8a2a',{self:true}],frog_kumite:['frogkumite','#9fe07a',{self:true}],
  ki_charge:['kicharge','#bfe9ff',{self:true}],senzu:['senzu','#7dff9a',{self:true}],nimbus:['nimbus','#ffe07a',{self:true}],weighted_gi:['weightedgi','#c8b8a0',{self:true}],instant_transmission:['instant','#ffd23f',{self:true}],kaioken:['kaioken','#ff2a2a',{self:true}],ultra_instinct:['ultrainstinct','#e8eeff',{self:true}],armor:['saiyanarmor','#9cc8ff',{self:true}],pride:['saiyanpride','#ffd23f',{self:true}],gravity:['gravity','#b48cff',{self:true}],scouter:['scouter','#5aff7a'],bulma:['capsule','#7dd3ff',{self:true}],final_explosion:['finalexplosion','#ffe9a0',{big:true}],gear2:['gear2','#ff9ab0',{self:true}],meat:['meat','#ffcf6b',{self:true}],straw_hat:['strawhat','#ffe07a',{self:true}],sunny:['sunny','#9cd2ff',{self:true}],red_hawk:['redhawk','#ff5a1a'],chopper:['chopper','#ff9ab0',{self:true}],crew_rally:['rally','#ffe07a',{self:true}],nichirin:['nichirin','#7fc4ff'],water_breath:['waterflow','#9cd2ff',{self:true}],hinokami:['hinokami','#ff7a1a'],nezuko:['nezukoblood','#ff4a8a'],wisteria:['wisteria','#b48cff'],onigiri:['foxmask','#f6f4ee',{self:true}],crow:['crow','#f2f2f2',{self:true}],sun_halo:['sunhalo','#ffb02e'],thirteenth:['thirteenth','#ffe08a',{big:true}],infinity:['infinity','#9cc8ff',{self:true}],purple:['hollowpurple','#b06bff',{big:true}],domain:['domainexp','#9a7aff'],blindfold:['blindfold','#7fd4ff',{self:true}],kikufuku:['kikufuku','#a8d88a',{self:true}],unlimited_void:['unlimitedvoid','#cfe4ff',{big:true}],six_eyes:['sixeyes','#3aa8ff',{self:true}],
  pistol:['stretch','#ff6a4a'],gear4:['gear4','#ff6a4a'],jet_gatling:['gatling','#ff6a4a'],gear5:['toon','#fff6c2'],
@@ -3854,6 +4118,83 @@ I('deku','fa_jin','Fa Jin','🌀',2,['Weapon'],6,[{t:'dmg',v:20,when:{c:'hasted'
 I('deku','smokescreen','Smokescreen','💨',1,['Tool'],7,[{t:'slow',n:3,d:1.5},{t:'nocrit',n:1}]);
 I('deku','todoroki','Shoto Todoroki','❄️',2,['Friend','Weapon'],7,[{t:'dmg',v:15,when:{c:'foeFrozen',v:8}},{t:'freeze',n:1,d:1.5},{t:'burn',v:4}]);
 I('deku','iida','Tenya Iida','🏎️',2,['Friend','Weapon'],8,[{t:'haste',to:'all',d:2},{t:'dmg',v:15}]);
+// ---- #101 new hero items, batch 4 (Claude 2026-11-19, proposal approved by Max 22:36). Values are Bronze; Silver doubles. ----
+// Ichigo: Karakura friends / Gotei 13 captains
+I('ichigo','orihime','Orihime: Sōten Kisshun','🌸',1,['Friend'],7,[{t:'heal',v:15,repairFirst:true},{t:'shield',v:5}]);
+I('ichigo','chad','Chad: Brazo del Diablo','💪',2,['Friend','Weapon'],7,[{t:'dmg',v:22,when:{c:'shielded',v:12}}]);
+I('ichigo','uryu','Uryu: Licht Regen','🏹',2,['Friend','Weapon'],6,[{t:'dmg',v:5,readyBonus:3}],{multicast:4});
+I('ichigo','yoruichi','Yoruichi: Shunkō','🐈‍⬛',1,['Friend','Weapon'],7,[{t:'dmg',v:7},{t:'dodge',n:1}],{opening:true});
+I('ichigo','byakuya','Byakuya: Senbonzakura','🌸',2,['Friend','Weapon'],7,[{t:'dmg',v:18,pierce:true},{t:'slow',n:2,d:1}]);
+I('ichigo','kenpachi','Kenpachi Zaraki','⚔️',3,['Friend','Weapon'],10,[{t:'dmg',v:45,when:{c:'hurt',v:20}}]);
+// Levi: Special Operations Squad / Ackerman blood
+I('levi','petra','Petra Ral','🕊️',1,['Friend'],6,[{t:'haste',to:'adj',d:1},{t:'wcrit',v:.04,perTag:'Friend',max:.16}],{tierScale:true,tierCd:false});
+I('levi','oluo','Oluo Bozado','👅',1,['Friend','Weapon'],5,[{t:'dmg',v:11},{t:'selfdmg',v:2}],{crit:.2});
+I('levi','eld_gunther','Eld & Gunther','🗡️',2,['Friend','Weapon'],7,[{t:'dmg',v:17,per:{tag:'Friend',v:4}}]);
+I('levi','kenny','Kenny Ackerman','🔫',2,['Friend','Weapon'],7,[{t:'dmg',v:10}],{opening:true,multicast:2});
+I('levi','ackerman_awaken','Ackerman Awakening','🩸',1,['Relic'],8,[{t:'shield',v:8}],{atLow:{v:.5,fx:[{t:'dodge',n:2},{t:'critBuff',d:4,mult:2.5}]}});
+I('levi','beast_takedown','Beast Titan Takedown','🌲',3,['Weapon'],11,[{t:'dmg',v:14},{t:'slow',n:1,d:1.5,biggest:true}],{multicast:4,crit:.15});
+// Saitama: Hero Association / the training regimen
+I('saitama','silverfang','Silverfang','🐺',2,['Friend','Weapon'],6,[{t:'dmg',v:8},{t:'nocrit',n:1}],{multicast:2});
+I('saitama','tatsumaki','Tatsumaki','🌪️',2,['Friend','Spell'],8,[{t:'freeze',n:2,d:1.5},{t:'dmg',v:15,pierce:true}]);
+I('saitama','metal_bat','Metal Bat','🏏',2,['Friend','Weapon'],6,[{t:'dmg',v:18}],{escalate:{t:'dmg',v:4}});
+I('saitama','mumen','Mumen Rider','🚲',1,['Friend'],7,[{t:'shield',v:14,when:{c:'low',v:10}}]);
+I('saitama','pushups','100 Push-Ups a Day','🏋️',1,['Relic'],8,[{t:'empower',tag:'Weapon',stat:'dmg',v:1,growBonus:true},{t:'shield',v:4}],{opening:true,grow:1,growMax:6});
+I('saitama','serious_sneeze','Serious Sneeze','🤧',2,['Weapon'],12,[{t:'dmg',v:30},{t:'slow',n:3,d:1.5,biggest:true}]);
+// Jinwoo: the Shadow Army grows / assassin skills
+I('jinwoo','beru','Beru','🐜',2,['Friend','Shadow','Weapon'],7,[{t:'dmg',v:4},{t:'poison',v:1}],{multicast:3});
+I('jinwoo','kaisel','Kaisel','🐉',1,['Friend','Shadow'],6,[{t:'haste',to:'tag:Shadow',d:1.2}],{tierScale:true,tierCd:false});
+I('jinwoo','bellion','Bellion','🛡️',3,['Friend','Shadow','Weapon'],9,[{t:'dmg',v:36,perCmd:5}]);
+I('jinwoo','kamish','Kamish\'s Wrath','🗡️',2,['Weapon'],6,[{t:'dmg',v:11}],{multicast:2,crit:.15});
+I('jinwoo','stealth','Stealth','👤',1,['Tool'],8,[{t:'dodge',n:1},{t:'nextDouble'}],{tierScale:true,tierCd:true});
+I('jinwoo','dagger_rush','Dagger Rush','🔪',1,['Weapon'],5,[{t:'dmg',v:9,when:{c:'foeSlowed',v:6}}]);
+// Ainz: Floor Guardians / Nazarick's schemes
+I('ainz','albedo','Albedo','🖤',2,['Friend'],7,[{t:'shield',v:18,when:{c:'contract',v:12}}]);
+I('ainz','cocytus','Cocytus','❄️',3,['Friend','Weapon'],10,[{t:'dmg',v:40},{t:'slow',n:2,d:1.5}],{crit:.15});
+I('ainz','sebas','Sebas Tian','🥋',2,['Friend','Weapon'],6,[{t:'dmg',v:10}],{multicast:2});
+I('ainz','aura_mare','Aura & Mare','🧝',2,['Friend','Contract'],10,[{t:'contract',v:12,d:6,interval:1.5},{t:'slow',n:1,d:1}]);
+I('ainz','demiurge','Demiurge','😈',1,['Friend'],8,[{t:'freeze',n:1,d:1.5},{t:'seal',v:1}],{opening:true,tierScale:true,tierCd:false});
+I('ainz','shooting_star','Ring of Shooting Star','💍',1,['Relic'],6,[{t:'seal',v:2},{t:'nextSpellDouble'},{t:'shield',v:6}],{overload:true});
+// Denji: Public Safety hunters / chainsaw frenzy
+I('denji','himeno','Himeno: Ghost Devil','👻',1,['Friend'],7,[{t:'slow',n:2,d:1.5,biggest:true}],{tierScale:true,tierCd:false});
+I('denji','kishibe','Kishibe','🔪',2,['Friend','Weapon'],7,[{t:'dmg',v:22,pierce:true}]);
+I('denji','angel_devil','Angel Devil','😇',1,['Friend'],7,[{t:'drain',v:8}]);
+I('denji','beam','Beam (Shark Devil)','🦈',2,['Friend','Weapon'],6,[{t:'dmg',v:17},{t:'chargeId',id:'chainsaw',v:1}]);
+I('denji','rope_whip','Starter Rope Whip','🪢',2,['Weapon'],6,[{t:'dmg',v:15,when:{c:'foeSlowed',v:5}},{t:'slow',n:1,d:1.5},{t:'selfdmg',v:2}]);
+I('denji','head_chainsaw','Head Chainsaw','🪚',1,['Weapon'],6,[{t:'dmg',v:3},{t:'selfdmg',v:1}],{multicast:2});
+// Maomao: Jade Pavilion / apothecary chemistry
+I('maomao','gyokuyou','Consort Gyokuyou','👑',1,['Friend'],7,[{t:'heal',v:12},{t:'cleanse'}]);
+I('maomao','xiaolan','Xiaolan','🧺',1,['Friend'],6,[{t:'charge',to:'tag:Food',v:1},{t:'heal',v:5}]);
+I('maomao','lakan','Lakan','♟️',2,['Friend'],8,[{t:'slow',n:2,d:2,biggest:true},{t:'charge',to:'tag:Toxin',v:1}],{tierScale:true,tierCd:false});
+I('maomao','dust_explosion','Flour Dust Explosion','💥',2,['Weapon','Tool'],8,[{t:'dmg',v:20},{t:'burn',v:4,when:{c:'foePoison',v:4}}]);
+I('maomao','face_powder','White Face Powder','🪞',1,['Toxin'],6,[{t:'poison',v:1}],{escalate:{t:'poison',v:1}});
+I('maomao','pufferfish','Pufferfish Soup','🐡',1,['Food','Toxin'],8,[{t:'heal',v:8},{t:'poison',v:2,when:{c:'afflicted',v:2}},{t:'selfdmg',v:2}]);
+// Misaka: friends and rivals / Electromaster tricks
+I('misaka','saten','Ruiko Saten','⚾',1,['Friend'],7,[{t:'charge',to:'right',v:1.5},{t:'dodge',n:1}],{opening:true,tierScale:true,tierCd:false});
+I('misaka','shokuhou','Misaki Shokuhou: Mental Out','⭐',2,['Friend'],9,[{t:'freeze',n:2,d:1.5}],{opening:true,tierScale:true,tierCd:false});
+I('misaka','kiyama','Harumi Kiyama: Multi Skill','🧪',2,['Friend','Spell','Weapon'],7,[{t:'dmg',v:12,perType:2},{t:'burn',v:2},{t:'slow',n:1,d:1}]);
+I('misaka','hacking','Electromaster Hacking','💻',1,['Tool'],7,[{t:'slow',n:2,d:1.5},{t:'chargeId',id:'railgun',v:1}],{tierScale:true,tierCd:false});
+I('misaka','wall_run','Magnetic Wall Run','🧲',1,['Tool'],7,[{t:'dodge',n:1},{t:'haste',to:'right',d:1.5}],{tierScale:true,tierCd:false});
+I('misaka','billion_volts','One Billion Volts','🌩️',3,['Spell','Weapon'],10,[{t:'dmg',v:55,pierce:true}]);
+// Ryuko: the Mankanshoku family / Kamui forms
+I('ryuko','barazo','Barazo Mankanshoku','💉',1,['Friend'],7,[{t:'heal',v:5,when:{c:'low',v:6}},{t:'regen',v:1}]);
+I('ryuko','mataro','Mataro Mankanshoku','👛',1,['Friend'],6,[{t:'stripShield',v:10}],{income:1});
+I('ryuko','guts','Guts','🐶',1,['Friend'],7,[{t:'blockFirst'},{t:'heal',v:6}],{opening:true});
+I('ryuko','shippu','Senketsu Shippu','🪽',2,['Apparel'],8,[{t:'haste',to:'tag:Weapon',d:2},{t:'dodge',n:1}],{tierScale:true,tierCd:false});
+I('ryuko','senjin','Senketsu Senjin','🦔',2,['Apparel','Weapon'],7,[{t:'shield',v:15},{t:'dmg',v:10,when:{c:'shielded',v:6}}]);
+I('ryuko','rampage','Rampaging Senketsu','🩸',3,['Weapon'],10,[{t:'dmg',v:66},{t:'selfdmg',v:10}],{crit:.2});
+// Shinra: Company 8 crew / rival pyrokinetics
+I('shinra','obi','Captain Obi','🧑‍🚒',2,['Friend'],7,[{t:'shield',v:17,per:{tag:'Friend',v:4}}]);
+I('shinra','tamaki','Tamaki: Cat\'s Tail','🐱',1,['Friend'],6,[{t:'slow',n:2,d:1},{t:'heat',v:1}],{tierScale:true,tierCd:false});
+I('shinra','hinawa','Lieutenant Hinawa','🎯',1,['Friend'],7,[{t:'charge',to:'tag:Weapon',v:1},{t:'heat',v:1}],{tierScale:true,tierCd:false});
+I('shinra','matchbox','Matchbox','🚒',2,['Tool'],8,[{t:'haste',to:'tag:Friend',d:1.5},{t:'heal',v:5}]);
+I('shinra','sho','Sho Kusakabe','🌌',2,['Friend','Weapon'],7,[{t:'dmg',v:14,when:{c:'foeFrozen',v:8}},{t:'freeze',n:1,d:1}]);
+I('shinra','benimaru','Benimaru Shinmon','🔥',3,['Friend','Weapon'],10,[{t:'dmg',v:38,pierce:true,when:{c:'heat',v:15}},{t:'burn',v:5}]);
+// Jotaro: Morioh / the Joestar bloodline
+I('jotaro','josuke','Josuke: Crazy Diamond','💎',2,['Friend','Weapon'],6,[{t:'dmg',v:15,when:{c:'hurt',v:6}},{t:'heal',v:8,repairFirst:true}]);
+I('jotaro','okuyasu','Okuyasu: The Hand','✋',2,['Friend','Weapon'],7,[{t:'stripShield',v:15},{t:'dmg',v:19,when:{c:'foeShield',v:8}}]);
+I('jotaro','koichi','Koichi: Echoes Act 3','🥚',1,['Friend'],6,[{t:'slow',n:2,d:1.5,biggest:true},{t:'dmg',v:5,when:{c:'foeSlowed',v:3}}]);
+I('jotaro','rohan','Rohan: Heaven\'s Door','📖',1,['Friend'],8,[{t:'freeze',n:1,d:2}],{opening:true,tierScale:true,tierCd:false});
+I('jotaro','jolyne','Jolyne: Stone Free','🧵',2,['Friend','Weapon'],6,[{t:'dmg',v:12,when:{c:'foeFrozen',v:6}},{t:'dodge',n:1}]);
 // Edward
 I('edward','automail','Automail Blade','🦾',2,['Weapon','Apparel'],5,[{t:'dmg',v:22},{t:'shield',v:11,emptyBonus:6}]);
 I('edward','circle','Transmutation Circle','⭕',1,['Tool'],4,[{t:'charge',to:'adj',v:1},{t:'shield',v:4}]);
@@ -4304,7 +4645,7 @@ const CIRCLES={
 const circleOf=h=>Object.keys(CIRCLES).find(k=>CIRCLES[k].heroes.includes(h))||null;
 const circleNeutrals=h=>{const c=circleOf(h);return c?Object.values(ITEMS).filter(d=>d.circle===c).map(d=>d.id):[]};
 function guestPool(h,tag){const c=circleOf(h);if(!c)return [];const all=CIRCLES[c].heroes.filter(x=>x!==h).flatMap(x=>heroPool(x));const f=tag?all.filter(id=>ITEMS[id].tags.includes(tag)):all;return f.length>=4?f:all}
-function pickGuestTag(h){const all=guestPool(h,null);if(!all.length)return null;const tags=[...new Set(all.flatMap(id=>ITEMS[id].tags))].filter(t=>all.filter(id=>ITEMS[id].tags.includes(t)).length>=4);if(!tags.length)return null;
+function pickGuestTag(h){const all=guestPool(h,null);if(!all.length)return null;const tags=[...new Set(all.flatMap(id=>ITEMS[id].tags))].filter(t=>new Set(all.filter(id=>ITEMS[id].tags.includes(t))).size>=8); // Claude 2026-11-19: a tag shop needs 8+ items (two shelves) so a reroll can show new stockif(!tags.length)return null;
  const mine=(S&&S.board||[]).flatMap(i=>ITEMS[i.id].tags);const fav=tags.filter(t=>mine.includes(t));return R()<.65&&fav.length?pick(fav):pick(tags)}
 const neutralPoolFor=h=>[...NEUTRAL,...circleNeutrals(h)];
 E('zetsu_clone','White Zetsu Clone','🌿',1,['Weapon'],3,[{t:'dmg',v:6}],{multiply:{max:1},color:'#d8d8c8',src:'Naruto'});
@@ -4486,8 +4827,8 @@ const MON_DEFS=[
  {name:'Nomu',boss:'Tomura Shigaraki',rank:1,icon:'🧠',series:'My Hero Academia',hp:1.05,strat:'Shock-absorbing shields and crushing blows.',weak:['Poison'],b:['nomu_smash','nomu_absorb','nomu_regen','nomu_smash','nomu_regen']},
  {name:'Hollow',boss:'Sosuke Aizen',rank:1,icon:'💀',series:'Bleach',hp:1,strat:'Crit-heavy claws, fast regeneration and a charging Cero.',weak:['Shields','Slow'],b:['hollow_claw','hollow_regen','cero','hollow_claw','hollow_regen']},
  {name:'Pure Titan',boss:'Zeke Yeager',rank:1,icon:'🧟',series:'Attack on Titan',hp:1.45,strat:'Enormous HP, slow heavy stomps and steam regeneration.',weak:['Poison','Burn'],b:['titan_stomp','titan_steam','titan_grab','titan_steam']},
- {name:'Chimera Ant',boss:null,rank:1,icon:'🐜',series:'Hunter x Hunter',hp:.85,strat:'A fast swarm of small hits that keeps speeding up.',weak:['Shields','Freeze'],b:['ant_mandible','ant_swarm','ant_pheromone','ant_mandible','ant_swarm','ant_mandible']},
- {name:'Marine Captain',boss:null,rank:1,icon:'⚓',series:'One Piece',hp:1,strat:'Seastone cuffs freeze your items while rifles chip away.',weak:['Many small items'],b:['marine_rifle','seastone','marine_saber','marine_rifle','seastone','marine_saber']},
+ {name:'Chimera Ant',boss:'Father',rank:1,icon:'🐜',series:'Hunter x Hunter',hp:.85,strat:'A fast swarm of small hits that keeps speeding up.',weak:['Shields','Freeze'],b:['ant_mandible','ant_swarm','ant_pheromone','ant_mandible','ant_swarm','ant_mandible']},
+ {name:'Marine Captain',boss:'Kaido',rank:1,icon:'⚓',series:'One Piece',hp:1,strat:'Seastone cuffs freeze your items while rifles chip away.',weak:['Many small items'],b:['marine_rifle','seastone','marine_saber','marine_rifle','seastone','marine_saber']},
  {name:'Zombie Devil',boss:'Makima',rank:1,icon:'⚰️',series:'Chainsaw Man',hp:1.1,strat:'A horde of zombies that keeps hitting and keeps getting back up.',weak:['Burn'],b:['zombie_horde','zombie_bite','zombie_rise','zombie_horde','zombie_bite']},
  {name:'Mystic Beast',boss:'Garou',rank:1,icon:'🦖',series:'One-Punch Man',hp:1.25,strat:'Roars to stun your items, then lands one crushing blow.',weak:['Haste','Many small items'],b:['beast_crush','beast_roar','beast_roar','beast_crush']},
  {name:'Aura the Guillotine',boss:'Macht',rank:2,icon:'⚖️',series:'Frieren',hp:1,strat:'The Scale of Obedience slows your whole board while her soldiers fight.',weak:['Haste','Charge'],b:['aura_soldier','aura_scale','aura_guillotine','aura_soldier','aura_soldier']},
@@ -4815,7 +5156,7 @@ function baseFxText(fx,inst){
     case 'doom':return `${kw('Once per fight')}: after <b>${fx.d}s</b>, deal <b>${fx.v*T}</b> damage that ignores Shield (+${kw('Seal','Seals')}). Freezing this pauses it`;
     case 'drain':return `Deal <b>${fx.v*T}</b> damage and heal for the damage that hits HP`;
     case 'dmg':return (fx.onlyLow?'At 30% HP or below: ':'')+`Deal <b>${v}</b> damage`+(fx.pierce?' that ignores Shield':'')+(fx.pierceCharged?' (ignores Shield when Charged)':'')+(fx.critShieldBreak?'; crits destroy enemy Shield first':'')+(fx.critPierce?'; crits ignore Shield':'')+(fx.perChargeHit?` (+${fx.perChargeHit*T} for each time it was Charged since its last use)`:'')+(fx.per?` (+${fx.per.v*T} per ${fx.per.tag} item on your board)`:'')+(fx.perType?` (+${fx.perType*T} per different type on your board)`:'')+(fx.perRegen?` (+${fx.perRegen.v*T} per ${kw('Regeneration')}, up to +${fx.perRegen.max*T})`:'')+(fx.chargedBonus?`. ${kw('Charged')}: <b>+${fx.chargedBonus*T}</b>`:'')+(fx.donorBonus?`. First hit: <b>+${fx.donorBonus*T}</b> per different Tool used (up to 4)`:'')+(fx.readyBonus?`. ${kw('Ready')}: <b>+${fx.readyBonus*T}</b>`:'');
-    case 'shield':return (fx.pureHeart?'If none of your items damage you: ':'')+`Gain <b>${v}</b> shield`+(fx.armorMark?'; broken: next Weapon +30% crit':'')+(fx.perType?` (+${fx.perType*T} per different type on your board)`:'')+(fx.emptyBonus?` (+${fx.emptyBonus*T} if you have no Shield)`:'')+(fx.perHeat?` (+${fx.perHeat*T} per ${kw('Heat')})`:'');
+    case 'shield':return (fx.pureHeart?'If none of your items damage you: ':'')+`Gain <b>${v}</b> shield`+(fx.armorMark?'; broken: next Weapon +30% crit':'')+(fx.per?` (+${fx.per.v*T} per ${fx.per.tag} item on your board)`:'')+(fx.perType?` (+${fx.perType*T} per different type on your board)`:'')+(fx.emptyBonus?` (+${fx.emptyBonus*T} if you have no Shield)`:'')+(fx.perHeat?` (+${fx.perHeat*T} per ${kw('Heat')})`:'');
     case 'exchange':return inst.exchangeMode==='transmute'?`<b>Transmute:</b> deal <b>${fx.v*T}</b> damage, then turn up to <b>${fx.cap*T}</b> of your Shield into bonus damage`:`<b>Protect:</b> deal <b>${fx.v*T}</b> damage, then gain <b>${fx.v*T}</b> Shield`;
     case 'flank':return `${kw('Flank')}: both neighbouring Weapons gain <b>+${Math.round(FLANK_CRIT[inst.tier]*100)}%</b> crit for ${fx.d}s`;
     case 'stripShield':return `Remove up to <b>${fx.v*T}</b> enemy Shield`;
@@ -4831,7 +5172,7 @@ function baseFxText(fx,inst){
     case 'dodge':return `Dodge the next <b>${fx.n}</b> enemy hits`;
   case 'wcrit':return `Your Weapons gain <b>+${Math.round(fx.v*100)}%</b> crit chance${fx.perTag?` per ${fx.perTag} item on your board`:''} for the fight${fx.max!=null&&fx.max!==fx.v?` (up to +${Math.round(fx.max*100)}%)`:''}`;
     case 'slowWard':return `Your Weapons can't be Slowed for <b>${fx.d}s</b>`;
-    case 'empower':return `Your ${fx.tag} items gain <b>+${fx.v*T}</b> ${{dmg:'damage',shield:'Shield',burn:'Burn',poison:'Poison',heal:'healing'}[fx.stat]||fx.stat} for the fight`;
+    case 'empower':return `Your ${fx.tag} items gain <b>+${fx.v*T+(fx.growBonus?inst.bonus||0:0)}</b> ${{dmg:'damage',shield:'Shield',burn:'Burn',poison:'Poison',heal:'healing'}[fx.stat]||fx.stat} for the fight`;
     case 'break':return `${kw('Break')} an enemy ${SIZE_NAME[ITEMS[inst.id]?ITEMS[inst.id].size:2]} item`+(fx.first?' (first use)':'');
     case 'copy':return `${kw('Break')} an enemy ${SIZE_NAME[ITEMS[inst.id]?ITEMS[inst.id].size:2]} item and become a copy of it`;
     case 'burn':return (fx.onlyLow?'At 30% HP or below: ':'')+`Apply <b>${v}</b> burn`;
@@ -6054,9 +6395,9 @@ function pickEvent(){
 // ---- Day 9 Expedition (Claude #92) ----
 const EXP_DAY=9,EXP_GATES=[['fiery','🔥 Flame Gate'],['toxic','☠️ Miasma Gate'],['icy','❄️ Frost Gate']],EXP_TIER=['Bronze','Silver','Gold'];
 const expRelicPool=()=>Object.keys(ITEMS).filter(id=>ITEMS[id].special==='trophy'||ITEMS[id].special==='calamity');
-function expTraps(){const used=[],ts=shuffle([0,1,2]);return shuffle(EXP_GATES).map(([gate,label],i)=>{const t=ts[i],mon=genMonster(S.day,true,used);used.push(mon.name);
+function expTraps(){const used=[],ts=shuffle([0,1,2]);return shuffle(EXP_GATES).map(([gate,label],i)=>{const t=ts[i],mon=genMonster(S.day,true,used);used.push(mon.name);seedSeen();markSeen(mon.name,true);
   mon.hp=Math.round(mon.hp*(1+.2*t));mon.exp={stage:'trap',gate,t,label:`${label} trap · ${EXP_TIER[t]}`};return {type:'monster',hard:true,mon}})}
-function expGuardians(){const used=[];return [0,1,2].map(t=>{const mon=genMonster(S.day+2,true,used);used.push(mon.name);mon.hp=Math.round(mon.hp*(1.15+.2*t));mon.exp={stage:'guardian',t,label:`Gate Guardian · ${EXP_TIER[t]}`};return {type:'monster',hard:true,mon}})}
+function expGuardians(){const used=[];return [0,1,2].map(t=>{const mon=genMonster(S.day+2,true,used);used.push(mon.name);seedSeen();markSeen(mon.name,true);mon.hp=Math.round(mon.hp*(1.15+.2*t));mon.exp={stage:'guardian',t,label:`Gate Guardian · ${EXP_TIER[t]}`};return {type:'monster',hard:true,mon}})}
 function expWin(mon){const x=mon.exp;
   if(x.stage==='trap'){const pool=shuffle([...new Set([...heroPool(S.hero.id),...neutralPoolFor(S.hero.id)])]).slice(0,3);
     S.reward.items=pool.map(id=>{const it=mkInst(id,Math.min(MAX_TIER,rollTier(S.day)+x.t));it.ench=x.gate;return it});S.reward.note=`The vault behind the ${EXP_GATES.find(g=>g[0]===x.gate)[1]} opens. Next hour: the Gate Guardian.`;S.exp.stage='guardian'}
@@ -6071,11 +6412,12 @@ function rollGift(){const d=S.day,k=pick(['gold','gold','gold','xp','xp','hp','h
   if(k==='hp'){const v=10+d*4;return {k,v,label:`+${v} max HP for the run`}}
   const id=pick(heroPool(S.hero.id)),t=Math.max(0,rollTier(d)-1);return {k,id,t,label:`Free ${TIERS[t]} ${ITEMS[id].name}`}}
 function genChoices(){
-  let c=[{type:'merchant',kind:marketKind()},{type:'event'},{type:'monster',hard:R()<.5}];S.freeGift=rollGift();
+  const bossHr=isBossDay()&&S.hour===HOURS-1&&!S.bossDoneToday,lu=bossHr?null:lineupPick();
+  let c=[{type:'merchant',kind:marketKind()},{type:'event'},...(bossHr||lu?[{type:'monster',hard:lu?lu.hard:false,lineup:lu&&lu.name}]:[])];S.freeGift=rollGift();
   c=c.map(o=>o.kind==='guest'?{...o,tag:pickGuestTag(S.hero.id)}:o.kind==='special'?{...o,theme:pick(Object.keys(SPECIALTY))}:o);
   const bossHour=isBossDay()&&S.hour===HOURS-1&&!S.bossDoneToday;if(bossHour)c=[{type:'boss'}];
   const usedMon=[];
-  S.choices=c.map(o=>o.type==='monster'?(()=>{const mon=genMonster(S.day,o.hard,usedMon);usedMon.push(mon.name);return {...o,mon}})():o.type==='boss'?{...o,mon:genBoss(S.day)}:o.type==='event'?{...o,ev:pickEvent()}:o);
+  S.choices=c.map(o=>o.type==='monster'?(()=>{const mon=genMonster(S.day,o.hard,usedMon,o.lineup);usedMon.push(mon.name);return {...o,mon}})():o.type==='boss'?{...o,mon:genBoss(S.day)}:o.type==='event'?{...o,ev:pickEvent()}:o);
   if(!bossHour&&S.day>=CALAMITY_MIN_DAY&&!S.calamityMet&&R()<CALAMITY_CHANCE){const mon=genCalamity(S.day);S.calamityMet=true;S.calamitiesSeen=[...(S.calamitiesSeen||[]),mon.name];S.choices.push({type:'monster',hard:true,mon});toast(`☄️ A Calamity has appeared: ${mon.name}! Once a run at most.`)}
   if(!bossHour&&S.exp&&S.exp.stage==='trap')S.choices=expTraps();
   else if(!bossHour&&S.exp&&S.exp.stage==='guardian')S.choices=expGuardians();
@@ -6212,28 +6554,56 @@ const BOSS_SHORT={'Ryomen Sukuna':'Sukuna','Muzan Kibutsuji':'Muzan','Madara Uch
 const actOf=day=>Math.floor((day-1)/3);
 const actBossDay=day=>actOf(day)*3+3;
 const actBoss=day=>bossFor(actBossDay(day))[0];
-function pickMonster(day,hard,exclude){
-  const boss=actBoss(day),dia=(day-1)%3,fought=S.fought||[];
-  const ok=m=>!exclude.includes(m.name),fresh=m=>ok(m)&&!fought.includes(m.name);
-  const forces=MON_DEFS.filter(m=>m.boss===boss);
-  const wantRank=hard?(dia>=1?2:1):(dia===0?1:dia===1?(R()<.5?1:2):2);
-  const wanderers=MON_DEFS.filter(m=>m.boss!==boss&&(m.rank===1?day<=7:day>=4));
-  const lists=[];
-  if(R()<.7)lists.push(forces.filter(m=>m.rank===wantRank),forces);
-  lists.push(wanderers.filter(m=>m.rank===(hard&&day>=4?2:1)),wanderers,MON_DEFS);
-  for(const L of lists){const f=L.filter(fresh);if(f.length)return pick(f)}
-  for(const L of lists){const f=L.filter(ok);if(f.length)return pick(f)}
+// Encounter lineups (Claude 2026-11-20, Max): every enemy shows up once per run (regular OR elite, never both),
+// each day has a fixed lineup of 2, Day 1 has no elites, and each act is themed around its boss's own crew.
+const MON_MIN_DAY={'Hand Demon':3,'Pure Titan':3,'Nomu':3}; // the tankiest minions skip Days 1-2 (bot win rate vs Day-1 boards: 5-25%)
+const EARLY_ELITE={maxDay:3,hp:1.5,items:1}; // early elites also skip the elite health floor // Days 2-3 elites: rank-1 minions only, one tier lower, regular board +1 item, 1.5x regular health
+// (bot check vs starter+N-item boards: Day-2 elites 6% -> ~32% won, Day-3 elites 0% -> ~25%)
+function monAllowed(m,day,hard){const md=MON_MIN_DAY[m.name]||1;if(day<md+(hard&&md>1?1:0))return false;return m.rank===1?(hard?day>=2:true):(hard?day>=4:day>=3)}
+// story-arc and trial rivals (e.g. Luffy's Kaido, Frieren's Aura) never also turn up as an act boss or a normal enemy
+function arcRivalFoes(){const h=S&&S.hero&&S.hero.id;if(!h)return [];const a=STORY_ARCS[h],t=HERO_ULT_TRIALS[h],out=[];
+ for(const r of [a&&a.rivalForm,t&&t.enemy,t&&t.boss])if(r){const n=String(r).split(' — ')[0];for(const x of [...MON_DEFS.map(m=>m.name),...BOSSES.map(b=>b[0])])if(x===n||x.startsWith(n+' '))out.push(x)}
+ return [...new Set(out)]}
+// forces of bosses planned for later acts are saved for their own act
+function reservedBosses(day){const out=[];for(let d=actBossDay(day)+3;d<=actBossDay(day)+12;d+=3)out.push(bossFor(d)[0]);return out}
+function pickMonster(day,hard,exclude=[]){
+  const boss=actBoss(day),dia=(day-1)%3,seen=S.monSeen||{},banned=arcRivalFoes(),later=reservedBosses(day);
+  const ok=m=>!exclude.includes(m.name)&&!banned.includes(m.name),fresh=m=>ok(m)&&!seen[m.name]&&monAllowed(m,day,hard);
+  // the boss's crew: minions fill the regular slot, the lieutenant is the elite from the act's 2nd day (a regular on Day 3)
+  const crew=MON_DEFS.filter(m=>m.boss===boss&&(hard?m.rank===2&&dia>=1:m.rank===1||day<=3));
+  const guests=MON_DEFS.filter(m=>m.boss!==boss&&!later.includes(m.boss));
+  for(const L of [crew,guests,MON_DEFS]){const f=L.filter(fresh);if(f.length)return pick(f)}
+  // last resort in very long runs: an enemy you skipped (never fought), not seen today or yesterday, in the same version
+  const back=MON_DEFS.filter(m=>ok(m)&&monAllowed(m,day,hard)&&seen[m.name]&&!seen[m.name].fought&&seen[m.name].day<day-1&&!!seen[m.name].hard===!!hard);
+  if(back.length)return pick(back);
+  for(const L of [MON_DEFS.filter(m=>ok(m)&&!(seen[m.name]&&(seen[m.name].day>=day-1||seen[m.name].fought||!!seen[m.name].hard!==!!hard))),MON_DEFS.filter(ok)])if(L.length)return pick(L);
   return pick(MON_DEFS);
 }
-function genMonster(day,hard,exclude=[]){
-  const m=S?pickMonster(day,hard,exclude):pick(MON_DEFS),n=hard?m.b.length:Math.min(m.b.length,2+Math.floor(day/3)+(D().regItems&&!m.b.slice(0,2+Math.floor(day/3)).includes(m.b[2+Math.floor(day/3)])?1:0));
-  const tier=enemyTier(day+(hard?2:0)+Math.max(0,D().bump-1));
+function recordFought(mon){(S.fought=S.fought||[]).push(mon.name);if(monDef(mon.name)){seedSeen();S.monSeen[mon.name]={...(S.monSeen[mon.name]||{hard:!!mon.hard}),day:S.day,fought:true}}}
+function markSeen(name,hard,day=S.day){S.monSeen=S.monSeen||{};const o=S.monSeen[name];S.monSeen[name]={day,hard:!!hard,fought:!!(o&&o.fought)}}
+function seedSeen(){if(S.monSeen)return;S.monSeen={};for(const n of S.fought||[])S.monSeen[n]={day:0,hard:false,fought:true}}
+function dayLineup(){seedSeen();
+  if(!S.lineup||S.lineup.day!==S.day){const list=[];
+    for(const want of S.day<=1?[false,false]:[true,false]){const m=pickMonster(S.day,want,list.map(x=>x.name)),o=S.monSeen[m.name],hard=o?o.hard:want;list.push({name:m.name,hard});markSeen(m.name,hard)} // a returning enemy keeps its version
+    S.lineup={day:S.day,list:shuffle(list),last:null}}
+  return S.lineup}
+// the hour's fight: one of today's two not yet fought, alternating; if both are beaten, a spare regular joins
+const LINEUP_DAYS=12; // spares never eat into the enemies the lineups through Day 12 need
+function lineupPick(){const L=dayLineup(),seen=S.monSeen,open=L.list.filter(x=>!(seen[x.name]&&seen[x.name].fought&&seen[x.name].day===S.day));
+  let x=open.find(e=>e.name!==L.last)||open[0];
+  if(!x){const ban=arcRivalFoes(),fresh=MON_DEFS.filter(m=>!seen[m.name]&&!ban.includes(m.name)&&monAllowed(m,S.day,false));
+    if(fresh.length<=2*Math.max(0,LINEUP_DAYS-S.day))return null;
+    const m=pickMonster(S.day,false,L.list.map(e=>e.name));x={name:m.name,hard:false,spare:true};L.list.push(x);markSeen(m.name,false)}
+  L.last=x.name;return x}
+function genMonster(day,hard,exclude=[],name){
+  const m=(name&&monDef(name))||(S?pickMonster(day,hard,exclude):pick(MON_DEFS)),early=hard&&day<=EARLY_ELITE.maxDay,rn=Math.min(m.b.length,2+Math.floor(day/3)+(D().regItems&&!m.b.slice(0,2+Math.floor(day/3)).includes(m.b[2+Math.floor(day/3)])?1:0)),n=early?Math.min(m.b.length,rn+EARLY_ELITE.items):hard?m.b.length:rn;
+  const tier=enemyTier(day+(early?1:hard?2:0)+Math.max(0,D().bump-1));
   const authored=monsterBuild(m,day,hard,tier);
-  return {name:m.name,icon:m.icon,series:m.series,strat:m.strat,weak:m.weak,color:hard?'#b23a48':'#6b5b95',hard,forces:m.boss&&m.boss===actBoss(day)?m.boss:null,rank:m.rank,hp:Math.round(((hard?200:120)+day*(hard?75:50))*D().mon*m.hp*(hard?1:(D().reg||1))),items:authored?authored.items:buildFixed(m.b.slice(0,n),BOARD_SLOTS,tier),skills:D().regItems&&!hard?{weaponDmg:Math.floor(day/3)}:{},gold:Math.max(1,Math.round(((hard?6:3)+day)*(D().gold??1))),xp:hard?3:2,...(authored||{})};
+  return {name:m.name,icon:m.icon,series:m.series,strat:m.strat,weak:m.weak,color:hard?'#b23a48':'#6b5b95',hard,forces:m.boss&&m.boss===actBoss(day)?m.boss:null,rank:m.rank,...(early?{earlyElite:true}:{}),hp:Math.round((early?(120+day*50)*EARLY_ELITE.hp:(hard?200:120)+day*(hard?75:50))*D().mon*m.hp*(hard&&!early?1:(D().reg||1))),items:authored?authored.items:buildFixed(m.b.slice(0,n),BOARD_SLOTS,tier),skills:D().regItems&&!hard?{weaponDmg:Math.floor(day/3)}:{},gold:Math.max(1,Math.round(((hard?6:3)+day)*(D().gold??1))),xp:hard?3:2,...(authored||{})};
 }
 function bossFor(day){
   S.bossPlan=S.bossPlan||{};
-  if(S.bossPlan[day]==null){const used=Object.values(S.bossPlan);const pool=BOSSES.map((b,i)=>i).filter(i=>!used.includes(i));S.bossPlan[day]=pool.length?pool[rnd(pool.length)]:rnd(BOSSES.length)}
+  if(S.bossPlan[day]==null){const used=Object.values(S.bossPlan);const ban=arcRivalFoes(),all=BOSSES.map((b,i)=>i).filter(i=>!used.includes(i)),fair=all.filter(i=>!ban.includes(BOSSES[i][0])),pool=fair.length?fair:all;S.bossPlan[day]=pool.length?pool[rnd(pool.length)]:rnd(BOSSES.length)}
   return BOSSES[S.bossPlan[day]];
 }
 const nextBossDay=()=>{let d=S.day;while(d%3!==0)d++;if(d===S.day&&S.bossDoneToday)d+=3;return d};
@@ -6269,12 +6639,12 @@ function powerMatchHTML(m){const pm=m&&m.powerMatch;if(!pm)return '';const pct=M
 {const gb2=genBoss;genBoss=function(...a){const m=gb2(...a);return S&&DIFFS[S.diff]&&DIFFS[S.diff].heat?applyPowerMatch(m,'heat'):S&&D().match?applyPowerMatch(m,'boss'):m}}
 // Elite-only health factors (BZ-MONSTER-CONSISTENCY-01): fitted so each elite is beaten by 55-80% of Day-5 reference builds.
 const ELITE_HP={'Cursed Spirit': 1.24, 'Rogue Ninja': 1.42, 'Saibaman': 1.32, 'Hand Demon': 1.42, 'Nomu': 1.62, 'Hollow': 1.7, 'Pure Titan': 0.5, 'Marine Captain': 2.35, 'Zombie Devil': 1.28, 'Mystic Beast': 1.94, 'Aura the Guillotine': 2.12, 'Ginyu Force': 1.68, 'Daki': 0.74, 'Mahito': 1.78, 'Gifters': 2.14, 'King the Wildfire': 0.45, 'Kisame Hoshigaki': 2.08, 'Chimera Soldiers': 2.95, 'Lust': 1.56, 'Linie': 2.8, 'Psykos': 1.86, 'Katana Man': 0.77, 'Ulquiorra': 1.88, 'Himiko Toga': 0.81, 'UMA Beasts': 2.56, 'Billy': 1.9, 'Female Titan': 1.5};
-{const gm3=genMonster;genMonster=function(day,hard,...a){const m=gm3(day,hard,...a);const f=hard&&m&&ELITE_HP[m.name];if(f){m.hp=Math.max(1,Math.round(m.hp*f));m.eliteHp=f}return m}}
+{const gm3=genMonster;genMonster=function(day,hard,...a){const m=gm3(day,hard,...a);const f=hard&&m&&!m.earlyElite&&ELITE_HP[m.name];if(f){m.hp=Math.max(1,Math.round(m.hp*f));m.eliteHp=f}return m}}
 // Elite floor (Claude 2026-11-04): Max saw regular monsters tougher than elites in the same run. An elite's threat (health x board
 // power) is now at least 25% above the most threatening regular monster of that day (both before board matching). Fragile elites
 // that hit very hard (King, Daki) already clear the bar through their board, so their fitted health stays.
 const ELITE_FLOOR=1.25,_regThreat={};function maxRegularThreat(day){const k=S.diff+':'+day;if(_regThreat[k]==null){let mx=0;for(const m of MON_DEFS){const r=genMonsterBase(day,false,MON_DEFS.filter(o=>o!==m).map(o=>o.name));if(r&&r.name===m.name)mx=Math.max(mx,r.hp*Math.max(1,boardPower(r.items,r.skills)))}_regThreat[k]=mx}return _regThreat[k]}
-{const gm4=genMonster;genMonster=function(day,hard,...a){const m=gm4(day,hard,...a);if(hard&&m&&S){const pw=Math.max(1,boardPower(m.items,m.skills)),f=m.powerMatch?m.powerMatch.mult:1,need=Math.round(ELITE_FLOOR*maxRegularThreat(day)/pw*f);if(m.hp<need){m.hp=need;m.eliteFloor=true}}return m}}
+{const gm4=genMonster;genMonster=function(day,hard,...a){const m=gm4(day,hard,...a);if(hard&&m&&S&&!m.earlyElite){const pw=Math.max(1,boardPower(m.items,m.skills)),f=m.powerMatch?m.powerMatch.mult:1,need=Math.round(ELITE_FLOOR*maxRegularThreat(day)/pw*f);if(m.hp<need){m.hp=need;m.eliteFloor=true}}return m}}
 function pickNearPower(list){if(!S||list.length<3)return pick(list);const me=boardPower(S.board,S.skills),ranked=list.map(b=>({b,d:Math.abs(boardPower(b.items,b.skills)-me)})).sort((x,y)=>x.d-y.d);return pick(ranked.slice(0,Math.max(1,Math.ceil(ranked.length/3)))).b}
 // Rival ghosts (Claude 2026-10-30, BZ-RIVAL-GHOSTS-02): the PvP fallback on Normal/Hard/Heat is a real playtest board for
 // that day near a share of your board power. Format per board: [heroId, level, "skill*copies,...", "id:tier:slot[:ench];..."].
@@ -6285,15 +6655,17 @@ function rivalBoard([heroId,level,sk,items]){if(!heroById(heroId))return null;co
  const its=(()=>{const raw=items.split(';').map(x=>{const [id,t,sl,en]=x.split(':');return {id,tier:+t,slot:+sl,ench:en&&ENCH[en]?en:null}}).filter(i=>ITEMS[i.id]&&i.tier<=MAX_TIER).sort((a,b)=>a.slot-b.slot);let at=0;const out=[];for(const i of raw){const z=ITEMS[i.id].size;if(at+z>BOARD_SLOTS)continue;i.slot=at;at+=z;out.push(i)}return out})();
  return its.length?{heroId,hp:Math.max(100,300+(level-1)*50+(skills.maxHp||0)),skills,items:its}:null}
 const rivalKey=b=>(b.ownerId||'local')+':'+b.heroId;
+// No mirror matches (Claude 2026-11-19): every PvP source skips boards of your own hero unless nothing else exists.
+const notMirror=b=>!(S&&S.hero&&b&&b.heroId===S.hero.id);
 function rivalGhost(day){const d=S&&S.diff,grp=d==='normal'?'normal':d==='hard'||d==='heat'?'hard':null;if(!grp||!RIVAL_TARGET[d])return null;
  const days=RIVAL_GHOSTS[grp],known=Object.keys(days).map(Number).filter(x=>x<=day);if(!known.length)return null;
- const boards=(days[day]||days[Math.max(...known)]).map(rivalBoard).filter(Boolean);if(!boards.length)return null;
+ const all=(days[day]||days[Math.max(...known)]).map(rivalBoard).filter(Boolean),other=all.filter(notMirror),boards=other.length?other:all;if(!boards.length)return null;
  const log=S.rivalLog=S.rivalLog||[],recent=log.slice(-2),fb=boards.filter(b=>!recent.includes('rival:'+b.heroId)),pool3=fb.length?fb:boards;
  const tgt=boardPower(S.board,S.skills)*RIVAL_TARGET[d],near=pool3.map(b=>({b,d:Math.abs(boardPower(b.items,b.skills)-tgt)})).sort((x,y)=>x.d-y.d).slice(0,3),b=pick(near).b,h=heroById(b.heroId);log.push('rival:'+b.heroId);
  return {name:h.name+' (Rival)',heroId:h.id,icon:h.emblem,color:h.color,hp:b.hp,skills:b.skills,rival:true,items:arrangeBoard(b.items.map(i=>mkInst(i.id,i.tier,i.ench,0)))}}
 function genGhost(day){
   const friendB=friendEntries().flatMap(f=>f.boards.filter(b=>b.day===day));
-  const pool=[...(SHARED[day]||[]),...friendB].map(cleanBoard).filter(ghostBoardCompatible),local=(store.get('animeBazaarGhosts',{})[day]||[]).map(cleanBoard).filter(ghostBoardCompatible);
+  const pool=[...(SHARED[day]||[]),...friendB].map(cleanBoard).filter(ghostBoardCompatible).filter(notMirror),local=(store.get('animeBazaarGhosts',{})[day]||[]).map(cleanBoard).filter(ghostBoardCompatible).filter(notMirror);
   const log=S.rivalLog=S.rivalLog||[],recent=log.slice(-2),fresh=b=>{const k=rivalKey(b);return !recent.includes(k)&&log.filter(x=>x===k).length<2};
   const poolF=pool.filter(fresh),localF=local.filter(fresh);
   const src=poolF.length&&R()<0.6?['shared',pickNearPower(poolF)]:localF.length&&R()<0.4?['local',pickNearPower(localF)]:null;
@@ -6306,7 +6678,7 @@ function genGhost(day){
     return {name:h.name+who,heroId:h.id,icon:sk?sk.emblem:h.emblem,color:sk?sk.color:h.color,aura:sk?sk.aura:null,skin:sk||null,cos:s.cos,hp:s.hp,skills:s.skills,items:s.items.map(i=>Object.assign(mkInst(i.id,i.tier,i.ench,i.bonus),{slot:i.slot??undefined}))};
   }
   const rv=rivalGhost(day);if(rv)return rv;
-  const recentH=(S.rivalLog||[]).slice(-2).map(k=>k.split(':')[1]),heroes=HEROES.filter(x=>!recentH.includes(x.id)),h=pick(heroes.length?heroes:HEROES),_rl=(S.rivalLog=S.rivalLog||[]).push('gen:'+h.id),pool2=[...heroPool(h.id),...heroPool(h.id),...NEUTRAL],skills={};
+  const recentH=(S.rivalLog||[]).slice(-2).map(k=>k.split(':')[1]),others=HEROES.filter(x=>notMirror({heroId:x.id})),heroes=others.filter(x=>!recentH.includes(x.id)),h=pick(heroes.length?heroes:others.length?others:HEROES),_rl=(S.rivalLog=S.rivalLog||[]).push('gen:'+h.id),pool2=[...heroPool(h.id),...heroPool(h.id),...NEUTRAL],skills={};
   for(let i=0;i<Math.floor(day/2)+D().skills;i++){const k=pick(rollSkillChoices(day));gainSkill(skills,k)}
   return {name:h.name+' (Ghost)',heroId:h.id,icon:h.emblem,color:h.color,hp:Math.round((300+(day-1)*55)*D().hp)+(skills.maxHp||0),skills,items:arrangeBoard(buildBoard(pool2,Math.min(10,4+day+D().budget),day+D().bump))};
 }
@@ -6769,13 +7141,20 @@ function portraitHelpHTML(h,lk){
  if(!p)return portrait;
  return `<div class="portrait-help" onpointerleave="this.classList.remove('help-dismissed')"><button type="button" class="portrait-help-button" aria-label="${esc(h.name)}: passive ability" aria-expanded="false" aria-controls="portrait-passive-tip" onclick="const host=this.parentElement;const open=host.classList.toggle('help-open');host.classList.toggle('help-dismissed',!open);this.setAttribute('aria-expanded',String(open));if(!open)this.blur()" onkeydown="if(event.key==='Escape'){this.parentElement.classList.remove('help-open');this.parentElement.classList.add('help-dismissed');this.setAttribute('aria-expanded','false');this.blur()}">${portrait}<span class="portrait-info" aria-hidden="true">i</span></button><div class="portrait-pop" id="portrait-passive-tip" role="tooltip"><b>${p.icon} ${esc(p.name)}</b><p>${esc(p.desc)}</p></div></div>`;
 }
+// Run XP meter (Claude 2026-11-19): level, one pip per XP, "have/need" numbers, and a hover/tap note on what a level-up gives.
+function xpLevelPerk(l){if(l===ULT_LEVEL&&!S.ultGiven&&!HERO_ULT_TRIALS[S.hero.id])return 'your <b>Ultimate</b>';if(l>=10&&l%5===0)return 'a <b>free item upgrade</b>';return ''}
+function xpMeterHTML(){
+  const have=Math.max(0,Math.min(S.xp,XP_PER_LEVEL)),need=XP_PER_LEVEL,left=need-have,next=S.level+1,perk=xpLevelPerk(next);
+  const pips=need<=10?`<span class="xppips" aria-hidden="true">${Array.from({length:need},(_,i)=>`<i class="${i<have?'on':''}"></i>`).join('')}</span>`:`<span class="xppips bar" aria-hidden="true"><i class="on" style="width:${have/need*100}%"></i></span>`;
+  let ahead='';for(let l=next+1;l<=next+10&&!ahead;l++){const p=xpLevelPerk(l);if(p)ahead=`Level ${l}: ${p}.`}
+  return `<span class="xpstat${left===1?' close':''}" tabindex="0" role="button" aria-label="Level ${S.level}. ${have} of ${need} XP. ${left} more XP to level ${next}.">⭐ Lv ${S.level}${pips}<span class="xpnum">${have}/${need} XP</span><span class="rarpop xppop" role="tooltip"><span class="rk-h">Level ${S.level} → ${next}</span><span class="xprow"><b>${have} of ${need} XP.</b> ${left} more XP to level up.</span><span class="rk-d"><b>Each level-up:</b> choose a skill that lasts the whole run.${perk?` Level ${next} also gives ${perk}.`:''}${ahead?` ${ahead}`:''}</span><span class="rk-f">Earn XP by winning fights (bosses and hard monsters give more), from events and from free picks. XP resets each run.</span></span></span>`;
+}
 function topHTML(){
   const h=S.hero;
   const lk=myLook(h.id);
-  return `<div class="top wood">${portraitHelpHTML(h,lk)}<div class="who"><div class="whonm">${h.short} <span class="small">· ${DIFFS[S.diff||'casual'].name}${S.daily?' · Daily':''}</span></div><div class="small"><b class="dayb">Day ${S.day}</b> · Hour ${Math.min(S.hour+1,HOURS)}/${HOURS}</div>
-   <div class="xpbar" title="XP to next level"><i style="width:${S.xp/XP_PER_LEVEL*100}%"></i></div></div>
+  return `<div class="top wood">${portraitHelpHTML(h,lk)}<div class="who"><div class="whonm">${h.short} <span class="small">· ${DIFFS[S.diff||'casual'].name}${S.daily?' · Daily':''}</span></div><div class="small"><b class="dayb">Day ${S.day}</b> · Hour ${Math.min(S.hour+1,HOURS)}/${HOURS}</div>${xpMeterHTML()}</div>
    ${(()=>{const d=nextBossDay(),b=bossFor(d);return `<button class="stat warnbtn" data-act="scoutBoss" title="Inspect the upcoming boss. It takes the last hour of its day and can't be skipped; losing costs half a rival loss.">⚠ ${d===S.day?'Tonight':'Day '+d}: ${b[1]} ${esc(b[0])}</button>`})()}
-   ${PASSIVES[h.id]?`<span class="stat pstat" tabindex="0" title="Passive: ${esc(PASSIVES[h.id].name)}. ${esc(PASSIVES[h.id].desc)}">${PASSIVES[h.id].icon} <span class="pname">${esc(PASSIVES[h.id].name)}</span></span>`:''}<span class="stat">💰 ${S.gold}</span><span class="stat">❤️ ${maxHp()+((PASSIVES[h.id]||{}).hp||0)}</span><span class="stat">⭐ Lv ${S.level}</span><button class="stat runstat" data-act="runRules" title="Run rules. Prestige: a rival loss costs ${prestigeLoss()} tonight and the cost grows every 2 days. The run ends at 0 prestige.">👑 ${S.prestige} · ${lossesLeft()} ${lossesLeft()===1?'loss':'losses'} left</button><button class="stat runstat" data-act="runRules" title="Run rules. Win ${WINS_NEEDED} rival fights to become Champion.">🏆 ${S.wins}/${WINS_NEEDED} wins</button><span class="topbtns">${soundBtns()}<button class="iconbtn" data-act="quit" title="Save and quit to menu" aria-label="Save and quit to menu">💾</button><button class="iconbtn ${ARM==='run'?'primary':''}" data-act="abandon" title="Abandon run" aria-label="Abandon run">${ARM==='run'?'Tap again to abandon':'🏳'}</button></span></div>`;
+   ${PASSIVES[h.id]?`<span class="stat pstat" tabindex="0" title="Passive: ${esc(PASSIVES[h.id].name)}. ${esc(PASSIVES[h.id].desc)}">${PASSIVES[h.id].icon} <span class="pname">${esc(PASSIVES[h.id].name)}</span></span>`:''}<span class="stat">💰 ${S.gold}</span><span class="stat">❤️ ${maxHp()+((PASSIVES[h.id]||{}).hp||0)}</span><button class="stat runstat" data-act="runRules" title="Run rules. Prestige: a rival loss costs ${prestigeLoss()} tonight and the cost grows every 2 days. The run ends at 0 prestige.">👑 ${S.prestige} · ${lossesLeft()} ${lossesLeft()===1?'loss':'losses'} left</button><button class="stat runstat" data-act="runRules" title="Run rules. Win ${WINS_NEEDED} rival fights to become Champion.">🏆 ${S.wins}/${WINS_NEEDED} wins</button><span class="topbtns">${soundBtns()}<button class="iconbtn" data-act="quit" title="Save and quit to menu" aria-label="Save and quit to menu">💾</button><button class="iconbtn ${ARM==='run'?'primary':''}" data-act="abandon" title="Abandon run" aria-label="Abandon run">${ARM==='run'?'Tap again to abandon':'🏳'}</button></span></div>`;
 }
 // Written scene/dialogue pools only: no network calls or runtime model.
 const MERCHANT_SCENES={
@@ -7370,7 +7749,30 @@ const RESONANCES=[
  {id:'blood_change',a:'toga_drain',b:'blood_feed',loot:true,name:"Blood to Transform",desc:"Blood Feeding Charges Senketsu 1s.",why:"Both drink blood to transform.",fx:[{k:'link',item:'blood_feed',to:'senketsu',v:1}]},
  {id:'rule_breaker',a:'uma_rule',b:'fuuko_touch',loot:true,name:"Rule Breaker",desc:"Fuuko’s Touch crits 15% more often.",why:"Unluck turns the Rules against the UMA.",fx:[{k:'crit',item:'fuuko_touch',v:.15}]},
  {id:'emperors_trick',a:'billy_guns',b:'star_finger',loot:true,name:"The Emperor’s Trick",desc:"Star Finger deals 20% more damage.",why:"Hol Horse’s Emperor was a revolver too; Jotaro has seen this trick.",fx:[{k:'mult',item:'star_finger',v:1.2}]},
- {id:'eren_rescue',a:'ft_kick',b:'mikasa',loot:true,name:"Pulling Eren Out",desc:"Mikasa crits 15% more often.",why:"Levi and Mikasa pulled Eren out of the Female Titan together.",fx:[{k:'crit',item:'mikasa',v:.15}]}];
+ {id:'eren_rescue',a:'ft_kick',b:'mikasa',loot:true,name:"Pulling Eren Out",desc:"Mikasa crits 15% more often.",why:"Levi and Mikasa pulled Eren out of the Female Titan together.",fx:[{k:'crit',item:'mikasa',v:.15}]},
+ // #101 batch 4 hidden pairs (2 per hero)
+ {id:'rescue_squad',a:'chad',b:'uryu',name:"Rescue Squad",desc:"Chad and Uryu both deal 20% more damage.",why:"They broke into Soul Society together to save Rukia.",fx:[{k:'mult',item:'chad',v:1.2},{k:'mult',item:'uryu',v:1.2}]},
+ {id:'flash_goddess',a:'yoruichi',b:'flash_step',name:"Flash Goddess",desc:"Flash Step also Hastes your Weapons 0.5s more.",why:"Yoruichi taught Ichigo Shunpo and was never beaten in a race.",fx:[{k:'onUse',item:'flash_step',fx:[{t:'haste',to:'tag:Weapon',d:.5}]}]},
+ {id:'special_ops',a:'petra',b:'oluo',name:"Special Operations Squad",desc:"Oluo deals 20% more damage and Petra's Haste lasts 0.5s longer.",why:"Levi hand-picked them for his squad.",fx:[{k:'mult',item:'oluo',v:1.2},{k:'onUse',item:'petra',fx:[{t:'haste',to:'adj',d:.5}]}]},
+ {id:'ackerman_blood',a:'kenny',b:'ackerman_awaken',name:"Ackerman Blood",desc:"Kenny Ackerman crits 15% more often.",why:"Kenny raised Levi and recognised the same awakening in him.",fx:[{k:'crit',item:'kenny',v:.15}]},
+ {id:'terrible_blizzard',a:'tatsumaki',b:'fubuki',name:"Terrible and Blizzard",desc:"Tatsumaki deals 20% more damage and Fubuki gives 6 more Shield.",why:"The Tornado of Terror and the Hellish Blizzard are sisters.",fx:[{k:'mult',item:'tatsumaki',v:1.2},{k:'onUse',item:'fubuki',fx:[{t:'shield',v:3}]}]},
+ {id:'same_routine',a:'pushups',b:'normal_punch',name:"Same Routine",desc:"Normal Punch also gives 6 Shield.",why:"A hundred push-ups, sit-ups and squats and a 10 km run, every single day.",fx:[{k:'onUse',item:'normal_punch',fx:[{t:'shield',v:3}]}]},
+ {id:'ant_loyalty',a:'beru',b:'shadow_igris',name:"Ant King's Loyalty",desc:"Beru and Igris both deal 20% more damage.",why:"Beru and Igris compete to be the Monarch's most loyal shadow.",fx:[{k:'mult',item:'beru',v:1.2},{k:'mult',item:'shadow_igris',v:1.2}]},
+ {id:'kamish_fangs',a:'kamish',b:'knight_killer',name:"Fangs of Kamish",desc:"Kamish's Wrath crits 15% more often.",why:"Both blades came from the dragon Kamish's fangs and Jinwoo's raids.",fx:[{k:'crit',item:'kamish',v:.15}]},
+ {id:'overseer_watch',a:'albedo',b:'ainz_knight',name:"Overseer's Watch",desc:"Death Knight gives 20 more Shield.",why:"Albedo commands Nazarick's defenders in Ainz's name.",fx:[{k:'onUse',item:'ainz_knight',fx:[{t:'shield',v:10}]}]},
+ {id:'supreme_wish',a:'shooting_star',b:'fallen_down',name:"Supreme Being's Wish",desc:"Fallen Down deals 25% more damage.",why:"Ainz spent a wish from the Shooting Star ring to amplify a super-tier spell.",fx:[{k:'mult',item:'fallen_down',v:1.25}]},
+ {id:'devil_partners',a:'himeno',b:'aki',name:"Partners",desc:"Aki deals 20% more damage.",why:"Himeno was Aki's partner and mentor in Division 4.",fx:[{k:'mult',item:'aki',v:1.2}]},
+ {id:'fiend_fans',a:'beam',b:'power',name:"Fiend Fan Club",desc:"Beam and Power both deal 20% more damage.",why:"Two Fiends who would follow Chainsaw Man anywhere.",fx:[{k:'mult',item:'beam',v:1.2},{k:'mult',item:'power',v:1.2}]},
+ {id:'father_daughter_lakan',a:'lakan',b:'luomen',name:"Two Fathers",desc:"Lakan also Slows 1 more enemy item.",why:"Lakan is Maomao's father; Luomen is the uncle who raised her.",fx:[{k:'onUse',item:'lakan',fx:[{t:'slow',n:1,d:1.5}]}]},
+ {id:'jade_pavilion',a:'gyokuyou',b:'jinshi',name:"Jade Pavilion",desc:"Jinshi gives 20 more Shield.",why:"Jinshi visits the Jade Pavilion, where Maomao serves Consort Gyokuyou.",fx:[{k:'onUse',item:'jinshi',fx:[{t:'shield',v:10}]}]},
+ {id:'best_friends_saten',a:'saten',b:'uiharu',name:"Best Friends",desc:"Saten and Uiharu both work 20% better.",why:"Saten and Uiharu are classmates and best friends.",fx:[{k:'heal',item:'uiharu',v:1.2},{k:'onUse',item:'uiharu',fx:[{t:'shield',v:3}]},{k:'onUse',item:'saten',fx:[{t:'charge',to:'right',v:.3}]}]},
+ {id:'level5_rivalry',a:'shokuhou',b:'railgun',name:"Level 5 Rivalry",desc:"Railgun deals 20% more damage.",why:"Tokiwadai's two Level 5s can't stand each other, and fight better for it.",fx:[{k:'mult',item:'railgun',v:1.2}]},
+ {id:'family_dinner',a:'barazo',b:'croquettes',name:"Family Dinner",desc:"Mystery Croquettes heal 50% more.",why:"Sukuyo's croquettes and Barazo's clinic: the Mankanshoku household.",fx:[{k:'heal',item:'croquettes',v:1.5}]},
+ {id:'blood_bond',a:'rampage',b:'blood_feed',name:"Blood Bond",desc:"Using Blood Feeding Charges Rampaging Senketsu 1s.",why:"Senketsu runs wild when it drinks too much of Ryuko's blood.",fx:[{k:'link',item:'blood_feed',to:'rampage',v:1}]},
+ {id:'kusakabe_brothers',a:'sho',b:'devils_footprints',name:"Kusakabe Brothers",desc:"Devil's Footprints deals 20% more damage.",why:"Shinra fights to bring his little brother Sho home.",fx:[{k:'mult',item:'devils_footprints',v:1.2}]},
+ {id:'matchbox_crew',a:'obi',b:'matchbox',name:"The Matchbox Crew",desc:"Matchbox also Hastes your Friends 0.5s more.",why:"Obi drives the Matchbox, Company 8's fire engine.",fx:[{k:'onUse',item:'matchbox',fx:[{t:'haste',to:'tag:Friend',d:.5}]}]},
+ {id:'great_days',a:'josuke',b:'okuyasu',name:"Great Days",desc:"Josuke and Okuyasu both deal 20% more damage.",why:"Best friends who protect Morioh together.",fx:[{k:'mult',item:'josuke',v:1.2},{k:'mult',item:'okuyasu',v:1.2}]},
+ {id:'jolyne_father',a:'jolyne',b:'star_platinum',name:"Father and Daughter",desc:"Star Platinum deals 20% more damage.",why:"Jolyne is Jotaro's daughter, and he gives everything to protect her.",fx:[{k:'mult',item:'star_platinum',v:1.2}]}];
 function resOnUse(me,foe,it){if(!me.res)return;for(const r of RESONANCES){if(!me.res[r.id]||!r.fx)continue;for(const e of r.fx){if((e.tag?!it.def.tags.includes(e.tag):e.item!==it.def.id)||(e.k!=='onUse'&&e.k!=='link'))continue;
   if(e.once){me.resOnce=me.resOnce||{};const key=r.id+':'+e.k;if(me.resOnce[key])continue;me.resOnce[key]=true}
   if(e.k==='onUse'){const out=e.fx.map(f=>applyFx(me,foe,it,f,1)).filter(Boolean);if(out.length)log(me,`✨ ${r.name}: ${out.join(', ')}`)}
@@ -7593,13 +7995,15 @@ function breakItem(owner,victim,breaker){
  return true}
 function pickSizeTarget(side,size){return side.items.filter(o=>!o.broken&&o.def.size===size).sort((a,b)=>a.idx-b.idx)[0]||null}
 function pickBreakTarget(side,large){const live=side.items.filter(o=>!o.broken);if(!live.length)return null;return [...live].sort((a,b)=>(large?b.def.size-a.def.size:a.def.size-b.def.size)||a.idx-b.idx)[0]}
-const WHEN_TEXT={foeBurn:'the enemy is Burning',foePoison:'the enemy is Poisoned',foeHealed:'the enemy healed since its last use',hurt:'you lost health since its last use',low:'you are at half health or below',afflicted:'you are Poisoned or Burning',hasted:'this item is Hasted',selfDmg:'you damaged yourself since its last use',foeShield:'the enemy has Shield',regen:'you have Regeneration',unluck:'you have Unluck banked',heat:'you have Heat',foeLow:'the enemy is at half health or below',foeSlowed:'an enemy item is Slowed',foeFrozen:'an enemy item is Frozen',shielded:'you have Shield'};
-function whenHolds(me,foe,it,c){if(c==='shielded')return me.shield>0;if(typeof c==='string'&&c.startsWith('has:'))return me.items.some(o=>!o.broken&&o.def.id===c.slice(4));return c==='foeBurn'?foe.burn>0:c==='foePoison'?foe.poison>0:c==='foeHealed'?!!it.castFoeHealed:c==='hurt'?!!it.castHurt:c==='low'?me.hp<=me.max*.5:c==='afflicted'?(me.poison>0||me.burn>0):c==='hasted'?it.haste>0:c==='selfDmg'?!!it.castAfterSelf:c==='foeShield'?foe.shield>0:c==='regen'?me.regen>0:c==='unluck'?(me.unluck||0)>0:c==='heat'?(me.heat||0)>0:c==='foeLow'?foe.hp<=foe.max*.5:c==='foeSlowed'?foe.items.some(o=>o.slow>0&&!o.broken):c==='foeFrozen'?foe.items.some(o=>o.freeze>0&&!o.broken):false}
+const WHEN_TEXT={foeBurn:'the enemy is Burning',foePoison:'the enemy is Poisoned',foeHealed:'the enemy healed since its last use',hurt:'you lost health since its last use',low:'you are at half health or below',afflicted:'you are Poisoned or Burning',hasted:'this item is Hasted',selfDmg:'you damaged yourself since its last use',foeShield:'the enemy has Shield',regen:'you have Regeneration',unluck:'you have Unluck banked',heat:'you have Heat',foeLow:'the enemy is at half health or below',foeSlowed:'an enemy item is Slowed',foeFrozen:'an enemy item is Frozen',shielded:'you have Shield',contract:'one of your Contracts is active'};
+function whenHolds(me,foe,it,c){if(c==='shielded')return me.shield>0;if(typeof c==='string'&&c.startsWith('has:'))return me.items.some(o=>!o.broken&&o.def.id===c.slice(4));return c==='foeBurn'?foe.burn>0:c==='foePoison'?foe.poison>0:c==='foeHealed'?!!it.castFoeHealed:c==='hurt'?!!it.castHurt:c==='low'?me.hp<=me.max*.5:c==='afflicted'?(me.poison>0||me.burn>0):c==='hasted'?it.haste>0:c==='selfDmg'?!!it.castAfterSelf:c==='foeShield'?foe.shield>0:c==='regen'?me.regen>0:c==='unluck'?(me.unluck||0)>0:c==='heat'?(me.heat||0)>0:c==='foeLow'?foe.hp<=foe.max*.5:c==='foeSlowed'?foe.items.some(o=>o.slow>0&&!o.broken):c==='foeFrozen'?foe.items.some(o=>o.freeze>0&&!o.broken):c==='contract'?!!(me.contracts&&me.contracts.length):false}
 function identBonus(me,foe,it,fx){const T=VAL_MULT[it.inst.tier];let b=0;
  if(fx.when&&!(fx.when.intent&&F&&F.kind==='heroTrial')&&whenHolds(me,foe,it,fx.when.c))b+=fx.when.v*T;
  if(fx.perFoe){const s=fx.perFoe.s,n=s==='burn'?foe.burn:s==='poison'?foe.poison:s==='slowed'?foe.items.filter(o=>o.slow>0&&!o.broken).length:s==='frozen'?foe.items.filter(o=>o.freeze>0&&!o.broken).length:0;b+=Math.min(fx.perFoe.max?fx.perFoe.max*T:1e9,Math.max(0,n)*fx.perFoe.v*T)}
+ if(fx.perCmd)b+=Math.min(10,Math.max(0,me.command||0))*fx.perCmd*T; // #101 Bellion
  return b}
 function identText(fx,inst){const T=VAL_MULT[inst.tier];let t='';
+ if(fx.perCmd)t+=` (+${fx.perCmd*T} per ${kw('Command')} you have)`;
  if(fx.when)t+=` (+${fx.when.v*T} if ${WHEN_TEXT[fx.when.c]||(String(fx.when.c).startsWith('has:')?(ITEMS[fx.when.c.slice(4)]?ITEMS[fx.when.c.slice(4)].name:fx.when.c.slice(4))+' is on your board':fx.when.c)})`;
  if(fx.perFoe)t+=` (+${fx.perFoe.v*T} per ${fx.perFoe.s==='slowed'?'Slowed enemy item':fx.perFoe.s==='frozen'?'Frozen enemy item':'enemy '+(fx.perFoe.s==='burn'?'Burn':'Poison')}${fx.perFoe.max?`, max +${fx.perFoe.max*T}`:''})`;
  if(fx.overflow)t+='. Overhealing becomes Shield';
@@ -7616,7 +8020,7 @@ function convertFx(me,foe,it,fx,m){const k=convRate(fx,it.inst);let base=0,note=
  if(base<=0)return '';const d=Math.max(1,Math.round(base*m*(isW(it)?weaponDamageMultiplier(me,it):1)));damage(foe,d,'hit',m>1,!!fx.pierce);it.dealt+=d;if(me===F.a&&S)S.maxHit=Math.max(S.maxHit||0,d);return `${d} dmg (${note})`}
 function applyFx(me,foe,it,fx,m){if(it&&it.def&&it.def.tierScale&&it.inst&&!(me.key==='b'&&F&&F.kind!=='pvp'))fx=tierFx(fx,it.inst.tier);if(fx.intent&&F&&F.kind==='heroTrial')return '';if(fx.intentTo&&!(F&&F.kind==='heroTrial'))fx={...fx,to:fx.intentTo};
   if(fx.t==='convert')return convertFx(me,foe,it,fx,m);
-  if(fx.t==='empower'){const v=fx.v*VAL_MULT[it.inst.tier],n=empowerSide(me,fx.tag,fx.stat,v);return n?`${fx.tag} items +${v} ${fx.stat==='dmg'?'damage':fx.stat}`:''}
+  if(fx.t==='empower'){const v=fx.v*VAL_MULT[it.inst.tier]+(fx.growBonus?it.inst.bonus||0:0),n=empowerSide(me,fx.tag,fx.stat,v);return n?`${fx.tag} items +${v} ${fx.stat==='dmg'?'damage':fx.stat}`:''}
   if(fx.t==='break'){if(fx.first&&it.uses>1)return '';if(!it.castOpening)return '';const tg=pickSizeTarget(foe,it.def.size);return tg&&breakItem(foe,tg,me)?`broke ${tg.def.name}`:''}
   if(fx.t==='copy'){if(!it.castOpening||it.copied)return '';const tg=pickSizeTarget(foe,it.def.size);if(!tg||!breakItem(foe,tg,me))return '';it.copied=true;it.extraShadow=me.heroId==='jinwoo';it.def=tg.def;it.inst={...it.inst,id:tg.def.id};it.cd=tg.cd;it.prog=0;return `became ${tg.def.name}${it.extraShadow?' (a Shadow)':''}`}
   if(fx.aboveHalfOnly&&!(it.castOpening&&it.castAboveHalf))return '';
@@ -8567,7 +8971,10 @@ const bossLoss=()=>Math.max(1,Math.ceil(prestigeLoss()/2));
 function lossesLeft(){let p=S.prestige,d=S.day,n=0;while(p>0&&n<60){p-=Math.max(1,lossCostOn(d));d++;n++}return n}
 const rerollCost=()=>D().reroll?3+2*(S.merchant?S.merchant.rerolls:0)+Math.floor(S.day/3):2+(S.merchant?S.merchant.rerolls:0)+Math.floor(S.day/4);
 const ownedTier=id=>{let t=-1;for(const it of [...S.board,...S.stash])if(it.id===id)t=Math.max(t,it.tier);return t};
-const shopItems=pool=>{const ids=[...new Set(pool)].filter(id=>ownedTier(id)<MAX_TIER),src=ids.length?ids:pool,out=[];for(let k=0;k<4;k++){const left=src.filter(id=>!out.some(o=>o.id===id)),id=left.length?pick(left):pick(src);out.push({...mkInst(id,Math.min(MAX_TIER,Math.max(rollTier(S.day),ownedTier(id)))),sold:false})}return out};
+// Claude 2026-11-19 (Max: rerolls kept showing the same items). `seen` counts how often each item was already shown in this
+// shop visit; each slot picks among the least-shown items, so a paid reroll shows new stock until the whole pool has been seen.
+const shopItems=(pool,seen={})=>{const ids=[...new Set(pool)].filter(id=>ownedTier(id)<MAX_TIER),src=ids.length?ids:pool,out=[];for(let k=0;k<4;k++){const left=src.filter(id=>!out.some(o=>o.id===id)),cand=left.length?left:src,lo=Math.min(...cand.map(id=>seen[id]||0)),id=pick(cand.filter(id=>(seen[id]||0)===lo));out.push({...mkInst(id,Math.min(MAX_TIER,Math.max(rollTier(S.day),ownedTier(id)))),sold:false})}for(const o of out)seen[o.id]=(seen[o.id]||0)+1;return out};
+const shopSeen=m=>{if(!m.seen){m.seen={};for(const it of m.items||[])m.seen[it.id]=(m.seen[it.id]||0)+1}return m.seen};
 const ACT={
   hero:id=>newRun(id),
   daily:()=>{const d=dailyInfo();newRun(d.hero.id,d)},
@@ -8645,7 +9052,7 @@ const ACT={
     if(c.type==='merchant'&&c.kind==='forge'){S.event={ev:FORGE_EV,opts:forgeOpts(false)};S.phase='event';return}
     if(c.type==='merchant'){
       const pool=c.kind==='hero'?heroPool(S.hero.id):c.kind==='special'&&specialtyPool(c.theme).length>=4?specialtyPool(c.theme):c.kind==='guest'?guestPool(S.hero.id,c.tag):neutralPoolFor(S.hero.id);
-      S.merchant={kind:c.kind,tag:c.tag||null,theme:c.theme||null,pool,rerolls:0,items:shopItems(pool)};S.phase='merchant';beginMerchantVisit();
+      const seen={};S.merchant={kind:c.kind,tag:c.tag||null,theme:c.theme||null,pool,rerolls:0,seen,items:shopItems(pool,seen)};S.phase='merchant';beginMerchantVisit();
     }else if(c.type==='event'){
       S.event={ev:c.ev,opts:EVENTS[c.ev].opts()};S.phase='event';(S.seenEv=S.seenEv||[]).push(EVENTS[c.ev].title);
     }else{
@@ -8657,7 +9064,7 @@ const ACT={
         const lesson=recordTanjiroElite(mon,boss,w);
         afterFight();
         {const r=META.seen[mon.name]||(META.seen[mon.name]={w:0,l:0});if(w==='a')r.w++;else r.l++;checkAch(null,null);saveProfile()}
-        if(!boss){(S.fought=S.fought||[]).push(mon.name);if(w==='a')questWin('elite',!!mon.hard)}
+        if(!boss){recordFought(mon);if(w==='a')questWin('elite',!!mon.hard)}
         if(boss)S.bossDoneToday=true;
         if(w==='a'){
           S.gold+=mon.gold;gainXp(mon.xp);if(boss){S.bossesBeaten++;if(!META.bosses.includes(mon.name))META.bosses.push(mon.name)}
@@ -8692,7 +9099,7 @@ const ACT={
   selShop:i=>{if(!usePanel())return 'norender';S.sel={k:'shop',i:+i};sfx('click')},
   selReward:i=>{if(!usePanel())return 'norender';S.sel={k:'reward',i:+i};sfx('click')},
   buy:()=>{const it=S.merchant.items[S.sel.i],p=price(it.id,it.tier);if(it.sold||S.gold<p)return;if(acquire(it.id,it.tier)){S.gold-=p;it.sold=true;S.sel=null;merchantPurchase(it.id);sfx('buy')}},
-  reroll:()=>{const c=rerollCost();if(S.gold<c)return;S.gold-=c;S.merchant.rerolls++;S.merchant.items=shopItems(S.merchant.pool);S.sel=null;sfx('click')},
+  reroll:()=>{const c=rerollCost();if(S.gold<c)return;S.gold-=c;S.merchant.rerolls++;S.merchant.items=shopItems(S.merchant.pool,shopSeen(S.merchant));S.sel=null;sfx('click')},
   take:()=>{const it=S.reward.items[S.sel.i];if(acquire(it.id,it.tier,it.ench)){sfx('buy');finishHour()}},
   sell:()=>{const it=findInv(S.sel.uid);if(!it)return;S.gold+=sellPrice(it);S.board=S.board.filter(x=>x!==it);S.stash=S.stash.filter(x=>x!==it);S.sel=null;sfx('sell');toast(`Sold for ${sellPrice(it)}g`)},
   fuse:i=>{const inst=findInv(S.sel.uid);if(inst)fuse(inst,RECIPES[+i])},
@@ -8742,6 +9149,7 @@ function settingsHTML(){
    ${rng('sfxVol','Sound effects volume')}${rng('musicVol','Music volume')}
    <div class="sethd">Privacy</div>
    ${chk('shareStats','Share anonymous run stats','When a run ends, its hero, difficulty, result, final board and fight results are sent without your name or profile, to help balance the game.')}
+   <div class="setrow"><label>Your player profile<span class="small">To keep friends and the rival pool up to date, your player name and records (what an invite link already shows) are stored online. The game's developer can see them too, for example to see who plays the most.</span></label></div>
    <div class="sethd">Help</div>
    <div class="setrow"><label>Tutorial<span class="small">Show the beginner tips again from the start.</span></label><button data-act="tutReplay">Replay tutorial</button></div>
    <div class="btns" style="justify-content:center"><button class="primary" data-act="closeSettings">Done</button></div></div>`;
