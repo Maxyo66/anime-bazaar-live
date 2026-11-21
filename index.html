@@ -183,8 +183,9 @@ body.drag-inv #sellzone{display:grid!important;place-items:center;padding:10px;b
 .hpbar{height:24px;background:#1a0606;border-radius:12px;overflow:hidden;position:relative;border:2px solid var(--brass);box-shadow:inset 0 3px 6px #000c}
 .hpbar .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(#8dff9e,#2fbf4f 50%,#178a32);transition:width .12s}
 .enemy .hpbar .fill{background:linear-gradient(#ff9a8d,#e0362f 50%,#9a1a16)}
+.hpbar .txt .hsh{color:#7cc4ff;background:#0a2440d9;border:1px solid #5aa8ff;border-radius:9px;padding:0 8px;line-height:18px;font-size:13px;font-weight:900;text-shadow:0 1px 2px #000;box-shadow:0 0 6px #3d9bff66}
 .hpbar .sh{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(45deg,#bfe3ffcc 0 6px,#8cc8ffcc 6px 12px);border-right:2px solid #fff}
-.hpbar .txt{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;font-weight:900;text-shadow:0 1px 2px #000,0 0 3px #000;font-variant-numeric:tabular-nums}
+.hpbar .txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:900;text-shadow:0 1px 2px #000,0 0 3px #000;font-variant-numeric:tabular-nums}
 .status{display:flex;gap:6px;font-size:12px;font-weight:900;margin-top:5px;min-height:20px}
 .status span{background:#000a;border:1px solid #fff3;border-radius:10px;padding:1px 8px}
 .cmid{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}
@@ -197,7 +198,7 @@ body.drag-inv #sellzone{display:grid!important;place-items:center;padding:10px;b
 @keyframes up{0%{transform:translateY(12px) scale(.6);opacity:0}15%{transform:translateY(0) scale(1.25);opacity:1}100%{transform:translateY(-44px) scale(1);opacity:0}}
 .shake{animation:shake .25s}
 @keyframes shake{20%{transform:translate(-5px,2px)}40%{transform:translate(5px,-2px)}60%{transform:translate(-3px,1px)}80%{transform:translate(3px,0)}}
-.proj{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;pointer-events:none;z-index:150;background:radial-gradient(circle,#fff 0,var(--pc) 45%,transparent 70%);box-shadow:0 0 12px var(--pc),0 0 24px var(--pc)}
+.proj{position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;pointer-events:none;z-index:150;background:radial-gradient(circle,#fff 0,var(--pc) 45%,transparent 70%);box-shadow:0 0 12px var(--pc),0 0 24px var(--pc)}
 .proj.big{width:24px;height:24px;margin:-12px 0 0 -12px}
 .logwrap{margin-top:12px;padding:10px 12px}
 .log{max-height:190px;overflow:auto;font-size:12px;line-height:1.5;font-variant-numeric:tabular-nums}
@@ -212,6 +213,7 @@ body.drag-inv #sellzone{display:grid!important;place-items:center;padding:10px;b
 .win{color:#7dff9a}.lose{color:#ff7a7a}
 #toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);background:linear-gradient(#3a2316,#1d0f07);border:2px solid var(--brass);color:#ffe9b8;padding:10px 18px;border-radius:14px;font-weight:900;opacity:0;transition:opacity .2s;z-index:99;pointer-events:none;max-width:90vw;text-align:center;box-shadow:0 6px 16px #000c}
 #toast.show{opacity:1}
+#toast.fight{bottom:auto;transform:translate(-50%,-50%)}
 .skillgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:12px}
 .skill-art{position:relative;display:block;width:min(100%,160px);height:auto;aspect-ratio:8/5;margin:0 auto 8px;border-radius:12px;overflow:hidden;border:2px solid var(--brass2);background:#120b16;box-shadow:0 3px 10px #0008}
 .skill-art .skill-fallback{position:absolute;inset:0;display:grid;place-items:center;font-size:42px}
@@ -544,7 +546,7 @@ details.logwrap .log{margin-top:6px}
 /* Makima */
 .ar-control{--arc:#ff9a3c;background:radial-gradient(ellipse at 50% 0,#ff9a3c66,transparent 60%),linear-gradient(#5a2a1a,#2a1010 60%,#140808)}
 .ar-control .ar-l1{background:radial-gradient(circle at 50% 22%,#ffd27a 0 3%,transparent 3.5%),radial-gradient(circle at 50% 22%,#ffd27a22 0,transparent 20%)}
-.ap-chain{top:-5%;width:10px;height:70vh;background:repeating-linear-gradient(#c8c8d0 0 8px,transparent 8px 10px,#8a8a98 10px 18px,transparent 18px 20px);border-radius:5px;transform-origin:top;animation-name:arSway;animation-timing-function:ease-in-out;opacity:.55}
+.af-control .ap-ember{width:3px;height:3px;background:#ffd27a;box-shadow:0 0 6px #ff7a2a;opacity:.7}
 .ar-control-b{border-color:#ff9a3c;--arc:#ff9a3c;background:linear-gradient(#0006,#0009),linear-gradient(#6a3020,#3a1810)}
 /* Las Noches */
 .ar-nochies{--arc:#e8e4ff;background:radial-gradient(circle at 78% 18%,#fff 0 4%,transparent 4.3%),linear-gradient(#05050a,#14142a 60%,#e8e4da 60.5%,#bdb6a6)}
@@ -809,6 +811,9 @@ body.ui-manga .cside::after{content:"";position:absolute;inset:0;pointer-events:
 body.anim-off .arena-bg *,body.anim-off .arena-title{animation:none!important}
 body.anim-off .ap,body.anim-off .arena-title{display:none}
 @media (prefers-reduced-motion:reduce){.arena-bg *{animation:none!important}.ap{display:none}}
+.crit-sum{display:block}.crit-sum>b{display:block;color:#ffd23f}.crit-sum>.small{display:block;opacity:.85}.crit-sum ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px}.crit-sum li{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}.crit-sum li span{flex:1;min-width:0}.crit-sum li b{color:#ffd23f;font-variant-numeric:tabular-nums}.crit-sum li em{flex-basis:100%;font-style:normal;font-size:11px;color:#8dff9e;text-align:right}.portrait-pop .crit-sum{margin-top:10px;padding-top:9px;border-top:1px solid #b8935466}.portrait-pop .crit-sum:first-child{margin-top:0;padding-top:0;border-top:0}
+.fighter-crit{position:relative;cursor:help;border-radius:50%;outline:none}.fighter-crit:focus-visible{outline:2px solid #ffe3a1;outline-offset:4px}.crit-pop{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);width:min(280px,calc(100vw - 32px));box-sizing:border-box;padding:12px 14px;background:#211a25;border:1px solid #b89354;border-radius:12px;color:#fff0d4;font-size:13px;line-height:1.45;text-align:left;box-shadow:0 8px 25px #0009;z-index:60;pointer-events:none}.fighter-crit:hover .crit-pop,.fighter-crit:focus .crit-pop{display:block}.cfighter:has(.fighter-crit:hover),.cfighter:has(.fighter-crit:focus){z-index:60}
+.ttx.crit-tip b{color:#ffd23f}.ttx.crit-tip .crit-gain{color:#8dff9e;font-weight:700}
 .portrait-help{position:relative;flex:none;z-index:20}.portrait-help-button{position:relative;display:block;padding:0;border:0;background:transparent;border-radius:50%;cursor:help}.portrait-help-button:focus-visible{outline:2px solid #ffe3a1;outline-offset:4px}.portrait-info{position:absolute;right:-3px;bottom:-2px;width:15px;height:15px;line-height:15px;border-radius:50%;background:#ffd77a;color:#25172a;font-size:11px;font-weight:bold}.portrait-pop{display:none;position:absolute;top:calc(100% + 10px);left:0;width:min(300px,calc(100vw - 70px));box-sizing:border-box;padding:14px;background:#211a25;border:1px solid #b89354;border-radius:12px;color:#fff0d4;font-size:13px;line-height:1.5;text-align:left;box-shadow:0 8px 25px #0009;overflow-wrap:anywhere}.portrait-pop p{margin:5px 0 10px}.portrait-pop p:last-child{margin-bottom:0}.portrait-help.help-open .portrait-pop,.portrait-help:has(>.portrait-help-button:focus-visible) .portrait-pop{display:block}@media(hover:hover){.portrait-help:not(.help-dismissed):hover .portrait-pop{display:block}.portrait-help::after{content:"";position:absolute;top:100%;left:0;width:100%;height:12px}}
 .card .synergy-badge{position:absolute;top:4px;right:4px;max-width:calc(100% - 32px);padding:3px 5px;border-radius:5px;background:rgba(10,18,28,.93);border:1px solid #87d9ed;color:#e4fbff;font-size:clamp(7px,calc(var(--u,84px) * .105),10px);font-weight:800;line-height:1.2;text-align:center;z-index:5;pointer-events:none}
 /* Merchant destinations keep the player's original board and stock controls. */
@@ -951,6 +956,8 @@ body::before{height:calc(18px + env(safe-area-inset-top,0px));background:linear-
 .home-audio-tools .iconbtn{width:48px;height:48px;padding:3px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:9px;box-shadow:none;background:#292e34;border:1px solid #5f5a4b;text-shadow:none}.home-audio-tools .iconbtn::after{content:attr(data-short-label);font:800 8px/10px Nunito,system-ui,sans-serif;white-space:nowrap;color:#e2d2b7}
 .cos-intro{margin:0 0 14px;padding:10px 13px;border-left:3px solid #c3a66a;background:#20262d;color:#d7d1c3;border-radius:0 9px 9px 0;font-size:13px;line-height:1.5}.cgrid .ctile{background:linear-gradient(155deg,#303039,#1e2026);border:1px solid #766749;transition:border-color .16s,background .16s,transform .16s}.ctile:hover{transform:translateY(-2px);border-color:#e7d2a1}.ctile .cprev .avatar{width:76px;height:76px;box-shadow:0 0 0 3px #202127,0 0 0 7px var(--brass),0 0 20px var(--aura,#0000)}.ctile.locked .cprev{filter:grayscale(.3) brightness(.9)}.ctile.locked .cname{color:#f2d59a}.ctile button[data-act=previewFx]{border-style:dashed;background:#2a2d33}
 @media(max-width:640px){.home-profile-actions{display:grid;grid-template-columns:repeat(5,minmax(52px,1fr));width:100%;gap:4px}.home-profile-actions .home-icon{min-width:0;width:100%;padding:3px 2px}.home-icon-label{font-size:8px}.home-profile-actions .home-menu{grid-column:1/-1}.home-profile-actions .home-audio-tools{grid-column:1/-1;border-left:0;padding:4px 0 0;justify-content:center}.home-audio-tools .iconbtn{flex:1 1 0}}
+.skill-strip{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;padding:2px 10px 6px}.skill-strip .sk-lbl{font-weight:900;color:#ffd23f}.skchip{background:rgba(255,210,63,.1);border:1px solid rgba(255,210,63,.35);border-radius:10px;padding:1px 7px;white-space:nowrap}.skchip i{color:#ffd23f;font-style:normal;font-weight:900}
+#app .card .cdl.boost{background:#1d7a3c;color:#eaffef;border-color:#7dff9a}.ttcd.boost b{color:#7dff9a}.ttx.skillboost{color:#ffe9a8}
 </style>
 </head>
 <body>
@@ -973,7 +980,12 @@ const rnd=n=>Math.floor(R()*n);
 const pick=a=>a[rnd(a.length)];
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
 let UID=1;
-function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),2200)}
+// In a fight the note sits over the clock between the two portraits instead of at the bottom, where it covered
+// the player's cards and the result buttons (Claude 2026-11-20). If the clock is scrolled away it goes to the top edge.
+function toast(msg){const t=$('#toast');t.textContent=msg;
+  const ck=typeof SCREEN!=='undefined'&&SCREEN==='combat'&&$('#clock');t.classList.toggle('fight',!!ck);
+  if(ck){const r=ck.getBoundingClientRect(),y=r.top+r.height/2;t.style.top=(r.bottom>0&&r.top<innerHeight?Math.max(28,Math.min(innerHeight-28,y)):28)+'px'}else t.style.top='';
+  t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),2200)}
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
 const todayStr=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 
@@ -993,12 +1005,15 @@ const VFX=(()=>{
     document.body.appendChild(cv);resize();addEventListener('resize',resize);
   }
   function resize(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cv.style.width=W+'px';cv.style.height=H+'px';ctx=cv.getContext('2d');ctx.setTransform(d,0,0,d,0,0)}
-  function add(e){if(reduced())return;init();e.t=0;list.push(e);if(list.length>(fast()?18:60))list.shift();if(!running){running=true;last=performance.now();requestAnimationFrame(tick)}}
+  // Effects are pinned to the page, not the window (Claude 2026-11-20): each one remembers the scroll position it started at
+  // and is drawn shifted by any scroll since, so a hit stays on its card when the result box scrolls the page.
+  function add(e){if(reduced())return;init();e.t=0;e.sx=scrollX;e.sy=scrollY;list.push(e);if(list.length>(fast()?18:60))list.shift();if(!running){running=true;last=performance.now();requestAnimationFrame(tick)}}
   function tick(now){
     const dt=Math.max(0,Math.min(.05,(now-last)/1000))*speed;last=now;ctx.clearRect(0,0,W,H);
     const cur=list;list=[];const kept=cur.filter(e=>{e.t+=dt;const k=Math.min(1,e.t/e.dur);
-      if(e.at&&!e.fired&&k>=e.at){e.fired=true;e.hit&&e.hit()}
-      ctx.save();try{e.draw(ctx,k,e.t)}catch(err){}ctx.restore();return k<1});list=kept.concat(list);if(list.length>60)list=list.slice(-60);
+      let fade=1;if(e.endAt!=null){fade=1-(now-e.endAt)/300;if(fade<=0)return false}
+      if(e.at&&!e.fired&&k>=e.at&&e.endAt==null){e.fired=true;e.hit&&e.hit()}
+      ctx.save();try{const dx=e.sx-scrollX,dy=e.sy-scrollY;if(dx||dy)ctx.translate(dx,dy);if(fade<1)ctx.filter=`opacity(${fade.toFixed(2)})`;e.draw(ctx,k,e.t)}catch(err){}ctx.restore();return k<1});list=kept.concat(list);if(list.length>60)list=list.slice(-60);
     if(list.length)requestAnimationFrame(tick);else{running=false;ctx.clearRect(0,0,W,H)}
   }
   const pt=el=>{if(!el)return null;if(el.x!=null)return el;const r=el.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2,w:r.width,h:r.height}};
@@ -1015,7 +1030,7 @@ const VFX=(()=>{
   function ring(x,y,color,r0=10,r1=90,dur=.45,w=6){
     add({dur,draw(c,k){c.globalCompositeOperation='lighter';c.globalAlpha=1-k;c.strokeStyle=color;c.lineWidth=w*(1-k)+1;c.beginPath();c.arc(x,y,r0+(r1-r0)*ease(k),0,7);c.stroke()}});
   }
-  function flash(color='#fff',alpha=.5,dur=.18){if(lite())alpha*=.35;if(fast())alpha*=.25;add({dur,draw(c,k){c.globalAlpha=alpha*(1-k);c.fillStyle=color;c.fillRect(0,0,W,H)}})}
+  function flash(color='#fff',alpha=.5,dur=.18){if(lite())alpha*=.35;if(fast())alpha*=.25;add({dur,draw(c,k){c.globalAlpha=alpha*(1-k);c.fillStyle=color;c.setTransform(c.getTransform().a,0,0,c.getTransform().d,0,0);c.fillRect(0,0,W,H)}})}
   function shake(power=6,ms=260){
     if(reduced()||lite()||!cfg.shake||fast())return;const el=document.getElementById('app')||document.body;
     el.style.setProperty('--shk',power+'px');el.classList.remove('vfx-shake');void el.offsetWidth;el.classList.add('vfx-shake');
@@ -1189,7 +1204,10 @@ const VFX=(()=>{
     }});
   }
 
-  return {add,pt,ease,glowLine,lite,impact,signature,beam,slash,sphere,punch,lightning,bolt,burn,poison,heal,freeze,shield,crit,cutin,bossIntro,flash,shake,sparks,ring,setSpeed:s=>{speed=s;if(cv)cv.style.opacity=fast()?'.82':'1'},fast,setCfg:o=>Object.assign(cfg,o),cfg,reduced};
+  // Fight over: effects still playing fade out over 0.3s instead of lingering on the result screen; clear() drops them at once.
+  function settle(){const now=performance.now();for(const e of list)if(e.endAt==null)e.endAt=now}
+  function clear(){list=[];if(ctx)ctx.clearRect(0,0,W,H)}
+  return {settle,clear,add,pt,ease,glowLine,lite,impact,signature,beam,slash,sphere,punch,lightning,bolt,burn,poison,heal,freeze,shield,crit,cutin,bossIntro,flash,shake,sparks,ring,setSpeed:s=>{speed=s;if(cv)cv.style.opacity=fast()?'.82':'1'},fast,setCfg:o=>Object.assign(cfg,o),cfg,reduced};
 })();
 
 // ================= hero signature attacks (Claude 2026-10-30, BZ-HERO-FX-01) =================
@@ -3704,6 +3722,121 @@ const HFX=(()=>{
   // Jolyne: Stone Free unravels her into string, which loops around the target as a web
   stonefree(a,b,col,o){add({dur:1.2,at:.6,hit(){hitAt(b,'#4080ff',false,'オラァ!','#e0ecff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x,a.y,1.3,{body:'#2a5a3a',hair:'#3a2a5a',pose:1,extra(c){c.fillStyle='#f0e040';c.beginPath();c.arc(-6,-28,3,0,TAU);c.arc(6,-28,3,0,TAU);c.fill()}});const q=Math.min(1,k/.6);
     c.strokeStyle='rgba(90,140,255,.95)';c.lineWidth=2;c.beginPath();c.moveTo(a.x+16,a.y-6);for(let i=1;i<=24;i++){const s=i/24*q,p=lerp({x:a.x+16,y:a.y-6},b,s);c.lineTo(p.x,p.y+Math.sin(i*1.7)*6)}c.stroke();if(k>.55)for(let i=0;i<4;i++){c.beginPath();c.ellipse(b.x,b.y,40-i*8,26-i*5,i*.4,0,TAU*Math.min(1,(k-.55)/.25));c.stroke()}c.restore()}})},
+  // ---- #102 new neutral item animations (Claude 2026-11-20): one per card ----
+  // Walking Mushroom Hot Pot: a bubbling pot, a mushroom slice hops out of the broth and steam rises in curls
+  dunmeshipot(a,b,col,o){add({dur:1.3,at:.7,hit(){sfxText({x:b.x,y:b.y-110},'いただきます','#ffe0b0',22);sparks(b.x,b.y,'#ffd890',10,120,.5,3,-140)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x,y=b.y+10;
+    c.fillStyle='#4a4a52';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.ellipse(x,y,46,22,0,0,Math.PI);c.lineTo(x-46,y);c.fill();c.stroke();c.fillStyle='#d89a4a';c.beginPath();c.ellipse(x,y,46,12,0,0,TAU);c.fill();c.stroke();
+    for(let i=0;i<5;i++){c.fillStyle='rgba(255,240,200,.8)';c.beginPath();c.arc(x-30+i*15,y+Math.sin(t*12+i)*3,4,0,TAU);c.fill()}
+    const h=Math.sin(Math.min(1,k/.6)*Math.PI)*60;c.save();c.translate(x+10,y-h);c.rotate(t*6);c.fillStyle='#e8d8c0';c.beginPath();c.arc(0,0,11,Math.PI,0);c.fill();c.stroke();c.fillStyle='#f4ead8';c.fillRect(-4,0,8,10);c.strokeRect(-4,0,8,10);c.restore();
+    c.strokeStyle='rgba(255,255,255,.45)';c.lineWidth=3;for(let i=0;i<3;i++){c.beginPath();c.moveTo(x-20+i*20,y-14);c.bezierCurveTo(x-30+i*20,y-40-k*30,x-10+i*20,y-60-k*30,x-20+i*20,y-80-k*40);c.stroke()}c.restore()}})},
+  // Century Soup: a bowl of clear golden soup; when lifted, the surface shines like an aurora
+  centurysoup(a,b,col,o){add({dur:1.3,at:.65,hit(){ring(b.x,b.y,'#f8e070',10,100,.5,5);sparks(b.x,b.y-20,'#fff4b0',16,160,.6,3,-160)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x,y=b.y+6,q=ease(Math.min(1,k/.5));
+    c.globalCompositeOperation='lighter';for(let i=0;i<4;i++){const g=c.createLinearGradient(x-80,0,x+80,0);g.addColorStop(0,'rgba(120,255,200,0)');g.addColorStop(.5,['rgba(120,255,200,.35)','rgba(255,220,120,.35)','rgba(160,180,255,.35)','rgba(255,160,220,.3)'][i]);g.addColorStop(1,'rgba(120,255,200,0)');
+     c.strokeStyle=g;c.lineWidth=8;c.beginPath();for(let s=0;s<=20;s++){const xx=x-80+s*8,yy=y-40-i*12-q*30+Math.sin(s*.6+t*4+i)*6;s?c.lineTo(xx,yy):c.moveTo(xx,yy)}c.stroke()}
+    c.globalCompositeOperation='source-over';c.fillStyle='#f4f0e8';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.ellipse(x,y,36,10,0,0,Math.PI);c.lineTo(x-36,y);c.quadraticCurveTo(x,y+40,x+36,y);c.fill();c.stroke();c.fillStyle='#f6d860';c.beginPath();c.ellipse(x,y,34,8,0,0,TAU);c.fill();c.restore()}})},
+  // Bell Peppers and Beef: a wok tossing green pepper slices... and not one piece of beef
+  bebopwok(a,b,col,o){add({dur:1.2,at:.7,hit(){sfxText({x:b.x,y:b.y-110},'牛肉なし?','#c8f0b0',22)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x-10,y=b.y+10,tilt=Math.sin(t*10)*.2;
+    c.save();c.translate(x,y);c.rotate(tilt);c.fillStyle='#2a2a2e';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.ellipse(0,0,42,14,0,0,Math.PI);c.closePath();c.fill();c.stroke();c.fillRect(40,-3,40,6);c.restore();
+    for(let i=0;i<8;i++){const ph=(k*1.6+i*.13)%1,h=Math.sin(ph*Math.PI)*70;c.save();c.translate(x-30+i*8,y-h);c.rotate(t*8+i);c.fillStyle='#4fb04a';c.strokeStyle='#1f5a1c';c.lineWidth=1.5;c.beginPath();c.ellipse(0,0,8,3,0,0,TAU);c.fill();c.stroke();c.restore()}c.restore()}})},
+  // Hungry Bug Gyoza: a plate of fat gyoza; a big one gets dunked and bitten, steam puffs up
+  gyozabite(a,b,col,o){add({dur:1.1,at:.6,hit(){sparks(b.x,b.y-20,'#fff0d0',10,120,.5,3,-140);sfxText({x:b.x,y:b.y-100},'ハムッ','#ffe8c0',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x,y=b.y+20;
+    c.fillStyle='#e8e8f0';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.ellipse(x,y,50,12,0,0,TAU);c.fill();c.stroke();
+    for(let i=0;i<4;i++){const big=i===3,lift=big?Math.sin(Math.min(1,k/.6)*Math.PI/2)*50:0,gx=x-30+i*20,gy=y-6-lift;c.fillStyle='#f0d8a0';c.beginPath();c.arc(gx,gy,big?14:10,Math.PI,0);c.closePath();c.fill();c.stroke();
+     for(let j=0;j<3;j++){c.beginPath();c.moveTo(gx-6+j*6,gy-(big?12:8));c.lineTo(gx-4+j*6,gy-(big?6:3));c.stroke()}if(big&&k>.6){c.fillStyle='#2a2a2a';c.beginPath();c.arc(gx+10,gy-6,7,0,TAU);c.fill()}}
+    puff(c,x,y-50-k*20,14*k,'rgba(255,255,255,.35)',step(t));c.restore()}})},
+  // Elixir of Immortality: a Tao-glowing gourd pours green liquid: half becomes vines on you, half a toxic mist on them
+  taoelixir(a,b,col,o){add({dur:1.4,at:.8,hit(){hitAt(b,'#7ac26b',false,'丹','#e0ffd8')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const g={x:a.x+10,y:a.y-40};
+    c.save();c.translate(g.x,g.y);c.rotate(.6*Math.min(1,k/.3));c.fillStyle='#c89a4a';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.arc(0,8,13,0,TAU);c.fill();c.stroke();c.beginPath();c.arc(0,-10,8,0,TAU);c.fill();c.stroke();c.fillStyle='#c0302a';c.fillRect(-3,-22,6,6);c.restore();
+    c.globalCompositeOperation='lighter';for(let i=0;i<10;i++){const q=Math.min(1,Math.max(0,k*1.5-i*.05)),p=arcAt(g,b,q,40);glow(c,p.x+jit(i,1,8),p.y+jit(i,2,8),10,'rgba(120,230,110,.6)')}
+    for(let i=0;i<5;i++){const an=i/5*TAU+t*2;c.strokeStyle='rgba(140,255,150,.5)';c.lineWidth=2;c.beginPath();c.arc(a.x,a.y,30+Math.sin(t*4+i)*6,an,an+.8);c.stroke()}if(k>.6)puff(c,b.x,b.y,30*(k-.4),'rgba(90,200,90,.25)',step(t));c.restore()}})},
+  // Black Powder Smoke: a sorcerer exhales black smoke from the hand-mouth; it curls round the enemy item
+  blackpowder(a,b,col,o){add({dur:1.3,at:.75,hit(){sfxText({x:b.x,y:b.y-110},'煙','#c0c0d0',30)},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(let i=0;i<12;i++){const q=Math.min(1,Math.max(0,k*1.4-i*.04)),p=arcAt(a,b,q,30+jit(i,3,20)),r=8+q*16;
+    puff(c,p.x+Math.sin(t*5+i)*10,p.y+Math.cos(t*4+i)*8,r,'rgba(30,25,40,'+(.55-q*.2)+')',step(t)+i)}
+    if(k>.6){c.strokeStyle='rgba(150,90,200,.6)';c.lineWidth=2;for(let i=0;i<3;i++){c.beginPath();c.arc(b.x,b.y,20+i*14,t*3+i,t*3+i+3.5);c.stroke()}}c.restore()}})},
+  // Curse of the Abyss: the climb back up - a vertical wall of strata, with a dark spiral pulling at both sides
+  abysscurse(a,b,col,o){add({dur:1.4,at:.7,hit(){hitAt(b,'#8a4ac0',false,'上昇負荷','#e8d8ff');sparks(a.x,a.y,'#a070d0',6,80)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=(a.x+b.x)/2,y=(a.y+b.y)/2,q=ease(Math.min(1,k/.6));
+    c.globalCompositeOperation='lighter';for(let i=0;i<40;i++){const an=i*.45+t*3,r=(1-((i/40+k)%1))*90*q;c.fillStyle='rgba(150,80,220,'+(.6*(r/90))+')';c.beginPath();c.arc(x+Math.cos(an)*r,y+Math.sin(an)*r*.6,3,0,TAU);c.fill()}
+    c.strokeStyle='rgba(200,150,255,.5)';c.lineWidth=2;for(let i=0;i<5;i++){c.beginPath();c.moveTo(x-90,y-60+i*28);c.bezierCurveTo(x-30,y-70+i*28,x+30,y-50+i*28,x+90,y-60+i*28);c.stroke()}c.restore()}})},
+  // Nital Revival Fluid: a test tube drips onto stone; cracks spread and the stone shell shatters away
+  revivalfluid(a,b,col,o){add({dur:1.3,at:.75,hit(){sparks(b.x,b.y,'#c8c0b0',18,200);sfxText({x:b.x,y:b.y-110},'復活!','#c8f4ff',26)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const x=b.x,y=b.y;
+    c.save();c.translate(x+30,y-80);c.rotate(-.8);c.fillStyle='rgba(200,240,255,.5)';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.roundRect(-6,-26,12,40,6);c.fill();c.stroke();c.fillStyle='#7fd0e0';c.fillRect(-5,0,10,12);c.restore();
+    for(let i=0;i<3;i++){const q=(k*2+i*.3)%1;c.fillStyle='#7fd0e0';c.beginPath();c.arc(x+20-q*14,y-60+q*50,3,0,TAU);c.fill()}
+    if(k>.35){const q=Math.min(1,(k-.35)/.35);c.strokeStyle='#8a8478';c.lineWidth=2;for(let i=0;i<7;i++){const an=i/7*TAU;c.beginPath();c.moveTo(x,y);c.lineTo(x+Math.cos(an)*40*q+jit(i,1,6),y+Math.sin(an)*40*q+jit(i,2,6));c.stroke()}}c.restore()}})},
+  // Clow Card: The Windy - the card glows on a magic circle, and a wind-woman made of ribbons swirls out at the enemy
+  clowwindy(a,b,col,o){add({dur:1.4,at:.8,hit(){sfxText({x:b.x,y:b.y-110},'ウインディ','#ffd0e8',24);speedLines(b,'#ffe0f0',.3,16)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.35));
+    c.save();c.translate(a.x,a.y+10);c.scale(1,.35);c.strokeStyle='rgba(255,215,90,.9)';c.lineWidth=3;c.beginPath();c.arc(0,0,60*q,0,TAU);c.stroke();c.beginPath();for(let i=0;i<=12;i++){const an=i/12*TAU*5/2*2+t;c.lineTo(Math.cos(an)*50*q,Math.sin(an)*50*q)}c.stroke();c.restore();
+    c.fillStyle='#ffe8f2';c.strokeStyle='#c0306a';c.lineWidth=2;c.beginPath();c.roundRect(a.x-12,a.y-60,24,36,3);c.fill();c.stroke();
+    if(k>.35){const p=Math.min(1,(k-.35)/.45);c.globalCompositeOperation='lighter';for(let i=0;i<6;i++){c.strokeStyle='rgba(180,240,255,'+(.8-i*.1)+')';c.lineWidth=3;c.beginPath();for(let s=0;s<=16;s++){const qq=s/16*p,pp=lerp(a,b,qq);c.lineTo(pp.x,pp.y-40+Math.sin(qq*12+t*8+i)*(20+i*4))}c.stroke()}}c.restore()}})},
+  // Moon Tiara Action: the tiara becomes a spinning golden disc of light, flies out and boomerangs back
+  moontiara(a,b,col,o){add({dur:1.3,at:.5,hit(){hitAt(b,'#ffd84a',false,'ムーンティアラ・アクション','#fff6c0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=k<.5?ease(k/.5):1-ease((k-.5)/.5),p=arcAt(a,b,q,50*(k<.5?1:-1));
+    c.globalCompositeOperation='lighter';glow(c,p.x,p.y,30,'rgba(255,220,90,.8)');c.save();c.translate(p.x,p.y);c.rotate(t*20);c.strokeStyle='#fff6c0';c.lineWidth=4;c.beginPath();c.ellipse(0,0,22,8,0,0,TAU);c.stroke();c.restore();
+    c.fillStyle='#ff4a6a';c.beginPath();c.arc(p.x,p.y,4,0,TAU);c.fill();c.restore()}})},
+  // ???%: the emotion meter climbs to 100 and psychic power erupts in a white-blue spiral that bends the air
+  mobhundred(a,b,col,o){add({dur:1.6,at:1.0,hit(){hitAt(b,'#c8e8ff',true,'100%','#ffffff');impactFrame(b);shake(12,420)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const pct=Math.min(100,Math.floor(k/.6*100));
+    c.font='bold 30px system-ui';c.fillStyle=pct>=100?'#ffffff':'#8ab8e0';c.textAlign='center';c.fillText(pct+'%',a.x,a.y-90);
+    c.globalCompositeOperation='lighter';const q=Math.min(1,k/.6);for(let i=0;i<4;i++){c.strokeStyle='rgba(180,220,255,'+(.3+.15*i)+')';c.lineWidth=4;c.beginPath();for(let s=0;s<60;s++){const an=s*.25+t*6+i,r=s*1.6*q;c.lineTo(a.x+Math.cos(an)*r,a.y-20+Math.sin(an)*r*.8)}c.stroke()}
+    if(k>.6){const p=(k-.6)/.4;c.strokeStyle='rgba(230,245,255,.9)';c.lineWidth=26*(1-p)+4;c.beginPath();c.moveTo(a.x,a.y-20);c.lineTo(b.x,b.y);c.stroke()}c.restore()}})},
+  // Unlimited Blade Works: a burning ring sweeps outward into a wasteland of swords; blades lift from the ground behind your weapons
+  bladeworks(a,b,col,o){add({dur:1.5,at:.8,hit(){sfxText({x:b.x,y:b.y-120},'I am the bone of my sword','#ffd0a0',18)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4));
+    c.globalCompositeOperation='lighter';c.strokeStyle='rgba(255,140,60,.8)';c.lineWidth=6;c.beginPath();c.ellipse(b.x,b.y+30,160*q,40*q,0,0,TAU);c.stroke();c.globalCompositeOperation='source-over';
+    for(let i=0;i<9;i++){const r=Math.min(1,Math.max(0,(k-.3-i*.04)/.3)),x=b.x-120+i*30+jit(i,1,8),y=b.y+30-jit(i,2,10);c.save();c.translate(x,y-40*r);c.rotate(Math.PI/2+jit(i,3,.3));blade(c,46,6,'#b8b8c8');c.restore()}
+    c.fillStyle='rgba(255,180,90,.16)';c.beginPath();c.ellipse(b.x,b.y+30,160*q,40*q,0,0,TAU);c.fill();c.restore()}})},
+  // A.T. Field: a translucent orange octagon ripples into being in front of you, rings expanding from its centre
+  atfield(a,b,col,o){add({dur:1.2,at:.4,hit(){sfxText({x:b.x,y:b.y-120},'A.T.フィールド','#ffc070',22)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4)),x=b.x+50,y=b.y-10;
+    c.globalCompositeOperation='lighter';for(let r=0;r<4;r++){const s=(30+r*24)*q+((k*80)%24);c.strokeStyle='rgba(255,160,60,'+(.75-r*.15)+')';c.lineWidth=4;c.beginPath();for(let i=0;i<=8;i++){const an=i/8*TAU+Math.PI/8;c.lineTo(x+Math.cos(an)*s*.5,y+Math.sin(an)*s)}c.stroke()}
+    c.fillStyle='rgba(255,170,70,.12)';c.beginPath();for(let i=0;i<=8;i++){const an=i/8*TAU+Math.PI/8;c.lineTo(x+Math.cos(an)*55*q,y+Math.sin(an)*110*q)}c.fill();c.restore()}})},
+  // Thermoptic Camouflage: you shimmer and vanish behind refracted light; only a ripple outline is left
+  thermoptic(a,b,col,o){add({dur:1.3,at:.5,hit(){sfxText({x:b.x,y:b.y-110},'光学迷彩','#c8e8f0',24)},draw(c,k,t){c.save();const q=Math.min(1,k/.5);c.globalAlpha=fo(k)*(1-q*.8);chibi(c,b.x,b.y,1.4,{body:'#3a3a4a',hair:'#5a3a6a',skin:'#e8c8b0'});
+    c.globalAlpha=fo(k);c.strokeStyle='rgba(180,230,255,.8)';c.lineWidth=1.5;for(let i=0;i<14;i++){const y=b.y-50+i*7;c.beginPath();c.moveTo(b.x-20+Math.sin(t*14+i)*4*q,y);c.lineTo(b.x+20+Math.sin(t*14+i+2)*4*q,y);c.stroke()}
+    c.globalCompositeOperation='lighter';glow(c,b.x,b.y-20,50*q,'rgba(150,220,255,.2)');c.restore()}})},
+  // Humanoid Typhoon's Red Coat: the long red coat flares as the gunslinger sidesteps, and a bullet whizzes past
+  typhooncoat(a,b,col,o){add({dur:1.2,at:.55,hit(){ring(b.x,b.y,'#ff5040',14,90,.45,5);sfxText({x:b.x,y:b.y-110},'ラブ&ピース!','#ffd0c8',22)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5)),sx=b.x-20*q;
+    c.fillStyle='#d0302a';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.moveTo(sx-12,b.y-12);c.quadraticCurveTo(sx-40-20*Math.sin(t*10),b.y+20,sx-30,b.y+40);c.lineTo(sx+20,b.y+36);c.quadraticCurveTo(sx+18,b.y+10,sx+12,b.y-12);c.closePath();c.fill();c.stroke();
+    chibi(c,sx,b.y,1.3,{body:'#d0302a',hair:'#ffe060',pose:0,extra(c){c.fillStyle='#ff9a3a';c.fillRect(-9,-21,8,4);c.fillRect(1,-21,8,4)}});
+    if(k>.3&&k<.7){const bx=b.x+120-((k-.3)/.4)*260;c.strokeStyle='rgba(255,240,200,.9)';c.lineWidth=2;c.beginPath();c.moveTo(bx,b.y-24);c.lineTo(bx+30,b.y-24);c.stroke()}c.restore()}})},
+  // Robe of the Fire-Rat: the red robe sweeps round you and flames slide off it harmlessly
+  fireratrobe(a,b,col,o){add({dur:1.3,at:.55,hit(){ring(b.x,b.y,'#ff4030',12,100,.5,6);sfxText({x:b.x,y:b.y-110},'火鼠の衣','#ffd0a0',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.5));
+    c.fillStyle='#c8202a';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.arc(b.x,b.y,52,Math.PI*(1.1-.8*q),Math.PI*(1.9+.8*q));c.lineTo(b.x,b.y+10);c.closePath();c.fill();c.stroke();
+    c.globalCompositeOperation='lighter';for(let i=0;i<12;i++){const an=i/12*TAU+t*2,r=60+((k*2+i*.08)%1)*50;c.fillStyle='rgba(255,140,40,'+(.7-(r-60)/70)+')';c.beginPath();c.moveTo(b.x+Math.cos(an)*r,b.y+Math.sin(an)*r);c.lineTo(b.x+Math.cos(an+.1)*(r+14),b.y+Math.sin(an+.1)*(r+14)-8);c.lineTo(b.x+Math.cos(an-.1)*(r+8),b.y+Math.sin(an-.1)*(r+8));c.fill()}c.restore()}})},
+  // Sandevistan: time crawls; green afterimages trail behind as you blur between your items
+  sandevistan(a,b,col,o){add({dur:1.4,at:.6,hit(){sfxText({x:a.x,y:a.y-120},'SANDEVISTAN','#b0ff80',22)},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.fillStyle='rgba(20,40,10,'+(.18*Math.min(1,k/.2))+')';c.fillRect(0,0,c.canvas.width,c.canvas.height);
+    const n=7;for(let i=0;i<n;i++){const q=Math.max(0,Math.min(1,k*1.3-i*.06)),x=a.x-120+q*240;c.globalAlpha=fo(k)*(i===0?1:.18+.06*(n-i));chibi(c,x,a.y,1.3,{body:i?['#ff4aa0','#4aff9a','#9a4aff'][i%3]:'#2a2a2a',hair:'#3a3a3a',pose:1,lean:.3})}
+    c.restore()}})},
+  // Subaru's Tracksuit: a clock face spins backwards over the boy in the tracksuit - Return by Death
+  returnbydeath(a,b,col,o){add({dur:1.4,at:.8,hit(){sfxText({x:b.x,y:b.y-120},'死に戻り','#c8b8ff',26);ring(b.x,b.y,'#9a8aff',10,90)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,b.x,b.y,1.3,{body:'#3a4a6a',trim:'#e8e8e8',hair:'#1a1a1a'});
+    const q=ease(Math.min(1,k/.4)),x=b.x,y=b.y-70;c.strokeStyle='rgba(180,160,255,.85)';c.lineWidth=3;c.beginPath();c.arc(x,y,34*q,0,TAU);c.stroke();for(let i=0;i<12;i++){const an=i/12*TAU;c.beginPath();c.moveTo(x+Math.cos(an)*28*q,y+Math.sin(an)*28*q);c.lineTo(x+Math.cos(an)*34*q,y+Math.sin(an)*34*q);c.stroke()}
+    c.lineWidth=4;c.beginPath();c.moveTo(x,y);c.lineTo(x+Math.cos(-t*12)*24*q,y+Math.sin(-t*12)*24*q);c.stroke();c.lineWidth=3;c.beginPath();c.moveTo(x,y);c.lineTo(x+Math.cos(-t*3)*16*q,y+Math.sin(-t*3)*16*q);c.stroke();c.restore()}})},
+  // Umbilical Cable: a thick power cable snakes from the item into the next one, pulses of light running along it
+  umbilical(a,b,col,o){add({dur:1.2,at:.7,hit(){sparks(b.x,b.y,'#ffe060',10,140);sfxText({x:b.x,y:b.y-100},'接続','#ffd0c0',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const s={x:b.x-80,y:b.y+20},e={x:b.x+80,y:b.y+20},q=ease(Math.min(1,k/.5));
+    c.strokeStyle='#2a2a2a';c.lineWidth=9;c.beginPath();for(let i=0;i<=20;i++){const qq=i/20*q,p=lerp(s,e,qq);c.lineTo(p.x,p.y+Math.sin(qq*Math.PI)*40+Math.sin(qq*14)*4)}c.stroke();c.strokeStyle='#e04a3a';c.lineWidth=4;c.stroke();
+    c.globalCompositeOperation='lighter';for(let j=0;j<3;j++){const qq=((k*2+j/3)%1)*q,p=lerp(s,e,qq);glow(c,p.x,p.y+Math.sin(qq*Math.PI)*40,12,'rgba(255,230,120,.9)')}c.restore()}})},
+  // Stun-Gun Wristwatch: the watch's sight flips up and a tiny dart zips to the target, which nods off with a "Zzz"
+  stunwatch(a,b,col,o){add({dur:1.2,at:.5,hit(){hitAt(b,'#6a9aff',false,'Zzz','#e0e8ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const w={x:a.x+20,y:a.y-20};c.fillStyle='#3a6ac8';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.arc(w.x,w.y,12,0,TAU);c.fill();c.stroke();
+    c.fillStyle='#e8f0ff';c.beginPath();c.arc(w.x,w.y,8,0,TAU);c.fill();c.save();c.translate(w.x,w.y-12);c.rotate(-Math.min(1,k/.2)*1.3);c.fillStyle='#c8d0e0';c.fillRect(-6,-8,12,8);c.strokeRect(-6,-8,12,8);c.restore();
+    if(k>.2&&k<.5){const p=lerp(w,b,(k-.2)/.3);c.strokeStyle='#e8e8e8';c.lineWidth=2;c.beginPath();c.moveTo(p.x-10,p.y);c.lineTo(p.x+4,p.y);c.stroke();c.fillStyle='#ff6a6a';c.fillRect(p.x-12,p.y-2,4,4)}
+    if(k>.5)for(let i=0;i<3;i++){c.font='bold '+(12+i*5)+'px system-ui';c.fillStyle='rgba(180,200,255,.9)';c.fillText('z',b.x+14+i*12,b.y-30-i*14-(k-.5)*30)}c.restore()}})},
+  // White Whistle: a Cave Raider's white whistle is blown; the note rings out in pale rings and a little gold glints back
+  whitewhistle(a,b,col,o){add({dur:1.2,at:.5,hit(){sparks(b.x,b.y-30,'#ffd860',8,110,.6,3,-120);sfxText({x:b.x+30,y:b.y-90},'♪','#f4f4ff',28)},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.save();c.translate(b.x-20,b.y-20);c.rotate(-.4);c.fillStyle='#f4f4fa';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.roundRect(-5,-18,10,30,4);c.fill();c.stroke();
+    c.beginPath();c.arc(0,-24,6,0,TAU);c.stroke();c.restore();for(let i=0;i<4;i++){const r=((k*1.6+i*.25)%1)*90;c.strokeStyle='rgba(240,240,255,'+(.8-r/110)+')';c.lineWidth=3;c.beginPath();c.arc(b.x-10,b.y-40,r,-1.1,.3);c.stroke()}
+    c.restore()}})},
+  // Millennium Eye: a golden Eye of Wedjat opens and a beam of light reads the enemy, stripping its guard away
+  millenniumeye(a,b,col,o){add({dur:1.3,at:.7,hit(){hitAt(b,'#ffd84a',false,'マインド・スキャン','#fff4c0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4)),x=a.x,y=a.y-60;
+    c.fillStyle='#e8c04a';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.moveTo(x-36,y);c.quadraticCurveTo(x,y-30*q,x+36,y);c.quadraticCurveTo(x,y+30*q,x-36,y);c.fill();c.stroke();c.fillStyle=INK;c.beginPath();c.arc(x,y,9*q,0,TAU);c.fill();
+    c.beginPath();c.moveTo(x-8,y+10);c.quadraticCurveTo(x-10,y+30,x-24,y+32);c.stroke();c.beginPath();c.moveTo(x+4,y+12);c.lineTo(x+4,y+30);c.stroke();
+    if(k>.4){c.globalCompositeOperation='lighter';c.fillStyle='rgba(255,220,90,.25)';c.beginPath();c.moveTo(x,y);c.lineTo(b.x-40,b.y-50);c.lineTo(b.x+40,b.y+50);c.closePath();c.fill()}c.restore()}})},
+  // Avalon: the golden scabbard unfolds into a dome of blue-gold petals that heals and shields you
+  avalon(a,b,col,o){add({dur:1.5,at:.75,hit(){ring(b.x,b.y,'#9ac0ff',12,110,.5,6);sfxText({x:b.x,y:b.y-130},'全て遠き理想郷','#e0eaff',22)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.6));
+    c.save();c.translate(b.x,b.y-60*(1-q));c.fillStyle='#e8c04a';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.roundRect(-8,-34,16,68,6);c.fill();c.stroke();c.fillStyle='#3a6ad8';c.fillRect(-5,-20,10,40);c.restore();
+    c.globalCompositeOperation='lighter';for(let i=0;i<16;i++){const an=i/16*TAU+t*.6;c.save();c.translate(b.x+Math.cos(an)*70*q,b.y+Math.sin(an)*50*q);c.rotate(an);c.fillStyle=i%2?'rgba(140,180,255,.6)':'rgba(255,220,120,.6)';c.beginPath();c.ellipse(0,0,16,7,0,0,TAU);c.fill();c.restore()}c.restore()}})},
+  // Jericho 941: a quick draw from the hip, two muzzle flashes and spent casings tumbling
+  jericho(a,b,col,o){add({dur:1.0,at:.35,hit(){hitAt(b,'#c8d0ff',false,'Bang.','#e8ecff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const g={x:a.x+30,y:a.y-10};c.fillStyle='#3a4050';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.roundRect(g.x-6,g.y-5,34,10,2);c.fill();c.stroke();c.fillRect(g.x-6,g.y,9,16);
+    for(const kk of [.15,.4])if(k>kk&&k<kk+.12){c.globalCompositeOperation='lighter';glow(c,g.x+34,g.y,20,'rgba(255,220,140,.95)');c.strokeStyle='rgba(255,240,200,.85)';c.lineWidth=2;c.beginPath();c.moveTo(g.x+34,g.y);c.lineTo(b.x,b.y);c.stroke();c.globalCompositeOperation='source-over'}
+    for(let i=0;i<2;i++){const q=Math.max(0,k-.15-i*.25);if(q<=0)continue;c.fillStyle='#d8b050';c.save();c.translate(g.x+8-q*40,g.y-10-Math.sin(q*4)*30+q*q*100);c.rotate(q*20);c.fillRect(-2,-4,4,8);c.restore()}c.restore()}})},
+  // Tessaiga: Wind Scar - the great fang sword swings down and five tearing yellow claw-lines of wind rake across the ground
+  windscar(a,b,col,o){add({dur:1.4,at:.75,hit(){hitAt(b,'#fff0a0',true,'風の傷','#fffbe0');impactFrame(b);shake(10,380)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.45));
+    c.save();c.translate(a.x+10,a.y-20);c.rotate(-2+2.4*q);c.fillStyle='#f4f0e0';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.moveTo(0,-8);c.quadraticCurveTo(70,-24,110,-6);c.lineTo(110,8);c.quadraticCurveTo(60,12,0,8);c.closePath();c.fill();c.stroke();c.fillStyle='#e8e0c0';c.beginPath();c.arc(0,0,10,0,TAU);c.fill();c.stroke();c.restore();
+    if(k>.45){const p=Math.min(1,(k-.45)/.3);c.globalCompositeOperation='lighter';for(let i=0;i<5;i++){c.strokeStyle='rgba(255,236,140,'+(.9-i*.1)+')';c.lineWidth=7-i;c.beginPath();const s={x:a.x+60,y:a.y-40+i*18},e=lerp(s,{x:b.x+40,y:b.y-50+i*24},p);c.moveTo(s.x,s.y);for(let j=1;j<=8;j++){const pp=lerp(s,e,j/8);c.lineTo(pp.x+jit(j,i+step(t),6),pp.y+jit(j+3,i,10))}c.stroke()}}c.restore()}})},
+  // ---- end #102 animations ----
  };
  // ---- #101 batch 4 animation helpers (Claude 2026-11-19) ----
  // A small chibi figure: legs, body, arms, head and hair, in the character's own colours. pose: 0 stand, 1 lunge, 2 arms up
@@ -3825,6 +3958,14 @@ const HERO_SIGS={orihime:['orihimeshield','#ffb0d0',{self:true}],chad:['brazodia
  constant_flux:['constantflux','#5ab8ff'],slayer_mark:['slayermark','#ff4a3a',{self:true}],giyu:['deadcalm','#5ab8ff',{self:true}],rengoku:['flametiger','#ff7a1a',{big:true}],kanao:['peonies','#ff9ad8'],fire_wheel:['firewheel','#ff6a1a',{big:true}],
  rct:['regen','#9cd2ff',{self:true,word:'反転術式'}],blue_teleport:['blueteleport','#4a7aff'],nobara:['resonance','#ff8ab0'],panda:['slam','#2a2a2a',{style:'fist',skin:'#e8e8e8',word:'ゴリラモード'}],max_blue:['maxblue','#4a7aff',{big:true}],gojo_shades:['emblem','#9cc8ff',{self:true,style:'roundshades'}]
 };
+// #102 new neutral items: each has its own animation
+Object.assign(HERO_SIGS,{walking_mushroom:['dunmeshipot','#c98a4a',{self:true}],century_soup:['centurysoup','#f2d36b',{self:true}],bell_pepper_beef:['bebopwok','#4fa04a',{self:true}],hungry_bug_gyoza:['gyozabite','#e8c48a',{self:true}],
+ tao_elixir:['taoelixir','#7ac26b'],black_powder:['blackpowder','#5a5a6a'],abyss_curse:['abysscurse','#6a3d8a'],revival_fluid:['revivalfluid','#7fd0e0',{self:true}],clow_windy:['clowwindy','#ff9ac8'],
+ moon_tiara:['moontiara','#ffd84a'],mob_hundred:['mobhundred','#c8e8ff',{big:true}],blade_works:['bladeworks','#d0703a',{self:true}],at_field:['atfield','#ff9a3a',{self:true}],thermoptic:['thermoptic','#8ab8c8',{self:true}],
+ typhoon_coat:['typhooncoat','#d0302a',{self:true}],fire_rat_robe:['fireratrobe','#c8202a',{self:true}],sandevistan:['sandevistan','#9aff5a',{self:true}],subaru_tracksuit:['returnbydeath','#3a4a6a',{self:true}],
+ umbilical:['umbilical','#e04a3a',{self:true}],stun_watch:['stunwatch','#3a6ac8'],white_whistle:['whitewhistle','#e8e8f0',{self:true}],millennium_eye:['millenniumeye','#e8c04a'],avalon:['avalon','#5a8ad8',{self:true}],
+ jericho:['jericho','#4a5a8a'],wind_scar:['windscar','#f0e0a0',{big:true}]});
+// ---- end #102 sigs ----
 // ================= settings =================
 const SET=Object.assign({detailPanel:false,logOpen:false,anim:'full',animSpeed:1,shake:true,cinematics:true,fightSpeed:1,autoSkipPve:false,dmgNumbers:true,combatLog:true,sfxVol:70,musicVol:50,animeVoices:true,shareStats:true,spriteFx:true},store.get('abSettings',{}));
 SET.animeVoices=SET.animeVoices!==false;
@@ -3992,7 +4133,7 @@ function I(hero,id,name,icon,size,tags,cd,fx,extra={}){ITEMS[id]={hero,id,name,i
 I('naruto','shadow_clone','Shadow Clone','👥',1,['Friend','Clone'],4,[{t:'dmg',v:8},{t:'haste',to:'right',d:1}]);
 I('naruto','rasengan','Rasengan','🌀',2,['Weapon'],6,[{t:'dmg',v:27,per:{tag:'Clone',v:8}}]);
 I('naruto','ramen','Ichiraku Ramen','🍜',1,['Food'],5,[{t:'heal',v:14},{t:'haste',to:'adj',d:1}],{escalate:{t:'heal',v:4}});
-I('naruto','sage_mode','Sage Mode','🐸',3,['Tool'],10,[{t:'shield',v:35},{t:'charge',to:'tag:Weapon',v:2},{t:'slowWard',d:4}]);
+I('naruto','sage_mode','Sage Mode','🐸',3,['Tool'],10,[{t:'shield',v:61},{t:'charge',to:'tag:Weapon',v:2},{t:'slowWard',d:4}]);
 I('naruto','kunai','Kunai','🔪',1,['Weapon','Tool'],3,[{t:'dmg',v:6}],{crit:0.15,repeatIfAdj:{tag:'Clone'}});
 I('naruto','kurama','Nine-Tails Chakra','🦊',3,['Tool','Friend'],11,[{t:'dmg',v:40,when:{c:'low',v:20}},{t:'heal',v:18},{t:'regen',v:1},{t:'burn',v:4}]);
 I('naruto','clone_squad','Clone Squad','🎎',2,['Friend','Clone'],5,[{t:'dmg',v:7}],{multicastPerTag:{tag:'Clone',max:4}});
@@ -4019,7 +4160,7 @@ I('luffy','pistol','Gum-Gum Pistol','👊',1,['Weapon'],3,[{t:'dmg',v:9}],{rebou
 I('luffy','gear2','Gear Second','💨',2,['Tool'],6,[{t:'haste',to:'tag:Weapon',d:2},{t:'charge',to:'left',v:.5,smallW:true}]);
 I('luffy','gear4','Gear Fourth','🦍',3,['Weapon'],8,[{t:'dmg',v:50,afterSmall:25},{t:'shield',v:15},{t:'selfSlow',to:'self',d:3}]);
 I('luffy','meat','Meat on the Bone','🍖',1,['Food'],5,[{t:'heal',v:20,overflow:true}]);
-I('luffy','straw_hat','Straw Hat','👒',1,['Apparel','Relic'],7,[{t:'shield',v:10}],{atLow:{v:.3,fx:[{t:'shield',v:40},{t:'haste',to:'tag:Friend',d:3}]}});
+I('luffy','straw_hat','Straw Hat','👒',1,['Apparel','Relic'],7,[{t:'shield',v:15}],{atLow:{v:.3,fx:[{t:'shield',v:60},{t:'haste',to:'tag:Friend',d:3}]}});
 I('luffy','zoro','Zoro','⚔️',2,['Friend','Weapon'],5,[{t:'dmg',v:8}],{multicast:3,lowMulticast:5});
 I('luffy','sanji','Sanji','🦵',2,['Friend','Weapon'],6,[{t:'dmg',v:12},{t:'burn',v:5},{t:'empower',tag:'Food',stat:'heal',v:4}]);
 I('luffy','sunny','Thousand Sunny','⛵',3,['Vehicle'],10,[{t:'shield',v:30}],{atLow:{v:.3,fx:[{t:'charge',to:'tag:Friend',v:3,fullOnce:true}]}});
@@ -4030,7 +4171,7 @@ I('luffy','gear5','Gear Fifth','☀️',3,['Weapon'],8,[{t:'dmg',v:60},{t:'freez
 I('luffy','crew_rally','Straw Hat Rally','🏴‍☠️',1,['Tool'],7,[{t:'empower',tag:'Friend',stat:'dmg',v:2}]);
 // Tanjiro
 I('tanjiro','nichirin','Nichirin Blade','🗡️',2,['Weapon'],4,[{t:'dmg',v:10,when:{c:'foeBurn',v:4}}]);
-I('tanjiro','water_breath','Water Breathing','🌊',1,['Tool'],5,[{t:'shield',v:8},{t:'haste',to:'right',d:1.5,grow:.5,max:3}]);
+I('tanjiro','water_breath','Water Breathing','🌊',1,['Tool'],5,[{t:'shield',v:12},{t:'haste',to:'right',d:1.5,grow:.5,max:3}]);
 I('tanjiro','hinokami','Hinokami Kagura','🔥',3,['Weapon'],8,[{t:'dmg',v:20},{t:'burn',v:3},{t:'selfdmg',v:3}],{escalate:{t:'burn',v:1}});
 I('tanjiro','nezuko','Nezuko','📦',2,['Friend'],7,[{t:'burn',v:4},{t:'shield',v:10},{t:'curePoison'}],{atLow:{v:.3,fx:[{t:'shield',v:40}]}});
 I('tanjiro','wisteria','Wisteria Charm','🌸',1,['Relic'],6,[{t:'poison',v:2,when:{c:'foeHealed',v:3}}],{healCut:.3});
@@ -4084,14 +4225,14 @@ I('luffy','usopp','Usopp: Pop Green','🌱',1,['Friend','Weapon'],6,[{t:'dmg',v:
 I('luffy','franky_beam','Franky: Radical Beam','🤖',2,['Friend','Weapon'],7,[{t:'dmg',v:35,when:{c:'has:sunny',v:15}}]);
 // Tanjiro: Water flow / Corps comrades (Sun Halo Dragon already exists, so Fire Wheel)
 I('tanjiro','constant_flux','Constant Flux','🐉',2,['Weapon'],5,[{t:'dmg',v:12,when:{c:'hasted',v:2}}],{escalate:{t:'dmg',v:3}});
-I('tanjiro','slayer_mark','Demon Slayer Mark','🔥',1,['Relic'],7,[{t:'shield',v:8}],{atLow:{v:.5,fx:[{t:'wcrit',v:.2,max:.2},{t:'haste',to:'tag:Weapon',d:2}]}});
+I('tanjiro','slayer_mark','Demon Slayer Mark','🔥',1,['Relic'],7,[{t:'shield',v:12}],{atLow:{v:.5,fx:[{t:'wcrit',v:.2,max:.2},{t:'haste',to:'tag:Weapon',d:2}]}});
 I('tanjiro','giyu','Giyu Tomioka: Dead Calm','🌊',2,['Friend','Weapon'],6,[{t:'dmg',v:20},{t:'dodge',n:1}]);
 I('tanjiro','rengoku','Rengoku: Flame Tiger','🐯',2,['Friend','Weapon'],7,[{t:'dmg',v:30,when:{c:'foeBurn',v:6}},{t:'burn',v:6}]);
 I('tanjiro','kanao','Kanao: Flower Breathing','🌺',1,['Friend','Weapon'],5,[{t:'dmg',v:9}],{multicast:2,crit:.3});
 I('tanjiro','fire_wheel','Hinokami Kagura: Fire Wheel','🎡',3,['Weapon'],10,[{t:'dmg',v:55},{t:'burn',v:8},{t:'charge',to:'adjWeapon',v:1}]);
 // Gojo: Students / Reverse Cursed Technique (Unlimited Void is already Gojo's ultimate, so Blue: Teleport)
 I('gojo','rct','Reverse Cursed Technique','💠',1,['Spell'],7,[{t:'heal',v:20}],{atLow:{v:.3,fx:[{t:'heal',v:50},{t:'cleanse'}]}});
-I('gojo','blue_teleport','Blue: Teleport','🌀',2,['Spell'],10,[{t:'haste',to:'tag:Spell',d:2},{t:'dodge',n:1},{t:'nextSpellDouble'}]);
+I('gojo','blue_teleport','Blue: Teleport','🌀',2,['Spell'],10,[{t:'haste',to:'tag:Spell',d:2},{t:'dodge',n:1},{t:'nextSpellDouble'}],{blueMark:true});
 I('gojo','nobara','Nobara: Resonance','🔨',1,['Friend','Weapon'],5,[{t:'dmg',v:20,pierce:true,when:{c:'foeSlowed',v:6}}]);
 I('gojo','panda','Panda: Gorilla Mode','🐼',2,['Friend','Weapon'],7,[{t:'dmg',v:36,pierce:true},{t:'shield',v:20}]);
 I('gojo','max_blue','Maximum Output: Blue','🔵',2,['Spell','Weapon'],7,[{t:'dmg',v:18},{t:'slow',n:2,d:1.5}],{blueMark:true});
@@ -4120,7 +4261,7 @@ I('deku','todoroki','Shoto Todoroki','❄️',2,['Friend','Weapon'],7,[{t:'dmg',
 I('deku','iida','Tenya Iida','🏎️',2,['Friend','Weapon'],8,[{t:'haste',to:'all',d:2},{t:'dmg',v:15}]);
 // ---- #101 new hero items, batch 4 (Claude 2026-11-19, proposal approved by Max 22:36). Values are Bronze; Silver doubles. ----
 // Ichigo: Karakura friends / Gotei 13 captains
-I('ichigo','orihime','Orihime: Sōten Kisshun','🌸',1,['Friend'],7,[{t:'heal',v:15,repairFirst:true},{t:'shield',v:5}]);
+I('ichigo','orihime','Orihime: Sōten Kisshun','🌸',1,['Friend'],7,[{t:'heal',v:15,repairFirst:true},{t:'shield',v:8}]);
 I('ichigo','chad','Chad: Brazo del Diablo','💪',2,['Friend','Weapon'],7,[{t:'dmg',v:22,when:{c:'shielded',v:12}}]);
 I('ichigo','uryu','Uryu: Licht Regen','🏹',2,['Friend','Weapon'],6,[{t:'dmg',v:5,readyBonus:3}],{multicast:4});
 I('ichigo','yoruichi','Yoruichi: Shunkō','🐈‍⬛',1,['Friend','Weapon'],7,[{t:'dmg',v:7},{t:'dodge',n:1}],{opening:true});
@@ -4131,14 +4272,14 @@ I('levi','petra','Petra Ral','🕊️',1,['Friend'],6,[{t:'haste',to:'adj',d:1},
 I('levi','oluo','Oluo Bozado','👅',1,['Friend','Weapon'],5,[{t:'dmg',v:11},{t:'selfdmg',v:2}],{crit:.2});
 I('levi','eld_gunther','Eld & Gunther','🗡️',2,['Friend','Weapon'],7,[{t:'dmg',v:17,per:{tag:'Friend',v:4}}]);
 I('levi','kenny','Kenny Ackerman','🔫',2,['Friend','Weapon'],7,[{t:'dmg',v:10}],{opening:true,multicast:2});
-I('levi','ackerman_awaken','Ackerman Awakening','🩸',1,['Relic'],8,[{t:'shield',v:8}],{atLow:{v:.5,fx:[{t:'dodge',n:2},{t:'critBuff',d:4,mult:2.5}]}});
+I('levi','ackerman_awaken','Ackerman Awakening','🩸',1,['Relic'],8,[{t:'shield',v:12}],{atLow:{v:.5,fx:[{t:'dodge',n:2},{t:'critBuff',d:4,mult:2.5}]}});
 I('levi','beast_takedown','Beast Titan Takedown','🌲',3,['Weapon'],11,[{t:'dmg',v:14},{t:'slow',n:1,d:1.5,biggest:true}],{multicast:4,crit:.15});
 // Saitama: Hero Association / the training regimen
 I('saitama','silverfang','Silverfang','🐺',2,['Friend','Weapon'],6,[{t:'dmg',v:8},{t:'nocrit',n:1}],{multicast:2});
 I('saitama','tatsumaki','Tatsumaki','🌪️',2,['Friend','Spell'],8,[{t:'freeze',n:2,d:1.5},{t:'dmg',v:15,pierce:true}]);
 I('saitama','metal_bat','Metal Bat','🏏',2,['Friend','Weapon'],6,[{t:'dmg',v:18}],{escalate:{t:'dmg',v:4}});
 I('saitama','mumen','Mumen Rider','🚲',1,['Friend'],7,[{t:'shield',v:14,when:{c:'low',v:10}}]);
-I('saitama','pushups','100 Push-Ups a Day','🏋️',1,['Relic'],8,[{t:'empower',tag:'Weapon',stat:'dmg',v:1,growBonus:true},{t:'shield',v:4}],{opening:true,grow:1,growMax:6});
+I('saitama','pushups','100 Push-Ups a Day','🏋️',1,['Relic'],8,[{t:'empower',tag:'Weapon',stat:'dmg',v:1,growBonus:true},{t:'shield',v:6}],{opening:true,grow:1,growMax:6});
 I('saitama','serious_sneeze','Serious Sneeze','🤧',2,['Weapon'],12,[{t:'dmg',v:30},{t:'slow',n:3,d:1.5,biggest:true}]);
 // Jinwoo: the Shadow Army grows / assassin skills
 I('jinwoo','beru','Beru','🐜',2,['Friend','Shadow','Weapon'],7,[{t:'dmg',v:4},{t:'poison',v:1}],{multicast:3});
@@ -4153,7 +4294,7 @@ I('ainz','cocytus','Cocytus','❄️',3,['Friend','Weapon'],10,[{t:'dmg',v:40},{
 I('ainz','sebas','Sebas Tian','🥋',2,['Friend','Weapon'],6,[{t:'dmg',v:10}],{multicast:2});
 I('ainz','aura_mare','Aura & Mare','🧝',2,['Friend','Contract'],10,[{t:'contract',v:12,d:6,interval:1.5},{t:'slow',n:1,d:1}]);
 I('ainz','demiurge','Demiurge','😈',1,['Friend'],8,[{t:'freeze',n:1,d:1.5},{t:'seal',v:1}],{opening:true,tierScale:true,tierCd:false});
-I('ainz','shooting_star','Ring of Shooting Star','💍',1,['Relic'],6,[{t:'seal',v:2},{t:'nextSpellDouble'},{t:'shield',v:6}],{overload:true});
+I('ainz','shooting_star','Ring of Shooting Star','💍',1,['Relic'],6,[{t:'seal',v:2},{t:'nextSpellDouble'},{t:'shield',v:9}],{overload:true});
 // Denji: Public Safety hunters / chainsaw frenzy
 I('denji','himeno','Himeno: Ghost Devil','👻',1,['Friend'],7,[{t:'slow',n:2,d:1.5,biggest:true}],{tierScale:true,tierCd:false});
 I('denji','kishibe','Kishibe','🔪',2,['Friend','Weapon'],7,[{t:'dmg',v:22,pierce:true}]);
@@ -4216,7 +4357,7 @@ I('frieren','fern','Fern','🏹',2,['Friend','Spell'],4,[{t:'dmg',v:10}],{multic
 I('frieren','stark','Stark','🪓',3,['Friend','Weapon'],9,[{t:'dmg',v:38},{t:'shield',v:20},{t:'charge',to:'adj',v:2}],{atLow:{v:.5,fx:[{t:'chargeSelf',v:3},{t:'shield',v:25}]}});
 I('frieren','flowers','Flower Field Spell','🌷',1,['Spell'],7,[{t:'heal',v:12},{t:'regen',v:2}],{opening:true});
 I('frieren','mimic','Mimic','🧰',2,['Relic'],9,[{t:'dmg',v:28}],{grow:12});
-I('frieren','himmel',"Himmel's Memory",'💐',1,['Relic','Friend'],8,[{t:'heal',v:15},{t:'cleanse'},{t:'shield',v:8,when:{c:'hurt',v:8}}]);
+I('frieren','himmel',"Himmel's Memory",'💐',1,['Relic','Friend'],8,[{t:'heal',v:15},{t:'cleanse'},{t:'shield',v:12,when:{c:'hurt',v:8}}]);
 I('frieren','mana_suppress','Mana Suppression','🌫️',1,['Spell'],7,[{t:'slow',n:2,d:1.5}],{conceal:14});
 I('frieren','grand_zoltraak','Mastered Zoltraak','🌟',3,['Spell','Weapon'],6,[{t:'dmg',v:16}],{multicast:2,grow:5,special:'fusion'});
 I('frieren','thousand_years','Thousand Years of Magic','🔮',3,['Spell'],9,[{t:'thousandYears',v:40,pct:.015}],{special:'ult'});
@@ -4227,7 +4368,7 @@ I('deku','delaware','Delaware Smash','👉',2,['Weapon'],5,[{t:'dmg',v:30,when:{
 I('deku','full_cowl','Full Cowl','💚',2,['Tool'],7,[{t:'haste',to:'all',d:1.5},{t:'shield',v:8,aboveHalfOnly:true},{t:'cowlRamp',v:1,max:8}]);
 I('deku','detroit','Detroit Smash','🤜',3,['Weapon'],10,[{t:'dmg',v:80,aboveBonus:15},{t:'selfdmg',v:12}]);
 I('deku','notebook','Hero Notebook','📓',1,['Tool'],6,[{t:'charge',to:'tag:Weapon',v:1.5,lowMult:1.7}]);
-I('deku','all_might','All Might','⭐',3,['Friend'],12,[{t:'shield',v:40}],{atLow:{v:.3,fx:[{t:'heal',v:45},{t:'shield',v:55},{t:'nextDouble'}]}});
+I('deku','all_might','All Might','⭐',3,['Friend'],12,[{t:'shield',v:70}],{atLow:{v:.3,fx:[{t:'heal',v:45},{t:'shield',v:96},{t:'nextDouble'}]}});
 I('deku','uraraka','Uraraka','🪐',2,['Friend'],6,[{t:'slow',n:2,d:2},{t:'shield',v:12},{t:'dmg',v:2,perFoe:{s:'slowed',v:5}}]);
 I('deku','blackwhip','Blackwhip','🖤',2,['Tool'],6,[{t:'dmg',v:8},{t:'freeze',n:1,d:1.5},{t:'shield',v:12,belowHalfOnce:true}]);
 I('deku','bakugo','Bakugo','💣',2,['Friend','Weapon'],5,[{t:'dmg',v:17},{t:'burn',v:3}],{escalate:{t:'dmg',v:2},lowDmgMult:1.5});
@@ -4237,7 +4378,7 @@ I('deku','shattered_arm','Shattered-Arm Smash','💢',2,['Weapon'],6,[{t:'dmg',v
 // Ichigo
 I('ichigo','zangetsu','Zangetsu','🗡️',2,['Weapon'],5,[{t:'dmg',v:20,when:{c:'hasted',v:6}},{t:'chargeId',id:'getsuga',v:.3}]);
 I('ichigo','getsuga','Getsuga Tensho','🌙',3,['Weapon'],8,[{t:'dmg',v:70,pierce:true}]);
-I('ichigo','hollow_mask','Hollow Mask','👹',1,['Apparel'],8,[{t:'shield',v:14}],{onAllyUse:{tag:'Weapon',fx:[{t:'dmg',v:5}]},atLow:{v:.5,fx:[{t:'haste',to:'tag:Weapon',d:2},{t:'shield',v:20}]}});
+I('ichigo','hollow_mask','Hollow Mask','👹',1,['Apparel'],8,[{t:'shield',v:21}],{onAllyUse:{tag:'Weapon',fx:[{t:'dmg',v:5}]},atLow:{v:.5,fx:[{t:'haste',to:'tag:Weapon',d:2},{t:'shield',v:30}]}});
 I('ichigo','flash_step','Flash Step','💨',1,['Tool'],4,[{t:'haste',to:'tag:Weapon',d:1}]);
 I('ichigo','badge','Substitute Badge','📛',1,['Apparel','Relic'],7,[{t:'shield',v:16},{t:'charge',to:'adjWeapon',v:1.5}],{onAllyUse:{tag:'Friend',fx:[{t:'shield',v:4}]}});
 I('ichigo','kon','Kon','🧸',1,['Friend'],5,[{t:'dmg',v:10},{t:'heal',v:9},{t:'haste',to:'right',d:1}]);
@@ -4256,8 +4397,8 @@ I(null,'ginjo_guard','Sparring Guard','🛡️',1,['Apparel'],8,[{t:'shield',v:1
 I('levi','blades','Blade Set','🔪',1,['Weapon'],2.5,[{t:'dmg',v:6,position:{tag:'Tool',max:1,v:2}}],{crit:0.12,critGrow:{v:1,max:2}});
 I('levi','odm','ODM Gear','🎣',2,['Tool'],5,[{t:'haste',to:'adj',d:2},{t:'flank',d:2},{t:'odmCrit',v:.1}]);
 I('levi','thunder_spear','Thunder Spear','⚡',2,['Weapon'],8,[{t:'dmg',v:30,readyBonus:12},{t:'burn',v:4}]);
-I('levi','cleaning','Cleaning Kit','🧹',1,['Tool'],6,[{t:'shield',v:10},{t:'charge',to:'adj',v:1},{t:'sharpen',v:1,max:2}]);
-I('levi','cloak','Survey Corps Cloak','🧥',1,['Apparel'],7,[{t:'shield',v:12,when:{c:'hurt',v:6}}]);
+I('levi','cleaning','Cleaning Kit','🧹',1,['Tool'],6,[{t:'shield',v:15},{t:'charge',to:'adj',v:1},{t:'sharpen',v:1,max:2}]);
+I('levi','cloak','Survey Corps Cloak','🧥',1,['Apparel'],7,[{t:'shield',v:18,when:{c:'hurt',v:6}}]);
 I('levi','hange','Hange','🔬',2,['Friend'],7,[{t:'charge',to:'tag:Weapon',v:2},{t:'poison',v:5},{t:'chargeId',id:'thunder_spear',v:.5}]);
 I('levi','black_tea','Black Tea','🍵',1,['Food'],6,[{t:'heal',v:13},{t:'teaCrit',v:.1,d:6}],{opening:true});
 I('levi','mikasa','Mikasa','🧣',2,['Friend','Weapon'],4,[{t:'dmg',v:13}],{crit:0.15});
@@ -4271,7 +4412,7 @@ I('saitama','cnp','Consecutive Normal Punches','🤛',2,['Weapon'],6,[{t:'dmg',v
 I('saitama','serious_punch','Serious Punch','💢',3,['Weapon'],23,[{t:'dmg',v:330,fourthBonus:70}]);
 I('saitama','flyer','Bargain Sale Flyer','📰',1,['Tool'],12,[{t:'heal',v:10},{t:'nextFood',v:2}],{income:3});
 I('saitama','genos','Genos','🤖',2,['Friend','Weapon'],5,[{t:'dmg',v:7},{t:'burn',v:2}],{multicast:2,onFourthCharge:1});
-I('saitama','license','Hero License','📇',1,['Relic'],8,[{t:'shield',v:12}],{escalate:{t:'shield',v:3}});
+I('saitama','license','Hero License','📇',1,['Relic'],8,[{t:'shield',v:18}],{escalate:{t:'shield',v:5}});
 I('saitama','noodles','Cup Noodles','🍜',1,['Food'],6,[{t:'heal',v:18,overflow:true}]);
 I('saitama','king','King Engine','👑',1,['Friend'],12,[{t:'slow',n:3,d:2},{t:'halveNext',n:1}],{opening:true});
 I('saitama','fubuki','Fubuki','🌪️',2,['Friend'],7,[{t:'shield',v:12,per:{tag:'Friend',v:4}},{t:'slow',n:1,d:1},{t:'shieldIfFriends',n:3,v:10}]);
@@ -4282,17 +4423,17 @@ I('saitama','serious_headbutt','Serious Headbutt','🦲',3,['Weapon'],14,[{t:'dm
 I('anya','telepathy','Telepathy','🧠',1,['Tool'],4,[{t:'slow',n:1,d:1},{t:'charge',to:'right',v:1.5}]);
 I('anya','peanuts','Peanuts','🥜',1,['Food'],5,[{t:'heal',v:15},{t:'regen',v:1}]);
 I('anya','bond','Bond','🐕',2,['Friend'],6,[{t:'shield',v:40}]);
-I('anya','stella','Stella Star','🌟',1,['Relic'],9,[{t:'shield',v:10}],{income:2});
+I('anya','stella','Stella Star','🌟',1,['Relic'],9,[{t:'shield',v:15}],{income:2});
 I('anya','loid','Loid','🕵️',2,['Friend','Weapon'],5,[{t:'dmg',v:26}]);
 I('anya','yor','Yor','🌹',2,['Friend','Weapon'],4,[{t:'dmg',v:18}],{crit:0.25});
 I('anya','waku','Waku Waku','✨',1,['Tool'],5,[{t:'haste',to:'tag:Friend',d:2}]);
-I('anya','chimera','Mr. Chimera','🧸',1,['Relic'],7,[{t:'shield',v:12},{t:'regen',v:1}]);
+I('anya','chimera','Mr. Chimera','🧸',1,['Relic'],7,[{t:'shield',v:18},{t:'regen',v:1}]);
 I('anya','franky',"Franky's Intel",'🗞️',1,['Tool'],9,[{t:'charge',to:'right',v:1}],{income:2});
 I('anya','forger','Forger Family','🏠',3,['Friend','Weapon'],6,[{t:'dmg',v:30},{t:'shield',v:25}],{special:'fusion'});
 I('anya','strix','Operation Strix','🦉',3,['Tool'],10,[{t:'charge',to:'tag:Friend',v:4},{t:'heal',v:50},{t:'shield',v:40}],{special:'ult'});
 // Denji
 I('denji','chainsaw','Chainsaw Arm','⚙️',2,['Weapon'],3,[{t:'dmg',v:10,afterHeal:4},{t:'selfdmg',v:1}]);
-I('denji','pull_cord','Pull Cord','🧵',1,['Tool'],5,[{t:'charge',to:'tag:Weapon',v:1,lowSkip:true},{t:'selfdmg',v:2,lowSkip:true},{t:'shield',v:8,lowOnly:true}],{atLow:{v:.25,fx:[{t:'heal',v:30},{t:'haste',to:'tag:Weapon',d:2}]}});
+I('denji','pull_cord','Pull Cord','🧵',1,['Tool'],5,[{t:'charge',to:'tag:Weapon',v:1,lowSkip:true},{t:'selfdmg',v:2,lowSkip:true},{t:'shield',v:12,lowOnly:true}],{atLow:{v:.25,fx:[{t:'heal',v:30},{t:'haste',to:'tag:Weapon',d:2}]}});
 I('denji','pochita','Pochita','🐶',1,['Friend'],6,[{t:'heal',v:20},{t:'heal',v:24,belowHalfOnce:true}],{heartCap:8});
 I('denji','power','Power','🩸',2,['Friend','Weapon'],6,[{t:'dmg',v:20,when:{c:'selfDmg',v:6}},{t:'heal',v:3}]);
 I('denji','transfusion','Blood Transfusion','💉',1,['Food'],7,[{t:'heal',v:24,afterSelf:12}]);
@@ -4307,7 +4448,7 @@ I('denji','chainsaw_rip','Chainsaw Rip','⚙️',1,['Weapon'],12,[{t:'dmg',v:18}
 I('vegeta','galick','Galick Gun','💜',2,['Weapon'],5,[{t:'dmg',v:32}],{crit:0.15,critShield:8,critShieldMax:3});
 I('vegeta','big_bang','Big Bang Attack','🔆',3,['Weapon'],8.5,[{t:'dmg',v:80,critShieldBreak:true}],{crit:0.1});
 I('vegeta','armor','Saiyan Armor','🦺',2,['Apparel'],7,[{t:'shield',v:32,when:{c:'hurt',v:14},armorMark:true}]);
-I('vegeta','pride','Saiyan Pride','😤',1,['Tool'],8,[{t:'shield',v:6},{t:'prideMark',v:.1,outmatched:.15}]);
+I('vegeta','pride','Saiyan Pride','😤',1,['Tool'],8,[{t:'shield',v:9},{t:'prideMark',v:.1,outmatched:.15}]);
 I('vegeta','final_flash','Final Flash','💛',3,['Weapon'],14,[{t:'dmg',v:135,critPierce:true}],{crit:0.1,patienceCrit:.25});
 I('vegeta','gravity','Gravity Training','🏋️',1,['Tool'],6,[{t:'selfSlow',to:'tag:Weapon',d:.5},{t:'empower',tag:'Weapon',stat:'dmg',v:5}]);
 I('vegeta','scouter','Scouter','🥽',1,['Apparel','Tool'],8,[{t:'slow',n:2,d:2},{t:'scout',v:.05}],{opening:true});
@@ -4337,7 +4478,7 @@ I('misaka','iron_sand','Iron Sand Sword','🌪️',2,['Weapon'],4,[{t:'dmg',v:8}
 I('misaka','lightning_spear','Lightning Spear','🔱',2,['Spell','Weapon'],7,[{t:'dmg',v:18,when:{c:'foeFrozen',v:8}},{t:'freeze',n:1,d:1}]);
 I('misaka','kuroko','Kuroko Shirai','🎀',1,['Friend'],5,[{t:'haste',to:'adj',d:2},{t:'teleport'}]);
 I('misaka','uiharu','Kazari Uiharu','🌼',1,['Friend'],7,[{t:'shield',v:16},{t:'charge',to:'tag:Weapon',v:1}]);
-I('misaka','gekota','Gekota Strap','🐸',1,['Apparel'],8,[{t:'shield',v:12}],{onAllyUse:{tag:'Weapon',fx:[{t:'shield',v:3}]}});
+I('misaka','gekota','Gekota Strap','🐸',1,['Apparel'],8,[{t:'shield',v:18}],{onAllyUse:{tag:'Weapon',fx:[{t:'shield',v:5}]}});
 I('misaka','sisters','Sisters Network','👯',2,['Friend','Weapon'],5,[{t:'dmg',v:6}],{multicast:3,perCopyHit:1});
 I('misaka','full_railgun','Full-Power Railgun','💫',3,['Weapon'],8,[{t:'dmg',v:95}],{crit:.15,special:'fusion'});
 I('misaka','level6_shift','Level 6 Shift','👼',3,['Spell','Weapon'],10,[{t:'dmg',v:70},{t:'freeze',n:3,d:1.5},{t:'haste',to:'tag:Weapon',d:2}],{special:'ult'});
@@ -4349,7 +4490,7 @@ I('ryuko','senketsu','Senketsu','👁️',2,['Apparel'],8,[{t:'shield',v:24}],{s
 I('ryuko','blood_feed','Blood Feeding','🩸',1,['Tool'],6,[{t:'haste',to:'tag:Weapon',d:2},{t:'selfdmg',v:10,lowHalf:true}]);
 I('ryuko','decapitation','Decapitation Mode','🔪',2,['Weapon'],7,[{t:'dmg',v:34}],{crit:.15});
 I('ryuko','mako','Mako Mankanshoku','🙌',1,['Friend'],6,[{t:'heal',v:14},{t:'regen',v:1}],{opening:true,atLow:{v:.25,fx:[{t:'heal',v:25}]}});
-I('ryuko','fiber_lost','Fiber Lost','🧵',1,['Relic'],8,[{t:'shield',v:8},{t:'regen',v:2}],{escalate:{t:'shield',v:3}});
+I('ryuko','fiber_lost','Fiber Lost','🧵',1,['Relic'],8,[{t:'shield',v:12},{t:'regen',v:2}],{escalate:{t:'shield',v:5}});
 I('ryuko','satsuki','Satsuki & Bakuzan','🗡️',2,['Friend','Weapon'],6,[{t:'dmg',v:14,pierce:true},{t:'slow',n:1,d:1.5}]);
 I('ryuko','nudist_beach','Aikuro Mikisugi','🕶️',2,['Friend'],8,[{t:'dmg',v:14},{t:'charge',to:'tag:Weapon',v:1.5}]);
 I('ryuko','twin_scissors','Twin Scissor Blades','⚔️',3,['Weapon'],4,[{t:'dmg',v:15}],{multicast:2,special:'fusion'});
@@ -4374,7 +4515,7 @@ I('andy','bone_spear','Parts Bullet: Head','🦴',1,['Undead','Weapon'],3,[{t:'d
 I('andy','und_regen','Undead Regeneration','♻️',1,['Undead','Tool'],4,[{t:'heal',v:10,when:{c:'low',v:10}},{t:'regen',v:1}]);
 I('andy','limb_shot','Dead Road','💥',2,['Undead','Weapon'],5,[{t:'dmg',v:28,pierce:true},{t:'selfdmg',v:4}]);
 I('andy','flesh_barrage','Parts Bullet: Finger','🔴',2,['Undead','Weapon'],6,[{t:'dmg',v:9},{t:'selfdmg',v:2}],{multicast:3,lowMulticast:4});
-I('andy','union_card','Remember','🃏',1,['Undead','Relic'],8,[{t:'shield',v:14}],{income:1,reviveRegen:2});
+I('andy','union_card','Remember','🃏',1,['Undead','Relic'],8,[{t:'shield',v:21}],{income:1,reviveRegen:2});
 I('andy','fuuko_touch','Fuuko\'s Touch','👆',1,['Unluck','Friend'],6,[{t:'unluck',v:15},{t:'dmg',v:18},{t:'fuukoDouble'}],{crit:.2});
 I('andy','death_blow','Crimson Crescent Moon','💀',3,['Undead','Weapon'],9,[{t:'dmg',v:64,when:{c:'low',v:24}},{t:'selfdmg',v:10}]);
 I('andy','undead_rush','Crimson Waxing Moon','🗡️',2,['Undead','Weapon'],7,[{t:'dmg',v:18},{t:'haste',to:'adj',d:1.5},{t:'selfdmg',v:4}]);
@@ -4384,7 +4525,7 @@ I('andy','unluck_undead','Unluck × Undead','♾️',3,['Disaster','Unluck','Wea
 I('andy','arm_launch','Arm Launcher','🦾',1,['Undead','Weapon'],4,[{t:'dmg',v:34},{t:'selfdmg',v:4}],{overload:true});
 // Fuuko (Unluck: crits, chaos and disasters)
 I('fuuko','skin_contact','Skin Contact','✋',1,['Unluck','Spell','Weapon'],5,[{t:'unluck',v:15},{t:'dmg',v:10}],{crit:.3});
-I('fuuko','fuuko_gloves','Fuuko\'s Gloves','🧤',1,['Unluck','Apparel'],8,[{t:'shield',v:12,when:{c:'unluck',v:8}}]);
+I('fuuko','fuuko_gloves','Fuuko\'s Gloves','🧤',1,['Unluck','Apparel'],8,[{t:'shield',v:18,when:{c:'unluck',v:8}}]);
 I('fuuko','unluck_meteor','Falling Meteorite','☄️',3,['Disaster','Unluck','Spell','Weapon'],12,[{t:'dmg',v:90}],{crit:.2});
 I('fuuko','unluck_lightning','Lightning Unluck','🌩️',2,['Disaster','Unluck','Spell','Weapon'],7,[{t:'dmg',v:24}],{crit:.25});
 I('fuuko','unluck_crash','Freak Accident','🚗',2,['Disaster','Unluck','Spell'],8,[{t:'dmg',v:28},{t:'slow',n:2,d:1.5}]);
@@ -4438,7 +4579,7 @@ I('ainz','ainz_grasp','Grasp Heart','✊',2,['Weapon','Spell'],5,[{t:'dmg',v:36,
 I('ainz','ainz_knight','Create Undead: Death Knight','🛡️',2,['Friend','Undead','Contract'],10,[{t:'contract',v:18,d:6,interval:2,shield:18}],{lastStand:true});
 I('ainz','ainz_skull','Summon Undead: Elemental Skull','💀',2,['Friend','Undead','Contract'],11,[{t:'contract',v:15,d:6,interval:1.5}]);
 I('ainz','ainz_negative','Negative Burst','🌑',2,['Weapon','Spell'],6,[{t:'dmg',v:40},{t:'extendContract',v:1}]);
-I('ainz','ainz_delay','Delay Magic','📜',1,['Tool'],5,[{t:'seal',v:1},{t:'shield',v:4},{t:'nextSpellDouble'}]);
+I('ainz','ainz_delay','Delay Magic','📜',1,['Tool'],5,[{t:'seal',v:1},{t:'shield',v:6},{t:'nextSpellDouble'}]);
 I('ainz','ainz_staff','Staff of Ainz Ooal Gown','🔱',2,['Tool','Relic'],7,[{t:'charge',to:'adjSpell',v:1},{t:'extendContract',v:2}]);
 I('ainz','ainz_beryl','Body of Effulgent Beryl','💎',1,['Spell','Apparel'],8,[{t:'shield',v:30},{t:'beryl'}],{opening:true});
 I('ainz','ainz_lethal','Greater Lethal','🟣',1,['Spell'],7,[{t:'heal',v:30},{t:'extendContract',v:1}],{note:'Negative-energy recovery is adapted as healing for the wielder; not instant damage.'});
@@ -4692,6 +4833,33 @@ I(null,'poison_cooking','Poison Cooking','🧪',1,['Tool','Toxin'],7,[{t:'conver
 I(null,'kakuja','Kakuja','🦂',2,['Weapon'],6,[{t:'regen',v:1},{t:'convert',from:'regen',v:2}],{src:'Tokyo Ghoul',color:'#c0392b'});
 I(null,'berserker_armor','Berserker Armor','🐺',3,['Apparel','Weapon'],7,[{t:'convert',from:'lost',v:16}],{src:'Berserk',color:'#4a4a5a'});
 I(null,'ice_devil','Zeroth Destruction Fist','❄️',1,['Spell','Weapon'],4,[{t:'convert',from:'chill',v:8}],{src:'Fairy Tail',color:'#9fd0ff'});
+// ---- #102 neutral pool expansion (Claude 2026-11-20, Max chose ~25 new): 25 more crossover neutrals, mostly in the thin tags (Food, Spell, Apparel, Toxin). Values are Bronze. ----
+I(null,'walking_mushroom','Walking Mushroom Hot Pot','🍲',2,['Food'],8,[{t:'heal',v:14},{t:'regen',v:1}],{escalate:{t:'heal',v:3},src:'Delicious in Dungeon',color:'#c98a4a'});
+I(null,'century_soup','Century Soup','🥣',1,['Food'],7,[{t:'heal',v:14},{t:'cleanse'},{t:'shield',v:4}],{src:'Toriko',color:'#f2d36b'});
+I(null,'bell_pepper_beef','Bell Peppers and Beef','🫑',1,['Food'],6,[{t:'heal',v:9,when:{c:'hurt',v:6}}],{src:'Cowboy Bebop',color:'#4fa04a'});
+I(null,'hungry_bug_gyoza','Hungry Bug Gyoza','🥟',1,['Food'],6,[{t:'heal',v:12},{t:'haste',to:'tag:Food',d:1}],{src:'Dorohedoro',color:'#e8c48a'});
+I(null,'tao_elixir','Elixir of Immortality','⚗️',2,['Food','Toxin'],8,[{t:'poison',v:2},{t:'regen',v:2}],{src:"Hell's Paradise",color:'#7ac26b'});
+I(null,'black_powder','Black Powder Smoke','🌫️',1,['Toxin','Spell'],6,[{t:'poison',v:1},{t:'slow',n:1,d:1}],{src:'Dorohedoro',color:'#5a5a6a'});
+I(null,'abyss_curse','Curse of the Abyss','🌀',1,['Toxin','Relic'],7,[{t:'poison',v:2},{t:'selfdmg',v:1}],{src:'Made in Abyss',color:'#6a3d8a'});
+I(null,'revival_fluid','Nital Revival Fluid','🧴',1,['Tool'],9,[{t:'heal',v:14,repairFirst:true}],{src:'Dr. Stone',color:'#7fd0e0'});
+I(null,'clow_windy','Clow Card: The Windy','🃏',1,['Spell'],7,[{t:'slow',n:2,d:1.5},{t:'shield',v:6}],{src:'Cardcaptor Sakura',color:'#ff9ac8'});
+I(null,'moon_tiara','Moon Tiara Action','🌙',1,['Spell','Weapon'],5,[{t:'dmg',v:4,when:{c:'foeSlowed',v:4}}],{multicast:2,src:'Sailor Moon',color:'#ffd84a'});
+I(null,'mob_hundred','???%','💯',3,['Spell'],10,[{t:'dmg',v:55,pierce:true}],{escalate:{t:'dmg',v:12},src:'Mob Psycho 100',color:'#c8e8ff'});
+I(null,'blade_works','Unlimited Blade Works','⚔️',2,['Spell'],9,[{t:'empower',tag:'Weapon',stat:'dmg',v:4},{t:'haste',to:'tag:Weapon',d:1}],{src:'Fate/stay night',color:'#d0703a'});
+I(null,'at_field','A.T. Field','🔶',2,['Spell'],8,[{t:'shield',v:20,when:{c:'shielded',v:14}}],{src:'Neon Genesis Evangelion',color:'#ff9a3a'});
+I(null,'thermoptic','Thermoptic Camouflage','🫥',1,['Apparel'],9,[{t:'dodge',n:1},{t:'shield',v:5}],{src:'Ghost in the Shell',color:'#8ab8c8'});
+I(null,'typhoon_coat',"Humanoid Typhoon's Red Coat",'🧥',2,['Apparel'],7,[{t:'shield',v:22},{t:'nocrit',n:1}],{src:'Trigun',color:'#d0302a'});
+I(null,'fire_rat_robe','Robe of the Fire-Rat','👘',2,['Apparel'],8,[{t:'shield',v:22,when:{c:'afflicted',v:12}}],{src:'Inuyasha',color:'#c8202a'});
+I(null,'sandevistan','Sandevistan','🦾',1,['Apparel','Tool'],8,[{t:'haste',to:'all',d:1.5},{t:'selfdmg',v:2}],{tierScale:true,tierCd:false,src:'Cyberpunk: Edgerunners',color:'#9aff5a'});
+I(null,'subaru_tracksuit',"Subaru's Tracksuit",'🏃',1,['Apparel'],10,[{t:'shield',v:4},{t:'heal',v:10,when:{c:'low',v:14}}],{src:'Re:Zero',color:'#3a4a6a'});
+I(null,'umbilical','Umbilical Cable','🔌',1,['Tool'],6,[{t:'charge',to:'right',v:1.5}],{tierScale:true,tierCd:false,src:'Neon Genesis Evangelion',color:'#e04a3a'});
+I(null,'stun_watch','Stun-Gun Wristwatch','⌚',1,['Tool'],9,[{t:'dmg',v:4},{t:'freeze',n:1,d:1.5}],{opening:true,tierScale:true,tierCd:false,src:'Detective Conan',color:'#3a6ac8'});
+I(null,'white_whistle','White Whistle','📯',1,['Relic'],8,[{t:'regen',v:1}],{income:1,src:'Made in Abyss',color:'#e8e8f0'});
+I(null,'millennium_eye','Millennium Eye','👁',1,['Relic'],8,[{t:'stripShield',v:8},{t:'slow',n:1,d:1}],{src:'Yu-Gi-Oh!',color:'#e8c04a'});
+I(null,'avalon','Avalon','🛡️',2,['Relic'],9,[{t:'heal',v:20},{t:'shield',v:14}],{src:'Fate/stay night',color:'#5a8ad8'});
+I(null,'jericho','Jericho 941','🔫',1,['Weapon'],3,[{t:'dmg',v:3}],{multicast:2,crit:.15,opening:true,src:'Cowboy Bebop',color:'#4a5a8a'});
+I(null,'wind_scar','Tessaiga: Wind Scar','🌪️',3,['Weapon'],10,[{t:'dmg',v:50,pierce:true}],{crit:.2,src:'Inuyasha',color:'#f0e0a0'});
+// ---- end #102 neutrals ----
 // ---- #98 item audit (Claude 2026-11-17, Max 00:44): twists so no two items in a player's pool do the exact same thing ----
 const TWIST98={
  mimic:d=>{d.income=1},                                            // a treasure-chest Mimic still pays out
@@ -5026,6 +5194,11 @@ const RECIPES=[['jotaro','ora_rush','star_platinum','ora_barrage'],['naruto','sh
  ['tanjiro','nichirin','hinokami','sun_halo'],['gojo','blue','red','purple',1],['edward','circle','automail','alchemy_lance'],['frieren','zoltraak','grimoire','grand_zoltraak'],
  ['deku','ofa5','full_cowl','shoot_style'],['ichigo','zangetsu','getsuga','tensa'],['levi','blades','odm','spin_slash'],['saitama','normal_punch','license','side_hops'],
  ['anya','loid','yor','forger'],['maomao','oleander','apothecary_kit','imperial_poison'],['denji','chainsaw','pull_cord','chainsaw_man'],['vegeta','galick','big_bang','final_explosion'],['misaka','railgun','arcade_coin','full_railgun'],['ryuko','scissor_blade','decapitation','twin_scissors'],['andy','limb_shot','und_regen','regen_cannon'],['fuuko','skin_contact','unluck_meteor','meteor_shower'],['juiz','judgment','unjust_bind','final_verdict'],['shinra','devils_footprints','rapid','corna'],['ainz','ainz_grasp','ainz_negative','ainz_reality'],['jinwoo','kasaka_fang','knight_killer','demon_king_daggers']].map(([hero,a,b,out,plus])=>({hero,a,b,out,plus:plus||0}));
+// Hidden pairs survive fusion (2026-11-20): a fused item still counts as both of its ingredients for hidden pairs.
+const FUSED_FROM={};for(const r of RECIPES)FUSED_FROM[r.out]=[r.a,r.b];
+const pairIs=(def,id)=>!!def&&(def.id===id||(FUSED_FROM[def.id]||[]).includes(id));
+function pairMatch(defs,r){for(let i=0;i<defs.length;i++)if(pairIs(defs[i],r.a))for(let j=0;j<defs.length;j++)if(j!==i&&pairIs(defs[j],r.b))return true;return false}
+function resLook(m,def,sum){if(!m||!def)return sum?0:1;let v=sum?0:1;for(const id of [def.id,...(FUSED_FROM[def.id]||[])])if(m[id]!=null)v=sum?v+m[id]:v*m[id];return v}
 
 const ENCH={
  fiery:{name:'Flame Breathing',icon:'🔥',desc:'Also apply 3 burn',fx:[{t:'burn',v:3}]},
@@ -5036,21 +5209,21 @@ const ENCH={
  deadly:{name:'Black Flash',icon:'⚡',desc:'+20% crit chance',crit:0.2,fx:[]},
 };
 const SKILLS=[
- {name:'Tekkai (Iron Body)',icon:'🛡️',rarity:'Bronze',desc:'Start each fight with 60 shield.',k:'startShield',v:60},
- {name:'Amaterasu',icon:'🔥',rarity:'Bronze',desc:'Burn you apply is +3.',k:'burnBonus',v:3},
+ {name:'Tekkai (Iron Body)',icon:'🛡️',rarity:'Bronze',desc:'Start each fight with 130 shield.',k:'startShield',v:130},
+ {name:'Amaterasu',icon:'🔥',rarity:'Bronze',desc:'Burn you apply is +4.',k:'burnBonus',v:4},
  {name:'Venom Venom Fruit',icon:'☠️',rarity:'Bronze',desc:'Poison you apply is +2.',k:'poisonBonus',v:2},
  {name:'Hashirama Cells',icon:'🌳',rarity:'Bronze',desc:'+80 max HP.',k:'maxHp',v:80},
- {name:'Reverse Cursed Technique',icon:'💊',rarity:'Bronze',desc:'Healing is 35% stronger.',k:'healMult',v:0.35},
+ {name:'Reverse Cursed Technique',icon:'💊',rarity:'Bronze',desc:'Healing is 60% stronger.',k:'healMult',v:0.6},
  {name:'Total Concentration',icon:'🗡️',rarity:'Silver',desc:'Weapons deal +6 damage. Each Weapon touching another Weapon deals +2 more damage.',k:'weaponDmg',v:6,extra:{formationDmg:2}},
  {name:'Sharingan',icon:'👁️',rarity:'Silver',desc:'+8% crit chance on all items.',k:'crit',v:0.08},
  {name:'Godspeed',icon:'⚡',rarity:'Silver',desc:'Your items charge 6% faster.',k:'speed',v:0.06},
- {name:'Armament Haki',icon:'🖤',rarity:'Silver',desc:'Shield gained is 15% stronger. First copy: +10 Shield at fight start per Weapon on a board edge (maximum 2).',k:'shieldMult',v:0.15,extra:{edgeGuard:10},firstOnly:['edgeGuard']},
+ {name:'Armament Haki',icon:'🖤',rarity:'Silver',desc:'Shield gained is 30% stronger. First copy: +30 Shield at fight start per Weapon on a board edge (maximum 2).',k:'shieldMult',v:0.3,extra:{edgeGuard:30},firstOnly:['edgeGuard']},
  {name:'Hamon Breathing',icon:'💚',rarity:'Silver',desc:'Start each fight with 3 regen.',k:'startRegen',v:3},
  {name:'Will of Fire Bonds',icon:'🤝',rarity:'Gold',desc:'Your Friend items charge 35% faster.',k:'friendSpeed',v:0.35},
  {name:'Flash Step Mastery',icon:'💨',rarity:'Gold',desc:'Your 1-slot items charge 30% faster.',k:'smallSpeed',v:0.3},
  {name:'Domain Expansion',icon:'🌌',rarity:'Gold',desc:'Your Spells charge 10% faster.',k:'spellSpeed',v:0.1},
  {name:'Bankai',icon:'🌑',rarity:'Gold',desc:'Your 3-slot Weapons deal 35% more damage.',k:'bigWeaponMult',v:0.35},
- {name:'Conqueror\'s Haki',icon:'👑',rarity:'Gold',desc:'At fight start, Freeze the enemy’s 2 largest items for 6s.',k:'openFreeze',v:6},
+ {name:'Conqueror\'s Haki',icon:'👑',rarity:'Gold',desc:'At fight start, Freeze the enemy’s 2 largest items for 9s.',k:'openFreeze',v:9},
 ];
 const SKILL_RARITY_COLOR={Bronze:'#e8a368',Silver:'#d6dee8',Gold:'#ffd23f'};
 function skillCopyFactor(n){return n<=0?1:n===1?.5:.25}
@@ -5064,6 +5237,30 @@ function rollSkillChoices(day=(S&&S.day)||1){
 function gainSkill(sk,k){const n=skillCopies(sk,k),f=skillCopyFactor(n);sk[k.k]=+((sk[k.k]||0)+k.v*f).toFixed(4);for(const [key,value] of Object.entries(k.extra||{})){if(n>0&&(k.firstOnly||[]).includes(key))continue;sk[key]=+((sk[key]||0)+value*f).toFixed(4)}sk._copies={...(sk._copies||{}),[k.k]:n+1}}
 const skillValueRules=()=>SKILLS.flatMap(k=>[{k:k.k,v:k.v},...Object.entries(k.extra||{}).map(([key,value])=>({k:key,v:value}))]);
 function placementSkillsHTML(sk){const parts=[];if(sk.formationDmg>0)parts.push(`🗡️ Touching Weapons: +${sk.formationDmg} damage each`);if(sk.edgeGuard>0)parts.push(`🖤 Edge Weapons: +${sk.edgeGuard} starting Shield each (max 2; Shield bonuses apply)`);return parts.length?`<div class="placement-skills small">${parts.join(' · ')}</div>`:''}
+// Skill visibility (Claude, 2026-11-20): learned skills are listed with their totals, and items show what skills add to them.
+const skNum=v=>+(+v).toFixed(1),skPct=v=>+(v*100).toFixed(1);
+const SKILL_SHORT={startShield:v=>`${Math.round(v)} Shield at start`,burnBonus:v=>`+${skNum(v)} burn`,poisonBonus:v=>`+${skNum(v)} poison`,maxHp:v=>`+${Math.round(v)} max HP`,healMult:v=>`+${skPct(v)}% healing`,
+ weaponDmg:(v,sk)=>`Weapons +${skNum(v)} dmg${sk.formationDmg>0?` (+${skNum(sk.formationDmg)} touching)`:''}`,crit:v=>`+${skPct(v)}% crit`,speed:v=>`items ${skPct(v)}% faster`,shieldMult:v=>`+${skPct(v)}% Shield`,startRegen:v=>`${skNum(v)} Regen at start`,
+ friendSpeed:v=>`Friends ${skPct(v)}% faster`,smallSpeed:v=>`1-slot items ${skPct(v)}% faster`,spellSpeed:v=>`Spells ${skPct(v)}% faster`,bigWeaponMult:v=>`3-slot Weapons +${skPct(v)}% dmg`,openFreeze:v=>`Freeze 2 biggest enemy items ${skNum(v)}s`};
+function skillList(sk){if(!sk)return [];return SKILLS.filter(k=>sk[k.k]>0&&SKILL_SHORT[k.k]).map(k=>{const n=(sk._copies&&sk._copies[k.k])||0;return {k:k.k,icon:k.icon,name:n?k.name:'Run bonus',n,text:SKILL_SHORT[k.k](sk[k.k],sk)}})}
+function skillStripHTML(sk){const L=skillList(sk);if(!L.length)return '';return `<div class="skill-strip small"><span class="sk-lbl">⭐ Skills</span>${L.map(x=>`<span class="skchip" title="${esc(x.name+(x.n>1?' ×'+x.n:'')+': '+x.text)}">${x.icon} ${esc(x.text)}${x.n>1?` <i>×${x.n}</i>`:''}</span>`).join('')}</div>`}
+// What the owner's skills add to one item, as short phrases for its tooltip.
+function itemSkillBoosts(inst,sk){
+ if(!sk||!inst||!ITEMS[inst.id])return [];const d=ITEMS[inst.id],has=t=>d.fx.some(f=>f.t===t),out=[],W=d.tags.includes('Weapon');
+ if(W&&has('dmg')&&sk.weaponDmg>0)out.push(`+${skNum(sk.weaponDmg)} damage`);
+ if(W&&has('dmg')&&sk.formationDmg>0)out.push(`+${skNum(sk.formationDmg)} more when touching a Weapon`);
+ if(W&&d.size===3&&has('dmg')&&sk.bigWeaponMult>0)out.push(`+${skPct(sk.bigWeaponMult)}% damage`);
+ if(has('dmg')&&sk.crit>0)out.push(`+${skPct(sk.crit)}% crit`);
+ if(has('burn')&&sk.burnBonus>0)out.push(`+${skNum(sk.burnBonus)} burn`);
+ if(has('poison')&&sk.poisonBonus>0)out.push(`+${skNum(sk.poisonBonus)} poison`);
+ if(has('heal')&&sk.healMult>0)out.push(`+${skPct(sk.healMult)}% healing`);
+ if(has('shield')&&sk.shieldMult>0)out.push(`+${skPct(sk.shieldMult)}% Shield`);
+ const base=cdOf(inst),cd=cdOf(inst,sk);if(cd<base-1e-6)out.push(`charges ${Math.round((1-cd/base)*100)}% faster (${base.toFixed(1)}s → ${cd.toFixed(1)}s)`);
+ return out;
+}
+function itemOwnerSkills(inst){if(SCREEN==='combat'&&F){for(const s of [F.a,F.b])if(s&&s.items.some(it=>it.inst===inst))return s.sk;return null}return SCREEN==='run'&&S?S.skills:null}
+// One line at fight start that says what the skills did.
+function skillStartText(s){const L=skillList(s.sk);return L.length?L.map(x=>`${x.icon} ${x.text}`).join(' · '):''}
 const MONSTERS=[['Rogue Ninja','👤','Naruto'],['Saibaman','🌱','Dragon Ball'],['Hand Demon','👹','Demon Slayer'],['Cursed Spirit','👻','Jujutsu Kaisen'],['Nomu','🧠','My Hero Academia'],['Hollow','💀','Bleach'],['Pure Titan','🧟','Attack on Titan'],['Chimera Ant','🐜','Hunter x Hunter'],['Marine Captain','⚓','One Piece'],['Zombie Devil','🧟','Chainsaw Man'],['Mystic Beast','🐉','One-Punch Man'],['Aura the Guillotine','⚖️','Frieren']];
 const BOSSES=[['Frieza','👽','#8e44ad','Dragon Ball'],['Muzan Kibutsuji','🩸','#7b1d2a','Demon Slayer'],['Ryomen Sukuna','👺','#b03a2e','Jujutsu Kaisen'],['Kaido','🐲','#3d5a80','One Piece'],['Madara Uchiha','🌑','#4a4a6a','Naruto'],
  ['Father','⚫','#555','Fullmetal Alchemist'],['Garou','🐺','#5a6475','One-Punch Man'],['Makima','⛓️','#a0522d','Chainsaw Man'],['Sosuke Aizen','🦋','#6c3483','Bleach'],['Tomura Shigaraki','✋','#566573','My Hero Academia'],['Zeke Yeager','🦍','#7a6a4f','Attack on Titan'],['Macht','👑','#b8860b','Frieren'],['Victor','🎩','#7a1a1a','Undead Unluck']];
@@ -5237,6 +5434,7 @@ function descLines(inst){
   if(d.hero==='ainz'&&d.tags.includes('Spell')&&d.fx.some(f=>['dmg','doom'].includes(f.t)))L.push('<b>Spell preparation (Ainz)</b>: spends all banked Seals, maximum 3, for +12 damage each scaled by this Spell’s tier. Opening damage only; this extra damage cannot crit. Contracts expiring and Delay Magic supply Seals.');
   if(d.hero==='goku'&&d.tags.includes('Weapon'))L.push('<b>Goku relay</b>: after this activates, charge the next Weapon to its right 0.6s (wraps; excludes itself).');
   if(d.note)L.push(esc(d.note));
+  if(d.blueMark)L.push('Blue: marks your next Red or Purple');
   if(d.multicast)L.push(`<b>Multicast ${d.multicast}</b>: triggers ${d.multicast} times`);
   if(d.multicastPerTag)L.push(`${kw('Multicast')}: once per ${d.multicastPerTag.tag} item on your board (up to ${d.multicastPerTag.max})`);
   if(d.critMult)L.push(`Its crits deal ${d.critMult}×`);
@@ -5276,7 +5474,7 @@ function descLines(inst){
   if(d.conceal)L.push(`<b>Conceal:</b> your next damaging Spell deals <b>+${d.conceal*VAL_MULT[inst.tier]}</b> on its opening hit (does not stack)`);
   if(d.grow)L.push(`Gains <b>+${d.grow}</b> permanently after every fight`+(inst.bonus?` (now +${inst.bonus})`:''));
   if(inst.ench)L.push(`${ENCH[inst.ench].icon} <b>${ENCH[inst.ench].name}</b>: ${ENCH[inst.ench].desc}`);
-  try{const seen=resonanceFound();for(const r of RESONANCES)if((r.a===d.id||r.b===d.id)&&seen.includes(r.id)){const o=ITEMS[r.a===d.id?r.b:r.a];L.push(`✨ <b>${r.name}</b> (with ${o?o.name:'?'}): ${r.desc}${r.why?` <i>${r.why}</i>`:''}`)}}catch(e){}
+  try{const seen=resonanceFound();for(const r of RESONANCES)if((pairIs(d,r.a)||pairIs(d,r.b))&&seen.includes(r.id)){const o=ITEMS[pairIs(d,r.a)?r.b:r.a];L.push(`✨ <b>${r.name}</b> (with ${o?o.name:'?'}): ${r.desc}${r.why?` <i>${r.why}</i>`:''}`)}}catch(e){}
   return L;
 }
 // ================= item tooltip: a styled card shown on mouse hover =================
@@ -5319,7 +5517,7 @@ function regenScalingHTML(inst){
  return '';
 }
 function pairTipHTML(inst){const ps=activePairs(inst);if(!ps.length)return '';
- return ps.map(r=>{const o=ITEMS[r.a===inst.id?r.b:r.a];return `<div class="ttx res-active">✨ <b>Hidden pair active: ${esc(r.name)}</b> (with ${esc(o?o.name:'?')})<br>${esc(r.desc)}${r.why?`<br><i>${esc(r.why)}</i>`:''}</div>`}).join('')}
+ return ps.map(r=>{const o=ITEMS[pairIs(ITEMS[inst.id],r.a)?r.b:r.a];return `<div class="ttx res-active">✨ <b>Hidden pair active: ${esc(r.name)}</b> (with ${esc(o?o.name:'?')})<br>${esc(r.desc)}${r.why?`<br><i>${esc(r.why)}</i>`:''}</div>`}).join('')}
 function ttHTML(inst,isShopOffer=false){
   const d=ITEMS[inst.id],series=d.src||(d.hero&&heroById(d.hero).series);
   const fxs=d.fx.map(fx=>{const [ic,col]=FXI[fx.t]||['•','#fff'];return `<li style="--fc:${col}"><span class="tti">${ic}</span><span>${fxText(fx,inst)}</span></li>`}).join('');
@@ -5337,12 +5535,13 @@ function ttHTML(inst,isShopOffer=false){
   const kind=d.special==='ult'?'<span class="ttk ult">Ultimate</span>':d.special==='fusion'?'<span class="ttk fus">Fusion</span>':d.special==='enemy'?'<span class="ttk en">Enemy</span>':d.special==='trophy'?'<span class="ttk en">🏆 Trophy</span>':d.special==='calamity'?'<span class="ttk ult">☄️ Calamity</span>':'';
   const sell=S&&SCREEN==='run'&&(d.special!=='enemy'||(inst.uid&&findInv(inst.uid)))?`<span>Sells for 💴 ${sellPrice(inst)}</span>`:''; // #98: loot you own shows its sell price too
   const shopHint=shopDuplicateHint(inst,isShopOffer);
+  const ownSk=itemOwnerSkills(inst),boosts=itemSkillBoosts(inst,ownSk);
   return `<div class="tt-in t${inst.tier}">
     <div class="tth"><div class="ttico">${d.icon}</div><div class="ttn"><b>${d.name}</b><div class="ttsub"><span class="tiername">${TIERS[inst.tier]}</span> · ${SIZE_NAME[d.size]}${kind}</div></div>
-      <div class="ttcd" title="Cooldown">⏱<b>${cdOf(inst).toFixed(1)}</b>s</div></div>
+      <div class="ttcd${ownSk&&cdOf(inst,ownSk)<cdOf(inst)-1e-6?' boost':''}" title="Cooldown">⏱<b>${cdOf(inst,ownSk||{}).toFixed(1)}</b>s</div></div>
     <div class="tttags">${d.tags.map(t=>`<span>${t}</span>`).join('')}</div>
     <ul class="ttfx">${fxs||'<li><span class="tti">·</span><span>No direct effect</span></li>'}</ul>
-    ${chips.length?`<div class="ttchips">${chips.join('')}</div>`:''}${extra.join('')}${shopHint}${pairTipHTML(inst)}${boardSynergyHTML(inst)}${regenScalingHTML(inst)}
+    ${chips.length?`<div class="ttchips">${chips.join('')}</div>`:''}${boosts.length?`<div class="ttx skillboost">⭐ <b>Your skills:</b> ${boosts.join(' · ')}</div>`:''}${extra.join('')}${shopHint}${critTipHTML(inst)}${pairTipHTML(inst)}${boardSynergyHTML(inst)}${regenScalingHTML(inst)}
     ${series||sell?`<div class="ttf">${series?`<i>${esc(series)}</i>`:'<i></i>'}${sell}</div>`:''}</div>`;
 }
 function clearBoardConnections(){document.querySelectorAll('.connection-source,.connection-target,.connection-blocked,.connection-pair').forEach(c=>c.classList.remove('connection-source','connection-target','connection-blocked','connection-pair'))}
@@ -5356,8 +5555,8 @@ function showBoardConnections(inst){
   if(fx.readyBonus){relevant=true;targets(me,it,'adj').filter(isW).forEach(x=>peers.add(x.inst))}
   if(['charge','haste'].includes(fx.t)&&['adj','adjWeapon','adjSpell','rightWeapon','right','left'].includes(fx.to)){relevant=true;targets(me,it,fx.to).forEach(x=>peers.add(x.inst))}
  }
- const mates=new Set(activePairs(inst).map(r=>r.a===inst.id?r.b:r.a));
- if(mates.size)for(const c of document.querySelectorAll('.board .card[data-drag="inv"]')){const x=TTI.get(+c.dataset.tt);if(x&&x!==inst&&mates.has(x.id))c.classList.add('connection-pair')}
+ const mates=activePairs(inst).map(r=>pairIs(ITEMS[inst.id],r.a)?r.b:r.a);
+ if(mates.length)for(const c of document.querySelectorAll('.board .card[data-drag="inv"]')){const x=TTI.get(+c.dataset.tt);if(x&&x!==inst&&mates.some(m=>pairIs(ITEMS[x.id],m)))c.classList.add('connection-pair')}
  if(!relevant)return;
  for(const c of document.querySelectorAll('.board .card[data-drag="inv"]')){const x=TTI.get(+c.dataset.tt);if(x===inst)c.classList.add('connection-source');else if(blocked.has(x))c.classList.add('connection-blocked');else if(peers.has(x))c.classList.add('connection-target')}
 }
@@ -6576,7 +6775,7 @@ function pickMonster(day,hard,exclude=[]){
   // last resort in very long runs: an enemy you skipped (never fought), not seen today or yesterday, in the same version
   const back=MON_DEFS.filter(m=>ok(m)&&monAllowed(m,day,hard)&&seen[m.name]&&!seen[m.name].fought&&seen[m.name].day<day-1&&!!seen[m.name].hard===!!hard);
   if(back.length)return pick(back);
-  for(const L of [MON_DEFS.filter(m=>ok(m)&&!(seen[m.name]&&(seen[m.name].day>=day-1||seen[m.name].fought||!!seen[m.name].hard!==!!hard))),MON_DEFS.filter(ok)])if(L.length)return pick(L);
+  for(const L of [MON_DEFS.filter(m=>ok(m)&&!(seen[m.name]&&(seen[m.name].day>=day-1||seen[m.name].fought||!!seen[m.name].hard!==!!hard))),MON_DEFS.filter(m=>ok(m)&&!(seen[m.name]&&seen[m.name].day>=day-1)),MON_DEFS.filter(ok)])if(L.length)return pick(L);
   return pick(MON_DEFS);
 }
 function recordFought(mon){(S.fought=S.fought||[]).push(mon.name);if(monDef(mon.name)){seedSeen();S.monSeen[mon.name]={...(S.monSeen[mon.name]||{hard:!!mon.hard}),day:S.day,fought:true}}}
@@ -7035,9 +7234,10 @@ function cardHTML(inst,o={}){
   const contractFx=d.fx.find(f=>f.t==='contract'),positionFx=d.fx.find(f=>f.position);
   const scalingHint=positionFx?`<div class="synergy-badge" title="${esc(placementText(positionFx,inst).replace(/<[^>]*>/g,''))}">${positionFx.position.kind==='isolated'?'Clear space':'Touching '+positionFx.position.tag}</div>`:flankFx?`<div class="synergy-badge" title="${esc(baseFxText(flankFx,inst).replace(/<[^>]*>/g,''))}">Flank: Weapon | Weapon</div>`:contractFx?`<div class="synergy-badge">Contract ${contractFx.d}s</div>`:d.id==='exchange'?`<div class="synergy-badge">${inst.exchangeMode==='transmute'?'Transmute':'Protect'}</div>`:scaling?`<div class="synergy-badge" title="${esc(fxText(scaling,inst).replace(/<[^>]*>/g,''))}">${scaling.per?`+${scaling.per.v*VAL_MULT[inst.tier]} per ${esc(scaling.per.tag)}`:scaling.chargedBonus?`Charge: +${scaling.chargedBonus*VAL_MULT[inst.tier]}`:scaling.donorBonus?`First: +${scaling.donorBonus*VAL_MULT[inst.tier]} per Tool`:scaling.readyBonus?`Ready: +${scaling.readyBonus*VAL_MULT[inst.tier]}`:`+${scaling.perRegen.v*VAL_MULT[inst.tier]} per Regen (max +${scaling.perRegen.max*VAL_MULT[inst.tier]})`}</div>`:'';
   const pairs=o.drag==='inv'||SCREEN==='combat'?activePairs(inst):[];
+  const cdSk=o.sk||(SCREEN==='run'&&S&&S.skills)||{},cdBase=cdOf(inst),cdNow=cdOf(inst,cdSk),cdBoost=cdNow<cdBase-1e-6;
   return `<div class="card t${inst.tier} s${d.size} ${o.id?'':'idle'} ${o.sel?'sel':''} ${o.sold?'sold':''} ${pairs.length?'res-on':''}" style="--s:${d.size};--hc:${hc};grid-column:${o.slot!=null?(o.slot+1)+' / ':''}span ${d.size}" ${o.act?`data-act="${o.act}" data-arg="${o.arg}" tabindex="0" role="button"`:''} ${o.drag?`data-drag="${o.drag}"`:''} data-tt="${ttKey(inst)}" aria-label="${esc(d.name+' ('+TIERS[inst.tier]+'): '+plainDesc(inst).split('\n').slice(1).join('. '))}" ${o.id?`id="${o.id}"`:''}>
     <div class="in"><div class="ic">${d.icon}</div>${artImage(art,'art',d.name)}<div class="cdf"></div>${scalingHint}<div class="nm">${d.name}</div></div>
-    <div class="cdl">${cdOf(inst).toFixed(1)}</div>${inst.ench?`<div class="en">${ENCH[inst.ench].icon}</div>`:''}${fusable?'<div class="fusehint" title="Can fuse">🧬</div>':''}${pairs.length?`<div class="resbadge" title="${esc('Hidden pair active: '+pairs.map(r=>r.name).join(', '))}">✨</div>`:''}<div class="gem"></div>${inst.tier===2||inst.tier===4?'<i class="shine"></i>':''}${o.price!=null?`<div class="price">💰${o.price}</div>`:''}</div>`;
+    <div class="cdl${cdBoost?' boost':''}"${cdBoost?` title="Skills: ${cdBase.toFixed(1)}s → ${cdNow.toFixed(1)}s"`:''}>${cdNow.toFixed(1)}</div>${inst.ench?`<div class="en">${ENCH[inst.ench].icon}</div>`:''}${fusable?'<div class="fusehint" title="Can fuse">🧬</div>':''}${pairs.length?`<div class="resbadge" title="${esc('Hidden pair active: '+pairs.map(r=>r.name).join(', '))}">✨</div>`:''}<div class="gem"></div>${inst.tier===2||inst.tier===4?'<i class="shine"></i>':''}${o.price!=null?`<div class="price">💰${o.price}</div>`:''}</div>`;
 }
 function homeIcon(action,icon,label,primary=false){const short={collection:'Collection',achievements:'Awards',editProfile:'Profile',players:'Players',share:'Share'}[action]||label;return `<button class="home-icon${primary?' primary':''}" data-act="${action}" title="${esc(label)}" aria-label="${esc(label)}" data-label="${esc(label)}"><span class="home-icon-glyph" aria-hidden="true">${icon}</span><span class="home-icon-label">${esc(short)}</span></button>`}
 function titleHTML(){
@@ -7138,8 +7338,7 @@ function hofHTML(){
 function portraitHelpHTML(h,lk){
  const p=passiveOf(h.id);
  const portrait=avatarHTML({heroId:h.id,color:lk.color,emblem:lk.emblem,init:h.init,aura:lk.aura});
- if(!p)return portrait;
- return `<div class="portrait-help" onpointerleave="this.classList.remove('help-dismissed')"><button type="button" class="portrait-help-button" aria-label="${esc(h.name)}: passive ability" aria-expanded="false" aria-controls="portrait-passive-tip" onclick="const host=this.parentElement;const open=host.classList.toggle('help-open');host.classList.toggle('help-dismissed',!open);this.setAttribute('aria-expanded',String(open));if(!open)this.blur()" onkeydown="if(event.key==='Escape'){this.parentElement.classList.remove('help-open');this.parentElement.classList.add('help-dismissed');this.setAttribute('aria-expanded','false');this.blur()}">${portrait}<span class="portrait-info" aria-hidden="true">i</span></button><div class="portrait-pop" id="portrait-passive-tip" role="tooltip"><b>${p.icon} ${esc(p.name)}</b><p>${esc(p.desc)}</p></div></div>`;
+ return `<div class="portrait-help" onpointerleave="this.classList.remove('help-dismissed')"><button type="button" class="portrait-help-button" aria-label="${esc(h.name)}: passive ability and crit chance" aria-expanded="false" aria-controls="portrait-passive-tip" onclick="const host=this.parentElement;const open=host.classList.toggle('help-open');host.classList.toggle('help-dismissed',!open);this.setAttribute('aria-expanded',String(open));if(!open)this.blur()" onkeydown="if(event.key==='Escape'){this.parentElement.classList.remove('help-open');this.parentElement.classList.add('help-dismissed');this.setAttribute('aria-expanded','false');this.blur()}">${portrait}<span class="portrait-info" aria-hidden="true">i</span></button><div class="portrait-pop" id="portrait-passive-tip" role="tooltip">${p?`<b>${p.icon} ${esc(p.name)}</b><p>${esc(p.desc)}</p>`:''}${critSummaryHTML(critPreviewSide(),false)}</div></div>`;
 }
 // Run XP meter (Claude 2026-11-19): level, one pip per XP, "have/need" numbers, and a hover/tap note on what a level-up gives.
 function xpLevelPerk(l){if(l===ULT_LEVEL&&!S.ultGiven&&!HERO_ULT_TRIALS[S.hero.id])return 'your <b>Ultimate</b>';if(l>=10&&l%5===0)return 'a <b>free item upgrade</b>';return ''}
@@ -7323,7 +7522,7 @@ function runHTML(){
   S.maxGold=Math.max(S.maxGold||0,S.gold);
   let h=`<div class="wrap runwrap">${topHTML()}<div class="stage velvet">${stageHTML()}</div>
    <div class="lbl"><span>BOARD (${boardUsed()}/${BOARD_SLOTS}) ${rarityKeyHTML()}</span><span>Income ${income()}g/day</span></div>
-   ${placementSkillsHTML(S.skills)}<div class="board ${cosClass(META.equip)}" data-drop="board">${S.board.map(i=>cardHTML(i,{act:'selInv',arg:i.uid,drag:'inv',fuse:true,slot:i.slot,sel:S.sel&&S.sel.k==='inv'&&S.sel.uid===i.uid})).join('')}</div>
+   ${skillStripHTML(S.skills)}${placementSkillsHTML(S.skills)}<div class="board ${cosClass(META.equip)}" data-drop="board">${S.board.map(i=>cardHTML(i,{act:'selInv',arg:i.uid,drag:'inv',fuse:true,slot:i.slot,sel:S.sel&&S.sel.k==='inv'&&S.sel.uid===i.uid})).join('')}</div>
    <div class="lbl"><span>STASH (${S.stash.length}/${STASH_MAX})</span><span class="small">Stashed items don't fight</span></div>
    <div class="stash ${cosClass({frames:META.equip.frames})}" data-drop="stash">${S.stash.map(i=>cardHTML(i,{act:'selInv',arg:i.uid,drag:'inv',fuse:true,sel:S.sel&&S.sel.k==='inv'&&S.sel.uid===i.uid})).join('')}</div>
    ${S.skills.objectControl?`<p class="small"><b>Object Control:</b> ${OBJECT_CONTROL_DESC}</p>`:''}
@@ -7632,7 +7831,7 @@ function makeSide(key,name,icon,color,hp,items,sk,heroId){
 // ---- Resonance (Claude 2026-11-04): hidden two-item pairs. Nothing on the cards hints at them; when both are on your board at
 // the start of a fight the pair awakens, is announced, and is recorded as discovered for this profile.
 const RESONANCES=[
- {id:'rasen_clone',a:'rasengan',b:'shadow_clone',name:'Rasengan Barrage',desc:'Every Clone you use also throws a small Rasengan.',why:"Naruto's very first Rasengan needed a Shadow Clone to shape the chakra."},
+ {id:'rasen_clone',a:'rasenshuriken',b:'clone_squad',name:'Rasengan Barrage',desc:'Every Clone you use also throws a small Rasengan.',why:"Naruto still needs his clones to shape the Rasenshuriken."},
  {id:'sage_art',a:'sage_mode',b:'frog_kumite',name:'Sage Art',desc:'Your Weapons gain +10% crit chance.',why:"Sage Mode's nature energy gives the Frog Kumite its invisible reach."},
  {id:'instant_kame',a:'kamehameha',b:'instant_transmission',name:'Instant Kamehameha',desc:'Kamehameha fires the moment the fight starts.',why:"Goku's Cell Games trick: teleport in, then fire point-blank."},
  {id:'kaio_kame',a:'kaioken',b:'kamehameha',name:'Kaio-ken Kamehameha',desc:'A Hasted Kamehameha deals +50% damage.',why:"The Kaio-ken times four Kamehameha that pushed back Vegeta's Galick Gun."},
@@ -7655,7 +7854,7 @@ const RESONANCES=[
  // ---- #97 hidden pairs (Claude 2026-11-15) ----
  {id:'flame_eye',a:'riza',b:'mustang',name:"The Flame's Eye",desc:"Riza Hawkeye also inflicts 3 Burn.",why:"Riza guards Mustang's back and holds the secret of Flame Alchemy tattooed on hers.",fx:[{k:'onUse',item:'riza',fx:[{t:'burn',v:3}]}]},
  {id:'teachers_lesson',a:'izumi',b:'circle',name:"Teacher's Lesson",desc:"Transmutation Circle also heals 5.",why:"Izumi taught the Elric brothers that all is one and one is all on Yock Island.",fx:[{k:'onUse',item:'circle',fx:[{t:'heal',v:5}]}]},
- {id:'hero_party',a:'heiter',b:'eisen',name:"Hero Party",desc:"Eisen deals +20% damage and Heiter heals 20% more.",why:"The priest and the warrior fought beside Himmel and Frieren for ten years.",fx:[{k:'mult',item:'eisen',v:1.2},{k:'heal',item:'heiter',v:1.2}]},
+ {id:'priest_warrior',a:'heiter',b:'eisen',name:"Priest and Warrior",desc:"Eisen deals +20% damage and Heiter heals 20% more.",why:"The priest and the warrior fought beside Himmel and Frieren for ten years.",fx:[{k:'mult',item:'eisen',v:1.2},{k:'heal',item:'heiter',v:1.2}]},
  {id:'hellfire_lightning',a:'vollzanbel',b:'judradjim',name:"Hellfire and Lightning",desc:"Judradjim deals +25% damage.",why:"Two of the battle spells the First-Class mages traded during the exam.",fx:[{k:'mult',item:'judradjim',v:1.25}]},
  {id:'inheritors',a:'nana_float',b:'blackwhip',name:"Inheritors",desc:"The first Blackwhip each fight also Freezes an enemy item for 1s.",why:"Nana's Float and Daigoro's Blackwhip, two quirks Deku inherited inside One For All.",fx:[{k:'onUse',item:'blackwhip',once:true,fx:[{t:'freeze',n:1,d:1}]}]},
  {id:'class_1a',a:'todoroki',b:'iida',name:"Class 1-A",desc:"Using Tenya Iida Charges Shoto Todoroki 1s.",why:"Iida and Todoroki fought the Hero Killer side by side with Deku in Hosu.",fx:[{k:'link',item:'iida',to:'todoroki',v:1}]},
@@ -7669,21 +7868,22 @@ const RESONANCES=[
  {id:'rubber_arsenal',a:'gomu_storm',b:'gear3',name:"Rubber Arsenal",desc:"Gear Third starts each fight with 3s of Charge.",why:"Luffy's Gatling punches and giant Gear Third fists, chained together.",fx:[{k:'start',item:'gear3',v:3}]},
  {id:'water_hashira',a:'giyu',b:'constant_flux',name:"Water Hashira",desc:"Constant Flux deals +25% damage.",why:"Giyu Tomioka, the Water Hashira, recommended Tanjiro to Urokodaki.",fx:[{k:'mult',item:'constant_flux',v:1.25}]},
  {id:'heart_ablaze',a:'rengoku',b:'fire_wheel',name:"Set Your Heart Ablaze",desc:"Kyojuro Rengoku also inflicts 3 Burn.",why:"Rengoku's last words to Tanjiro on the Mugen Train.",fx:[{k:'onUse',item:'rengoku',fx:[{t:'burn',v:3}]}]},
- {id:'panda_nobara',a:'panda',b:'nobara',name:"Kyoto Goodwill Event",desc:"Nobara gains +15% crit chance.",why:"Panda and Nobara teamed up against Momo and Mai at the Goodwill Event.",fx:[{k:'crit',item:'nobara',v:.15}]},
+ {id:'panda_nobara',a:'panda',b:'nobara',name:"Kyoto Goodwill Event",desc:"Nobara gains +15% crit chance.",why:"Panda and Nobara both fought for Tokyo at the Goodwill Event.",fx:[{k:'crit',item:'nobara',v:.15}]},
  {id:'reverse_limitless',a:'max_blue',b:'rct',name:"Reverse Limitless",desc:"Reverse Cursed Technique heals 50% more.",why:"Gojo's Reverse Cursed Technique keeps his brain running Limitless at full output.",fx:[{k:'heal',item:'rct',v:1.5}]},
  {id:'rivals_side',a:'rasengan',b:'buckler',name:"Rivals Side by Side",desc:"Using Susanoo Ribcage Charges your Rasengan 1s.",why:"Naruto and Sasuke at the Valley of the End: Kurama's chakra beside Sasuke's Susanoo.",fx:[{k:'link',item:'buckler',to:'rasengan',v:1}]},
  {id:'beam_clash',a:'kamehameha',b:'spirit_gun',name:"Beam Clash",desc:"Kamehameha and Spirit Gun each Charge the other 1s.",why:"Two of anime's most famous energy blasts, fired side by side.",fx:[{k:'link',item:'kamehameha',to:'spirit_gun',v:1},{k:'link',item:'spirit_gun',to:'kamehameha',v:1}]},
  {id:'explosion',a:'final_explosion',b:'bomb',name:"EXPLOSION!",desc:"Final Explosion deals 25% more damage.",why:"Megumin would approve: one perfect, all-or-nothing blast.",fx:[{k:'mult',item:'final_explosion',v:1.25}]},
  {id:'feast',a:'meat',b:'bento',name:"Feast!",desc:"Meat on the Bone also Hastes your Weapons 1s.",why:"A full belly is Luffy's favourite power-up, and Soma's cooking is the best.",fx:[{k:'onUse',item:'meat',fx:[{t:'haste',to:'tag:Weapon',d:1}]}]},
- {id:'fire_dance',a:'hinokami',b:'great_fireball',name:"Dance of Fire",desc:"Hinokami Kagura deals 25% more damage.",why:"The Kamado family's fire dance meets the Uchiha clan's signature fire jutsu.",fx:[{k:'mult',item:'hinokami',v:1.25}]},
+ {id:'demon_slaying_blades',a:'nichirin',b:'wind_scar',name:"Demon-Slaying Blades",desc:"Tessaiga: Wind Scar deals 20% more damage.",why:"Tessaiga and a Nichirin Blade were both forged for one job: cutting down demons.",fx:[{k:'mult',item:'wind_scar',v:1.2}]},
+ {id:'born_for_sun',a:'slayer_mark',b:'sun_halo',name:"Born for the Sun",desc:"Sun Halo Dragon deals 25% more damage.",why:"The Mark shows on those who master Sun Breathing.",fx:[{k:'mult',item:'sun_halo',v:1.25}]},
  {id:'sure_hit',a:'domain',b:'six_rods',name:"Sure-Hit Binding",desc:"Six Rods Prison also Freezes an enemy item 1s.",why:"A target bound by Kido can't escape a Domain's sure-hit.",fx:[{k:'onUse',item:'six_rods',fx:[{t:'freeze',n:1,d:1}]}]},
  {id:'stone_law',a:'exchange',b:'philosopher_stone',name:"The Stone Breaks the Law",desc:"Equivalent Exchange also gives 10 Shield.",why:"A Philosopher's Stone lets an alchemist ignore Equivalent Exchange.",fx:[{k:'onUse',item:'exchange',fx:[{t:'shield',v:10}]}]},
  {id:'grimoire_collector',a:'grimoire',b:'five_leaf',name:"Grimoire Collector",desc:"Grimoire also Charges your Spells 1s more.",why:"Frieren collects grimoires, and a five-leaf one is the rarest of all.",fx:[{k:'onUse',item:'grimoire',fx:[{t:'charge',to:'tag:Spell',v:1}]}]},
  {id:'kacchan_gear',a:'bakugo',b:'grenade_gauntlet',name:"Kacchan's Gauntlets",desc:"Bakugo deals 25% more damage.",why:"The Grenade Gauntlets are Bakugo's own support gear.",fx:[{k:'mult',item:'bakugo',v:1.25}]},
  {id:'gotei13',a:'getsuga',b:'talisman',name:"Gotei 13",desc:"Using Hyorinmaru Charges your Getsuga Tensho 1s.",why:"Captain Hitsugaya and Ichigo fight side by side as Soul Reapers.",fx:[{k:'link',item:'talisman',to:'getsuga',v:1}]},
  {id:'wings_freedom',a:'blades',b:'wings_freedom',name:"Wings of Freedom",desc:"Blade Set deals 25% more damage.",why:"The Survey Corps emblem Levi wears into every expedition.",fx:[{k:'mult',item:'blades',v:1.25}]},
- {id:'training_menu',a:'normal_punch',b:'gravity_room',name:"Training Menu",desc:"Using Gravity Training Room Charges your Normal Punch 1s.",why:"100 push-ups, 100 sit-ups, 100 squats and a 10 km run, every single day.",fx:[{k:'link',item:'gravity_room',to:'normal_punch',v:1}]},
- {id:'hunter_rank',a:'jinwoo_system',b:'guild_card',name:"Hunter Rank",desc:"Adventurer's Card gives 6 more Shield.",why:"Jinwoo and every isekai adventurer live by ranks, levels and cards.",fx:[{k:'onUse',item:'guild_card',fx:[{t:'shield',v:6}]}]},
+ {id:'training_menu',a:'normal_punch',b:'gravity_room',name:"Training Menu",desc:"Using Gravity Training Room Charges your Normal Punch 1s.",why:"Vegeta trained at 300 times gravity. Saitama just does his routine.",fx:[{k:'link',item:'gravity_room',to:'normal_punch',v:1}]},
+ {id:'hunter_rank',a:'jinwoo_system',b:'guild_card',name:"Hunter Rank",desc:"Adventurer's Card gives 6 more Shield.",why:"Kazuma's card and Jinwoo's System both show your level and stats on demand.",fx:[{k:'onUse',item:'guild_card',fx:[{t:'shield',v:6}]}]},
  {id:'dark_kings',a:'ainz_staff',b:'book_zeref',name:"Two Dark Kings",desc:"Book of Zeref deals 25% more damage.",why:"Zeref and Ainz: undying dark wizards who rule over death.",fx:[{k:'mult',item:'book_zeref',v:1.25}]},
  {id:'snack_break',a:'toast',b:'tea',name:"Snack Break",desc:"Bread & Jam also heals 10.",why:"Denji and Ryuk would do anything for a snack.",fx:[{k:'onUse',item:'toast',fx:[{t:'heal',v:10}]}]},
  {id:'food_taster',a:'poison_tasting',b:'poison_cooking',name:"Food Taster",desc:"Poison Cooking also applies 2 Poison.",why:"Maomao would happily taste Bianchi's Poison Cooking.",fx:[{k:'onUse',item:'poison_cooking',fx:[{t:'poison',v:2}]}]},
@@ -7702,7 +7902,7 @@ const RESONANCES=[
  {id:'king_bluff',a:'king',b:'serious_punch',name:"King's Bluff",desc:"Serious Punch starts each fight with 6s of Charge.",why:"King's terrifying King Engine heartbeat buys Saitama time.",fx:[{k:'start',item:'serious_punch',v:6}]},
  {id:'bargain_hunters',a:'flyer',b:'bento',name:"Bargain Hunters",desc:"Yukihira Special heals 50% more.",why:"A cheap supermarket haul turned into a diner masterpiece.",fx:[{k:'heal',item:'bento',v:1.5}]},
  {id:'knights_oath',a:'shadow_igris',b:'knight_killer',name:"Knight's Oath",desc:"Knight Killer deals 25% more damage.",why:"Igris was the first knight Jinwoo defeated and raised as a Shadow.",fx:[{k:'mult',item:'knight_killer',v:1.25}]},
- {id:'player_system',a:'jinwoo_system',b:'kasaka_fang',name:"Player and System",desc:"Each System level also grows Kasaka's Venom Fang +2.",why:"The fang was his very first quest reward.",fx:[]},
+ {id:'red_gate',a:'shadow_iron',b:'shadow_tank',name:"Red Gate Survivors",desc:"Using Iron Charges Tank 1s.",why:"Jinwoo raised both in the Red Gate: Tank from its ice bears, Iron from the A-rank hunter who turned on him.",fx:[{k:'link',item:'shadow_iron',to:'shadow_tank',v:1}]},
  {id:'supreme_guild',a:'ainz_staff',b:'ainz_goal',name:"Supreme Being's Guild",desc:"The Goal of All Life Is Death counts down 3s faster.",why:"The staff was built by all 41 guild members to amplify his strongest magic.",fx:[]},
  {id:'undead_retinue',a:'ainz_knight',b:'ainz_skull',name:"Undead Retinue",desc:"Death Knight and Elemental Skull Contracts last 2s longer.",why:"Ainz's summoned undead fight as one army.",fx:[]},
  {id:'best_buddies',a:'power',b:'chainsaw',name:"Best Buddies",desc:"Power also Slows an enemy item 1s.",why:"Denji and Power, the chaos duo: wherever they go, everything falls apart.",fx:[{k:'onUse',item:'power',fx:[{t:'slow',n:1,d:1}]}]},
@@ -7722,33 +7922,37 @@ const RESONANCES=[
  {id:'tag_kunai',a:'paper_bomb',b:'kunai',loot:true,name:"Tagged Kunai",desc:"Explosive Tag deals 30% more damage.",why:"A kunai with a tag wrapped round it is the oldest ninja trick.",fx:[{k:'mult',item:'paper_bomb',v:1.3}]},
  {id:'saiyan_seeds',a:'sai_self',b:'scouter',loot:true,name:"Saibamen Seeds",desc:"Self-Destruct deals 25% more damage.",why:"Vegeta and Nappa planted the Saibamen; he knows what they are for.",fx:[{k:'mult',item:'sai_self',v:1.25}]},
  {id:'final_selection',a:'hand_grab',b:'onigiri',loot:true,name:"Final Selection",desc:"Severing Strike crits 15% more often.",why:"The Hand Demon hunted every child in Urokodaki’s masks; Tanjiro ends it.",fx:[{k:'crit',item:'severing',v:.15}]},
- {id:'curse_exorcist',a:'curse_bite',b:'yuji',loot:true,name:"Born Exorcist",desc:"Yuji Itadori deals 20% more damage.",why:"Yuji was made to exorcise curses.",fx:[{k:'mult',item:'yuji',v:1.2}]},
+ {id:'curse_exorcist',a:'curse_bite',b:'yuji',loot:true,name:"Born Exorcist",desc:"Yuji Itadori deals 20% more damage.",why:"Yuji swallowed Sukuna's finger. A curse's bite won't stop him.",fx:[{k:'mult',item:'yuji',v:1.2}]},
  {id:'usj_rush',a:'nomu_absorb',b:'all_might',loot:true,name:"300-Punch Rush",desc:"Detroit Smash deals 25% more damage.",why:"All Might beat Shock Absorption with a 300-punch rush at the USJ.",fx:[{k:'mult',item:'detroit',v:1.25}]},
  {id:'mask_cero',a:'cero',b:'hollow_mask',loot:true,name:"Masked Cero",desc:"Cero deals 30% more damage.",why:"With the mask on, the Cero is his own.",fx:[{k:'mult',item:'cero',v:1.3}]},
  {id:'cut_free',a:'titan_grab',b:'nape_cut',loot:true,name:"Cut Free",desc:"Nape Cut crits 15% more often.",why:"Grabbed by a Titan, Levi cuts free and goes for the nape.",fx:[{k:'crit',item:'nape_cut',v:.15}]},
  {id:'ant_king',a:'ant_pheromone',b:'extraction',loot:true,name:"The Ant King",desc:"Royal Pheromone Charges Shadow Extraction 2s.",why:"Beru, the Ant King, became Jinwoo’s strongest shadow.",fx:[{k:'link',item:'ant_pheromone',to:'extraction',v:2}]},
- {id:'shells_town',a:'marine_saber',b:'zoro',loot:true,name:"Shells Town",desc:"Zoro deals 20% more damage.",why:"The Marines tied Zoro up in Shells Town; he took their swords’ measure.",fx:[{k:'mult',item:'zoro',v:1.2}]},
+ {id:'shells_town',a:'marine_saber',b:'zoro',loot:true,name:"Shells Town",desc:"Zoro deals 20% more damage.",why:"The Marines tied Zoro up in Shells Town until Luffy brought him his swords.",fx:[{k:'mult',item:'zoro',v:1.2}]},
  {id:'undead_legion',a:'zombie_horde',b:'ainz_knight',loot:true,name:"Undead Legion",desc:"Zombie Horde deals 25% more damage.",why:"The Sorcerer King commands every undead he meets.",fx:[{k:'mult',item:'zombie_horde',v:1.25}]},
  {id:'pochitas_heart',a:'zombie_bite',b:'pochita',loot:true,name:"Pochita’s Heart",desc:"Chainsaw Arm crits 15% more often.",why:"The Zombie Devil killed Denji; that is when Pochita gave him his heart.",fx:[{k:'crit',item:'chainsaw',v:.15}]},
- {id:'ora_beast',a:'beast_crush',b:'ora_rush',loot:true,name:"Demon-Level ORA",desc:"ORA ORA Rush deals 20% more damage.",why:"A Demon-level monster still eats a full ORA rush.",fx:[{k:'mult',item:'ora_rush',v:1.2}]},
+ {id:'rebuilt_again',a:'beast_crush',b:'genos',loot:true,name:"Rebuilt Again",desc:"Genos deals 20% more damage.",why:"Genos gets crushed by every Demon-level monster, gets rebuilt, and comes back stronger.",fx:[{k:'mult',item:'genos',v:1.2}]},
  {id:'just_tuesday',a:'beast_roar',b:'normal_punch',loot:true,name:"Just a Tuesday",desc:"Normal Punch deals 20% more damage.",why:"A Demon-level roar is just another Tuesday for Saitama.",fx:[{k:'mult',item:'normal_punch',v:1.2}]},
  {id:'scale_tips',a:'aura_scale',b:'mana_suppress',loot:true,name:"The Scale Tips",desc:"Zoltraak deals 20% more damage.",why:"Frieren hid her mana for a thousand years so Aura’s Scale would tip her way.",fx:[{k:'mult',item:'zoltraak',v:1.2}]},
  {id:'namek_clash',a:'ginyu_pose',b:'kamehameha',loot:true,name:"Battle on Namek",desc:"Kamehameha deals 20% more damage.",why:"Goku fought the Ginyu Force on Namek.",fx:[{k:'mult',item:'kamehameha',v:1.2}]},
  {id:'thunderclap_obi',a:'daki_obi',b:'zenitsu',loot:true,name:"Entertainment District",desc:"Zenitsu crits 15% more often.",why:"Zenitsu’s Thunderclap and Flash cut through Daki’s obi.",fx:[{k:'crit',item:'zenitsu',v:.15}]},
- {id:'demon_poison',a:'daki_sickle',b:'poison_tasting',loot:true,name:"A Demon’s Poison",desc:"Poison Tasting applies 2 more Poison.",why:"Maomao would happily taste any poison, even a demon’s.",fx:[{k:'onUse',item:'poison_tasting',fx:[{t:'poison',v:2}]}]},
+ {id:'exploding_blood',a:'daki_sickle',b:'nezuko',loot:true,name:"Exploding Blood",desc:"Nezuko also heals 10.",why:"Nezuko burned Gyutaro's poison out of Tengen and Inosuke.",fx:[{k:'onUse',item:'nezuko',fx:[{t:'heal',v:10}]}]},
  {id:'soul_shape',a:'mahito_idle',b:'circle',loot:true,name:"The Shape of a Soul",desc:"Transmutation Circle gives 10 more Shield.",why:"Reshaping a soul is the alchemy Ed paid an arm and a leg for.",fx:[{k:'onUse',item:'circle',fx:[{t:'shield',v:10}]}]},
- {id:'feast_time',a:'gift_feast',b:'meat',loot:true,name:"Feast Time",desc:"Meat on the Bone heals 50% more.",why:"Luffy never turns down a feast.",fx:[{k:'heal',item:'meat',v:1.5}]},
- {id:'born_of_fire',a:'king_armor',b:'bunker_gear',loot:true,name:"Born of Fire",desc:"Bunker Gear gives 10 more Shield.",why:"Lunarians are born to fire, like Fire Soldiers.",fx:[{k:'onUse',item:'bunker_gear',fx:[{t:'shield',v:10}]}]},
+ {id:'laughter_liberation',a:'gift_feast',b:'gear5',loot:true,name:"Laughter of Liberation",desc:"Gear Fifth also heals 20.",why:"The SMILE eaters of Wano could only laugh, until Joy Boy made them laugh for real.",fx:[{k:'onUse',item:'gear5',fx:[{t:'heal',v:20}]}]},
+ {id:'king_of_hell',a:'king_armor',b:'zoro',loot:true,name:"King of Hell",desc:"Zoro crits 15% more often.",why:"Zoro cut down King, the Lunarian, on Onigashima's roof.",fx:[{k:'crit',item:'zoro',v:.15}]},
  {id:'samehada_craving',a:'kisame_sharks',b:'kurama',loot:true,name:"Samehada’s Craving",desc:"Thousand Feeding Sharks deal 25% more damage.",why:"Samehada craves the Nine-Tails’ chakra.",fx:[{k:'mult',item:'kisame_sharks',v:1.25}]},
  {id:'chimera_friends',a:'chim_howl',b:'alphonse',loot:true,name:"Darius and Heinkel",desc:"Alphonse gives 10 more Shield.",why:"Al travels with the chimeras Darius and Heinkel.",fx:[{k:'onUse',item:'alphonse',fx:[{t:'shield',v:10}]}]},
  {id:'flame_alchemist',a:'lust_nails',b:'mustang',loot:true,name:"Burned Again and Again",desc:"Roy Mustang deals 25% more damage.",why:"Mustang burned Lust again and again until she stayed down.",fx:[{k:'mult',item:'mustang',v:1.25}]},
  {id:'axe_answer',a:'linie_axe',b:'stark',loot:true,name:"Stark’s Answer",desc:"Stark deals 20% more damage.",why:"Stark beat Linie’s copied axe with his own.",fx:[{k:'mult',item:'stark',v:1.2}]},
- {id:'fellow_esper',a:'psykos_barrage',b:'electro_bolt',loot:true,name:"Fellow Esper",desc:"Electro Bolt deals 20% more damage.",why:"Psykos is an esper, like Academy City’s Level 5s.",fx:[{k:'mult',item:'electro_bolt',v:1.2}]},
+ {id:'psychic_showdown',a:'psykos_barrage',b:'tatsumaki',loot:true,name:"Psychic Showdown",desc:"Tatsumaki deals 20% more damage.",why:"Tatsumaki fought Psykos head-on at the Monster Association.",fx:[{k:'mult',item:'tatsumaki',v:1.2}]},
  {id:'katana_hunt',a:'katana_draw',b:'aki',loot:true,name:"The Katana Hunt",desc:"Aki deals 20% more damage.",why:"Aki and Denji took down the Katana Man together.",fx:[{k:'mult',item:'aki',v:1.2}]},
  {id:'hollow_end',a:'ulq_cero',b:'hollow_rampage',loot:true,name:"The Hollow’s End",desc:"Hollow Rampage deals 25% more damage.",why:"Ichigo’s Hollow form tore Ulquiorra apart.",fx:[{k:'mult',item:'hollow_rampage',v:1.25}]},
  {id:'blood_change',a:'toga_drain',b:'blood_feed',loot:true,name:"Blood to Transform",desc:"Blood Feeding Charges Senketsu 1s.",why:"Both drink blood to transform.",fx:[{k:'link',item:'blood_feed',to:'senketsu',v:1}]},
  {id:'rule_breaker',a:'uma_rule',b:'fuuko_touch',loot:true,name:"Rule Breaker",desc:"Fuuko’s Touch crits 15% more often.",why:"Unluck turns the Rules against the UMA.",fx:[{k:'crit',item:'fuuko_touch',v:.15}]},
- {id:'emperors_trick',a:'billy_guns',b:'star_finger',loot:true,name:"The Emperor’s Trick",desc:"Star Finger deals 20% more damage.",why:"Hol Horse’s Emperor was a revolver too; Jotaro has seen this trick.",fx:[{k:'mult',item:'star_finger',v:1.2}]},
+ {id:'unfair_duel',a:'billy_guns',b:'arm_launch',loot:true,name:"Unfair Duel",desc:"Arm Launcher deals 20% more damage.",why:"Andy took on Billy when the Union split.",fx:[{k:'mult',item:'arm_launch',v:1.2}]},
+ {id:'rest_in_flames',a:'king_flame',b:'bunker_gear',loot:true,name:"Rest in the Flames",desc:"Bunker Gear gives 10 more Shield.",why:"A man wreathed in flame is an Infernal to Company 8, and they know the prayer.",fx:[{k:'onUse',item:'bunker_gear',fx:[{t:'shield',v:10}]}]},
+ {id:'conductor',a:'kisame_prison',b:'electro_bolt',loot:true,name:"Perfect Conductor",desc:"Electro Bolt deals 20% more damage.",why:"A Water Prison is a perfect conductor for Misaka's lightning.",fx:[{k:'mult',item:'electro_bolt',v:1.2}]},
+ {id:'bullet_catch',a:'billy_shot',b:'star_platinum',loot:true,name:"Bullet Catch",desc:"Star Platinum also gives 8 Shield.",why:"Star Platinum is precise enough to pinch a bullet out of the air.",fx:[{k:'onUse',item:'star_platinum',fx:[{t:'shield',v:8}]}]},
+ {id:'oiran_powder',a:'daki_obi',b:'face_powder',loot:true,name:"Oiran's Powder",desc:"White Face Powder applies 1 more Poison.",why:"Daki hides as an oiran. Maomao grew up in a pleasure district and knows the lead in an oiran's face powder.",fx:[{k:'onUse',item:'face_powder',fx:[{t:'poison',v:1}]}]},
  {id:'eren_rescue',a:'ft_kick',b:'mikasa',loot:true,name:"Pulling Eren Out",desc:"Mikasa crits 15% more often.",why:"Levi and Mikasa pulled Eren out of the Female Titan together.",fx:[{k:'crit',item:'mikasa',v:.15}]},
  // #101 batch 4 hidden pairs (2 per hero)
  {id:'rescue_squad',a:'chad',b:'uryu',name:"Rescue Squad",desc:"Chad and Uryu both deal 20% more damage.",why:"They broke into Soul Society together to save Rukia.",fx:[{k:'mult',item:'chad',v:1.2},{k:'mult',item:'uryu',v:1.2}]},
@@ -7756,16 +7960,16 @@ const RESONANCES=[
  {id:'special_ops',a:'petra',b:'oluo',name:"Special Operations Squad",desc:"Oluo deals 20% more damage and Petra's Haste lasts 0.5s longer.",why:"Levi hand-picked them for his squad.",fx:[{k:'mult',item:'oluo',v:1.2},{k:'onUse',item:'petra',fx:[{t:'haste',to:'adj',d:.5}]}]},
  {id:'ackerman_blood',a:'kenny',b:'ackerman_awaken',name:"Ackerman Blood",desc:"Kenny Ackerman crits 15% more often.",why:"Kenny raised Levi and recognised the same awakening in him.",fx:[{k:'crit',item:'kenny',v:.15}]},
  {id:'terrible_blizzard',a:'tatsumaki',b:'fubuki',name:"Terrible and Blizzard",desc:"Tatsumaki deals 20% more damage and Fubuki gives 6 more Shield.",why:"The Tornado of Terror and the Hellish Blizzard are sisters.",fx:[{k:'mult',item:'tatsumaki',v:1.2},{k:'onUse',item:'fubuki',fx:[{t:'shield',v:3}]}]},
- {id:'same_routine',a:'pushups',b:'normal_punch',name:"Same Routine",desc:"Normal Punch also gives 6 Shield.",why:"A hundred push-ups, sit-ups and squats and a 10 km run, every single day.",fx:[{k:'onUse',item:'normal_punch',fx:[{t:'shield',v:3}]}]},
+ {id:'same_routine',a:'pushups',b:'cnp',name:"Same Routine",desc:"Consecutive Normal Punches also gives 6 Shield.",why:"A hundred push-ups a day is what built fists that fast.",fx:[{k:'onUse',item:'cnp',fx:[{t:'shield',v:3}]}]},
  {id:'ant_loyalty',a:'beru',b:'shadow_igris',name:"Ant King's Loyalty",desc:"Beru and Igris both deal 20% more damage.",why:"Beru and Igris compete to be the Monarch's most loyal shadow.",fx:[{k:'mult',item:'beru',v:1.2},{k:'mult',item:'shadow_igris',v:1.2}]},
- {id:'kamish_fangs',a:'kamish',b:'knight_killer',name:"Fangs of Kamish",desc:"Kamish's Wrath crits 15% more often.",why:"Both blades came from the dragon Kamish's fangs and Jinwoo's raids.",fx:[{k:'crit',item:'kamish',v:.15}]},
+ {id:'kamish_fangs',a:'kamish',b:'demon_king_daggers',name:"Fangs of Kamish",desc:"Kamish's Wrath crits 15% more often.",why:"Jinwoo's two best pairs of daggers: one forged from a dragon, one taken from a Demon King.",fx:[{k:'crit',item:'kamish',v:.15}]},
  {id:'overseer_watch',a:'albedo',b:'ainz_knight',name:"Overseer's Watch",desc:"Death Knight gives 20 more Shield.",why:"Albedo commands Nazarick's defenders in Ainz's name.",fx:[{k:'onUse',item:'ainz_knight',fx:[{t:'shield',v:10}]}]},
  {id:'supreme_wish',a:'shooting_star',b:'fallen_down',name:"Supreme Being's Wish",desc:"Fallen Down deals 25% more damage.",why:"Ainz spent a wish from the Shooting Star ring to amplify a super-tier spell.",fx:[{k:'mult',item:'fallen_down',v:1.25}]},
  {id:'devil_partners',a:'himeno',b:'aki',name:"Partners",desc:"Aki deals 20% more damage.",why:"Himeno was Aki's partner and mentor in Division 4.",fx:[{k:'mult',item:'aki',v:1.2}]},
- {id:'fiend_fans',a:'beam',b:'power',name:"Fiend Fan Club",desc:"Beam and Power both deal 20% more damage.",why:"Two Fiends who would follow Chainsaw Man anywhere.",fx:[{k:'mult',item:'beam',v:1.2},{k:'mult',item:'power',v:1.2}]},
+ {id:'fiend_fans',a:'beam',b:'power',name:"Fiend Fan Club",desc:"Beam and Power both deal 20% more damage.",why:"Beam worships Chainsaw Man. Power just wants the credit.",fx:[{k:'mult',item:'beam',v:1.2},{k:'mult',item:'power',v:1.2}]},
  {id:'father_daughter_lakan',a:'lakan',b:'luomen',name:"Two Fathers",desc:"Lakan also Slows 1 more enemy item.",why:"Lakan is Maomao's father; Luomen is the uncle who raised her.",fx:[{k:'onUse',item:'lakan',fx:[{t:'slow',n:1,d:1.5}]}]},
  {id:'jade_pavilion',a:'gyokuyou',b:'jinshi',name:"Jade Pavilion",desc:"Jinshi gives 20 more Shield.",why:"Jinshi visits the Jade Pavilion, where Maomao serves Consort Gyokuyou.",fx:[{k:'onUse',item:'jinshi',fx:[{t:'shield',v:10}]}]},
- {id:'best_friends_saten',a:'saten',b:'uiharu',name:"Best Friends",desc:"Saten and Uiharu both work 20% better.",why:"Saten and Uiharu are classmates and best friends.",fx:[{k:'heal',item:'uiharu',v:1.2},{k:'onUse',item:'uiharu',fx:[{t:'shield',v:3}]},{k:'onUse',item:'saten',fx:[{t:'charge',to:'right',v:.3}]}]},
+ {id:'best_friends_saten',a:'saten',b:'uiharu',name:"Sakugawa Classmates",desc:"Saten and Uiharu both work 20% better.",why:"Saten and Uiharu are classmates and best friends.",fx:[{k:'heal',item:'uiharu',v:1.2},{k:'onUse',item:'uiharu',fx:[{t:'shield',v:3}]},{k:'onUse',item:'saten',fx:[{t:'charge',to:'right',v:.3}]}]},
  {id:'level5_rivalry',a:'shokuhou',b:'railgun',name:"Level 5 Rivalry",desc:"Railgun deals 20% more damage.",why:"Tokiwadai's two Level 5s can't stand each other, and fight better for it.",fx:[{k:'mult',item:'railgun',v:1.2}]},
  {id:'family_dinner',a:'barazo',b:'croquettes',name:"Family Dinner",desc:"Mystery Croquettes heal 50% more.",why:"Sukuyo's croquettes and Barazo's clinic: the Mankanshoku household.",fx:[{k:'heal',item:'croquettes',v:1.5}]},
  {id:'blood_bond',a:'rampage',b:'blood_feed',name:"Blood Bond",desc:"Using Blood Feeding Charges Rampaging Senketsu 1s.",why:"Senketsu runs wild when it drinks too much of Ryuko's blood.",fx:[{k:'link',item:'blood_feed',to:'rampage',v:1}]},
@@ -7773,32 +7977,32 @@ const RESONANCES=[
  {id:'matchbox_crew',a:'obi',b:'matchbox',name:"The Matchbox Crew",desc:"Matchbox also Hastes your Friends 0.5s more.",why:"Obi drives the Matchbox, Company 8's fire engine.",fx:[{k:'onUse',item:'matchbox',fx:[{t:'haste',to:'tag:Friend',d:.5}]}]},
  {id:'great_days',a:'josuke',b:'okuyasu',name:"Great Days",desc:"Josuke and Okuyasu both deal 20% more damage.",why:"Best friends who protect Morioh together.",fx:[{k:'mult',item:'josuke',v:1.2},{k:'mult',item:'okuyasu',v:1.2}]},
  {id:'jolyne_father',a:'jolyne',b:'star_platinum',name:"Father and Daughter",desc:"Star Platinum deals 20% more damage.",why:"Jolyne is Jotaro's daughter, and he gives everything to protect her.",fx:[{k:'mult',item:'star_platinum',v:1.2}]}];
-function resOnUse(me,foe,it){if(!me.res)return;for(const r of RESONANCES){if(!me.res[r.id]||!r.fx)continue;for(const e of r.fx){if((e.tag?!it.def.tags.includes(e.tag):e.item!==it.def.id)||(e.k!=='onUse'&&e.k!=='link'))continue;
+function resOnUse(me,foe,it){if(!me.res)return;for(const r of RESONANCES){if(!me.res[r.id]||!r.fx)continue;for(const e of r.fx){if((e.tag?!it.def.tags.includes(e.tag):!pairIs(it.def,e.item))||(e.k!=='onUse'&&e.k!=='link'))continue;
   if(e.once){me.resOnce=me.resOnce||{};const key=r.id+':'+e.k;if(me.resOnce[key])continue;me.resOnce[key]=true}
   if(e.k==='onUse'){const out=e.fx.map(f=>applyFx(me,foe,it,f,1)).filter(Boolean);if(out.length)log(me,`✨ ${r.name}: ${out.join(', ')}`)}
-  else{let n=0;for(const o of me.items)if(o.def.id===e.to&&o!==it&&!o.broken){chargeCombatItem(o,e.v);n++}if(n)log(me,`✨ ${r.name}: ${ITEMS[e.to].name} charge ${e.v}s`)}}}}
+  else{let n=0;for(const o of me.items)if(pairIs(o.def,e.to)&&o!==it&&!o.broken){chargeCombatItem(o,e.v);n++}if(n)log(me,`✨ ${r.name}: ${ITEMS[e.to].name} charge ${e.v}s`)}}}}
 function activePairs(inst){ // #99: hidden pairs completed on the player's board (or live in this fight) that include this card
  try{if(!inst)return [];let ids=null;
-  if(SCREEN==='combat'&&F&&F.a&&F.a.items.some(o=>o.inst===inst))return RESONANCES.filter(r=>F.a.res&&F.a.res[r.id]&&(r.a===inst.id||r.b===inst.id));
-  if(S&&S.board&&S.board.includes(inst))ids=new Set(S.board.map(x=>x.id));if(!ids)return [];
-  return RESONANCES.filter(r=>(r.a===inst.id||r.b===inst.id)&&ids.has(r.a)&&ids.has(r.b))}catch(e){return []}}
+  if(SCREEN==='combat'&&F&&F.a&&F.a.items.some(o=>o.inst===inst)){const d=ITEMS[inst.id];return RESONANCES.filter(r=>F.a.res&&F.a.res[r.id]&&(pairIs(d,r.a)||pairIs(d,r.b)))}
+  if(S&&S.board&&S.board.includes(inst))ids=S.board.map(x=>ITEMS[x.id]).filter(Boolean);if(!ids)return [];
+  const d=ITEMS[inst.id];return RESONANCES.filter(r=>(pairIs(d,r.a)||pairIs(d,r.b))&&pairMatch(ids,r))}catch(e){return []}}
 function discoverBoardPairs(){ // #99: completing a pair on your board discovers it, no fight needed
- try{if(!S||!S.board)return;const ids=new Set(S.board.map(x=>x.id)),seen=resonanceFound();
-  for(const r of RESONANCES)if(ids.has(r.a)&&ids.has(r.b)&&!seen.includes(r.id)){seen.push(r.id);try{store.set('animeBazaarResonance',[...seen])}catch(e){}
+ try{if(!S||!S.board)return;const ids=S.board.map(x=>ITEMS[x.id]).filter(Boolean),seen=resonanceFound();
+  for(const r of RESONANCES)if(pairMatch(ids,r)&&!seen.includes(r.id)){seen.push(r.id);try{store.set('animeBazaarResonance',[...seen])}catch(e){}
    if(typeof toast==='function')setTimeout(()=>toast(`✨ Hidden pair discovered: ${r.name}! ${r.desc}`),60)}}catch(e){}}
 function resonanceFound(){try{return store.get('animeBazaarResonance',[])||[]}catch(e){return []}}
-function rewriteStart(me,foe){const live=id=>me.items.some(o=>o.def.id===id&&!o.broken);me.res={};
+function rewriteStart(me,foe){const liveDefs=me.items.filter(o=>!o.broken).map(o=>o.def);me.res={};
   if(me.items.some(o=>o.def.weights&&!o.broken)){for(const w of me.items)if(isW(w)){w.slow+=2;w.haste=Math.min(6,w.haste+3)}log(me,'🥋 Weighted Gi: Weapons start weighed down, then fly once the weights come off')}
-  for(const r of RESONANCES)if(live(r.a)&&live(r.b)){me.res[r.id]=true;log(me,`✨ <b>Resonance: ${r.name}</b> · ${r.desc}${r.why?` <i>${r.why}</i>`:''}`);
+  for(const r of RESONANCES)if(pairMatch(liveDefs,r)){me.res[r.id]=true;log(me,`✨ <b>Resonance: ${r.name}</b> · ${r.desc}${r.why?` <i>${r.why}</i>`:''}`);
    if(me.key==='a'){const seen=resonanceFound();if(!seen.includes(r.id)){try{store.set('animeBazaarResonance',[...seen,r.id])}catch(e){}if(!F.skipping&&typeof toast==='function')toast(`✨ Resonance discovered: ${r.name}! ${r.desc}${r.why?' '+r.why:''}`);if(!F.skipping&&SET.cinematics&&SET.anim==='full'&&(SET.fightSpeed||1)<2)VFX.cutin({emblem:'✨',hero:'RESONANCE DISCOVERED',move:r.name.toUpperCase()+'!',color:'#ffd23f'})}}}
   if(me.heroId==='ichigo'&&me.sk&&me.sk.fbResonance===1)for(const o of me.items)if(o.def.tags.includes('Apparel'))o.cd*=.7;
-  me.resMult={};me.resCrit={};me.resHeal={};for(const r of RESONANCES)if(me.res[r.id]&&r.fx)for(const e of r.fx){if(e.k==='heal')me.resHeal[e.item]=(me.resHeal[e.item]||1)*e.v;if(e.k==='crit')me.resCrit[e.item]=(me.resCrit[e.item]||0)+e.v;if(e.k==='mult')me.resMult[e.item]=(me.resMult[e.item]||1)*e.v;if(e.k==='start')for(const o of me.items)if(o.def.id===e.item&&!o.broken)o.prog=Math.max(o.prog,Math.min(o.cd-.05,e.v))}
+  me.resMult={};me.resCrit={};me.resHeal={};for(const r of RESONANCES)if(me.res[r.id]&&r.fx)for(const e of r.fx){if(e.k==='heal')me.resHeal[e.item]=(me.resHeal[e.item]||1)*e.v;if(e.k==='crit')me.resCrit[e.item]=(me.resCrit[e.item]||0)+e.v;if(e.k==='mult')me.resMult[e.item]=(me.resMult[e.item]||1)*e.v;if(e.k==='start')for(const o of me.items)if(pairIs(o.def,e.item)&&!o.broken)o.prog=Math.max(o.prog,Math.min(o.cd-.05,e.v))}
   if(me.res.honored_one)for(const o of me.items)if(o.def.tags.includes('Spell'))o.cd*=.85;
   if(me.res.over9000)me.scoutCrit=(me.scoutCrit||0)+.05;
-  if(me.res.instant_kame){const k=me.items.find(o=>o.def.id==='kamehameha'&&!o.broken);if(k)k.prog=Math.max(k.prog,k.cd)}}
+  if(me.res.instant_kame){const k=me.items.find(o=>pairIs(o.def,'kamehameha')&&!o.broken);if(k)k.prog=Math.max(k.prog,k.cd)}}
 function rwAtLow(side){const foe=side===F.a?F.b:F.a;for(const it of side.items){const L=it.def.atLow;if(!L||it.broken||it.atLowDone||side.hp>side.max*L.v)continue;it.atLowDone=true;const r=L.fx.map(f=>applyFx(side,foe,it,f,1)).filter(Boolean);log(side,`${it.def.icon} ${it.def.name}${it.def.id==='straw_hat'?' (a promise to Shanks)':it.def.id==='sunny'?': Coup de Burst!':''}: ${r.join(', ')}`)}}
 function rwShatter(me){if(me.armorUp&&me.shield<=0&&!me.armorShattered){me.armorUp=false;me.armorShattered=true;me.shatterCrit=.3;log(me,'🦺 The Saiyan Armor shatters: +30% crit on the next Weapon')}const c=me.shatterCrit||0;me.shatterCrit=0;return c}
-function rwDmgBonus(me,it,fx,v){let b=0;if(fx.perChargeHit&&it.castOpening)b+=fx.perChargeHit*VAL_MULT[it.inst.tier]*(it.chargeHitsCast||0);if(me.hasteDmg&&it.haste>0)b+=me.hasteDmg;if(me.res&&me.res.kaio_kame&&it.def.id==='kamehameha'&&it.haste>0)b+=Math.round(v*.5);if(me.cowlRamp&&isW(it))b+=me.cowlRamp;b+=(it.critGrowN||0)+(it.sharpen||0)+(isW(it)?(me.sysLevel||0)*(me.sysLevelV||0):0)+(it.sysGrow||0);return b}
+function rwDmgBonus(me,it,fx,v){let b=0;if(fx.perChargeHit&&it.castOpening)b+=fx.perChargeHit*VAL_MULT[it.inst.tier]*(it.chargeHitsCast||0);if(me.hasteDmg&&it.haste>0)b+=me.hasteDmg;if(me.res&&me.res.kaio_kame&&pairIs(it.def,'kamehameha')&&it.haste>0)b+=Math.round(v*.5);if(me.cowlRamp&&isW(it))b+=me.cowlRamp;b+=(it.critGrowN||0)+(it.sharpen||0)+(isW(it)?(me.sysLevel||0)*(me.sysLevelV||0):0)+(it.sysGrow||0);return b}
 // Effects keep a readable pace: 0.6x at fight speed 1, and only the fourth root of faster fight speeds.
 function fxPace(fightSpeed){return (SET.animSpeed||1)*.6*Math.pow(Math.max(1,fightSpeed||1),.25)}
 function startCombat(enemy,kind,onEnd,preparePlayer){
@@ -7809,10 +8013,11 @@ function startCombat(enemy,kind,onEnd,preparePlayer){
   F={a:A,b:B,ticks:0,acc:0,last:0,kind,onEnd,over:false,winner:null,speed:SET.fightSpeed||1,skipping:false,log:[],projs:0,arena:kind==='boss'||enemy.calamity?ARENAS[enemy.name]||null:null};
   F.bossTrait=kind==='boss'&&enemy.bossTrait||null;if(F.bossTrait)for(const it of B.items)if(it.def.id===F.bossTrait.item)it.tr=F.bossTrait;
   F.stat={kind:kind==='pvp'?'pvp':kind==='boss'?'boss':enemy.calamity?'calamity':(kind==='heroTrial'||kind==='arc')?'trial':kind==='practice'?null:enemy.hard?'elite':'monster',foe:String(enemy.name||'').split(' — ')[0].replace(/ \(.*\)$/,'').slice(0,60),day:S.day};
-  SCREEN='combat';buildCombat();log(null,`Fight start: ${A.name} vs ${B.name}`);for(const side of [A,B])if(side.edgeGuardShield)log(side,`🖤 Armament Haki: +${side.edgeGuardShield} Shield from edge Weapons`);for(const [sd,op] of [[A,B],[B,A]])if(sd.sk&&sd.sk.openFreeze>0){const big=[...op.items].sort((x,y)=>y.def.size-x.def.size||x.idx-y.idx).slice(0,2);for(const it of big)it.freeze=Math.max(it.freeze||0,sd.sk.openFreeze);log(sd,`👑 Conqueror's Haki: ${big.map(i=>i.def.name).join(' and ')} Frozen ${sd.sk.openFreeze}s`)}
+  SCREEN='combat';buildCombat();log(null,`Fight start: ${A.name} vs ${B.name}`);{const st=skillStartText(A);if(st){log(A,`⭐ Skills: ${st}`);const sh=A.sk.startShield||0,rg=A.sk.startRegen||0;[sh>0?['🛡️ +'+Math.round(sh)+' Shield','sh']:null,rg>0?['💚 +'+skNum(rg)+' Regen','heal']:null].filter(Boolean).forEach(([t,c],i)=>setTimeout(()=>{if(F&&F.a===A)pop(A,t,c)},150+i*450))}}for(const side of [A,B])if(side.edgeGuardShield)log(side,`🖤 Armament Haki: +${side.edgeGuardShield} Shield from edge Weapons`);for(const [sd,op] of [[A,B],[B,A]])if(sd.sk&&sd.sk.openFreeze>0){const big=[...op.items].sort((x,y)=>y.def.size-x.def.size||x.idx-y.idx).slice(0,2);for(const it of big)it.freeze=Math.max(it.freeze||0,sd.sk.openFreeze);log(sd,`👑 Conqueror's Haki: ${big.map(i=>i.def.name).join(' and ')} Frozen ${sd.sk.openFreeze}s`)}
   for(const [me,foe] of [[A,B],[B,A]])for(const it of me.items)if(it.def.opening&&!it.broken){useItem(me,foe,it);log(me,`${it.def.icon} ${it.def.name}: ${kw('Head Start')}`)}
   for(const [me,foe] of [[A,B],[B,A]])rewriteStart(me,foe);
   for(const [me,foe] of [[A,B],[B,A]])if(me.pas&&me.pas.start){me.pas.start(me,foe);log(me,`${me.pas.icon} <b>${me.pas.name}</b>`)}
+  for(const side of [A,B])for(const it of side.items)it.critStart=critChanceOf(side,it,null,true);
   if(kind==='pve'&&SET.autoSkipPve){ACT.skip();return}
   if(kind==='boss'&&SET.cinematics&&SET.anim==='full'&&(SET.fightSpeed||1)<2){F.paused=true;VFX.bossIntro({name:enemy.name.toUpperCase(),series:enemy.series||'',icon:enemy.icon,color:enemy.color}).then(()=>{if(F)F.paused=false})}
   requestAnimationFrame(loop);
@@ -7895,7 +8100,8 @@ function fly(fromSide,it,toKey,type,big){
   if(F.skipping||F.projs>24||reduceMotion())return;
   const a=$(`#c-${fromSide.key}-${it.idx}`),b=$('#hpbar-'+toKey);if(!a||!b||!a.animate)return;
   const ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();
-  const x0=ra.left+ra.width/2,y0=ra.top+ra.height/2,x1=rb.left+rb.width*(.3+Math.random()*.4),y1=rb.top+rb.height/2;
+  // page coordinates (the bolt is position:absolute), so it stays on the cards if the page scrolls mid-flight
+  const sx=scrollX,sy=scrollY,x0=ra.left+ra.width/2+sx,y0=ra.top+ra.height/2+sy,x1=rb.left+rb.width*(.3+Math.random()*.4)+sx,y1=rb.top+rb.height/2+sy;
   const p=document.createElement('div');p.className='proj'+(big?' big':'');p.style.setProperty('--pc',PCOL[type]||'#fff');document.body.appendChild(p);F.projs++;
   const dur=Math.max(140,420/F.speed),mx=(x0+x1)/2+(Math.random()-.5)*80,my=Math.min(y0,y1)-40;
   const an=p.animate([{transform:`translate(${x0}px,${y0}px) scale(.6)`},{transform:`translate(${mx}px,${my}px) scale(1.1)`,offset:.5},{transform:`translate(${x1}px,${y1}px) scale(.8)`}],{duration:dur,easing:'ease-in'});
@@ -7903,7 +8109,7 @@ function fly(fromSide,it,toKey,type,big){
 }
 function exMode(me,it){const t=it.inst.exchangeMode==='transmute';return (me.exFlip?!t:t)?'transmute':'protect'}
 function weaponDamageMultiplier(me,it){if(me.heroId==='shinra'&&isW(it)&&(me.heat||0)>=6)return (me.sk&&me.sk.adollaGrace===1?1.35:1.2)*weaponDamageMultiplier0(me,it);return weaponDamageMultiplier0(me,it)}
-function weaponDamageMultiplier0(me,it){const dg=isW(it)&&F&&me.items.find(o=>o.def.diagnosis&&!o.broken);return (dg&&(((me===F.a?F.b:F.a)||{}).poison||0)>=dg.def.diagnosis.poison?dg.def.diagnosis.v:1)*(me.resMult&&me.resMult[it.def.id]||1)*(me.powerLost&&isW(it)&&it.def.id!=='mugetsu'?1-me.powerLost:1)*(it.def.lowDmgMult&&me.hp<=me.max*.5?it.def.lowDmgMult:1)*(me.res&&me.res.kamaboko&&it.def.tags.includes('Friend')?1.25:1)*(me.res&&me.res.rockbell&&it.def.id==='automail'?1.25:1)*(isW(it)&&me.toonUntil>F.ticks*TICK&&it.def.id!=='gear5'?1.5:1)*(me.pas&&me.pas.dmg?me.pas.dmg(me,it):1)*(isW(it)?1+.07*Math.min(me.sk&&me.sk.monarchDomain===1?10:6,Math.max(0,me.command||0)):1)*(isW(it)&&it.def.size===3?1+(me.sk.bigWeaponMult||0):1)}
+function weaponDamageMultiplier0(me,it){const dg=isW(it)&&F&&me.items.find(o=>o.def.diagnosis&&!o.broken);return (dg&&(((me===F.a?F.b:F.a)||{}).poison||0)>=dg.def.diagnosis.poison?dg.def.diagnosis.v:1)*resLook(me.resMult,it.def)*(me.powerLost&&isW(it)&&it.def.id!=='mugetsu'?1-me.powerLost:1)*(it.def.lowDmgMult&&me.hp<=me.max*.5?it.def.lowDmgMult:1)*(me.res&&me.res.kamaboko&&it.def.tags.includes('Friend')?1.25:1)*(me.res&&me.res.rockbell&&pairIs(it.def,'automail')?1.25:1)*(isW(it)&&me.toonUntil>F.ticks*TICK&&it.def.id!=='gear5'?1.5:1)*(me.pas&&me.pas.dmg?me.pas.dmg(me,it):1)*(isW(it)?1+.07*Math.min(me.sk&&me.sk.monarchDomain===1?10:6,Math.max(0,me.command||0)):1)*(isW(it)&&it.def.size===3?1+(me.sk.bigWeaponMult||0):1)}
 function bankSeal(me,n){me.seals=Math.min(3,Math.max(0,me.seals||0)+n)}
 function advancePreparedMagic(me,foe){
   if(me.hp<=0||foe.hp<=0)return;
@@ -7923,6 +8129,29 @@ function advancePreparedMagic(me,foe){
     if(d.left<=0){me.doom=null;damage(foe,d.damage,'hit',false,true);d.source.dealt+=d.damage;if(me===F.a&&S)S.maxHit=Math.max(S.maxHit||0,d.damage);log(me,`🕰️ Cry of the Banshee resolves: ${d.damage} damage ignoring Shield`)}
   }
 }
+// Crit chance of one combat item (Claude 2026-11-20). peek=true only reads: one-shot bonuses (Saiyan Armor shatter, Pride) are
+// counted without being spent, so the portrait and tooltips can show the number. The attack itself calls it with peek=false.
+function critChanceOf(me,it,prepared,peek){const P=me.pas||{},flanked=it.flankLeft>0,now=typeof F!=='undefined'&&F?F.ticks*TICK:0;
+  return (flanked?it.flankCrit||0:0)+(it.def.crit||0)+(me.sk.crit||0)+((it.inst.ench&&ENCH[it.inst.ench].crit)||0)+(P.crit||0)+(peek?(it.prideCrit||0):vegetaCritBonus(it,prepared))+(me.res&&me.res.sage_art&&isW(it)?.1:0)+(isW(it)?(me.scoutCrit||0)+(peek?(me.shatterCrit||0):rwShatter(me)):0)+(me.res&&me.res.first_years&&it.def.id==='yuji'?.15:0)+(me.heroId==='levi'&&me.sk.surveyDiscipline===1?.1:0)+(me.heroId==='vegeta'&&me.sk.royalPride===1?.12:0)+resLook(me.resCrit,it.def,true)+(it.odmCrit||0)+(me.teaCritUntil>now?me.teaCrit||0:0)+(it.def.lowCrit&&me.hp<=me.max*.5?it.def.lowCrit:0)+(isW(it)?(me.wCrit||0):0)+(it.def.adjFriendCrit?it.def.adjFriendCrit*targets(me,it,'adj').filter(o=>!o.broken&&o.def.tags.includes('Friend')).length:0)}
+const CRIT_FX=['dmg','shield','heal','burn','poison'];
+function canCrit(it){return !!it.def.crit||it.def.fx.some(f=>CRIT_FX.includes(f.t))}
+const critPct=v=>Math.round(Math.min(1,Math.max(0,v))*100);
+// A read-only copy of the player's board as it would start a fight, used outside combat to show crit chances.
+function critPreviewSide(){if(typeof S==='undefined'||!S||!S.hero||!S.board)return null;
+  try{const me=makeSide('a',S.hero.name,'','',maxHp(),S.board,S.skills||{},S.hero.id),liveDefs=me.items.map(o=>o.def);me.res={};me.resCrit={};
+   for(const r of RESONANCES)if(pairMatch(liveDefs,r)){me.res[r.id]=true;if(r.fx)for(const e of r.fx)if(e.k==='crit')me.resCrit[e.item]=(me.resCrit[e.item]||0)+e.v}
+   if(me.res.over9000)me.scoutCrit=.05;return me}catch(e){return null}}
+function combatSideOf(inst){if(typeof SCREEN==='undefined'||SCREEN!=='combat'||!F)return null;for(const s of [F.a,F.b]){const it=s.items.find(o=>o.inst===inst);if(it)return {side:s,it}}return null}
+// Portrait / combat avatar hover: the crit chance of every item that can crit (Claude 2026-11-20).
+function critSummaryHTML(me,inFight){if(!me)return '';const P=me.pas||{},mult=P.critMult||2;
+  const rows=me.items.filter(it=>!it.broken&&canCrit(it)).sort((a,b)=>a.slot-b.slot).map(it=>{const now=critChanceOf(me,it,null,true),g=inFight&&it.critStart!=null?now-it.critStart:0;
+   return `<li><span>${it.def.icon} ${esc(it.def.name)}</span><b>${critPct(now)}%</b>${g>.004?`<em>+${critPct(g)}% this fight</em>`:''}</li>`});
+  return `<div class="crit-sum"><b>🎯 Crit chance</b><span class="small">A crit multiplies the item's numbers ×${mult}.</span>${rows.length?`<ul>${rows.join('')}</ul>`:'<span class="small">No items on your board can crit.</span>'}</div>`}
+// Item tooltip line: current crit chance, and how much the item gained during this fight.
+function critTipHTML(inst){
+  const hit=combatSideOf(inst);let me,it;if(hit){me=hit.side;it=hit.it}else if(typeof SCREEN!=='undefined'&&SCREEN==='run'&&S&&S.board&&S.board.includes(inst)){me=critPreviewSide();it=me&&me.items.find(o=>o.inst===inst)}
+  if(!me||!it||!canCrit(it))return '';const now=critChanceOf(me,it,null,true),g=hit&&it.critStart!=null?now-it.critStart:0;
+  return `<div class="ttx crit-tip">🎯 <b>Crit chance${hit?' now':''}: ${critPct(now)}%</b>${g>.004?` <span class="crit-gain">(+${critPct(g)}% gained this fight, started at ${critPct(it.critStart)}%)</span>`:''}</div>`}
 function vegetaCritBonus(it,prepared){const b=(it.prideCrit||0)+(it.def.patienceCrit&&!prepared?it.def.patienceCrit:0);it.prideCrit=0;return b}
 function dekuInstinct(s){
  if(s.heroId!=='deku'||s.sk.heroInstinct!==1||s.hp<=0||true)return; // 2026-11-05: Hero Instinct now awakens Plus Ultra instead of granting Shield
@@ -8080,8 +8309,8 @@ function applyFx(me,foe,it,fx,m){if(it&&it.def&&it.def.tierScale&&it.inst&&!(me.
       return `${d} dmg; ${tm?`${spent} Shield spent`:`Protect: ${Math.round(fx.v*VAL_MULT[it.inst.tier]*(1+(me.sk.shieldMult||0)))} Shield`}`;
     }
     case 'stripShield':{const removed=Math.min(Math.max(0,foe.shield),fx.v*VAL_MULT[it.inst.tier]);foe.shield-=removed;return `${removed} enemy Shield removed`}
-    case 'shield':{if(fx.armorMark)me.armorUp=true;if(it.syncShield){me.shield+=Math.round(it.syncShield*(1+(me.sk.shieldMult||0)))}if(me.heroId==='edward'&&me.sk.equivalentRebound===1){const eh=Math.round(fxVal(fx,it.inst,me.tagCount,me)*.4);if(eh>0)heal(me,eh)}const bonus=fx.emptyBonus&&it.castOpening&&it.startedWithoutShield?fx.emptyBonus*VAL_MULT[it.inst.tier]:0;const s=Math.round((v+bonus)*m*(1+(me.sk.shieldMult||0)));me.shield+=s;if(me.res&&me.res.elric_brothers&&(it.def.id==='automail'||it.def.id==='alphonse')){const other=me.items.find(o=>!o.broken&&o!==it&&o.def.id===(it.def.id==='automail'?'alphonse':'automail'));if(other)chargeCombatItem(other,.5)}if(me.pas&&me.pas.onShield)me.pas.onShield(me,foe,s);if(!F.skipping){pop(me,'🛡+'+s,'sh');sfx('shield');VFX.shield(avEl(me))}return `+${s} shield`}
-    case 'heal':{if(it.def.id==='meat'&&me.res&&me.res.second_helping)for(const o of me.items)if(isW(o))o.slow=0;if(fx.repairFirst){const br=me.items.find(o=>o.broken);if(br){br.broken=false;br.prog=0;return `repaired ${br.def.name}`}}const h=Math.round(v*(it.foodMult||1)*(me.resHeal&&me.resHeal[it.def.id]||1)*(it.def.id==='meat'&&me.res&&me.res.second_helping?1.5:1)*(it.def.id==='flowers'&&me.res&&me.res.hero_party?1.5:1)*m*(1+(me.sk.healMult||0))),room=Math.max(0,me.max-me.hp);heal(me,h);if(fx.overflow&&h>room){const o=Math.round((h-room)*(1+(me.sk.shieldMult||0)));me.shield+=o;if(!F.skipping)pop(me,'🛡+'+o,'sh')}const cl=(me.poison>0?1:0)+(me.burn>0?1:0);if(me.poison>0)me.poison--;if(me.burn>0)me.burn--;if(!F.skipping)VFX.heal(hpEl(me));return `+${h} heal`+(cl?` (cleansed ${cl})`:'')}
+    case 'shield':{if(fx.armorMark)me.armorUp=true;if(it.syncShield){me.shield+=Math.round(it.syncShield*(1+(me.sk.shieldMult||0)))}if(me.heroId==='edward'&&me.sk.equivalentRebound===1){const eh=Math.round(fxVal(fx,it.inst,me.tagCount,me)*.4);if(eh>0)heal(me,eh)}const bonus=fx.emptyBonus&&it.castOpening&&it.startedWithoutShield?fx.emptyBonus*VAL_MULT[it.inst.tier]:0;const s=Math.round((v+bonus)*m*(1+(me.sk.shieldMult||0)));me.shield+=s;if(me.res&&me.res.elric_brothers&&(pairIs(it.def,'automail')||it.def.id==='alphonse')){const other=me.items.find(o=>!o.broken&&o!==it&&pairIs(o.def,it.def.id==='alphonse'?'automail':'alphonse'));if(other)chargeCombatItem(other,.5)}if(me.pas&&me.pas.onShield)me.pas.onShield(me,foe,s);if(!F.skipping){pop(me,'🛡+'+s,'sh');sfx('shield');VFX.shield(avEl(me))}return `+${s} shield`}
+    case 'heal':{if(it.def.id==='meat'&&me.res&&me.res.second_helping)for(const o of me.items)if(isW(o))o.slow=0;if(fx.repairFirst){const br=me.items.find(o=>o.broken);if(br){br.broken=false;br.prog=0;return `repaired ${br.def.name}`}}const h=Math.round(v*(it.foodMult||1)*resLook(me.resHeal,it.def)*(it.def.id==='meat'&&me.res&&me.res.second_helping?1.5:1)*(it.def.id==='flowers'&&me.res&&me.res.hero_party?1.5:1)*m*(1+(me.sk.healMult||0))),room=Math.max(0,me.max-me.hp);heal(me,h);if(fx.overflow&&h>room){const o=Math.round((h-room)*(1+(me.sk.shieldMult||0)));me.shield+=o;if(!F.skipping)pop(me,'🛡+'+o,'sh')}const cl=(me.poison>0?1:0)+(me.burn>0?1:0);if(me.poison>0)me.poison--;if(me.burn>0)me.burn--;if(!F.skipping)VFX.heal(hpEl(me));return `+${h} heal`+(cl?` (cleansed ${cl})`:'')}
     case 'regen':{const r=Math.round(v*m);me.regen+=r;return `+${r} regen`}
     case 'burn':{const b=Math.round((v+(me.sk.burnBonus||0))*m);foe.burn+=b;if(!F.skipping){pop(foe,'🔥+'+b,'burn');VFX.burn(avEl(foe))}it.dealt+=b*2;return `${b} burn`}
     case 'poison':{const p=Math.round((v+(me.sk.poisonBonus||0))*m);foe.poison+=p;if(p>0&&me.sk.curseShelter&&!me.curseSheltered){me.curseSheltered=true;me.shield+=me.sk.curseShelter;log(me,`Curtain: +${me.sk.curseShelter} Shield (once per fight)`)}if(!F.skipping){pop(foe,'☠+'+p,'poison');VFX.poison(avEl(foe))}it.dealt+=p*3;return `${p} poison`}
@@ -8103,7 +8332,6 @@ function applyFx(me,foe,it,fx,m){if(it&&it.def&&it.def.tierScale&&it.inst&&!(me.
     case 'shieldIfFriends':{const n=me.items.filter(o=>!o.broken&&o.def.tags.includes('Friend')).length;if(n<fx.n)return '';const sh=Math.round(fx.v*VAL_MULT[it.inst.tier]*(1+(me.sk.shieldMult||0)));me.shield+=sh;return `Blizzard Group +${sh} Shield`}
     case 'slowOrFreeze':{const t=(me.command||0)>=fx.cmd?'freeze':'slow';return applyFx(me,foe,it,{t,n:fx.n,d:fx.d},m)}
     case 'levelUp':{if(it.uses%fx.every!==0||(me.sysLevel||0)>=fx.max)return '';me.sysLevel=(me.sysLevel||0)+1;me.sysLevelV=fx.v*VAL_MULT[it.inst.tier];
-      if(me.res&&me.res.player_system)for(const o of me.items)if(o.def.id==='kasaka_fang'&&!o.broken)o.sysGrow=(o.sysGrow||0)+2*VAL_MULT[it.inst.tier];
       return `LEVEL UP! (${me.sysLevel}) Weapons +${me.sysLevel*me.sysLevelV}`}
     case 'nextSpellDouble':{me.nextSpellDouble=true;return 'next damaging Spell hits once more'}
     case 'beryl':{me.beryl=true;return 'weak hits halved while Shielded'}
@@ -8196,7 +8424,7 @@ function useItem(me,foe,it){
   if(spent){me.seals-=spent;log(me,`📜 ${it.def.name}: spends ${spent} Seals for +${12*spent*VAL_MULT[it.inst.tier]} opening damage`)}
   it.spellSealBonus=20*spent*VAL_MULT[it.inst.tier];
   const flanked=it.flankLeft>0,ready=!!it.spearReady&&it.def.fx.some(f=>f.readyBonus);if(ready)it.spearReady=false;
-  const P=me.pas||{},critCh=(flanked?it.flankCrit||0:0)+(it.def.crit||0)+(me.sk.crit||0)+((it.inst.ench&&ENCH[it.inst.ench].crit)||0)+(P.crit||0)+vegetaCritBonus(it,prepared)+(me.res&&me.res.sage_art&&isW(it)?.1:0)+(isW(it)?(me.scoutCrit||0)+rwShatter(me):0)+(me.res&&me.res.first_years&&it.def.id==='yuji'?.15:0)+(me.heroId==='levi'&&me.sk.surveyDiscipline===1?.1:0)+(me.heroId==='vegeta'&&me.sk.royalPride===1?.12:0)+(me.resCrit&&me.resCrit[it.def.id]||0)+(it.odmCrit||0)+(me.teaCritUntil>F.ticks*TICK?me.teaCrit||0:0)+(it.def.lowCrit&&me.hp<=me.max*.5?it.def.lowCrit:0)+(isW(it)?(me.wCrit||0):0)+(it.def.adjFriendCrit?it.def.adjFriendCrit*targets(me,it,'adj').filter(o=>!o.broken&&o.def.tags.includes('Friend')).length:0);
+  const P=me.pas||{},critCh=critChanceOf(me,it,prepared,false);
   const forced=P.forceCrit?P.forceCrit(me,it):false;
   it.cadenceCount=me.heroId==='saitama'&&isW(it)?((me.wUses||0)%4||4):0;it.fourthPunch=me.heroId==='saitama'&&forced;
   if(it.fourthPunch){for(const o of me.items)if(o.def.onFourthCharge&&o!==it&&!o.broken){chargeCombatItem(o,o.def.onFourthCharge);log(me,`🤖 ${o.def.name}: "Sensei!" charge ${o.def.onFourthCharge}s`)}
@@ -8229,7 +8457,7 @@ function useItem(me,foe,it){
   if(isW(it))for(const o of targets(me,it,'adj'))if(o.def.fx.some(f=>f.readyBonus))o.spearReady=true;
   if(me.heroId==='levi'&&me.sk.surveyDiscipline===1&&isW(it)&&(flanked||ready)){me.surveyDisciplineUses=(me.surveyDisciplineUses||0)+1;const sh=Math.round(10*(1+(me.sk.shieldMult||0)));me.shield+=sh;log(me,`🕊️ Survey Corps Discipline: +${sh} Shield`)}
   if(me.heroId==='ainz'&&me.sk.darkWisdom===1&&damagingSpell&&!me.wisdomNames.has(it.def.id)&&me.wisdomNames.size<6){me.wisdomNames.add(it.def.id);bankSeal(me,1);log(me,`📖 Dark Wisdom ${me.wisdomNames.size}/6: +1 Seal after ${it.def.name}`)}
-  if(me.res&&me.res.red_nichirin&&it.def.id==='nichirin'&&foe.hp>0){const rb=applyFx(me,foe,it,{t:'burn',v:1},1);if(rb)log(me,`🔴 Red Nichirin Blade: ${rb}`)}
+  if(me.res&&me.res.red_nichirin&&pairIs(it.def,'nichirin')&&foe.hp>0){const rb=applyFx(me,foe,it,{t:'burn',v:1},1);if(rb)log(me,`🔴 Red Nichirin Blade: ${rb}`)}
   if(me.res&&me.res.monster_trio&&(it.def.id==='zoro'||it.def.id==='sanji'))for(const o of me.items)if(!o.broken&&o.def.id===(it.def.id==='zoro'?'sanji':'zoro'))chargeCombatItem(o,1);
   if(me.res&&me.res.rasen_clone&&it.def.tags.includes('Clone')&&foe.hp>0){const rd=Math.round(4*VAL_MULT[it.inst.tier]*weaponDamageMultiplier(me,it));damage(foe,rd,'hit',false);log(me,`🌀 Rasengan Barrage: ${rd} dmg`)}
   if(it.def.tags.includes('Tool')||it.def.tags.includes('Friend'))for(const bomb of me.items)if(bomb.def.id==='spirit_bomb'&&bomb.uses===0){bomb.spiritDonors??=new Set();if(bomb.spiritDonors.size<4)bomb.spiritDonors.add(it.def.id)}
@@ -8298,7 +8526,7 @@ const ARENAS={
  'Madara Uchiha':{id:'tsukuyomi',name:'Infinite Tsukuyomi',sub:'Under the red moon',p:['meteor',5]},
  'Father':{id:'circle',name:'The Nationwide Circle',sub:'Beneath Central',p:['spark',14]},
  'Garou':{id:'cosmic',name:'Cosmic Fear',sub:'Monster Association, deep below',p:['star',30]},
- 'Makima':{id:'control',name:'Control Devil\'s Domain',sub:'Everyone is on a leash',p:['chain',6]},
+ 'Makima':{id:'control',name:'Control Devil\'s Domain',sub:'Everyone is on a leash',p:['ember',10]},
  'Sosuke Aizen':{id:'nochies',name:'Las Noches',sub:'Kyoka Suigetsu: nothing is as it seems',p:['fly',8,'🦋']},
  'Tomura Shigaraki':{id:'decay',name:'Jaku City Ruins',sub:'Decay spreads through everything',p:['dust',22]},
  'Zeke Yeager':{id:'paths',name:'The Paths',sub:'Where all Eldians connect',p:['sand',22]},
@@ -8605,24 +8833,80 @@ const ARENA_SCENES=(()=>{
    for(let i=0;i<18;i++){const y=jy-R+i*R*2/18;c.fillStyle=bands[i%bands.length];c.beginPath();c.moveTo(jx-R,y);for(let x=jx-R;x<=jx+R;x+=20)c.lineTo(x,y+Math.sin(x*.02+t*.3+i)*4);c.lineTo(jx+R,y+R*2/18+4);c.lineTo(jx-R,y+R*2/18+4);c.fill()}
    c.beginPath();c.ellipse(jx-R*.32,jy+R*.22,R*.15,R*.08,0,0,TAU);c.fillStyle='#c0482e';c.fill();c.fillStyle=rg(c,jx-R*.4,jy-R*.4,R*.2,R*1.2,[[0,'rgba(0,0,0,0)'],[1,'rgba(0,0,10,.85)']]);c.fillRect(jx-R,jy-R,R*2,R*2);c.restore();glow(c,jx,jy,R*1.15,'rgba(255,220,180,.08)')},
   fx(c,W,H,t){const ph=(t%7)/7;if(ph<.2){const a=1-ph/.2,y=H*(.25+rn(Math.floor(t/7),2)*.3);for(const off of [-16,16]){c.fillStyle=lg(c,0,0,W,0,[[0,'rgba(255,255,255,0)'],[.5,`rgba(210,230,255,${a})`],[1,'rgba(255,255,255,0)']]);c.fillRect(0,y+off-4,W,8)}glow(c,W/2,y,200,`rgba(200,220,255,${.3*a})`)}}},
- // ---- Control Devil: chains simulated as real ropes (Verlet integration: points with previous positions, fixed-length links,
- // gravity, many constraint passes), drawn as interlocking links that alternate face-on and edge-on and pass over and under each other
- control:{sim:null,base(c,W,H,t){sky(c,W,H,[[0,'#140c0e'],[1,'#2a1416']]);c.fillStyle=rg(c,W/2,H*.2,10,W*.6,[[0,'rgba(255,220,180,.15)'],[1,'rgba(0,0,0,0)']]);c.fillRect(0,0,W,H);
-   for(let e=0;e<2;e++){const ex=W/2+(e?1:-1)*W*.1,ey=H*.2;for(let r=5;r>=1;r--){c.beginPath();c.arc(ex,ey,r*11,0,TAU);c.strokeStyle=`rgba(255,${180+r*10},60,${.25+.1*(5-r)})`;c.lineWidth=2;c.stroke()}c.beginPath();c.arc(ex,ey,5,0,TAU);c.fillStyle='#ffd25a';c.fill()}vignette(c,W,H,.6)},
-  fx(c,W,H,t,L){const n=L?7:5,seg=18,cx=W/2,cy=H*.24;
-   if(!this.sim||this.sim.W!==W||this.sim.H!==H){this.sim={W,H,last:t,ropes:Array.from({length:n},(_,i)=>{const ax=W*(i+.5)/n,ay=H+20,len=Math.hypot(cx-ax,cy-ay)*1.08,N=Math.max(8,Math.round(len/seg));return {ax,ay,N,rest:len/N,p:Array.from({length:N+1},(_,j)=>{const q=j/N;return {x:ax+(cx-ax)*q,y:ay+(cy-ay)*q,ox:ax+(cx-ax)*q,oy:ay+(cy-ay)*q}})}})}}
+ // ---- Control Devil's Domain (Claude 2026-11-20 visual pass): Makima's ringed eye watches from a blood-dark sky over a
+ // silent city, and leash chains fan out from her iris to both edges of the screen, leaving the middle clear for the fight.
+ // The chains are Verlet ropes (points with previous positions, fixed link lengths, gravity, many constraint passes) whose
+ // links grow toward the viewer, drawn as real interlocking links: edge-on bars threaded through face-on rings, lit warm
+ // from the eye and fading into the haze near it. Now and then one chain is yanked taut.
+ control:{sim:null,
+  eye(W,H){const R=Math.min(W*.46,H*.34,330);return {cx:W/2,cy:H*.2,R,ri:R*.42}},
+  base(c,W,H,t){const {cx,cy,R,ri}=this.eye(W,H),D=Math.hypot(W,H);
+   sky(c,W,H,[[0,'#0c0406'],[.3,'#26090c'],[.62,'#3e130f'],[.8,'#24090a'],[1,'#0a0305']]);
+   glow(c,cx,cy,R*2.6,'rgba(255,120,50,.32)');
+   c.save();c.globalCompositeOperation='lighter';
+   for(let i=0;i<10;i++){const a=Math.PI*(.06+.88*i/9)+Math.sin(t*.13+i*1.7)*.025,w=.022+.02*rn(i,3);c.beginPath();c.moveTo(cx,cy);c.arc(cx,cy,D,a-w,a+w);c.closePath();c.fillStyle=rg(c,cx,cy,R*.4,D*.85,[[0,`rgba(255,175,90,${.07+.06*rn(i,4)})`],[1,'rgba(255,110,40,0)']]);c.fill()}
+   c.restore();
+   // distant city: two rows of dark blocks with a few dim windows, sunk in red haze
+   const hy=H*.8;
+   for(const [row,seed,col,hMax] of [[0,5,'#1c0709',.17],[1,9,'#0b0305',.11]]){let x=-10,k=0;c.fillStyle=col;
+    while(x<W+10){const bw=(row?26:18)+rn(k,seed)*(row?54:40),bh=H*(.025+hMax*rn(k,seed+1)**1.6)*(1-.55*Math.exp(-(((x-cx)/(W*.22))**2))),top=hy+row*H*.03-bh;c.fillRect(x,top,bw+1,H);
+     if(row&&bh>H*.05)for(let wy=top+6;wy<hy;wy+=9)for(let wx=x+4;wx<x+bw-4;wx+=7)if(rn(wx*.37+wy*1.3,seed)>.86){c.fillStyle=`rgba(255,190,110,${.18+.25*sm(t*.4+wx,seed)})`;c.fillRect(wx,wy,2,3);c.fillStyle=col}
+     x+=bw+(row?2:6)*rn(k,seed+2);k++}}
+   haze(c,W,hy-H*.02,H*.07,'rgba(150,40,30,.35)');
+   c.fillStyle=lg(c,0,hy,0,H,[[0,'rgba(10,3,5,0)'],[.35,'rgba(16,4,6,.85)'],[1,'#120406']]);c.fillRect(0,hy,W,H-hy);
+   // the eye: almond lids, golden iris of concentric rings, a red pupil; it drifts, breathes and blinks every ~9 s
+   const ph=t%9,bl=ph<.32?Math.abs(Math.cos(ph/.32*Math.PI)):1,ry=R*.5*Math.max(.04,bl),ix=cx+Math.sin(t*.21)*R*.07,iy=cy+Math.sin(t*.17)*R*.025;
+   const lid=()=>{c.beginPath();c.moveTo(cx-R,cy);c.quadraticCurveTo(cx,cy-ry*2,cx+R,cy);c.quadraticCurveTo(cx,cy+ry*1.7,cx-R,cy);c.closePath()};
+   c.save();lid();c.fillStyle=rg(c,cx,cy,0,R,[[0,'#3a0e10'],[1,'#120405']]);c.fill();c.clip();
+   c.beginPath();c.arc(ix,iy,ri,0,TAU);c.fillStyle=rg(c,ix,iy-ri*.2,0,ri,[[0,'#fff0b0'],[.45,'#f5c24e'],[.85,'#d17a1e'],[1,'#7a2a0c']]);c.fill();
+   for(let k=1;k<=5;k++){c.beginPath();c.arc(ix,iy,ri*(.24+k*.15),0,TAU);c.strokeStyle=`rgba(${120-k*8},${36+k*4},10,${.5+k*.06})`;c.lineWidth=ri*(.035+k*.006);c.stroke()}
+   c.beginPath();c.arc(ix,iy,ri*.17,0,TAU);c.fillStyle='#b01818';c.fill();c.beginPath();c.arc(ix,iy,ri*.08,0,TAU);c.fillStyle='#2a0204';c.fill();
+   c.beginPath();c.ellipse(ix-ri*.32,iy-ri*.36,ri*.13,ri*.08,-.5,0,TAU);c.fillStyle='rgba(255,250,230,.55)';c.fill();
+   c.fillStyle=lg(c,0,cy-ry,0,cy+ry*.2,[[0,'rgba(10,2,4,.85)'],[1,'rgba(10,2,4,0)']]);c.fillRect(cx-R,cy-ry*1.2,R*2,ry*1.4);c.restore();
+   lid();c.strokeStyle='#070102';c.lineWidth=Math.max(2,R*.022);c.stroke();
+   c.beginPath();c.moveTo(cx-R*1.02,cy+R*.01);c.quadraticCurveTo(cx,cy-ry*2.08,cx+R*1.02,cy+R*.01);c.strokeStyle='#070102';c.lineWidth=Math.max(3,R*.05);c.lineCap='round';c.stroke();
+   embers(c,W,H,t,26,41,'rgba(255,170,90,.55)',22,1.6);
+   vignette(c,W,H,.62)},
+  fx(c,W,H,t,L){const {cx,cy,R,ri}=this.eye(W,H),narrow=W<640,n=narrow?(L?4:2):(L?8:6);
+   if(!this.sim||this.sim.W!==W||this.sim.H!==H||this.sim.n!==n){
+    // half the chains go to the left edge, half to the right, each from its own spot on the iris so they never bunch up
+    const half=n/2,ropes=[];
+    for(let i=0;i<n;i++){const side=i<half?-1:1,k=i%half,f=half>1?k/(half-1):.5,phi=side<0?Math.PI*(.97-.27*f):Math.PI*(.03+.27*f),
+      sx=cx+Math.cos(phi)*ri*.78,sy=cy+Math.sin(phi)*ri*.55,ex0=side<0?-40:W+40,ey0=cy+(ex0-cx)*Math.tan(phi),
+      ex=ey0>H+40?cx+(H+40-cy)/Math.tan(phi):ex0,ey=Math.min(H+40,ey0),len=Math.hypot(ex-sx,ey-sy)*(1.05+.04*rn(i,7)),
+      depth=.55+.45*rn(i,8),pitch0=(narrow?13:17)*depth;
+      // link pitch grows from the eye (far) to the edge (near): solve for N so the pitches add up to the rope length
+      let N=Math.max(10,Math.round(len/(pitch0*1.1)));const w=Array.from({length:N},(_,j)=>.45+1.3*(j/(N-1))**1.2),ws=w.reduce((a,b)=>a+b,0),rest=w.map(v=>v/ws*len);
+      ropes.push({sx,sy,ex,ey,N,rest,rest0:rest.slice(),depth,side,p:Array.from({length:N+1},(_,j)=>{const q=j/N,x=sx+(ex-sx)*q,y=sy+(ey-sy)*q;return {x,y,ox:x,oy:y}})})}
+    this.sim={W,H,n,last:t,ropes}}
    const sim=this.sim,dt=Math.min(1/20,Math.max(0,t-sim.last));sim.last=t;
-   if(dt>0)for(const [ri,r] of sim.ropes.entries()){const tug=Math.sin(t*.9+ri*1.7)*18*(1+Math.max(0,Math.sin(t*.37+ri))*2);
-    for(let j=1;j<r.N;j++){const p=r.p[j],vx=(p.x-p.ox)*.985,vy=(p.y-p.oy)*.985;p.ox=p.x;p.oy=p.y;p.x+=vx+Math.sin(t*1.3+j*.3+ri)*.08;p.y+=vy+260*dt*dt}
-    r.p[0].x=r.ax+tug*.3;r.p[0].y=r.ay;r.p[r.N].x=cx+Math.sin(t*.7+ri)*4;r.p[r.N].y=cy;
-    for(let it=0;it<16;it++)for(let j=0;j<r.N;j++){const a=r.p[j],b=r.p[j+1],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,f=(d-r.rest)/d*.5;if(j>0){a.x+=dx*f;a.y+=dy*f}if(j+1<r.N){b.x-=dx*f;b.y-=dy*f}}}
-   const link=(a,b,face,s,cap)=>{const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,ang=Math.atan2(b.y-a.y,b.x-a.x),L=Math.hypot(b.x-a.x,b.y-a.y)*.82,Rw=(face?7.5:2.8)*s,th=3.4*s;c.save();c.translate(mx,my);c.rotate(ang);
-     const path=(from,to)=>{c.beginPath();if(cap===undefined){c.moveTo(-L+Rw,-Rw);c.lineTo(L-Rw,-Rw);c.arc(L-Rw,0,Rw,-Math.PI/2,Math.PI/2);c.lineTo(-L+Rw,Rw);c.arc(-L+Rw,0,Rw,Math.PI/2,Math.PI*1.5);c.closePath()}else{const e=cap*(L-Rw);c.arc(e,0,Rw,cap>0?-Math.PI/2:Math.PI/2,cap>0?Math.PI/2:Math.PI*1.5)}};
-     path();c.lineWidth=th+2.6*s;c.strokeStyle='#0a080a';c.stroke();path();c.lineWidth=th;c.strokeStyle=lg(c,0,-Rw-th,0,Rw+th,face?[[0,'#f6f2f4'],[.3,'#b4aeb4'],[.65,'#4e4a52'],[1,'#8a8490']]:[[0,'#e2dce2'],[.5,'#706a76'],[1,'#3a363e']]);c.stroke();
-     if(cap===undefined){c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=1*s;c.beginPath();c.moveTo(-L+Rw+2,-Rw-th*.25);c.lineTo(L-Rw-2,-Rw-th*.25);c.stroke()}c.restore()};
-   for(const r of sim.ropes){const P=r.p,N=r.N,sOf=j=>1.45-(j/N)*.95;
-    for(let j=0;j<N;j+=2)link(P[j],P[j+1],true,sOf(j));for(let j=1;j<N;j+=2)link(P[j],P[j+1],false,sOf(j));
-    for(let j=0;j<N;j+=2)link(P[j],P[j+1],true,sOf(j),(j/2)%2?1:-1)}}},
+   if(dt>0)for(const [ri2,r] of sim.ropes.entries()){
+    const yank=Math.max(0,Math.sin(t*.45+ri2*2.4))**12;for(let j=0;j<r.N;j++)r.rest[j]=r.rest0[j]*(1-.05*yank);
+    for(let j=1;j<r.N;j++){const p=r.p[j],vx=(p.x-p.ox)*.98,vy=(p.y-p.oy)*.98;p.ox=p.x;p.oy=p.y;p.x+=vx+Math.sin(t*1.1+j*.25+ri2)*.05;p.y+=vy+300*dt*dt}
+    r.p[0].x=r.sx+Math.sin(t*.21)*R*.07;r.p[0].y=r.sy;r.p[r.N].x=r.ex+Math.sin(t*.5+ri2)*10;r.p[r.N].y=r.ey+Math.cos(t*.4+ri2*1.3)*8;
+    for(let it=0;it<18;it++)for(let j=0;j<r.N;j++){const a=r.p[j],b=r.p[j+1],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,f=(d-r.rest[j])/d*.5;if(j>0){a.x+=dx*f;a.y+=dy*f}if(j+1<r.N){b.x-=dx*f;b.y-=dy*f}}}
+   const mix=(a,b,k)=>a.map((v,i)=>Math.round(v+(b[i]-v)*k)),rgb=a=>`rgb(${a[0]},${a[1]},${a[2]})`;
+   // one link along segment a->b: face-on = a ring (stadium stroked with the wire), edge-on = a bar with a dark seam
+   const link=(a,b,face,q,dep)=>{const pitch=Math.hypot(b.x-a.x,b.y-a.y),d=Math.max(1.6,pitch*.22),hl=pitch/2+d*.6,hw=face?pitch*.42:d*.2,
+     ang=Math.atan2(b.y-a.y,b.x-a.x),mx=(a.x+b.x)/2,my=(a.y+b.y)/2,lit=Math.min(1,.35+q*.65)*dep,
+     metal=rgb(mix([58,30,30],face?[150,142,150]:[112,104,112],lit)),dark=rgb(mix([40,14,14],[10,8,10],lit));
+     const path=()=>{c.beginPath();c.moveTo(-hl+hw,-hw);c.lineTo(hl-hw,-hw);c.arc(hl-hw,0,hw,-Math.PI/2,Math.PI/2);c.lineTo(-hl+hw,hw);c.arc(-hl+hw,0,hw,Math.PI/2,Math.PI*1.5);c.closePath()};
+     c.save();c.translate(mx,my);c.rotate(ang);c.lineJoin='round';
+     path();c.lineWidth=d+Math.max(1.2,d*.35);c.strokeStyle=dark;c.stroke();
+     path();c.lineWidth=d;c.strokeStyle=metal;c.stroke();
+     // warm rim light on the side facing the eye, cool sheen on the other
+     const toEye=Math.atan2(cy-my,cx-mx)-ang,oy=Math.sin(toEye)>0?1:-1;
+     c.save();c.translate(0,oy*d*.22);path();c.lineWidth=d*.3;c.strokeStyle=`rgba(255,${150+60*q|0},90,${.25+.3*q})`;c.stroke();c.restore();
+     c.save();c.translate(0,-oy*d*.25);path();c.lineWidth=d*.16;c.strokeStyle=`rgba(225,225,240,${.15+.25*q})`;c.stroke();c.restore();
+     if(!face){c.beginPath();c.moveTo(-hl+hw+d*.4,0);c.lineTo(hl-hw-d*.4,0);c.lineWidth=Math.max(.8,d*.18);c.strokeStyle=dark;c.stroke()}
+     c.restore()};
+   const order=sim.ropes.map((r,i)=>i).sort((a,b)=>sim.ropes[a].depth-sim.ropes[b].depth);
+   for(const i of order){const r=sim.ropes[i],P=r.p,N=r.N;c.save();
+    for(let j=1;j<N;j+=2)link(P[j],P[j+1],false,j/N,r.depth);
+    for(let j=0;j<N;j+=2)link(P[j],P[j+1],true,j/N,r.depth);
+    c.restore()}
+   // where the chains leave the iris, a hot glint so they read as coming out of her eye
+   c.save();c.globalCompositeOperation='lighter';for(const r of sim.ropes)glow(c,r.p[0].x,r.p[0].y,ri*.35,'rgba(255,200,110,.5)');c.restore()}},
  // ---- Las Noches: the colossal white dome of Hueco Mundo with its towers growing out of it; pale quartz trees in the sand
  nochies:{base(c,W,H,t){sky(c,W,H,[[0,'#010104'],[.6,'#0e0e18']]);for(let i=0;i<80;i++){c.fillStyle='rgba(220,230,255,.5)';c.fillRect(rn(i,1)*W,rn(i,2)*H*.5,1.2,1.2)}
    const mx=W*.16,my=H*.15;glow(c,mx,my,140,'rgba(220,230,255,.35)');c.beginPath();c.arc(mx,my,34,0,TAU);c.fillStyle='#f6f6ff';c.fill();c.beginPath();c.arc(mx+13,my-6,30,0,TAU);c.fillStyle='#010104';c.fill();
@@ -8878,15 +9162,16 @@ function sideHTML(s){
    ${s.heroId==='tanjiro'&&s.sk.transparentWorld===1?`<div class="small" style="padding:0 10px 8px" title="${esc(TRANSPARENT_WORLD_SKILL.desc)}">👁️ Transparent World · first enemy Weapon: 60 Shield + 2s charge to leftmost Weapon</div>`:''}
    ${s.heroId==='naruto'&&s.sk.kuramaLink===1?`<div class="small" style="padding:0 10px 8px" title="${esc(KURAMA_LINK_SKILL.desc)}">🦊 Nine-Tails Chakra Mode · every Friend activation: 8 Shield + leftmost Weapon charged 1s</div>`:''}
    ${s.heroId==='andy'&&s.sk.bloodPropulsion===1?`<div class="small" style="padding:0 10px 8px" title="${esc(BLOOD_PROPULSION_SKILL.desc)}">🩸 Blood Propulsion · every self-damaging item activation: 1 Regen + adjacent Weapons charged 1s</div>`:''}
-   ${s.key==='b'&&F.bossTrait?`<div class="small" style="padding:0 10px 8px;color:#ffcf6b">👑 <b>${esc(F.bossTrait.name)}</b> · ${bossTraitText(F.bossTrait,s.items.find(i=>i.def.id===F.bossTrait.item)?.inst.tier||0)}</div>`:''}${placementSkillsHTML(s.sk)}<div class="board ${s.key==='b'&&F.arena?'ar-board ar-'+F.arena.id+'-b':cosClass(s.cos)}">${s.items.map((it,i)=>cardHTML(it.inst,{id:`c-${s.key}-${i}`,skin:s.skin,slot:it.slot})).join('')}</div></div>`;
+   ${s.key==='b'&&F.bossTrait?`<div class="small" style="padding:0 10px 8px;color:#ffcf6b">👑 <b>${esc(F.bossTrait.name)}</b> · ${bossTraitText(F.bossTrait,s.items.find(i=>i.def.id===F.bossTrait.item)?.inst.tier||0)}</div>`:''}${s.key==='a'||F.kind==='pvp'?skillStripHTML(s.sk):''}${placementSkillsHTML(s.sk)}<div class="board ${s.key==='b'&&F.arena?'ar-board ar-'+F.arena.id+'-b':cosClass(s.cos)}">${s.items.map((it,i)=>cardHTML(it.inst,{id:`c-${s.key}-${i}`,skin:s.skin,slot:it.slot,sk:s.sk})).join('')}</div></div>`;
 }
-function fighterHTML(s){return `<div class="cfighter ${s.key==='b'?'foe':'me'}"><div class="pops" id="pops-${s.key}"></div><div id="av-${s.key}">${avatarHTML({name:s.name,heroId:s.heroId,color:s.color,emblem:s.icon,aura:s.aura})}</div><div class="fname">${esc(s.name)}</div></div>`}
+function fighterHTML(s){return `<div class="cfighter ${s.key==='b'?'foe':'me'}"><div class="pops" id="pops-${s.key}"></div><div class="fighter-crit" tabindex="0" aria-label="${esc(s.name)}: crit chance" aria-describedby="critpop-${s.key}"><div id="av-${s.key}">${avatarHTML({name:s.name,heroId:s.heroId,color:s.color,emblem:s.icon,aura:s.aura})}</div><div class="crit-pop" id="critpop-${s.key}" role="tooltip"></div></div><div class="fname">${esc(s.name)}</div></div>`}
 function buildCombat(){
   applyStyle();syncShine();
   $('#app').innerHTML=`${arenaHTML(F.arena)}<div class="wrap fightwrap ${SET.combatLog?'':'hide-log'} ${F.arena?'in-arena':''}">${sideHTML(F.b)}
    <div class="cstage">${fighterHTML(F.a)}<div class="cmid"><div class="clock" id="clock">0.0s</div><div class="cbtns">${[1,2,4].map(v=>`<button data-act="speed" data-arg="${v}" id="sp${v}">${v}×</button>`).join('')}<button data-act="skip">Skip ⏭</button>${soundBtns()}</div></div>${fighterHTML(F.b)}</div>
    ${F.kind==='arc'?'<p id="arc-objective" class="small" style="text-align:center"></p>':''}${F.kind==='heroTrial'?'<p id="hero-trial-objective" class="small" style="text-align:center"></p>':''}${sideHTML(F.a)}<div id="result"></div><details class="logwrap wood" id="logdd" ${SET.logOpen?'open':''}><summary class="lbl"><span>📜 COMBAT LOG</span><span class="small">newest first · tap to ${SET.logOpen?'hide':'show'}</span></summary><div class="log" id="clog"></div></details></div>`;
   updateCombat();coach();
+  for(const sd of [F.a,F.b]){const cp=$('#critpop-'+sd.key);if(cp){cp.innerHTML=critSummaryHTML(sd,true);cp.parentElement.addEventListener('pointerenter',()=>{cp.innerHTML=critSummaryHTML(sd,true)})}}
   {const cv=document.querySelector('.ar-cv');if(cv)ARENA_SCENES.start(cv)}
   const dd=$('#logdd');if(dd)dd.addEventListener('toggle',()=>{SET.logOpen=dd.open;applySettings();const sm=dd.querySelector('summary .small');if(sm)sm.textContent='newest first · tap to '+(dd.open?'hide':'show')});
 }
@@ -8897,8 +9182,8 @@ function updateCombat(){
   for(const s of [F.a,F.b]){
     $('#hpf-'+s.key).style.width=Math.max(0,s.hp/s.max*100)+'%';
     $('#hps-'+s.key).style.width=Math.min(100,s.shield/s.max*100)+'%';
-    $('#hpt-'+s.key).textContent=`${Math.max(0,Math.round(s.hp))} / ${s.max}`;
-    $('#st-'+s.key).innerHTML=[s.shield>0?`<span style="color:var(--shield)">🛡 ${Math.round(s.shield)}</span>`:'',s.burn>0?`<span style="color:var(--burn)">🔥 ${s.burn}</span>`:'',
+    {const hp=Math.max(0,Math.round(s.hp)),sh=Math.max(0,Math.round(s.shield)),k=hp+'|'+sh+'|'+s.max,el=$('#hpt-'+s.key);if(el.dataset.k!==k){el.dataset.k=k;el.innerHTML=`<span>${hp} / ${s.max}</span>${sh>0?`<span class="hsh" title="Shield: absorbs damage before health">🛡 ${sh}</span>`:''}`}}
+    $('#st-'+s.key).innerHTML=[s.burn>0?`<span style="color:var(--burn)">🔥 ${s.burn}</span>`:'',
       s.poison>0?`<span style="color:var(--poison)">☠ ${s.poison}</span>`:'',s.regen>0?`<span style="color:var(--good)">💚 ${s.regen}</span>`:'',
       s.heroId==='shinra'||s.heat>0?`<span style="color:#ffb35a" title="Heat fuels flame finishers and Adolla Link. Resets each fight.">🔥 Heat ${s.heat}/6</span>`:'',
       s.heroId==='andy'||s.unluck>0?`<span style="color:#ffe04a" title="Adds percentage points to the next Disaster opening hit’s critical chance. Opening critical spends it. Maximum +50; resets each fight.">🌩️ Unluck +${s.unluck}%</span>`:'',
@@ -8932,6 +9217,7 @@ function updateCombat(){
       el.classList.toggle('frozen',it.freeze>0);el.classList.toggle('broken',!!it.broken);el.classList.toggle('hasted',it.haste>0);el.classList.toggle('slowed',it.slow>0);
     });
   }
+  if(F.ticks%5===0)for(const sd of [F.a,F.b]){const cp=$('#critpop-'+sd.key);if(cp&&cp.parentElement.matches(':hover,:focus-within'))cp.innerHTML=critSummaryHTML(sd,true)}
   const t=F.ticks*TICK;document.body.classList.toggle('sandstorm',t>30&&!F.over);const c=$('#clock');c.textContent=t.toFixed(1)+'s'+(t>30?' 🌪':'');c.classList.toggle('storm',t>30);
   [1,2,4].forEach(v=>{const b=$('#sp'+v);if(b)b.classList.toggle('primary',F.speed===v)});
 }
@@ -8951,7 +9237,7 @@ function reportHTML(side,n){
   return top.map(x=>`<div>${x.def.icon} <b>${x.def.name}</b>: ${x.uses} uses${x.dealt?`, ~${x.dealt} damage`:''}</div>`).join('')||'<div class="small">No items fired.</div>';
 }
 function showResult(){
-  document.body.classList.remove('sandstorm');
+  document.body.classList.remove('sandstorm');VFX.settle();
   const w=F.winner,label=w==='a'?'Victory!':w==='draw'?'Draw':'Defeat';
   log(null,`${label} at ${(F.ticks*TICK).toFixed(1)}s`);
   const box=$('#clog');if(box){box.innerHTML='';[...F.log].reverse().slice(0,120).forEach(e=>box.appendChild(logRow(e)))}
@@ -9052,7 +9338,7 @@ const ACT={
     if(c.type==='merchant'&&c.kind==='forge'){S.event={ev:FORGE_EV,opts:forgeOpts(false)};S.phase='event';return}
     if(c.type==='merchant'){
       const pool=c.kind==='hero'?heroPool(S.hero.id):c.kind==='special'&&specialtyPool(c.theme).length>=4?specialtyPool(c.theme):c.kind==='guest'?guestPool(S.hero.id,c.tag):neutralPoolFor(S.hero.id);
-      const seen={};S.merchant={kind:c.kind,tag:c.tag||null,theme:c.theme||null,pool,rerolls:0,seen,items:shopItems(pool,seen)};S.phase='merchant';beginMerchantVisit();
+      const seen=c.kind==='neutral'?(S.neutralSeen=S.neutralSeen||{}):{};S.merchant={kind:c.kind,tag:c.tag||null,theme:c.theme||null,pool,rerolls:0,seen,items:shopItems(pool,seen)};S.phase='merchant';beginMerchantVisit();
     }else if(c.type==='event'){
       S.event={ev:c.ev,opts:EVENTS[c.ev].opts()};S.phase='event';(S.seenEv=S.seenEv||[]).push(EVENTS[c.ev].title);
     }else{
@@ -9099,7 +9385,7 @@ const ACT={
   selShop:i=>{if(!usePanel())return 'norender';S.sel={k:'shop',i:+i};sfx('click')},
   selReward:i=>{if(!usePanel())return 'norender';S.sel={k:'reward',i:+i};sfx('click')},
   buy:()=>{const it=S.merchant.items[S.sel.i],p=price(it.id,it.tier);if(it.sold||S.gold<p)return;if(acquire(it.id,it.tier)){S.gold-=p;it.sold=true;S.sel=null;merchantPurchase(it.id);sfx('buy')}},
-  reroll:()=>{const c=rerollCost();if(S.gold<c)return;S.gold-=c;S.merchant.rerolls++;S.merchant.items=shopItems(S.merchant.pool,shopSeen(S.merchant));S.sel=null;sfx('click')},
+  reroll:()=>{const c=rerollCost();if(S.gold<c)return;S.gold-=c;S.merchant.rerolls++;S.merchant.items=shopItems(S.merchant.pool,shopSeen(S.merchant));if(S.merchant.kind==='neutral')S.neutralSeen=S.merchant.seen;S.sel=null;sfx('click')},
   take:()=>{const it=S.reward.items[S.sel.i];if(acquire(it.id,it.tier,it.ench)){sfx('buy');finishHour()}},
   sell:()=>{const it=findInv(S.sel.uid);if(!it)return;S.gold+=sellPrice(it);S.board=S.board.filter(x=>x!==it);S.stash=S.stash.filter(x=>x!==it);S.sel=null;sfx('sell');toast(`Sold for ${sellPrice(it)}g`)},
   fuse:i=>{const inst=findInv(S.sel.uid);if(inst)fuse(inst,RECIPES[+i])},
@@ -9125,7 +9411,7 @@ const ACT={
   },
   speed:v=>{stopCustomSounds();F.speed=+v;updateCombat();return 'norender'},
   skip:()=>{stopCustomSounds();F.skipping=true;while(!F.over)step();F.skipping=false;updateCombat();showResult();return 'norender'},
-  combatDone:()=>{stopCustomSounds();const cb=F.onEnd,w=F.winner;statFight(F,w);SCREEN='run';S.sel=null;cb(w);window.scrollTo(0,0)},
+  combatDone:()=>{stopCustomSounds();VFX.clear();const cb=F.onEnd,w=F.winner;statFight(F,w);SCREEN='run';S.sel=null;cb(w);window.scrollTo(0,0)},
 };
 function settingsHTML(){
   const seg=(key,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button data-act="setOpt" data-arg="${key}|${v}" class="${String(SET[key])===String(v)?'on':''}">${l}</button>`).join('')}</div>`;
