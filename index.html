@@ -5187,6 +5187,71 @@ function trophyScoutHTML(m){
 const NEUTRAL=Object.values(ITEMS).filter(d=>!d.hero&&!d.special&&!d.circle).map(d=>d.id);
 const heroOwnsItem=(h,d)=>d.hero===h||(h==='andy'&&d.hero==='fuuko');
 const heroPool=h=>Object.values(ITEMS).filter(d=>heroOwnsItem(h,d)&&!d.special).map(d=>d.id);
+// #103 Card identity pass (Claude 2026-11-25, Max: "i want every card to be unique"): no two cards share the same effect.
+// Each entry changes one card of a same-effect group so it does something its twin does not. Values are Bronze.
+const IDENTITY103={
+ // neutrals
+ gravity_room:d=>{d.opening=true;d.cd=9},                                                     // was Kasugai Crow: you walk in already trained
+ thermoptic:d=>{d.fx=[{t:'dodge',n:1}];d.opening=true;d.cd=8;d.tierCd=true},                                // was Bond: invisible from the first second
+ guild_mark:d=>{d.fx.push({t:'shield',v:2,per:{tag:'Friend',v:2}})},                           // was Waku Waku: guildmates cover each other
+ walking_mushroom:d=>{d.fx=[{t:'heal',v:10,per:{tag:'Food',v:3}}]},                            // was Favorite Shojo Manga: a hot pot for the whole party
+ typhoon_coat:d=>{d.fx=[{t:'shield',v:18},{t:'nocrit',n:1},{t:'slow',n:1,d:1}]},               // was Law of the Round Table: Vash shoots the gun out of their hand
+ six_rods:d=>{d.fx=[{t:'freeze',n:1,d:2},{t:'slow',n:1,d:1.5},{t:'nocrit',n:1}]},             // was Unjustice Bind: a bound target can't strike back cleanly
+ adamantine:d=>{d.fx=[{t:'shield',v:20},{t:'slowWard',d:2}]},                                  // was Susanoo Ribcage
+ bomb:d=>{d.fx=[{t:'dmg',v:55,pierce:true},{t:'burn',v:8}];d.overload=true},                               // was Great Fireball/Dragon's Roar: one perfect blast, then Megumin collapses
+ dragon_roar:d=>{d.fx=[{t:'dmg',v:30},{t:'burn',v:5,when:{c:'foeBurn',v:4}}]},                 // was Explosion!: the roar fans existing flames
+ dart:d=>{d.fx=[{t:'dmg',v:2},{t:'poison',v:2,when:{c:'foeLow',v:3}}]},                       // was Ashisogi Jizo: the Note finishes the weakened
+ bokuto:d=>{d.fx=[{t:'dmg',v:5,when:{c:'hasted',v:3}}]},                                       // was Galick Gun/Full-Power Railgun: Gintoki only gets serious in a hurry
+ century_soup:d=>{d.fx=[{t:'heal',v:12},{t:'empower',tag:'Food',stat:'heal',v:2}]},            // was Consort Gyokuyou: the soup makes every dish taste better
+ avalon:d=>{d.fx.push({t:'regen',v:1})},                                                       // was a plain heal + shield: the scabbard keeps healing
+ umbilical:d=>{d.fx=[{t:'charge',to:'right',v:1},{t:'haste',to:'right',d:1}]},                  // was Arcade Coin: power and speed down the cable
+ stun_watch:d=>{d.fx=[{t:'freeze',n:1,d:1.5},{t:'nocrit',n:1}]},                               // was Hyorinmaru + Head Start: a sleeping target can not land a crit
+ jericho:d=>{d.fx=[{t:'dmg',v:5,when:{c:'foeLow',v:3}}];delete d.crit},                      // was Kenny Ackerman + crit: Spike's finishing shot
+ hungry_bug_gyoza:d=>{d.fx=[{t:'heal',v:7}];d.multicast=2},                                  // was Bread & Jam/Peanuts: a whole plate, two bites
+ abyss_curse:d=>{d.fx=[{t:'poison',v:2},{t:'selfdmg',v:1}];d.escalate={t:'poison',v:1}},        // was Poison Tasting: the deeper you go, the worse it gets
+ // hero cards that were exact twins of another hero's card
+ noodles:d=>{d.income=1},                                                                      // was Meat on the Bone: bargain-sale hero
+ flame_snap:d=>{d.opening=true},                                                               // was Magician's Red/Tusk/Sun Halo Dragon
+ avdol:d=>{d.fx.push({t:'slow',n:1,d:1})},                                                     // Red Bind
+ shadow_tusk:d=>{d.fx.push({t:'freeze',n:1,d:1})},                                             // Tusk's gravity magic
+ decapitation:d=>{d.fx=[{t:'dmg',v:20,pierce:true}]},                                          // was Yuji Itadori
+ table_flip:d=>{d.fx.push({t:'stripShield',v:20})},                                            // was Unlimited Void
+ kanao:d=>{d.fx=[{t:'dmg',v:7,when:{c:'foeLow',v:3}}]},                                        // multicast+crit group
+ kamish:d=>{d.fx=[{t:'dmg',v:10,pierce:true}]},
+ spin_slash:d=>{d.critGrow={v:1,max:2}},
+ strongest:d=>{d.fx.push({t:'dodge',n:1})},
+ polnareff:d=>{d.fx=[{t:'dmg',v:7,when:{c:'hasted',v:3}}]},
+ demon_king_daggers:d=>{d.fx.push({t:'slow',n:1,d:1})},
+ ling:d=>{d.crit=.15},                                                                         // was Giyu Tomioka: Dead Calm
+ chad:d=>{d.fx.push({t:'stripShield',v:6})},                                                        // was Alchemic Cannon
+ rohan:d=>{d.fx.push({t:'stripShield',v:8})},                                                  // was Sorganeil: he reads their secrets
+ shippu:d=>{d.fx.push({t:'selfdmg',v:2})},                                                     // was Float: Senketsu drinks blood to fly
+ rampage:d=>{d.lowDmgMult=1.3},                                                                // was Oluo Bozado
+ metal_bat:d=>{d.fx=[{t:'dmg',v:16,when:{c:'hurt',v:5}}]},                                     // was Arthur's Excalibur: Fighting Spirit
+ sebas:d=>{d.fx.push({t:'shield',v:5})},                                                       // was Tensa Zangetsu/Twin Scissor Blades
+ tensa:d=>{d.fx.push({t:'haste',to:'self',d:1})},
+ twin_scissors:d=>{d.fx=[{t:'dmg',v:15,syncBonus:8}]},
+ kishibe:d=>{d.fx.push({t:'dodge',n:1})},                                                      // pierce group
+ billion_volts:d=>{d.fx.push({t:'freeze',n:1,d:1})},
+ judgment:d=>{d.fx.push({t:'nocrit',n:1})},
+ knight_killer:d=>{d.fx=[{t:'dmg',v:24,pierce:true,when:{c:'foeLow',v:6}}]},
+ chainsaw_man:d=>{d.fx.push({t:'heal',v:3})},                                                           // was Head Chainsaw
+ barazo:d=>{d.fx.push({t:'cleanse'})},                                                         // was Undead Regeneration: a back-alley doctor
+ matchbox:d=>{d.fx=[{t:'haste',to:'tag:Friend',d:1.5},{t:'shield',v:6}]},                      // was Peanuts
+ lightning_spear:d=>{d.fx[0].pierce=true},                                                     // was Sho Kusakabe
+ gaoshun:d=>{d.fx.push({t:'nocrit',n:1})},                                                     // was Alphonse
+ fiber_rend:d=>{d.crit=.15},                                                                   // was Barrier-Breaking Zoltraak
+ delaware:d=>{d.fx.push({t:'slow',n:1,d:1})},                                                  // was Final Explosion/Crimson Crescent Moon
+ death_blow:d=>{d.fx.push({t:'regen',v:1})},
+ ofa100:d=>{d.crit=.2},                                                                        // was Detroit Smash
+ arm_launch:d=>{d.fx.push({t:'regen',v:1})},                                                   // was Shattered-Arm Smash: the arm grows back
+ side_hops:d=>{d.fx.push({t:'dodge',n:1})},                                                    // was Bankai
+ shadow_iron:d=>{d.fx.push({t:'command',v:1})},                                                // was Survey Corps Cloak
+ loid:d=>{d.fx.push({t:'nocrit',n:1})},                                                                          // was Justice Strike
+ fuuko_andy:d=>{d.fx=[d.fx[0],{t:'regen',v:1}]},                                               // was Power
+ gekota:d=>{d.fx.push({t:'regen',v:1})},                                                         // was Fire Soldier Bunker Gear
+};
+for(const [id,f] of Object.entries(IDENTITY103))if(ITEMS[id])f(ITEMS[id]);
 const ALL_SHOP=Object.values(ITEMS).filter(d=>!d.special&&(d.hero==='fuuko'||!LEGACY_HEROES.some(h=>h.id===d.hero))).map(d=>d.id);
 
 // fusion recipes: [hero, a, b, result, tierBonus]
@@ -5361,7 +5426,7 @@ function baseFxText(fx,inst){
     case 'heat':return `Gain <b>${fx.v}</b> ${kw('Heat')}`;
     case 'command':return `Gain <b>${fx.v}</b> ${kw('Command')}`;
     case 'heatBurst':return `Spend all ${kw('Heat')}: <b>${fx.v*T}</b> damage and <b>${fx.b*T}</b> Burn per Heat`;
-    case 'heal':return (fx.repairFirst?'Repair a Broken item, or ':'')+`${kw('Heal')} <b>${v}</b>`;
+    case 'heal':return (fx.repairFirst?'Repair a Broken item, or ':'')+`${kw('Heal')} <b>${v}</b>`+(fx.per?` (+${fx.per.v*T} per ${fx.per.tag} item on your board)`:'');
     case 'cleanse':return `${fx.onlyLow?'At 30% HP or below: ':''}remove all your Burn and Poison`;
     case 'nocrit':return (fx.firstOnly?'First use: ':'')+`The enemy's next critical hit misses`;
     case 'curePoison':return `Cure all your Poison`;
@@ -5372,14 +5437,14 @@ function baseFxText(fx,inst){
     case 'empower':return `Your ${fx.tag} items gain <b>+${fx.v*T+(fx.growBonus?inst.bonus||0:0)}</b> ${{dmg:'damage',shield:'Shield',burn:'Burn',poison:'Poison',heal:'healing'}[fx.stat]||fx.stat} for the fight`;
     case 'break':return `${kw('Break')} an enemy ${SIZE_NAME[ITEMS[inst.id]?ITEMS[inst.id].size:2]} item`+(fx.first?' (first use)':'');
     case 'copy':return `${kw('Break')} an enemy ${SIZE_NAME[ITEMS[inst.id]?ITEMS[inst.id].size:2]} item and become a copy of it`;
-    case 'burn':return (fx.onlyLow?'At 30% HP or below: ':'')+`Apply <b>${v}</b> burn`;
-    case 'poison':return `Apply <b>${v}</b> poison`;
-    case 'regen':return `Gain <b>${v}</b> ${kw('Regeneration')}`;
+    case 'burn':return (fx.onlyLow?'At 30% HP or below: ':'')+`Apply <b>${v}</b> burn`+(fx.per?` (+${fx.per.v*T} per ${fx.per.tag} item on your board)`:'');
+    case 'poison':return `Apply <b>${v}</b> poison`+(fx.per?` (+${fx.per.v*T} per ${fx.per.tag} item on your board)`:'');
+    case 'regen':return `Gain <b>${v}</b> ${kw('Regeneration')}`+(fx.per?` (+${fx.per.v*T} per ${fx.per.tag} item on your board)`:'');
     case 'selfdmg':return `Take <b>${v}</b> damage yourself`;
     case 'haste':return (fx.firstOnly?'First use: ':'')+`Haste ${tgtText(fx.to)} for ${fx.d}s`+(fx.grow?` (+${fx.grow}s each use, up to ${fx.max}s)`:'')+(fx.lowExtra?` (+${fx.lowExtra}s at 50% HP or below)`:'');
     case 'charge':return fx.fullOnce?`Once per fight: fully Charge ${tgtText(fx.to)} so it fires now; afterwards Charge it by ${fx.v}s`:`Charge ${tgtText(fx.to)} by ${fx.v}s`+(fx.lowMult?` (×${fx.lowMult} at 50% HP or below)`:'');
     case 'slow':return (fx.firstOnly?'First use: ':'')+(fx.allW?`Slow every enemy Weapon for ${fx.d}s`:fx.biggest?`Slow the enemy's ${fx.n} biggest items for ${fx.d}s`:`Slow ${nItems(fx.n)} for ${fx.d}s`);
-    case 'selfSlow':return `Slow your own ${tgtText(fx.to)} for ${fx.d}s`;
+    case 'selfSlow':return fx.to==='self'?`Slow this item for ${fx.d}s`:`Slow your own ${tgtText(fx.to)} for ${fx.d}s`;
     case 'scout':return `If the enemy has more HP: Weapons +${Math.round(fx.v*100)}% crit this fight`;
     case 'critBuff':return `For ${fx.d}s your crits deal <b>${fx.mult}×</b>`;
     case 'toonForce':return `Your other Weapons deal +50% damage for ${fx.d}s`;
@@ -5438,6 +5503,11 @@ function descLines(inst){
   if(d.multicast)L.push(`<b>Multicast ${d.multicast}</b>: triggers ${d.multicast} times`);
   if(d.multicastPerTag)L.push(`${kw('Multicast')}: once per ${d.multicastPerTag.tag} item on your board (up to ${d.multicastPerTag.max})`);
   if(d.critMult)L.push(`Its crits deal ${d.critMult}×`);
+  if(d.reboundCharge)L.push(`When you use a Large Weapon: ${kw('Charge')} this item ${d.reboundCharge}s`); // #103: these effects worked but were missing from the card
+  if(d.critShield)L.push(`Each crit: gain <b>${d.critShield*VAL_MULT[inst.tier]}</b> Shield (up to ${d.critShieldMax} times a fight)`);
+  if(d.patienceCrit)L.push(`Patience: +${Math.round(d.patienceCrit*100)}% crit chance unless another item Charged it`);
+  if(d.syncHeal)L.push(`Every Synchronization: ${kw('Heal')} <b>${d.syncHeal*VAL_MULT[inst.tier]}</b>`);
+  if(d.markShield)L.push(`If Blue marked it: gain <b>${d.markShield*VAL_MULT[inst.tier]}</b> Shield`);
   if(d.adjFriendCrit)L.push(`+${Math.round(d.adjFriendCrit*100)}% crit chance for each Friend next to it`);
   if(d.onHurt)L.push(`Each time an enemy hit gets through to you, your ${d.onHurt.tag} items gain <b>+${d.onHurt.v*VAL_MULT[inst.tier]}</b> damage for the fight (up to +${d.onHurt.cap*VAL_MULT[inst.tier]})`);
   if(d.multicastPerTransmute)L.push(`${kw('Multicast')}: +1 for each Equivalent Exchange set to Transmute (up to ${d.multicastPerTransmute.max})`);
@@ -7921,18 +7991,18 @@ const RESONANCES=[
  {id:'company8',a:'shinra_maki',b:'shinra_iris',name:"Company 8",desc:"Sister Iris heals 50% more.",why:"Maki protects Iris on every mission.",fx:[{k:'heal',item:'shinra_iris',v:1.5}]},
  {id:'tag_kunai',a:'paper_bomb',b:'kunai',loot:true,name:"Tagged Kunai",desc:"Explosive Tag deals 30% more damage.",why:"A kunai with a tag wrapped round it is the oldest ninja trick.",fx:[{k:'mult',item:'paper_bomb',v:1.3}]},
  {id:'saiyan_seeds',a:'sai_self',b:'scouter',loot:true,name:"Saibamen Seeds",desc:"Self-Destruct deals 25% more damage.",why:"Vegeta and Nappa planted the Saibamen; he knows what they are for.",fx:[{k:'mult',item:'sai_self',v:1.25}]},
- {id:'final_selection',a:'hand_grab',b:'onigiri',loot:true,name:"Final Selection",desc:"Severing Strike crits 15% more often.",why:"The Hand Demon hunted every child in Urokodaki’s masks; Tanjiro ends it.",fx:[{k:'crit',item:'severing',v:.15}]},
+ {id:'final_selection',a:'hand_grab',b:'onigiri',loot:true,name:"Final Selection",desc:"Urokodaki's Fox Mask makes the enemy's next critical hit miss on every use, not just the first.",why:"The Hand Demon hunted every child in Urokodaki’s masks; Tanjiro ends it.",fx:[{k:'onUse',item:'onigiri',fx:[{t:'nocrit',n:1}]}]},
  {id:'curse_exorcist',a:'curse_bite',b:'yuji',loot:true,name:"Born Exorcist",desc:"Yuji Itadori deals 20% more damage.",why:"Yuji swallowed Sukuna's finger. A curse's bite won't stop him.",fx:[{k:'mult',item:'yuji',v:1.2}]},
- {id:'usj_rush',a:'nomu_absorb',b:'all_might',loot:true,name:"300-Punch Rush",desc:"Detroit Smash deals 25% more damage.",why:"All Might beat Shock Absorption with a 300-punch rush at the USJ.",fx:[{k:'mult',item:'detroit',v:1.25}]},
+ {id:'usj_rush',a:'nomu_absorb',b:'all_might',loot:true,name:"300-Punch Rush",desc:"All Might also Hastes your Weapons 1s.",why:"All Might beat Shock Absorption with a 300-punch rush at the USJ.",fx:[{k:'onUse',item:'all_might',fx:[{t:'haste',to:'tag:Weapon',d:1}]}]},
  {id:'mask_cero',a:'cero',b:'hollow_mask',loot:true,name:"Masked Cero",desc:"Cero deals 30% more damage.",why:"With the mask on, the Cero is his own.",fx:[{k:'mult',item:'cero',v:1.3}]},
  {id:'cut_free',a:'titan_grab',b:'nape_cut',loot:true,name:"Cut Free",desc:"Nape Cut crits 15% more often.",why:"Grabbed by a Titan, Levi cuts free and goes for the nape.",fx:[{k:'crit',item:'nape_cut',v:.15}]},
  {id:'ant_king',a:'ant_pheromone',b:'extraction',loot:true,name:"The Ant King",desc:"Royal Pheromone Charges Shadow Extraction 2s.",why:"Beru, the Ant King, became Jinwoo’s strongest shadow.",fx:[{k:'link',item:'ant_pheromone',to:'extraction',v:2}]},
  {id:'shells_town',a:'marine_saber',b:'zoro',loot:true,name:"Shells Town",desc:"Zoro deals 20% more damage.",why:"The Marines tied Zoro up in Shells Town until Luffy brought him his swords.",fx:[{k:'mult',item:'zoro',v:1.2}]},
  {id:'undead_legion',a:'zombie_horde',b:'ainz_knight',loot:true,name:"Undead Legion",desc:"Zombie Horde deals 25% more damage.",why:"The Sorcerer King commands every undead he meets.",fx:[{k:'mult',item:'zombie_horde',v:1.25}]},
- {id:'pochitas_heart',a:'zombie_bite',b:'pochita',loot:true,name:"Pochita’s Heart",desc:"Chainsaw Arm crits 15% more often.",why:"The Zombie Devil killed Denji; that is when Pochita gave him his heart.",fx:[{k:'crit',item:'chainsaw',v:.15}]},
+ {id:'pochitas_heart',a:'zombie_bite',b:'pochita',loot:true,name:"Pochita’s Heart",desc:"Pochita also gives 1 Regeneration.",why:"The Zombie Devil killed Denji; that is when Pochita gave him his heart.",fx:[{k:'onUse',item:'pochita',fx:[{t:'regen',v:1}]}]},
  {id:'rebuilt_again',a:'beast_crush',b:'genos',loot:true,name:"Rebuilt Again",desc:"Genos deals 20% more damage.",why:"Genos gets crushed by every Demon-level monster, gets rebuilt, and comes back stronger.",fx:[{k:'mult',item:'genos',v:1.2}]},
  {id:'just_tuesday',a:'beast_roar',b:'normal_punch',loot:true,name:"Just a Tuesday",desc:"Normal Punch deals 20% more damage.",why:"A Demon-level roar is just another Tuesday for Saitama.",fx:[{k:'mult',item:'normal_punch',v:1.2}]},
- {id:'scale_tips',a:'aura_scale',b:'mana_suppress',loot:true,name:"The Scale Tips",desc:"Zoltraak deals 20% more damage.",why:"Frieren hid her mana for a thousand years so Aura’s Scale would tip her way.",fx:[{k:'mult',item:'zoltraak',v:1.2}]},
+ {id:'scale_tips',a:'aura_scale',b:'mana_suppress',loot:true,name:"The Scale Tips",desc:"Mana Suppression also Slows 1 more enemy item 1.5s.",why:"Frieren hid her mana for a thousand years so Aura’s Scale would tip her way.",fx:[{k:'onUse',item:'mana_suppress',fx:[{t:'slow',n:1,d:1.5}]}]},
  {id:'namek_clash',a:'ginyu_pose',b:'kamehameha',loot:true,name:"Battle on Namek",desc:"Kamehameha deals 20% more damage.",why:"Goku fought the Ginyu Force on Namek.",fx:[{k:'mult',item:'kamehameha',v:1.2}]},
  {id:'thunderclap_obi',a:'daki_obi',b:'zenitsu',loot:true,name:"Entertainment District",desc:"Zenitsu crits 15% more often.",why:"Zenitsu’s Thunderclap and Flash cut through Daki’s obi.",fx:[{k:'crit',item:'zenitsu',v:.15}]},
  {id:'exploding_blood',a:'daki_sickle',b:'nezuko',loot:true,name:"Exploding Blood",desc:"Nezuko also heals 10.",why:"Nezuko burned Gyutaro's poison out of Tengen and Inosuke.",fx:[{k:'onUse',item:'nezuko',fx:[{t:'heal',v:10}]}]},
@@ -7946,7 +8016,7 @@ const RESONANCES=[
  {id:'psychic_showdown',a:'psykos_barrage',b:'tatsumaki',loot:true,name:"Psychic Showdown",desc:"Tatsumaki deals 20% more damage.",why:"Tatsumaki fought Psykos head-on at the Monster Association.",fx:[{k:'mult',item:'tatsumaki',v:1.2}]},
  {id:'katana_hunt',a:'katana_draw',b:'aki',loot:true,name:"The Katana Hunt",desc:"Aki deals 20% more damage.",why:"Aki and Denji took down the Katana Man together.",fx:[{k:'mult',item:'aki',v:1.2}]},
  {id:'hollow_end',a:'ulq_cero',b:'hollow_rampage',loot:true,name:"The Hollow’s End",desc:"Hollow Rampage deals 25% more damage.",why:"Ichigo’s Hollow form tore Ulquiorra apart.",fx:[{k:'mult',item:'hollow_rampage',v:1.25}]},
- {id:'blood_change',a:'toga_drain',b:'blood_feed',loot:true,name:"Blood to Transform",desc:"Blood Feeding Charges Senketsu 1s.",why:"Both drink blood to transform.",fx:[{k:'link',item:'blood_feed',to:'senketsu',v:1}]},
+ {id:'blood_change',a:'toga_drain',b:'blood_feed',loot:true,name:"Blood to Transform",desc:"Blood Feeding also heals 6.",why:"Both drink blood to transform.",fx:[{k:'onUse',item:'blood_feed',fx:[{t:'heal',v:6}]}]},
  {id:'rule_breaker',a:'uma_rule',b:'fuuko_touch',loot:true,name:"Rule Breaker",desc:"Fuuko’s Touch crits 15% more often.",why:"Unluck turns the Rules against the UMA.",fx:[{k:'crit',item:'fuuko_touch',v:.15}]},
  {id:'unfair_duel',a:'billy_guns',b:'arm_launch',loot:true,name:"Unfair Duel",desc:"Arm Launcher deals 20% more damage.",why:"Andy took on Billy when the Union split.",fx:[{k:'mult',item:'arm_launch',v:1.2}]},
  {id:'rest_in_flames',a:'king_flame',b:'bunker_gear',loot:true,name:"Rest in the Flames",desc:"Bunker Gear gives 10 more Shield.",why:"A man wreathed in flame is an Infernal to Company 8, and they know the prayer.",fx:[{k:'onUse',item:'bunker_gear',fx:[{t:'shield',v:10}]}]},
@@ -7959,17 +8029,17 @@ const RESONANCES=[
  {id:'flash_goddess',a:'yoruichi',b:'flash_step',name:"Flash Goddess",desc:"Flash Step also Hastes your Weapons 0.5s more.",why:"Yoruichi taught Ichigo Shunpo and was never beaten in a race.",fx:[{k:'onUse',item:'flash_step',fx:[{t:'haste',to:'tag:Weapon',d:.5}]}]},
  {id:'special_ops',a:'petra',b:'oluo',name:"Special Operations Squad",desc:"Oluo deals 20% more damage and Petra's Haste lasts 0.5s longer.",why:"Levi hand-picked them for his squad.",fx:[{k:'mult',item:'oluo',v:1.2},{k:'onUse',item:'petra',fx:[{t:'haste',to:'adj',d:.5}]}]},
  {id:'ackerman_blood',a:'kenny',b:'ackerman_awaken',name:"Ackerman Blood",desc:"Kenny Ackerman crits 15% more often.",why:"Kenny raised Levi and recognised the same awakening in him.",fx:[{k:'crit',item:'kenny',v:.15}]},
- {id:'terrible_blizzard',a:'tatsumaki',b:'fubuki',name:"Terrible and Blizzard",desc:"Tatsumaki deals 20% more damage and Fubuki gives 6 more Shield.",why:"The Tornado of Terror and the Hellish Blizzard are sisters.",fx:[{k:'mult',item:'tatsumaki',v:1.2},{k:'onUse',item:'fubuki',fx:[{t:'shield',v:3}]}]},
- {id:'same_routine',a:'pushups',b:'cnp',name:"Same Routine",desc:"Consecutive Normal Punches also gives 6 Shield.",why:"A hundred push-ups a day is what built fists that fast.",fx:[{k:'onUse',item:'cnp',fx:[{t:'shield',v:3}]}]},
+ {id:'terrible_blizzard',a:'tatsumaki',b:'fubuki',name:"Terrible and Blizzard",desc:"Tatsumaki deals 20% more damage and Fubuki gives 3 more Shield.",why:"The Tornado of Terror and the Hellish Blizzard are sisters.",fx:[{k:'mult',item:'tatsumaki',v:1.2},{k:'onUse',item:'fubuki',fx:[{t:'shield',v:3}]}]},
+ {id:'same_routine',a:'pushups',b:'cnp',name:"Same Routine",desc:"Consecutive Normal Punches also gives 3 Shield.",why:"A hundred push-ups a day is what built fists that fast.",fx:[{k:'onUse',item:'cnp',fx:[{t:'shield',v:3}]}]},
  {id:'ant_loyalty',a:'beru',b:'shadow_igris',name:"Ant King's Loyalty",desc:"Beru and Igris both deal 20% more damage.",why:"Beru and Igris compete to be the Monarch's most loyal shadow.",fx:[{k:'mult',item:'beru',v:1.2},{k:'mult',item:'shadow_igris',v:1.2}]},
  {id:'kamish_fangs',a:'kamish',b:'demon_king_daggers',name:"Fangs of Kamish",desc:"Kamish's Wrath crits 15% more often.",why:"Jinwoo's two best pairs of daggers: one forged from a dragon, one taken from a Demon King.",fx:[{k:'crit',item:'kamish',v:.15}]},
- {id:'overseer_watch',a:'albedo',b:'ainz_knight',name:"Overseer's Watch",desc:"Death Knight gives 20 more Shield.",why:"Albedo commands Nazarick's defenders in Ainz's name.",fx:[{k:'onUse',item:'ainz_knight',fx:[{t:'shield',v:10}]}]},
+ {id:'overseer_watch',a:'albedo',b:'ainz_knight',name:"Overseer's Watch",desc:"Death Knight gives 10 more Shield.",why:"Albedo commands Nazarick's defenders in Ainz's name.",fx:[{k:'onUse',item:'ainz_knight',fx:[{t:'shield',v:10}]}]},
  {id:'supreme_wish',a:'shooting_star',b:'fallen_down',name:"Supreme Being's Wish",desc:"Fallen Down deals 25% more damage.",why:"Ainz spent a wish from the Shooting Star ring to amplify a super-tier spell.",fx:[{k:'mult',item:'fallen_down',v:1.25}]},
  {id:'devil_partners',a:'himeno',b:'aki',name:"Partners",desc:"Aki deals 20% more damage.",why:"Himeno was Aki's partner and mentor in Division 4.",fx:[{k:'mult',item:'aki',v:1.2}]},
  {id:'fiend_fans',a:'beam',b:'power',name:"Fiend Fan Club",desc:"Beam and Power both deal 20% more damage.",why:"Beam worships Chainsaw Man. Power just wants the credit.",fx:[{k:'mult',item:'beam',v:1.2},{k:'mult',item:'power',v:1.2}]},
- {id:'father_daughter_lakan',a:'lakan',b:'luomen',name:"Two Fathers",desc:"Lakan also Slows 1 more enemy item.",why:"Lakan is Maomao's father; Luomen is the uncle who raised her.",fx:[{k:'onUse',item:'lakan',fx:[{t:'slow',n:1,d:1.5}]}]},
- {id:'jade_pavilion',a:'gyokuyou',b:'jinshi',name:"Jade Pavilion",desc:"Jinshi gives 20 more Shield.",why:"Jinshi visits the Jade Pavilion, where Maomao serves Consort Gyokuyou.",fx:[{k:'onUse',item:'jinshi',fx:[{t:'shield',v:10}]}]},
- {id:'best_friends_saten',a:'saten',b:'uiharu',name:"Sakugawa Classmates",desc:"Saten and Uiharu both work 20% better.",why:"Saten and Uiharu are classmates and best friends.",fx:[{k:'heal',item:'uiharu',v:1.2},{k:'onUse',item:'uiharu',fx:[{t:'shield',v:3}]},{k:'onUse',item:'saten',fx:[{t:'charge',to:'right',v:.3}]}]},
+ {id:'father_daughter_lakan',a:'lakan',b:'luomen',name:"Two Fathers",desc:"Lakan also Slows 1 more enemy item for 1.5s.",why:"Lakan is Maomao's father; Luomen is the uncle who raised her.",fx:[{k:'onUse',item:'lakan',fx:[{t:'slow',n:1,d:1.5}]}]},
+ {id:'jade_pavilion',a:'gyokuyou',b:'jinshi',name:"Jade Pavilion",desc:"Jinshi gives 10 more Shield.",why:"Jinshi visits the Jade Pavilion, where Maomao serves Consort Gyokuyou.",fx:[{k:'onUse',item:'jinshi',fx:[{t:'shield',v:10}]}]},
+ {id:'best_friends_saten',a:'saten',b:'uiharu',name:"Sakugawa Classmates",desc:"Kazari Uiharu also gives 3 Shield and Ruiko Saten Charges 0.3s more.",why:"Saten and Uiharu are classmates and best friends.",fx:[{k:'onUse',item:'uiharu',fx:[{t:'shield',v:3}]},{k:'onUse',item:'saten',fx:[{t:'charge',to:'right',v:.3}]}]},
  {id:'level5_rivalry',a:'shokuhou',b:'railgun',name:"Level 5 Rivalry",desc:"Railgun deals 20% more damage.",why:"Tokiwadai's two Level 5s can't stand each other, and fight better for it.",fx:[{k:'mult',item:'railgun',v:1.2}]},
  {id:'family_dinner',a:'barazo',b:'croquettes',name:"Family Dinner",desc:"Mystery Croquettes heal 50% more.",why:"Sukuyo's croquettes and Barazo's clinic: the Mankanshoku household.",fx:[{k:'heal',item:'croquettes',v:1.5}]},
  {id:'blood_bond',a:'rampage',b:'blood_feed',name:"Blood Bond",desc:"Using Blood Feeding Charges Rampaging Senketsu 1s.",why:"Senketsu runs wild when it drinks too much of Ryuko's blood.",fx:[{k:'link',item:'blood_feed',to:'rampage',v:1}]},
