@@ -5194,19 +5194,19 @@ const IDENTITY103={
  gravity_room:d=>{d.opening=true;d.cd=9},                                                     // was Kasugai Crow: you walk in already trained
  thermoptic:d=>{d.fx=[{t:'dodge',n:1}];d.opening=true;d.cd=8;d.tierCd=true},                                // was Bond: invisible from the first second
  guild_mark:d=>{d.fx.push({t:'shield',v:2,per:{tag:'Friend',v:2}})},                           // was Waku Waku: guildmates cover each other
- walking_mushroom:d=>{d.fx=[{t:'heal',v:10,per:{tag:'Food',v:3}}]},                            // was Favorite Shojo Manga: a hot pot for the whole party
+ walking_mushroom:d=>{d.fx=[{t:'heal',v:16,per:{tag:'Food',v:3}}]},                            // was Favorite Shojo Manga: a hot pot for the whole party
  typhoon_coat:d=>{d.fx=[{t:'shield',v:18},{t:'nocrit',n:1},{t:'slow',n:1,d:1}]},               // was Law of the Round Table: Vash shoots the gun out of their hand
  six_rods:d=>{d.fx=[{t:'freeze',n:1,d:2},{t:'slow',n:1,d:1.5},{t:'nocrit',n:1}]},             // was Unjustice Bind: a bound target can't strike back cleanly
  adamantine:d=>{d.fx=[{t:'shield',v:20},{t:'slowWard',d:2}]},                                  // was Susanoo Ribcage
- bomb:d=>{d.fx=[{t:'dmg',v:55,pierce:true},{t:'burn',v:8}];d.overload=true},                               // was Great Fireball/Dragon's Roar: one perfect blast, then Megumin collapses
+ bomb:d=>{d.fx=[{t:'dmg',v:48,pierce:true},{t:'burn',v:8}];d.overload=true},                               // was Great Fireball/Dragon's Roar: one perfect blast, then Megumin collapses
  dragon_roar:d=>{d.fx=[{t:'dmg',v:30},{t:'burn',v:5,when:{c:'foeBurn',v:4}}]},                 // was Explosion!: the roar fans existing flames
  dart:d=>{d.fx=[{t:'dmg',v:2},{t:'poison',v:2,when:{c:'foeLow',v:3}}]},                       // was Ashisogi Jizo: the Note finishes the weakened
  bokuto:d=>{d.fx=[{t:'dmg',v:5,when:{c:'hasted',v:3}}]},                                       // was Galick Gun/Full-Power Railgun: Gintoki only gets serious in a hurry
  century_soup:d=>{d.fx=[{t:'heal',v:12},{t:'empower',tag:'Food',stat:'heal',v:2}]},            // was Consort Gyokuyou: the soup makes every dish taste better
  avalon:d=>{d.fx.push({t:'regen',v:1})},                                                       // was a plain heal + shield: the scabbard keeps healing
  umbilical:d=>{d.fx=[{t:'charge',to:'right',v:1},{t:'haste',to:'right',d:1}]},                  // was Arcade Coin: power and speed down the cable
- stun_watch:d=>{d.fx=[{t:'freeze',n:1,d:1.5},{t:'nocrit',n:1}]},                               // was Hyorinmaru + Head Start: a sleeping target can not land a crit
- jericho:d=>{d.fx=[{t:'dmg',v:5,when:{c:'foeLow',v:3}}];delete d.crit},                      // was Kenny Ackerman + crit: Spike's finishing shot
+ stun_watch:d=>{d.fx=[{t:'freeze',n:1,d:2},{t:'nocrit',n:1}]},                               // was Hyorinmaru + Head Start: a sleeping target can not land a crit
+ jericho:d=>{d.fx=[{t:'dmg',v:4,when:{c:'foeLow',v:3}}];delete d.crit},                      // was Kenny Ackerman + crit: Spike's finishing shot
  hungry_bug_gyoza:d=>{d.fx=[{t:'heal',v:7}];d.multicast=2},                                  // was Bread & Jam/Peanuts: a whole plate, two bites
  abyss_curse:d=>{d.fx=[{t:'poison',v:2},{t:'selfdmg',v:1}];d.escalate={t:'poison',v:1}},        // was Poison Tasting: the deeper you go, the worse it gets
  // hero cards that were exact twins of another hero's card
@@ -5228,10 +5228,10 @@ const IDENTITY103={
  shippu:d=>{d.fx.push({t:'selfdmg',v:2})},                                                     // was Float: Senketsu drinks blood to fly
  rampage:d=>{d.lowDmgMult=1.3},                                                                // was Oluo Bozado
  metal_bat:d=>{d.fx=[{t:'dmg',v:16,when:{c:'hurt',v:5}}]},                                     // was Arthur's Excalibur: Fighting Spirit
- sebas:d=>{d.fx.push({t:'shield',v:5})},                                                       // was Tensa Zangetsu/Twin Scissor Blades
- tensa:d=>{d.fx.push({t:'haste',to:'self',d:1})},
+ sebas:d=>{d.fx[0].v=9;d.fx.push({t:'shield',v:2})},                                                       // was Tensa Zangetsu/Twin Scissor Blades
+ tensa:d=>{d.fx[0].v=24;d.fx.push({t:'haste',to:'self',d:.5})},
  twin_scissors:d=>{d.fx=[{t:'dmg',v:15,syncBonus:8}]},
- kishibe:d=>{d.fx.push({t:'dodge',n:1})},                                                      // pierce group
+ kishibe:d=>{d.fx[0].v=17;d.fx.push({t:'dodge',n:1})},                                                      // pierce group
  billion_volts:d=>{d.fx.push({t:'freeze',n:1,d:1})},
  judgment:d=>{d.fx.push({t:'nocrit',n:1})},
  knight_killer:d=>{d.fx=[{t:'dmg',v:24,pierce:true,when:{c:'foeLow',v:6}}]},
@@ -5245,7 +5245,7 @@ const IDENTITY103={
  death_blow:d=>{d.fx.push({t:'regen',v:1})},
  ofa100:d=>{d.crit=.2},                                                                        // was Detroit Smash
  arm_launch:d=>{d.fx.push({t:'regen',v:1})},                                                   // was Shattered-Arm Smash: the arm grows back
- side_hops:d=>{d.fx.push({t:'dodge',n:1})},                                                    // was Bankai
+ side_hops:d=>{d.fx.push({t:'nocrit',n:1})},                                                   // was Bankai: Saitama side-steps the big hit
  shadow_iron:d=>{d.fx.push({t:'command',v:1})},                                                // was Survey Corps Cloak
  loid:d=>{d.fx.push({t:'nocrit',n:1})},                                                                          // was Justice Strike
  fuuko_andy:d=>{d.fx=[d.fx[0],{t:'regen',v:1}]},                                               // was Power
