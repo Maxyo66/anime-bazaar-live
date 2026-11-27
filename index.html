@@ -967,7 +967,7 @@ body::before{height:calc(18px + env(safe-area-inset-top,0px));background:linear-
 <div id="toast"></div>
 <script src="audio/bank.js"></script>
 <script src="save-code.js"></script>
-<script src="data/art.js?v=1c3cc9f3b11c"></script>
+<script src="data/art.js?v=f771d24d02a2"></script>
 <script src="data/rival-ghosts.js"></script>
 <script>
 'use strict';
@@ -1741,7 +1741,7 @@ const HFX=(()=>{
   tensa(a,b,col,o){K.crescent(a,b,col,{dark:true,fast:true,double:true,word:'月牙天衝'})},
   // Mugetsu: the screen drains to black, a single thin line splits the dark
   mugetsu(a,b,col,o){add({dur:1.4,at:.8,hit(){hitAt(b,'#ff2a2a',true,'無月','#ff5a5a')},draw(c,k){const W=innerWidth,H=innerHeight;c.fillStyle=`rgba(0,0,0,${Math.min(.85,k*2)*(k>.85?(1-k)/.15:1)})`;c.fillRect(0,0,W,H);if(k>.4){const q=Math.min(1,(k-.4)/.3);c.strokeStyle='#ff2a2a';c.lineWidth=2+q*10;c.beginPath();c.moveTo(b.x-W*q,b.y-W*q*.3);c.lineTo(b.x+W*q,b.y+W*q*.3);c.stroke()}}})},
-  // Hollow Rampage: a horned mask flares, then a red cero blasts out
+  // Hollow Ichigo: Cero (was Hollow Rampage): a horned mask flares, then a red cero blasts out
   hollow(a,b,col,o){add({dur:.9,at:.6,hit(){hitAt(b,'#ff2a2a',true,'虚化','#ff5a5a')},draw(c,k){if(k<.45){c.globalAlpha=Math.min(1,k*4);c.beginPath();c.ellipse(a.x,a.y-10,26,32,0,0,TAU);outline(c,'#f4f0e8',3);c.strokeStyle='#c8102e';c.lineWidth=3;c.beginPath();c.moveTo(a.x-14,a.y-36);c.lineTo(a.x-6,a.y+16);c.stroke();
      for(const d of [-1,1]){c.beginPath();c.moveTo(a.x+d*20,a.y-30);c.quadraticCurveTo(a.x+d*40,a.y-60,a.x+d*30,a.y-76);c.lineWidth=6;c.strokeStyle='#f4f0e8';c.stroke()}glow(c,a.x,a.y+10,40*k*2,'rgba(255,40,40,.8)');return}
     const fade=k>.7?(1-k)/.3:1,tip=lerp(a,b,Math.min(1,(k-.45)/.12));glowLine(c,a,tip,'#ff1a1a',26*fade,fade)}})},
@@ -1754,7 +1754,7 @@ const HFX=(()=>{
   ofa100(a,b,col,o){add({dur:1.2,at:.75,hit(){hitAt(b,'#7dff9a',true,'100%スマッシュ','#b8ffc8');shake(18,600)},draw(c,k,t){if(k<.6){const s=step(t);c.strokeStyle='#7dff9a';c.lineWidth=3;for(let z=0;z<6;z++){c.beginPath();let x=a.x+jit(z,s,30),y=a.y+30;c.moveTo(x,y);for(let i=0;i<5;i++){x+=jit(i,s+z,10);y-=14;c.lineTo(x,y)}c.stroke()}
      if(k>.35){c.strokeStyle='#c8102e';c.lineWidth=2;c.beginPath();c.moveTo(a.x-10,a.y);c.lineTo(a.x,a.y+10);c.lineTo(a.x+12,a.y-4);c.stroke()}return}
     const q=Math.min(1,(k-.6)/.15),fade=k>.85?(1-k)/.15:1,ang=Math.atan2(b.y-a.y,b.x-a.x);c.save();c.translate(a.x,a.y);c.rotate(ang);c.globalAlpha=.5*fade;c.fillStyle='#effff3';c.beginPath();c.moveTo(0,-20);c.lineTo(innerWidth*q,-140);c.lineTo(innerWidth*q,140);c.lineTo(0,20);c.closePath();c.fill();c.restore()}})},
-  // Shattered-Arm Smash: the arm breaks purple, then a ragged blast
+  // Delaware Detroit Smash (was Shattered-Arm Smash): the arm breaks purple, then a ragged blast
   brokenarm(a,b,col,o){add({dur:.9,at:.6,hit(){hitAt(b,'#7dff9a',true,'スマッシュ','#b8ffc8')},draw(c,k,t){c.strokeStyle='#8a3aa8';c.lineWidth=3;const n=Math.min(8,Math.floor(k*20));for(let i=0;i<n;i++){c.beginPath();c.moveTo(a.x+jit(i,1,16),a.y+jit(i,2,16));c.lineTo(a.x+jit(i,3,26),a.y+jit(i,4,26));c.stroke()}
     if(k>.45){const q=Math.min(1,(k-.45)/.15),p=lerp(a,b,q);c.beginPath();for(let i=0;i<=12;i++){const an=i/12*TAU,r=(i%2?26:44)+jit(i,step(t),8);c.lineTo(p.x+Math.cos(an)*r,p.y+Math.sin(an)*r)}c.closePath();c.globalAlpha=k>.75?(1-k)/.25:1;outline(c,'#7dff9a',3)}}})},
   // Rapid: fire jets ignite at the feet and Shinra rockets across as a streak
@@ -3521,7 +3521,7 @@ const HFX=(()=>{
   kennyshotgun(a,b,col,o){add({dur:1.1,at:.4,hit(){hitAt(b,'#d8d8d8',false,'バン!','#fff');sparks(b.x,b.y,'#ffe0a0',12,220)},draw(c,k,t){c.save();c.globalAlpha=fo(k);chibi(c,a.x+10,a.y,1.4,{body:'#2a2a2a',hair:'#3a3a3a',pose:1,extra(c){c.fillStyle='#2a2a2a';c.fillRect(-14,-30,28,4);c.fillRect(-8,-38,16,9)}});
     for(const [i,kk] of [[0,.35],[1,.55]])if(k>kk&&k<kk+.2){const p={x:a.x+60,y:a.y-14+i*10};puff(c,p.x+20,p.y,16,'rgba(200,200,200,.6)',step(t));c.globalCompositeOperation='lighter';glow(c,p.x,p.y,24,'rgba(255,220,140,.95)');c.globalCompositeOperation='source-over';
      c.strokeStyle='rgba(255,230,160,.8)';c.lineWidth=2;for(let j=0;j<6;j++){c.beginPath();c.moveTo(p.x,p.y);c.lineTo(b.x+jit(j,i,30),b.y+jit(j+4,i,30));c.stroke()}}c.restore()}})},
-  // Ackerman Awakening: the Ackerman's eyes go cold; a red pulse and the world slows around you
+  // Ackerman Power (was Ackerman Awakening): the Ackerman's eyes go cold; a red pulse and the world slows around you
   ackermanawaken(a,b,col,o){add({dur:1.4,at:.4,hit(){sfxText({x:b.x,y:b.y-120},'覚醒','#ff4040',34);ring(b.x,b.y,'#ff3030',10,120,.5,5)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.4));
     c.fillStyle='rgba(60,0,0,'+(.25*q)+')';c.fillRect(0,0,c.canvas.width,c.canvas.height);c.translate(b.x,b.y-40);c.scale(3,3);c.fillStyle='#f2c9a0';c.strokeStyle=INK;c.lineWidth=1;c.beginPath();c.ellipse(0,0,16,9,0,0,TAU);c.fill();c.stroke();
     for(const d of [-1,1]){c.fillStyle='#fff';c.beginPath();c.ellipse(d*7,0,4.5,2,0,0,TAU);c.fill();c.stroke();c.fillStyle='rgb('+Math.round(40+200*q)+',30,30)';c.beginPath();c.arc(d*7,0,1.4,0,TAU);c.fill()}c.fillStyle=INK;c.fillRect(-16,-9,32,4);c.restore()}})},
@@ -3635,7 +3635,7 @@ const HFX=(()=>{
   // White Face Powder: a powder puff dabs pale makeup; the lead in it seeps through as a grey haze
   facepowder(a,b,col,o){add({dur:1.2,at:.55,hit(){sfxText({x:b.x,y:b.y-110},'おしろい','#f0f0f0',24)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const dab=Math.abs(Math.sin(t*10))*10;c.fillStyle='#f6f2ee';c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.ellipse(b.x-30,b.y-40+dab,16,10,0,0,TAU);c.fill();c.stroke();
     c.fillStyle='#e8b0c0';c.fillRect(b.x-34,b.y-54+dab,8,6);for(let i=0;i<10;i++){const q=(k*1.5+i/10)%1;c.fillStyle='rgba(140,140,150,'+(.5*(1-q))+')';c.beginPath();c.arc(b.x+jit(i,1,30),b.y-20+q*50,4+q*6,0,TAU);c.fill()}c.restore()}})},
-  // Pufferfish Soup: a steaming bowl, a spiky puffer on top; Maomao tastes it and blushes with delight
+  // Poisoned Soup (was Pufferfish Soup): a steaming bowl, a spiky puffer on top; Maomao tastes it and blushes with delight
   pufferfish(a,b,col,o){add({dur:1.3,at:.6,hit(){hitAt(b,'#f0c060',false,'フグ','#fff0c0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);c.fillStyle='#e8e0d0';c.strokeStyle=INK;c.lineWidth=2;c.beginPath();c.arc(a.x+40,a.y,22,0,Math.PI);c.closePath();c.fill();c.stroke();
     const r=10+6*Math.min(1,k/.4);c.fillStyle='#f0c060';c.beginPath();c.arc(a.x+40,a.y-8,r,0,TAU);c.fill();c.stroke();for(let i=0;i<10;i++){const an=i/10*TAU;c.beginPath();c.moveTo(a.x+40+Math.cos(an)*r,a.y-8+Math.sin(an)*r);c.lineTo(a.x+40+Math.cos(an)*(r+5),a.y-8+Math.sin(an)*(r+5));c.stroke()}
     for(let i=0;i<3;i++){c.strokeStyle='rgba(255,255,255,.5)';c.beginPath();c.moveTo(a.x+30+i*10,a.y-20);c.quadraticCurveTo(a.x+25+i*10,a.y-40-k*20,a.x+32+i*10,a.y-55-k*20);c.stroke()}if(k>.4){const p=lerp({x:a.x+40,y:a.y},b,(k-.4)/.25);c.fillStyle='#9a4ad8';c.beginPath();c.arc(p.x,p.y,6,0,TAU);c.fill()}c.restore()}})},
@@ -4136,7 +4136,7 @@ I('naruto','ramen','Ichiraku Ramen','🍜',1,['Food'],5,[{t:'heal',v:14},{t:'has
 I('naruto','sage_mode','Sage Mode','🐸',3,['Tool'],10,[{t:'shield',v:61},{t:'charge',to:'tag:Weapon',v:2},{t:'slowWard',d:4}]);
 I('naruto','kunai','Kunai','🔪',1,['Weapon','Tool'],3,[{t:'dmg',v:6}],{crit:0.15,repeatIfAdj:{tag:'Clone'}});
 I('naruto','kurama','Nine-Tails Chakra','🦊',3,['Tool','Friend'],11,[{t:'dmg',v:40,when:{c:'low',v:20}},{t:'heal',v:18},{t:'regen',v:1},{t:'burn',v:4}]);
-I('naruto','clone_squad','Clone Squad','🎎',2,['Friend','Clone'],5,[{t:'dmg',v:7}],{multicastPerTag:{tag:'Clone',max:4}});
+I('naruto','clone_squad','Multiple Shadow Clone Jutsu','🎎',2,['Friend','Clone'],5,[{t:'dmg',v:7}],{multicastPerTag:{tag:'Clone',max:4}});
 I('naruto','sexy_jutsu','Sexy Jutsu','💋',1,['Tool'],6,[{t:'slow',n:2,d:1.5},{t:'nocrit',n:1}],{opening:true});
 I('naruto','gamabunta','Summoning: Gamabunta','🐸',3,['Friend','Weapon'],10,[{t:'dmg',v:34},{t:'shield',v:16,per:{tag:'Friend',v:4}}],{onFoeSlowed:{fx:[{t:'dmg',v:12}]}});
 I('naruto','rasenshuriken','Rasenshuriken','💠',3,['Weapon'],8,[{t:'dmg',v:35,per:{tag:'Clone',v:12}},{t:'slow',n:1,d:1.5},{t:'selfdmg',v:6}],{special:'fusion'});
@@ -4234,7 +4234,7 @@ I('tanjiro','fire_wheel','Hinokami Kagura: Fire Wheel','🎡',3,['Weapon'],10,[{
 I('gojo','rct','Reverse Cursed Technique','💠',1,['Spell'],7,[{t:'heal',v:20}],{atLow:{v:.3,fx:[{t:'heal',v:50},{t:'cleanse'}]}});
 I('gojo','blue_teleport','Blue: Teleport','🌀',2,['Spell'],10,[{t:'haste',to:'tag:Spell',d:2},{t:'dodge',n:1},{t:'nextSpellDouble'}],{blueMark:true});
 I('gojo','nobara','Nobara: Resonance','🔨',1,['Friend','Weapon'],5,[{t:'dmg',v:20,pierce:true,when:{c:'foeSlowed',v:6}}]);
-I('gojo','panda','Panda: Gorilla Mode','🐼',2,['Friend','Weapon'],7,[{t:'dmg',v:36,pierce:true},{t:'shield',v:20}]);
+I('gojo','panda','Panda: Gorilla Core','🐼',2,['Friend','Weapon'],7,[{t:'dmg',v:36,pierce:true},{t:'shield',v:20}]);
 I('gojo','max_blue','Maximum Output: Blue','🔵',2,['Spell','Weapon'],7,[{t:'dmg',v:18},{t:'slow',n:2,d:1.5}],{blueMark:true});
 I('gojo','gojo_shades','Gojo\'s Sunglasses','🕶️',1,['Apparel'],6,[{t:'charge',to:'tag:Spell',v:1},{t:'empower',tag:'Spell',stat:'dmg',v:1}]);
 // ---- #97 new hero items, batch 3 (Claude 2026-11-15, Max approved 18:05). Values are Bronze; Silver doubles. ----
@@ -4272,7 +4272,7 @@ I('levi','petra','Petra Ral','🕊️',1,['Friend'],6,[{t:'haste',to:'adj',d:1},
 I('levi','oluo','Oluo Bozado','👅',1,['Friend','Weapon'],5,[{t:'dmg',v:11},{t:'selfdmg',v:2}],{crit:.2});
 I('levi','eld_gunther','Eld & Gunther','🗡️',2,['Friend','Weapon'],7,[{t:'dmg',v:17,per:{tag:'Friend',v:4}}]);
 I('levi','kenny','Kenny Ackerman','🔫',2,['Friend','Weapon'],7,[{t:'dmg',v:10}],{opening:true,multicast:2});
-I('levi','ackerman_awaken','Ackerman Awakening','🩸',1,['Relic'],8,[{t:'shield',v:12}],{atLow:{v:.5,fx:[{t:'dodge',n:2},{t:'critBuff',d:4,mult:2.5}]}});
+I('levi','ackerman_awaken','Ackerman Power','🩸',1,['Relic'],8,[{t:'shield',v:12}],{atLow:{v:.5,fx:[{t:'dodge',n:2},{t:'critBuff',d:4,mult:2.5}]}});
 I('levi','beast_takedown','Beast Titan Takedown','🌲',3,['Weapon'],11,[{t:'dmg',v:14},{t:'slow',n:1,d:1.5,biggest:true}],{multicast:4,crit:.15});
 // Saitama: Hero Association / the training regimen
 I('saitama','silverfang','Silverfang','🐺',2,['Friend','Weapon'],6,[{t:'dmg',v:8},{t:'nocrit',n:1}],{multicast:2});
@@ -4308,7 +4308,7 @@ I('maomao','xiaolan','Xiaolan','🧺',1,['Friend'],6,[{t:'charge',to:'tag:Food',
 I('maomao','lakan','Lakan','♟️',2,['Friend'],8,[{t:'slow',n:2,d:2,biggest:true},{t:'charge',to:'tag:Toxin',v:1}],{tierScale:true,tierCd:false});
 I('maomao','dust_explosion','Flour Dust Explosion','💥',2,['Weapon','Tool'],8,[{t:'dmg',v:20},{t:'burn',v:4,when:{c:'foePoison',v:4}}]);
 I('maomao','face_powder','White Face Powder','🪞',1,['Toxin'],6,[{t:'poison',v:1}],{escalate:{t:'poison',v:1}});
-I('maomao','pufferfish','Pufferfish Soup','🐡',1,['Food','Toxin'],8,[{t:'heal',v:8},{t:'poison',v:2,when:{c:'afflicted',v:2}},{t:'selfdmg',v:2}]);
+I('maomao','pufferfish','Poisoned Soup','🐡',1,['Food','Toxin'],8,[{t:'heal',v:8},{t:'poison',v:2,when:{c:'afflicted',v:2}},{t:'selfdmg',v:2}]);
 // Misaka: friends and rivals / Electromaster tricks
 I('misaka','saten','Ruiko Saten','⚾',1,['Friend'],7,[{t:'charge',to:'right',v:1.5},{t:'dodge',n:1}],{opening:true,tierScale:true,tierCd:false});
 I('misaka','shokuhou','Misaki Shokuhou: Mental Out','⭐',2,['Friend'],9,[{t:'freeze',n:2,d:1.5}],{opening:true,tierScale:true,tierCd:false});
@@ -4359,7 +4359,7 @@ I('frieren','flowers','Flower Field Spell','🌷',1,['Spell'],7,[{t:'heal',v:12}
 I('frieren','mimic','Mimic','🧰',2,['Relic'],9,[{t:'dmg',v:28}],{grow:12});
 I('frieren','himmel',"Himmel's Memory",'💐',1,['Relic','Friend'],8,[{t:'heal',v:15},{t:'cleanse'},{t:'shield',v:12,when:{c:'hurt',v:8}}]);
 I('frieren','mana_suppress','Mana Suppression','🌫️',1,['Spell'],7,[{t:'slow',n:2,d:1.5}],{conceal:14});
-I('frieren','grand_zoltraak','Mastered Zoltraak','🌟',3,['Spell','Weapon'],6,[{t:'dmg',v:16}],{multicast:2,grow:5,special:'fusion'});
+I('frieren','grand_zoltraak','Ordinary Offensive Magic','🌟',3,['Spell','Weapon'],6,[{t:'dmg',v:16}],{multicast:2,grow:5,special:'fusion'});
 I('frieren','thousand_years','Thousand Years of Magic','🔮',3,['Spell'],9,[{t:'thousandYears',v:40,pct:.015}],{special:'ult'});
 I('frieren','barrier_break','Barrier-Breaking Zoltraak','🔮',3,['Spell','Weapon'],14,[{t:'dmg',v:44},{t:'break',pick:'large',first:true}]);
 // Deku
@@ -4374,7 +4374,7 @@ I('deku','blackwhip','Blackwhip','🖤',2,['Tool'],6,[{t:'dmg',v:8},{t:'freeze',
 I('deku','bakugo','Bakugo','💣',2,['Friend','Weapon'],5,[{t:'dmg',v:17},{t:'burn',v:3}],{escalate:{t:'dmg',v:2},lowDmgMult:1.5});
 I('deku','shoot_style','Shoot Style','🦶',2,['Weapon'],3,[{t:'dmg',v:16},{t:'selfdmg',v:1},{t:'haste',to:'right',d:1}],{special:'fusion'});
 I('deku','ofa100','One For All 100%','🌋',3,['Weapon'],9,[{t:'dmg',v:190,aboveBonus:30},{t:'selfdmg',v:40}],{special:'ult'});
-I('deku','shattered_arm','Shattered-Arm Smash','💢',2,['Weapon'],6,[{t:'dmg',v:80},{t:'selfdmg',v:10}],{overload:true});
+I('deku','shattered_arm','Delaware Detroit Smash','💢',2,['Weapon'],6,[{t:'dmg',v:80},{t:'selfdmg',v:10}],{overload:true});
 // Ichigo
 I('ichigo','zangetsu','Zangetsu','🗡️',2,['Weapon'],5,[{t:'dmg',v:20,when:{c:'hasted',v:6}},{t:'chargeId',id:'getsuga',v:.3}]);
 I('ichigo','getsuga','Getsuga Tensho','🌙',3,['Weapon'],8,[{t:'dmg',v:70,pierce:true}]);
@@ -4389,7 +4389,7 @@ I('ichigo','tensa','Tensa Zangetsu','🖤',3,['Weapon'],5,[{t:'dmg',v:30}],{mult
 I('ichigo','mugetsu','Mugetsu','🌘',3,['Weapon'],15,[{t:'dmg',v:260,pierce:true},{t:'powerLoss',v:.4}],{special:'ult'});
 // Fullbring pilot: secret and encounter-only definitions never enter shops/capsules.
 I('ichigo','complete_fullbring','Complete Fullbring','📛',3,['Apparel'],8,[{t:'shield',v:28},{t:'heal',v:10},{t:'charge',to:'rightWeapon',v:1}],{special:'event'});
-I('ichigo','hollow_rampage','Hollow Rampage','👹',2,['Weapon'],12,[{t:'dmg',v:39},{t:'break',pick:'small',first:true}]);
+I('ichigo','hollow_rampage','Hollow Ichigo: Cero','👹',2,['Weapon'],12,[{t:'dmg',v:39},{t:'break',pick:'small',first:true}]);
 I(null,'ginjo_blade','Cross of Scaffold','⚔️',2,['Weapon'],3,[{t:'dmg',v:14}],{special:'enemy',src:'Bleach'});
 I(null,'ginjo_pressure','Fullbring Pressure','💨',2,['Tool'],7,[{t:'dmg',v:24},{t:'charge',to:'all',v:.6}],{special:'enemy',src:'Bleach'});
 I(null,'ginjo_guard','Sparring Guard','🛡️',1,['Apparel'],8,[{t:'shield',v:12}],{special:'enemy',src:'Bleach'});
@@ -5683,7 +5683,7 @@ const SKIN_LIST=[
  ['frieren','great','Great Mage','#c8b6ff','✨','#e6dcff'],['frieren','ancient','Ancient Elf','#5a8f88','🌙','#9cf0e0'],
  ['deku','cowl','Full Cowl 45%','#2ad46a','⚡','#7dff9a'],['deku','vigilante','Vigilante Deku','#3a3a3a','🖤','#5ee37f'],
  ['ichigo','bankai','Bankai','#1a1a1a','🌑','#ff4040'],['ichigo','hollow','Hollow Form','#f0f0f0','👹','#ff7a5a'],
- ['levi','captain','Captain Levi','#3a5a4a','🕊️','#9cd2ff'],['levi','ackerman','Ackerman Awakening','#5a1a1a','⚔️','#ff5a5a'],
+ ['levi','captain','Captain Levi','#3a5a4a','🕊️','#9cd2ff'],['levi','ackerman','Ackerman Power','#5a1a1a','⚔️','#ff5a5a'],
  ['saitama','serious','Serious Mode','#ffd23f','💢','#fff36b'],['saitama','hoodie','Casual Hoodie','#d24a8a','👕','#ff9ad2'],
  ['anya','waku','Waku Waku','#ff9ad2','✨','#ffd1ea'],['anya','eden','Eden Academy','#2a2a3a','🎓','#f48fb1'],
  ['maomao','palace','Palace Attire','#c0392b','🏮','#ffb43b'],['maomao','verdigris','Verdigris House','#6a3a7a','🌸','#d9a0ff'],
@@ -6918,7 +6918,7 @@ function pickNearPower(list){if(!S||list.length<3)return pick(list);const me=boa
 // Rival ghosts (Claude 2026-10-30, BZ-RIVAL-GHOSTS-02): the PvP fallback on Normal/Hard/Heat is a real playtest board for
 // that day near a share of your board power. Format per board: [heroId, level, "skill*copies,...", "id:tier:slot[:ench];..."].
 
-const RIVAL_TARGET={normal:.65,hard:.75,heat:.8};
+const RIVAL_TARGET={normal:.65,hard:.75,heat:.8};const SHARED_MIN=3;
 function rivalBoard([heroId,level,sk,items]){if(!heroById(heroId))return null;const skills={};
  for(const part of sk?sk.split(','):[]){const [k,c]=part.split('*');const def=SKILLS.find(x=>x.k===k);if(def)for(let i=0;i<(+c||1);i++)gainSkill(skills,def)}
  const its=(()=>{const raw=items.split(';').map(x=>{const [id,t,sl,en]=x.split(':');return {id,tier:+t,slot:+sl,ench:en&&ENCH[en]?en:null}}).filter(i=>ITEMS[i.id]&&i.tier<=MAX_TIER).sort((a,b)=>a.slot-b.slot);let at=0;const out=[];for(const i of raw){const z=ITEMS[i.id].size;if(at+z>BOARD_SLOTS)continue;i.slot=at;at+=z;out.push(i)}return out})();
@@ -6937,7 +6937,13 @@ function genGhost(day){
   const pool=[...(SHARED[day]||[]),...friendB].map(cleanBoard).filter(ghostBoardCompatible).filter(notMirror),local=(store.get('animeBazaarGhosts',{})[day]||[]).map(cleanBoard).filter(ghostBoardCompatible).filter(notMirror);
   const log=S.rivalLog=S.rivalLog||[],recent=log.slice(-2),fresh=b=>{const k=rivalKey(b);return !recent.includes(k)&&log.filter(x=>x===k).length<2};
   const poolF=pool.filter(fresh),localF=local.filter(fresh);
-  const src=poolF.length&&R()<0.6?['shared',pickNearPower(poolF)]:localF.length&&R()<0.4?['local',pickNearPower(localF)]:null;
+  // Thin shared pool (Claude 2026-11-27, live stats): with your own boards excluded, a near-empty pool served the same one or two
+  // strangers' boards on most PvP days at full power (Goku/Naruto, players won ~32% of 113 fights). Strangers' boards need
+  // SHARED_MIN fresh candidates for the usual 60% share; a thinner pool is drawn only 25% of the time and each stranger at most once a run,
+  // so the power-matched Rival library fills the rest. Friends' boards always count as a full pool.
+  const friendF=friendB.map(cleanBoard).filter(ghostBoardCompatible).filter(notMirror).filter(fresh),full=poolF.length>=SHARED_MIN||friendF.length>0,
+   poolT=full?poolF:poolF.filter(b=>!log.includes(rivalKey(b)));
+  const src=poolT.length&&R()<(full?0.6:0.25)?['shared',pickNearPower(poolT)]:localF.length&&R()<0.4?['local',pickNearPower(localF)]:null;
   if(src&&src[1])log.push(rivalKey(src[1]));
   if(src&&src[1]){
     const s=src[1],h=heroById(s.heroId);
@@ -8015,7 +8021,7 @@ const RESONANCES=[
  {id:'axe_answer',a:'linie_axe',b:'stark',loot:true,name:"Stark’s Answer",desc:"Stark deals 20% more damage.",why:"Stark beat Linie’s copied axe with his own.",fx:[{k:'mult',item:'stark',v:1.2}]},
  {id:'psychic_showdown',a:'psykos_barrage',b:'tatsumaki',loot:true,name:"Psychic Showdown",desc:"Tatsumaki deals 20% more damage.",why:"Tatsumaki fought Psykos head-on at the Monster Association.",fx:[{k:'mult',item:'tatsumaki',v:1.2}]},
  {id:'katana_hunt',a:'katana_draw',b:'aki',loot:true,name:"The Katana Hunt",desc:"Aki deals 20% more damage.",why:"Aki and Denji took down the Katana Man together.",fx:[{k:'mult',item:'aki',v:1.2}]},
- {id:'hollow_end',a:'ulq_cero',b:'hollow_rampage',loot:true,name:"The Hollow’s End",desc:"Hollow Rampage deals 25% more damage.",why:"Ichigo’s Hollow form tore Ulquiorra apart.",fx:[{k:'mult',item:'hollow_rampage',v:1.25}]},
+ {id:'hollow_end',a:'ulq_cero',b:'hollow_rampage',loot:true,name:"The Hollow’s End",desc:"Hollow Ichigo: Cero deals 25% more damage.",why:"Ichigo’s Hollow form tore Ulquiorra apart.",fx:[{k:'mult',item:'hollow_rampage',v:1.25}]},
  {id:'blood_change',a:'toga_drain',b:'blood_feed',loot:true,name:"Blood to Transform",desc:"Blood Feeding also heals 6.",why:"Both drink blood to transform.",fx:[{k:'onUse',item:'blood_feed',fx:[{t:'heal',v:6}]}]},
  {id:'rule_breaker',a:'uma_rule',b:'fuuko_touch',loot:true,name:"Rule Breaker",desc:"Fuuko’s Touch crits 15% more often.",why:"Unluck turns the Rules against the UMA.",fx:[{k:'crit',item:'fuuko_touch',v:.15}]},
  {id:'unfair_duel',a:'billy_guns',b:'arm_launch',loot:true,name:"Unfair Duel",desc:"Arm Launcher deals 20% more damage.",why:"Andy took on Billy when the Union split.",fx:[{k:'mult',item:'arm_launch',v:1.2}]},
@@ -8028,7 +8034,7 @@ const RESONANCES=[
  {id:'rescue_squad',a:'chad',b:'uryu',name:"Rescue Squad",desc:"Chad and Uryu both deal 20% more damage.",why:"They broke into Soul Society together to save Rukia.",fx:[{k:'mult',item:'chad',v:1.2},{k:'mult',item:'uryu',v:1.2}]},
  {id:'flash_goddess',a:'yoruichi',b:'flash_step',name:"Flash Goddess",desc:"Flash Step also Hastes your Weapons 0.5s more.",why:"Yoruichi taught Ichigo Shunpo and was never beaten in a race.",fx:[{k:'onUse',item:'flash_step',fx:[{t:'haste',to:'tag:Weapon',d:.5}]}]},
  {id:'special_ops',a:'petra',b:'oluo',name:"Special Operations Squad",desc:"Oluo deals 20% more damage and Petra's Haste lasts 0.5s longer.",why:"Levi hand-picked them for his squad.",fx:[{k:'mult',item:'oluo',v:1.2},{k:'onUse',item:'petra',fx:[{t:'haste',to:'adj',d:.5}]}]},
- {id:'ackerman_blood',a:'kenny',b:'ackerman_awaken',name:"Ackerman Blood",desc:"Kenny Ackerman crits 15% more often.",why:"Kenny raised Levi and recognised the same awakening in him.",fx:[{k:'crit',item:'kenny',v:.15}]},
+ {id:'ackerman_blood',a:'kenny',b:'ackerman_awaken',name:"Ackerman Blood",desc:"Kenny Ackerman crits 15% more often.",why:"Kenny raised Levi and recognised the same surge of power in him.",fx:[{k:'crit',item:'kenny',v:.15}]},
  {id:'terrible_blizzard',a:'tatsumaki',b:'fubuki',name:"Terrible and Blizzard",desc:"Tatsumaki deals 20% more damage and Fubuki gives 3 more Shield.",why:"The Tornado of Terror and the Hellish Blizzard are sisters.",fx:[{k:'mult',item:'tatsumaki',v:1.2},{k:'onUse',item:'fubuki',fx:[{t:'shield',v:3}]}]},
  {id:'same_routine',a:'pushups',b:'cnp',name:"Same Routine",desc:"Consecutive Normal Punches also gives 3 Shield.",why:"A hundred push-ups a day is what built fists that fast.",fx:[{k:'onUse',item:'cnp',fx:[{t:'shield',v:3}]}]},
  {id:'ant_loyalty',a:'beru',b:'shadow_igris',name:"Ant King's Loyalty",desc:"Beru and Igris both deal 20% more damage.",why:"Beru and Igris compete to be the Monarch's most loyal shadow.",fx:[{k:'mult',item:'beru',v:1.2},{k:'mult',item:'shadow_igris',v:1.2}]},

@@ -1,0 +1,58 @@
+[
+ {
+  "item": "final_shine",
+  "file": "art/review/finder-batch6-20261126/b/final_shine/originals/2e88e72cca35ce76.webp",
+  "sha256": "2e88e72cca35ce76ef8f05349074f75d6c50a2c18794dc1470c98e81f68a045f",
+  "dhash": "b8d60eac6c8c2431",
+  "why": "Max 11-27: close-up of a hand and glow, did not read as Final Shine",
+  "date": "2026-11-26"
+ },
+ {
+  "item": "transfusion",
+  "file": "art/review/finder-batch6-20261126/b/transfusion/originals/f8ee77877e278b5f.webp",
+  "sha256": "f8ee77877e278b5f26d47851ebd4d9c20d4ddc67e60fc741d8d90f88e16797a5",
+  "dhash": "f2cde0d8c8a6b331",
+  "why": "Max 11-27: could not tell what it depicts",
+  "date": "2026-11-26"
+ },
+ {
+  "item": "blades",
+  "file": "art/review/finder-batch6-20261126/c/blades/originals/5a6b9aa98053a374.webp",
+  "sha256": "5a6b9aa98053a3749fbc172567c77a947cea2efb726dc213e66cefae4120552e",
+  "dhash": "1919191b1999181a",
+  "why": "Max 11-27: two-colour background, blades hard to see",
+  "date": "2026-11-26"
+ },
+ {
+  "item": "blades",
+  "file": "art/review/finder-batch6-20261126/c/blades/originals/76d407720344ce0d.webp",
+  "sha256": "76d407720344ce0d6768f29ef38f872bc18bf29bc385206fc29a117791353ceb",
+  "dhash": "886cd4d8c8c0c8e0",
+  "why": "Max 11-27: blades hard to see (also Mikasa, not Levi's blade set)",
+  "date": "2026-11-26"
+ },
+ {
+  "item": "rengoku",
+  "file": "art/review/finder-batch6-20261126/a/rengoku/originals/4ad3b9792617c9e8.webp",
+  "sha256": "4ad3b9792617c9e85853519bc03fbcd35f5a0b4cb4cbf557c87ba74cb5f271ee",
+  "dhash": "69fcf0e8d4f0fca8",
+  "why": "Max 11-27 wanted it zoomed out; it is also Shinjuro Rengoku, not Kyojuro",
+  "date": "2026-11-26"
+ },
+ {
+  "item": "peanuts",
+  "file": "art/review/finder-batch6-20261126/c/peanuts/originals/b3dad99d5f95f58a.webp",
+  "sha256": "b3dad99d5f95f58a1f9b6f584d6d4b5caa7afe8b24ad926ffb88164e7fa82984",
+  "dhash": "6aecec73db362e97",
+  "why": "Max 11-27: not good",
+  "date": "2026-11-27"
+ },
+ {
+  "item": "head_chainsaw",
+  "file": "art/items/denji/head-chainsaw-anime.webp",
+  "sha256": "0dbbb22f310f8cfa125121c88fd8df3be0402878165ded9daf1993d71e5d4f39",
+  "dhash": "a1b1b1a9696b1343",
+  "why": "shows Pochita, duplicates the Pochita card",
+  "date": "2026-11-27"
+ }
+]

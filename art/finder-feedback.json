@@ -1,0 +1,276 @@
+{
+ "about": "Max's art feedback, read by tools/art_finder.py on every run. 'hint' and 'pages' steer the wiki search, 'prefer' words raise a file's name score, 'avoid' words skip a file before download. Add notes with: python tools/art_finder.py note <item> \"what Max said\" --prefer word --avoid word --hint \"scene\" --page \"Wiki page\".",
+ "global": {
+  "lessons": [
+   "Show the named technique or item actually being used, not a portrait of the character standing around (Max 2026-11-27: Thunderbolt Tempo, Pop Green, Gojo teleport, Flower Breathing, Reelseiden).",
+   "Subject centered and fully in frame: not an extreme face close-up and not a tiny figure in a wide shot (Rengoku, Sakura, Satsuki, Shoto, Tenya).",
+   "One clear subject: busy two-tone backgrounds or dark frames where you cannot tell what is happening fail (Blade Set, Blood Transfusion, Final Shine).",
+   "Prefer the newest anime season's look when the character appears in it (Kenpachi: Thousand-Year Blood War).",
+   "Duos must show both characters together (Fukasaku & Shima).",
+   "Reject frames with TV-channel or site logos (MBS, TBS, anime1.com), title cards, opening/ending credits, posters with text, game screenshots and manga panels.",
+   "Check the wiki's file categories: 'Images of <character>' tells you who is really in the frame (Episode 23-2 was Akira Kuno, not Fuuko).",
+   "Equipment cards must show the object itself in frame (Gekota strap), and effect cards must show the effect happening (stand shattering, arm launched, telepathy). A portrait of the character is not enough. (Max 2026-11-27)",
+   "Galleries: leave out cards Max already approved and images he already turned down; show only cards still needing a pick (Max 2026-11-27)."
+  ],
+  "avoid_name": [
+   "poster",
+   "key visual",
+   "keyvisual",
+   "xenoverse",
+   "budokai",
+   "dokkan",
+   "blazing",
+   "title card",
+   "opening",
+   "ending",
+   "infobox",
+   "design",
+   "reference sheet",
+   "profile",
+   "chibi",
+   "sketch",
+   "twitter",
+   "volume",
+   "magazine",
+   "colored manga",
+   "illustration",
+   "outfit",
+   "PV"
+  ]
+ },
+ "items": {
+  "rengoku": {
+   "notes": "Max 11-27: wants a more zoomed-out shot of Rengoku's face (head and shoulders, not an extreme close-up).",
+   "hint": "Kyojuro Rengoku Mugen Train",
+   "prefer": [
+    "Kyojuro",
+    "Mugen",
+    "Episode"
+   ]
+  },
+  "fuuko_manga": {
+   "notes": "Max 11-27: wants the actual shojo manga Fuuko reads, visible in frame.",
+   "prefer": [
+    "manga",
+    "Fuuko",
+    "reading"
+   ]
+  },
+  "poison_tasting": {
+   "notes": "Max 11-27: someone deliberately tasting poison (Maomao testing food/poison on herself). | Max 2026-11-26: episode 6 garden party: Maomao taste-tests the poisoned soup",
+   "prefer": [
+    "Maomao",
+    "poison",
+    "taster",
+    "tasting",
+    "eat"
+   ],
+   "from_pages": [
+    "https://animecorner.me/the-apothecary-diaries-episode-6-a-poisoned-party/"
+   ]
+  },
+  "kanao": {
+   "notes": "Max 11-27: Kanao actually using Flower Breathing; it happens in the Infinity Castle movies.",
+   "hint": "Kanao Flower Breathing Infinity Castle Doma",
+   "prefer": [
+    "Flower",
+    "Hanagoromo",
+    "Doma",
+    "Infinity Castle"
+   ]
+  },
+  "blue_teleport": {
+   "notes": "Max 11-27: Gojo actually teleporting. Only a 320px gif and a manga panel found so far.",
+   "hint": "Satoru Gojo teleports anime",
+   "prefer": [
+    "teleport",
+    "Anime"
+   ]
+  },
+  "final_shine": {
+   "notes": "Max 11-27: the old close-up of a hand and glow did not read as Final Shine; show Vegeta firing the green beam.",
+   "prefer": [
+    "Final Shine",
+    "Vegeta"
+   ]
+  },
+  "trunks": {
+   "notes": "Max 11-27: just Future Trunks on his own.",
+   "prefer": [
+    "Future Trunks"
+   ],
+   "avoid": [
+    "Goku",
+    "Vegeta",
+    "Bulma"
+   ]
+  },
+  "sakura": {
+   "notes": "Max 11-27: close-up of Sakura centered in frame.",
+   "prefer": [
+    "Sakura Haruno"
+   ]
+  },
+  "sage_toads": {
+   "notes": "Max 11-27: Fukasaku and Shima together in one frame.",
+   "hint": "Fukasaku Shima Sage Art",
+   "prefer": [
+    "Fukasaku",
+    "Shima",
+    "Sage Art",
+    "Frog"
+   ]
+  },
+  "nami": {
+   "notes": "Max 11-27: Thunderbolt Tempo actually being used.",
+   "hint": "Nami Thunderbolt Tempo Kalifa",
+   "prefer": [
+    "Thunderbolt",
+    "Tempo",
+    "Clima"
+   ]
+  },
+  "usopp": {
+   "notes": "Max 11-27: Pop Green actually being used.",
+   "hint": "Usopp Pop Green",
+   "prefer": [
+    "Pop Green",
+    "Bamboo"
+   ]
+  },
+  "todoroki": {
+   "notes": "Max 11-27: better close-up of Shoto.",
+   "prefer": [
+    "Shoto",
+    "Todoroki"
+   ]
+  },
+  "iida": {
+   "notes": "Max 11-27: better close-up of Tenya.",
+   "prefer": [
+    "Tenya",
+    "Iida"
+   ]
+  },
+  "transfusion": {
+   "notes": "Max 11-27: could not tell what the image showed. Needs Denji visibly drinking blood to heal.",
+   "prefer": [
+    "Denji",
+    "blood",
+    "drink"
+   ]
+  },
+  "satsuki": {
+   "notes": "Max 11-27: Satsuki using Bakuzan, centered. The 1280x720 frame has an MBS logo, so it is out. | Max 2026-11-27: again: needs Satsuki herself holding or swinging Bakuzan, centered",
+   "prefer": [
+    "Satsuki",
+    "Bakuzan"
+   ],
+   "hint": "Satsuki Kiryuin Bakuzan"
+  },
+  "blood_feed": {
+   "notes": "Max 11-27: wants a clearer depiction of Senketsu feeding on Ryuko's blood.",
+   "prefer": [
+    "Senketsu",
+    "Ryuko",
+    "blood"
+   ]
+  },
+  "ubel": {
+   "notes": "Max 11-27: Übel actually casting Reelseiden (the cutting slash), not standing. | Max 2026-11-26: Reelseiden is used in the first exam (ep 20-21) and vs Sense's replica (ep 26) | Max 2026-11-27: still no Reelseiden: needs the cut/slash happening",
+   "prefer": [
+    "Reelseiden",
+    "slash",
+    "cut"
+   ],
+   "from_pages": [
+    "https://animecorner.me/frieren-beyond-journeys-end-episode-21-different-perspectives-in-magic/"
+   ],
+   "hint": "Ubel Reelseiden"
+  },
+  "blades": {
+   "notes": "Max 11-27: the two-colour background made it hard to see; needs the ODM blades clearly visible.",
+   "prefer": [
+    "blades",
+    "ODM",
+    "sword"
+   ]
+  },
+  "byakuya": {
+   "notes": "Max 11-27: Senbonzakura with the petals visible. Ep41 shikai frame approved 11-20.",
+   "prefer": [
+    "Senbonzakura",
+    "petals",
+    "Shikai"
+   ]
+  },
+  "kenpachi": {
+   "notes": "Max 11-27: newest season (Thousand-Year Blood War), full body.",
+   "hint": "Kenpachi Thousand-Year Blood War",
+   "prefer": [
+    "Ep37",
+    "Ep38",
+    "Ep39",
+    "Ep40",
+    "Ep41",
+    "Bankai"
+   ]
+  },
+  "unluck_meteor": {
+   "notes": "Max 2026-11-26: the meteor falls at the end of episode 1",
+   "from_pages": [
+    "https://animecorner.me/undead-unluck-premiere-a-new-chaotic-anime-by-david-production/"
+   ]
+  },
+  "telepathy": {
+   "notes": "Max 2026-11-27: telepathy not shown: needs Anya visibly reading minds (thought bubbles or her mind-reading reaction)",
+   "prefer": [
+    "telepathy",
+    "reads",
+    "mind"
+   ],
+   "hint": "Anya reads mind telepathy"
+  },
+  "gekota": {
+   "notes": "Max 2026-11-27: no strap visible: the Gekota strap/keychain itself must be in frame (Misaka's phone strap)",
+   "prefer": [
+    "strap",
+    "Gekota"
+   ],
+   "hint": "Gekota strap Misaka"
+  },
+  "arm_launch": {
+   "notes": "Max 2026-11-27: no arm launched: needs Andy firing/throwing his own detached arm or body part",
+   "prefer": [
+    "Andy",
+    "arm"
+   ],
+   "hint": "Andy shoots arm"
+  },
+  "stand_shatter": {
+   "notes": "Max 2026-11-27: no stand being shattered: needs a Stand breaking apart or being destroyed by Star Platinum",
+   "prefer": [
+    "Star Platinum",
+    "destroys"
+   ],
+   "hint": "Star Platinum destroys Stand"
+  },
+  "peanuts": {
+   "notes": "Max 2026-11-27: the 'Anya is cheered up with peanuts' close-up was rejected; needs Anya clearly eating or holding peanuts, centered",
+   "prefer": [
+    "peanuts",
+    "Anya"
+   ],
+   "hint": "Anya peanuts"
+  },
+  "head_chainsaw": {
+   "notes": "Max 2026-11-27: Pochita picture is wrong: card is the chainsaw coming out of Denji's forehead (Chainsaw Man form), headbutting",
+   "prefer": [
+    "Chainsaw Man form head chainsaw"
+   ],
+   "avoid": [
+    "Pochita"
+   ]
+  }
+ }
+}
