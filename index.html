@@ -3837,6 +3837,59 @@ const HFX=(()=>{
     c.save();c.translate(a.x+10,a.y-20);c.rotate(-2+2.4*q);c.fillStyle='#f4f0e0';c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.moveTo(0,-8);c.quadraticCurveTo(70,-24,110,-6);c.lineTo(110,8);c.quadraticCurveTo(60,12,0,8);c.closePath();c.fill();c.stroke();c.fillStyle='#e8e0c0';c.beginPath();c.arc(0,0,10,0,TAU);c.fill();c.stroke();c.restore();
     if(k>.45){const p=Math.min(1,(k-.45)/.3);c.globalCompositeOperation='lighter';for(let i=0;i<5;i++){c.strokeStyle='rgba(255,236,140,'+(.9-i*.1)+')';c.lineWidth=7-i;c.beginPath();const s={x:a.x+60,y:a.y-40+i*18},e=lerp(s,{x:b.x+40,y:b.y-50+i*24},p);c.moveTo(s.x,s.y);for(let j=1;j<=8;j++){const pp=lerp(s,e,j/8);c.lineTo(pp.x+jit(j,i+step(t),6),pp.y+jit(j+3,i,10))}c.stroke()}}c.restore()}})},
   // ---- end #102 animations ----
+  // ---- #104 second-playstyle animations (Claude 2026-11-28) ----
+  // Dragon Fist: a golden dragon coils out of the punch and bites through the target
+  dragonfist(a,b,col,o){add({dur:.95,at:.6,hit(){impactFrame(b,'#3a2200');hitAt(b,'#ffd23f',true,'龍拳','#ffe27a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.6));
+    c.lineCap='round';for(let j=0;j<2;j++){c.strokeStyle=j?'#ffe27a':'#c88a0a';c.lineWidth=j?7:15;c.beginPath();for(let i=0;i<=24;i++){const s=i/24*q,p=lerp(a,b,s);p.y+=Math.sin(s*TAU*1.5+t*8)*30*(1-s*.5);i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y)}c.stroke()}
+    const h=lerp(a,b,q);h.y+=Math.sin(q*TAU*1.5+t*8)*30*(1-q*.5);c.beginPath();c.moveTo(h.x+22,h.y);c.lineTo(h.x-8,h.y-16);c.lineTo(h.x-14,h.y);c.lineTo(h.x-8,h.y+16);c.closePath();outline(c,'#ffd23f',3);
+    c.fillStyle=INK;c.beginPath();c.arc(h.x+2,h.y-6,2.5,0,TAU);c.fill();if(k<.5)fist(c,a.x+20,a.y,16,'#f0c49b',Math.atan2(b.y-a.y,b.x-a.x));c.restore()}})},
+  // Super Vegeta: a crackling golden aura flares up around him
+  supervegeta(a,b,col,o){add({dur:.9,at:.4,hit(){hitAt(a,'#ffe27a',false,'超','#ffe27a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const r=30+ease(Math.min(1,k/.4))*34,s=step(t);
+    for(let i=0;i<14;i++){const an=i/14*TAU,len=r+Math.abs(jit(i,s,18));c.beginPath();c.moveTo(a.x+Math.cos(an)*r*.5,a.y+Math.sin(an)*r*.6);c.quadraticCurveTo(a.x+Math.cos(an+.2)*len*.8,a.y+Math.sin(an+.2)*len*.8-10,a.x+Math.cos(an)*len,a.y+Math.sin(an)*len-18);c.strokeStyle=i%2?'#ffd23f':'#fff3b0';c.lineWidth=5;c.stroke()}
+    for(let z=0;z<3;z++)zap(c,a.x+jit(z,s,30),a.y-50,a.x+jit(z+4,s,30),a.y+40,s+z,'#9ce9ff',2);c.restore()}})},
+  // Water Wheel: Tanjiro flips forward and the water blade rolls down onto the target
+  waterflip(a,b,col,o){add({dur:.8,at:.62,hit(){hitAt(b,'#72dfff',false,'弐ノ型','#c5f7ff')},draw(c,k,t){if(k>.72)return;const q=ease(Math.min(1,k/.6)),p=arcAt(a,b,q,90);c.save();c.translate(p.x,p.y);c.rotate(q*TAU*1.2);
+    for(let j=0;j<2;j++){c.strokeStyle=j?'#ffffff':'#2f8fd0';c.lineWidth=j?3:12;c.beginPath();c.arc(0,0,34,0,Math.PI*1.4);c.stroke()}c.save();c.rotate(.6);blade(c,46,6,'#2a2a2a','#9ce9ff');c.restore();c.restore()}})},
+  // Striking Tide: a chain of quick water slashes from alternating sides
+  strikingtide(a,b,col,o){add({dur:.75,at:.5,hit(){hitAt(b,'#5ac8ff',false,'肆ノ型','#c5f7ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);for(let i=0;i<4;i++){const s=Math.min(1,Math.max(0,(k-i*.12)/.25));if(s<=0)continue;const d=i%2?1:-1;
+    c.save();c.translate(b.x,b.y);c.rotate(d*.6);c.strokeStyle='#2f8fd0';c.lineWidth=9;c.beginPath();c.arc(0,0,48,-1.2,-1.2+2.4*ease(s));c.stroke();c.strokeStyle='#e8fbff';c.lineWidth=3;c.stroke();c.restore()}c.restore()}})},
+  // Divergent Fist: the punch lands, a beat later a second blue shock ripples out
+  divergent(a,b,col,o){add({dur:.95,at:.3,hit(){hitAt(b,'#f0c49b',false,'逕庭拳','#9cc8ff')},draw(c,k,t){const q=Math.min(1,k/.3),p=lerp(a,b,ease(q));if(k<.36)fist(c,p.x,p.y,17,'#f0c49b',Math.atan2(b.y-a.y,b.x-a.x));
+    if(k>.55){const r=(k-.55)/.45;for(let i=0;i<3;i++){const rr=r*90-i*18;if(rr<=0)continue;c.globalAlpha=Math.max(0,1-rr/90);c.strokeStyle=i?'#9cc8ff':'#3a6ad8';c.lineWidth=6-i*1.5;c.beginPath();c.arc(b.x,b.y,rr,0,TAU);c.stroke()}c.globalAlpha=1}}})},
+  // Cursed Speech: "Don't move" rolls out in sound rings and pins the target
+  cursedspeech(a,b,col,o){add({dur:.9,at:.6,hit(){hitAt(b,'#c8a2ff',false,'動くな','#e8d8ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const ang=Math.atan2(b.y-a.y,b.x-a.x);
+    for(let i=0;i<5;i++){const s=(k*1.4-i*.15);if(s<0||s>1)continue;const p=lerp(a,b,s);c.save();c.translate(p.x,p.y);c.rotate(ang);c.strokeStyle='#b07cff';c.lineWidth=4;c.beginPath();c.arc(0,0,14+s*22,-.9,.9);c.stroke();c.restore()}
+    c.font='900 22px "Yu Gothic","Meiryo",sans-serif';c.textAlign='center';c.lineWidth=5;c.strokeStyle=INK;c.strokeText('呪言',a.x,a.y-46);c.fillStyle='#e8d8ff';c.fillText('呪言',a.x,a.y-46);c.restore()}})},
+  // Restraint Magic: glowing bands lash around the target and pull tight
+  restraint(a,b,col,o){add({dur:.85,at:.55,hit(){hitAt(b,'#ffe6a0',false,'拘束','#fff2c0')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.55));
+    for(let i=0;i<3;i++){const y=b.y-24+i*24;c.save();c.translate(b.x,y);c.scale(1,.32);c.strokeStyle='#ffd27a';c.lineWidth=7;c.beginPath();c.arc(0,0,56-q*16,i,i+TAU*q);c.stroke();c.strokeStyle='#fff8e0';c.lineWidth=2;c.stroke();c.restore()}
+    if(k<.5){c.strokeStyle='rgba(255,226,140,.8)';c.lineWidth=3;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(lerp(a,b,q).x,lerp(a,b,q).y);c.stroke()}c.restore()}})},
+  // Gearshift: two gears spin up beside Deku, then the speed lines peel off
+  gearshift(a,b,col,o){add({dur:.85,at:.5,hit(){hitAt(b,'#9cff9a',false,'変速','#c8ffc8');speedLines(b,'#9cff9a',.3,18)},draw(c,k,t){c.save();c.globalAlpha=fo(k);
+    const g=(x,y,r,rot,colr)=>{c.save();c.translate(x,y);c.rotate(rot);c.beginPath();for(let i=0;i<16;i++){const an=i/16*TAU,rr=i%2?r:r*.78;c.lineTo(Math.cos(an)*rr,Math.sin(an)*rr)}c.closePath();outline(c,colr,2.5);c.beginPath();c.arc(0,0,r*.3,0,TAU);outline(c,'#2a2a2a',2);c.restore()};
+    g(a.x-14,a.y-36,20,t*9,'#7ac26b');g(a.x+16,a.y-48,14,-t*13,'#b8e8a0');if(k>.35){const p=lerp(a,b,ease(Math.min(1,(k-.35)/.2)));c.strokeStyle='#9cff9a';c.lineWidth=4;for(let i=-2;i<=2;i++){c.beginPath();c.moveTo(p.x-60,p.y+i*9);c.lineTo(p.x,p.y+i*9);c.stroke()}}c.restore()}})},
+  // Getsuga Jujisho: two black-and-red crescents cross into an X on the target
+  jujisho(a,b,col,o){add({dur:1.05,at:.62,hit(){impactFrame(b,'#200008');hitAt(b,'#ff2a3a',true,'月牙十字衝','#ff6a6a');shake(8,300)},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.6));
+    for(const d of [-1,1]){const p=lerp(a,b,q);c.save();c.translate(p.x,p.y);c.rotate(d*.78);c.beginPath();c.arc(-16,0,62,-1.1,1.1);c.arc(-34,0,52,1,-1,true);c.closePath();outline(c,'#16060a',3);c.strokeStyle='#ff2a3a';c.lineWidth=3;c.beginPath();c.arc(-16,0,62,-1.1,1.1);c.stroke();c.restore()}c.restore()}})},
+  // Future Devil: an eye opens in the air above and its pupil turns to watch the future
+  futuredevil(a,b,col,o){add({dur:.9,at:.5,hit(){hitAt(a,'#ffb0d0',false,'未来','#ffd8e8')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const open=Math.sin(Math.min(1,k/.5)*Math.PI/2),x=a.x,y=a.y-58;
+    c.beginPath();c.moveTo(x-34,y);c.quadraticCurveTo(x,y-30*open,x+34,y);c.quadraticCurveTo(x,y+30*open,x-34,y);outline(c,'#fff4f8',3);if(open>.2){c.beginPath();c.arc(x+Math.sin(t*6)*8,y,11*open,0,TAU);outline(c,'#c83a6a',2);c.fillStyle=INK;c.beginPath();c.arc(x+Math.sin(t*6)*8,y,4,0,TAU);c.fill()}c.restore()}})},
+  // Violence Fiend: the masked fiend dashes in and throws a wild haymaker
+  violencefiend(a,b,col,o){add({dur:.75,at:.55,hit(){hitAt(b,'#c8a0ff',false,'暴力','#e8d8ff')},draw(c,k,t){if(k>.72)return;const q=ease(Math.min(1,k/.55)),p=lerp(a,b,q*.85);
+    chibi(c,p.x,p.y,1.4,{body:'#2a2a3a',hair:'#3a2a1a',pose:1,lean:.25,extra(c){c.beginPath();c.ellipse(0,-17,10.5,9,0,0,TAU);outline(c,'#e8e4d8',1.6);c.beginPath();c.moveTo(0,-14);c.lineTo(14,-10);c.lineTo(0,-8);c.closePath();outline(c,'#d8d4c8',1.4);c.fillStyle=INK;c.beginPath();c.arc(-4,-19,2,0,TAU);c.arc(4,-19,2,0,TAU);c.fill()}});
+    if(k>.45)fist(c,b.x-14,b.y,18,'#8a6a5a',0)}})},
+  // Lihaku: the guard captain steps in and brings his sword down in a heavy arc
+  lihaku(a,b,col,o){add({dur:.8,at:.55,hit(){hitAt(b,'#e8d8a8',false,'斬','#fff2c0')},draw(c,k,t){if(k>.75)return;const q=ease(Math.min(1,k/.5)),p=lerp(a,b,q*.75);
+    chibi(c,p.x,p.y,1.4,{body:'#3a5a8a',trim:'#c8a04a',hair:'#2a1a10',pose:2});c.save();c.translate(p.x+8,p.y-20);c.rotate(-1.8+q*2.6);blade(c,54,7,'#c8ccd8','#ffffff');c.restore()}})},
+  // Last Order: the little Sister's network lights up in lines of current
+  lastorder(a,b,col,o){add({dur:.85,at:.45,hit(){hitAt(a,'#9ce9ff',false,'ネットワーク','#c8f4ff')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const s=step(t),pts=[];for(let i=0;i<6;i++){const an=i/6*TAU+.3;pts.push({x:a.x+Math.cos(an)*70,y:a.y-20+Math.sin(an)*44})}
+    for(let i=0;i<6;i++){zap(c,a.x,a.y-20,pts[i].x,pts[i].y,s+i,'#9ce9ff',2);c.beginPath();c.arc(pts[i].x,pts[i].y,5,0,TAU);outline(c,'#e8fbff',1.5)}chibi(c,a.x,a.y-10,1.1,{body:'#7ab8e8',hair:'#8a5a2a',pose:2});c.restore()}})},
+  // Mako, Fight Club President: two-star uniform, a star flashes, then the punch
+  fightclub(a,b,col,o){add({dur:.8,at:.55,hit(){hitAt(b,'#ffd23f',false,'喧嘩部','#ffe27a')},draw(c,k,t){if(k>.74)return;const q=ease(Math.min(1,k/.55)),p=lerp(a,b,q*.8);
+    chibi(c,p.x,p.y,1.4,{body:'#2a2a3a',trim:'#c83a3a',hair:'#5a3a1a',pose:1});for(const sx of [-8,8])starP(c,p.x+sx,p.y-6,5,5,'#ffd23f',t*4);if(k>.42)fist(c,b.x-16,b.y,17,'#f0c49b',0)}})},
+  // Crossfire Hurricane Special: a ring of small flaming ankhs spirals in on the target
+  ankhstorm(a,b,col,o){add({dur:1,at:.7,hit(){hitAt(b,'#ff8a2a',false,'クロスファイヤー','#ffd27a')},draw(c,k,t){c.save();c.globalAlpha=fo(k);const q=ease(Math.min(1,k/.7));
+    for(let i=0;i<6;i++){const an=i/6*TAU+t*5,r=(1-q)*90+10,p=lerp(a,b,q);const x=p.x+Math.cos(an)*r,y=p.y+Math.sin(an)*r*.7;c.save();c.translate(x,y);c.rotate(an);c.strokeStyle='#ff8a2a';c.lineWidth=4;c.beginPath();c.ellipse(0,-8,5,7,0,0,TAU);c.moveTo(0,-1);c.lineTo(0,14);c.moveTo(-8,3);c.lineTo(8,3);c.stroke();c.restore()}c.restore()}})},
  };
  // ---- #101 batch 4 animation helpers (Claude 2026-11-19) ----
  // A small chibi figure: legs, body, arms, head and hair, in the character's own colours. pose: 0 stand, 1 lunge, 2 arms up
@@ -5252,6 +5305,150 @@ const IDENTITY103={
  gekota:d=>{d.fx.push({t:'regen',v:1})},                                                         // was Fire Soldier Bunker Gear
 };
 for(const [id,f] of Object.entries(IDENTITY103))if(ITEMS[id])f(ITEMS[id]);
+// ================= #104 second playstyles (Claude 2026-11-28, Max approved "Build all 12 as written") =================
+// 12 heroes only had one real build. Each gets a second playstyle built mostly from cards it already owned: 15 new items,
+// 13 reworks. (Blackwhip was planned too but left alone: any extra Blackwhip value made Deku's trial too easy, pride_rework.) Design doc: docs/design/BZ-SECOND-PLAYSTYLES-104.md. Test: tests/second_playstyles104.cjs.
+// New fx types end in 104 and are handled by the small wrappers below (applyFx, damage, useItem, critChanceOf, identBonus, text).
+// Goku: Kaio-ken Rush
+I('goku','dragon_fist','Dragon Fist','🐲',2,['Weapon'],6,[{t:'dmg',v:16},{t:'selfMulti104',max:3}]);
+// Vegeta: Majin Revenge
+I('vegeta','super_vegeta','Super Vegeta','💛',2,['Tool'],7,[{t:'shield',v:18},{t:'hurtCharge104',v:1,max:6}]);
+// Tanjiro: Water Breathing Flow
+I('tanjiro','water_wheel','Water Wheel','🛞',2,['Weapon'],5,[{t:'dmg',v:18,perHasted104:{v:4,max:10}}]);
+I('tanjiro','striking_tide','Striking Tide','💧',1,['Weapon'],4,[{t:'dmg',v:8},{t:'hasteMulti104',n:3}]);
+// Gojo: Jujutsu High Students
+I('gojo','divergent_fist','Yuji: Divergent Fist','👊',1,['Friend','Weapon'],4,[{t:'dmg',v:10},{t:'friendCrit104',v:.08}]);
+I('gojo','inumaki','Toge Inumaki: Cursed Speech','🍙',1,['Friend'],6,[{t:'freeze',n:1,d:1.5,biggest104:true},{t:'selfdmg',v:3}],{tierScale:true});
+// Frieren: Mana Suppression Ambush
+I('frieren','methode','Methode: Restraint Magic','🪢',1,['Friend'],6,[{t:'analyze'},{t:'slow',n:1,d:1},{t:'concealPerAnalysis104',v:8}]);
+// Deku: Vestige Control
+I('deku','gearshift','Gearshift','⚙️',2,['Tool'],6,[{t:'haste',to:'adj',d:1.5,grow:.5,max:3},{t:'slow',n:1,d:1.5,grow104:.5,max:3}],{tierScale:true});
+// Ichigo: Hollowfication
+I('ichigo','getsuga_jujisho','Getsuga Jūjishō','✝️',3,['Weapon'],9,[{t:'dmg',v:54},{t:'lowLeech104',v:.3}]);
+// Denji: Devil Hunters
+I('denji','future_devil','Future Devil','👁️',1,['Friend'],7,[{t:'shield',v:14},{t:'futureCrit104'}],{opening:true});
+I('denji','violence_fiend','Violence Fiend','🎭',2,['Friend','Weapon'],6,[{t:'dmg',v:22,perFriendUsed104:{v:6,max:6}}]);
+// Maomao: Physician's Remedies
+I('maomao','lihaku','Lihaku','🗡️',2,['Friend','Weapon'],6,[{t:'dmg',v:20,perFoodUsed104:{v:10,max:5}}]);
+// Misaka: Electromaster Spells
+I('misaka','last_order','Last Order','🧒',1,['Friend'],7,[{t:'shield',v:12},{t:'freezeCharge104',v:1,max:10}]);
+// Ryuko: Mankanshoku Family
+I('ryuko','mako_fight_club','Mako: Fight Club President','🥊',2,['Friend','Weapon'],6,[{t:'dmg',v:20,perHealGot104:{v:6,max:10}}]);
+// Jotaro: Stardust Crusaders
+I('jotaro','crossfire_hurricane','Crossfire Hurricane','☥',2,['Weapon'],8,[{t:'dmg',v:12},{t:'burn',v:2,perFoe:{s:'slowed',v:2}}]);
+Object.assign(HERO_SIGS,{dragon_fist:['dragonfist','#ffd23f'],super_vegeta:['supervegeta','#ffd23f',{self:true}],water_wheel:['waterflip','#5ac8ff'],striking_tide:['strikingtide','#5ac8ff'],
+ divergent_fist:['divergent','#9cc8ff'],inumaki:['cursedspeech','#b07cff'],methode:['restraint','#ffd27a'],gearshift:['gearshift','#9cff9a'],getsuga_jujisho:['jujisho','#ff2a3a',{big:true}],
+ future_devil:['futuredevil','#ffb0d0',{self:true}],violence_fiend:['violencefiend','#c8a0ff'],lihaku:['lihaku','#e8d8a8'],last_order:['lastorder','#9ce9ff',{self:true}],
+ mako_fight_club:['fightclub','#ffd23f'],crossfire_hurricane:['ankhstorm','#ff8a2a']});
+const WATER_FORMS104=['water_wheel','striking_tide','constant_flux','giyu'];
+const REWORK104={
+ kaioken20:d=>{d.fx.push({t:'selfCharge104',v:1})},                                                   // Goku: hurting yourself winds up the x20
+ majin:d=>{d.fx=[{t:'dmg',v:50,perLost104:3},{t:'selfdmg',v:15}];d.cd=10},                                    // Vegeta: was a 3x crit window
+ armor:d=>{for(const f of d.fx)if(f.armorMark){delete f.armorMark;f.armorDmg104=20}},                 // Vegeta: broken armor gives damage, not crit
+ water_breath:d=>{d.fx.push({t:'hasteIds104',ids:WATER_FORMS104,d:1})},                              // Tanjiro: also Hastes the Water forms
+ kikufuku:d=>{for(const f of d.fx)if(f.t==='haste'){f.to='tag:Friend';f.d=1;f.lowExtra=.5}},                        // Gojo: sweets for the students, not Spells
+ mana_suppress:d=>{d.concealStack104=2},                                                               // Frieren: Conceal stacks twice
+ uraraka:d=>{d.fx=[{t:'slow',n:2,d:2},{t:'dmg',v:4,perFoe:{s:'slowed',v:12}}]},                       // Deku: the payoff for Slows
+ hollow_mask:d=>{d.onAllyUse={tag:'Weapon',fx:[{t:'heal',v:5,halfOnly104:true}]}},                   // Ichigo: hollow regeneration when low
+ aki:d=>{d.fx.push({t:'charge',to:'tag:Friend',v:.5})},                                               // Denji: squad leader
+ luomen:d=>{d.onAllyUse={tag:'Food',fx:[{t:'heal',v:2}]}},                                            // Maomao: remedies, not only Toxins
+ hacking:d=>{d.fx=d.fx.map(f=>f.t==='chargeId'?{t:'charge',to:'tag:Spell',v:1}:f)},                   // Misaka: feeds Spells, Railgun is a Weapon
+ mataro:d=>{d.fx=d.fx.map(f=>f.t==='stripShield'?{t:'stealShield104',v:f.v}:f)},                    // Ryuko: pockets the Shield he steals
+ kakyoin:d=>{delete d.stopSlowed;d.fx.push({t:'slowLonger104',d:.5})},                                // Jotaro: Slows last longer, no time stop needed
+};
+for(const [id,f] of Object.entries(REWORK104))if(ITEMS[id])f(ITEMS[id]);
+const has104=(me,t)=>me&&me.items&&me.items.find(o=>!o.broken&&o.def.fx.some(f=>f.t===t));
+const fx104=(it,t)=>it.def.fx.find(f=>f.t===t);
+{ // ---- combat hooks ----
+ const _applyFx=applyFx;
+ applyFx=function(me,foe,it,fx,m){
+  if(fx.t==='slow'){const kk=has104(me,'slowLonger104');if(kk||fx.grow104){let d=fx.d;if(fx.grow104)d+=Math.min((fx.max||9)-fx.d,fx.grow104*Math.max(0,(it.uses||1)-1));if(kk)d+=fx104(kk,'slowLonger104').d;fx={...fx,d}}}
+  if(fx.t==='freeze'&&fx.biggest104){if(it.def.tierScale&&it.inst)fx=tierFx(fx,it.inst.tier);const T=foe.items.filter(o=>!o.broken).sort((a,b)=>b.def.size-a.def.size||a.idx-b.idx).slice(0,fx.n);for(const o of T)o.freeze+=fx.d;if(T.length&&!F.skipping){sfx('freeze');for(const o of T)VFX.freeze(cardEl(foe,o))}if(T.length)freezeHook104(me,foe);return T.length?`froze ${T.map(o=>o.def.name).join(', ')}`:''}
+  if(fx.halfOnly104&&me.hp>me.max*.5)return '';
+  if(fx.slowedOnly104&&!(foe&&foe.items.some(o=>!o.broken&&o.slow>0)))return '';
+  if(fx.t==='shield'&&fx.armorDmg104)me.armorUp=true;
+  switch(fx.t){
+   case 'selfMulti104':case 'hurtCharge104':case 'hasteMulti104':case 'friendCrit104':case 'concealPerAnalysis104':case 'futureCrit104':case 'freezeCharge104':case 'selfCharge104':case 'slowLonger104':return '';
+   case 'lowLeech104':{if(me.hp>me.max*.5||!(it.hit104>0))return '';const h=Math.round(it.hit104*fx.v*(1+(me.sk.healMult||0)));heal(me,h);return `heals ${h} (Hollow)`}
+   case 'stealShield104':{const got=Math.min(Math.max(0,foe.shield),fx.v*VAL_MULT[it.inst.tier]);foe.shield-=got;if(got>0)me.shield+=got;return got?`stole ${got} Shield`:''}
+   case 'hasteIds104':{const T=me.items.filter(o=>o!==it&&!o.broken&&fx.ids.includes(o.def.id));for(const o of T){o.haste=Math.min(6,o.haste+fx.d);o.hastedN104=(o.hastedN104||0)+1}return T.length?`haste ${T.length} Water form${T.length>1?'s':''}`:''}
+  }
+  let snap=null;if(fx.t==='haste')snap=me.items.map(o=>o.haste);
+  const hp0=foe&&foe.hp;
+  if(fx.t==='dmg'&&isW(it)&&me.shatterDmg104){const bonus=me.shatterDmg104;me.shatterDmg104=0;damage(foe,bonus,'hit',false);it.dealt+=bonus;log(me,`🦺 Saiyan Armor shattered: +${bonus} damage on ${it.def.name}`)}
+  const r=_applyFx(me,foe,it,fx,m);
+  if(fx.t==='dmg'&&foe)it.hit104=Math.max(0,hp0-foe.hp);
+  if(snap)me.items.forEach((o,i)=>{if(o.haste>snap[i])o.hastedN104=(o.hastedN104||0)+1});
+  if(fx.t==='heal'&&r&&!/^repaired/.test(r))me.healHits104=(me.healHits104||0)+1;
+  if(fx.t==='freeze'&&r)freezeHook104(me,foe);
+  return r};
+ function freezeHook104(me,foe){for(const o of me.items){const f=!o.broken&&fx104(o,'freezeCharge104');if(!f)continue;if((o.fc104||0)>=f.max)continue;o.fc104=(o.fc104||0)+1;let n=0;for(const s of me.items)if(s!==o&&!s.broken&&s.def.tags.includes('Spell')){chargeCombatItem(s,f.v);n++}if(n)log(me,`${o.def.icon} ${o.def.name}: the Network Charges ${n} Spell${n>1?'s':''} ${f.v}s`)}}
+ const _damage=damage;
+ damage=function(side,v,kind,crit,bypass){const hp0=side.hp,r=_damage(side,v,kind,crit,bypass),lost=hp0-side.hp;
+  if(F&&side.items&&lost>0){
+   if(kind==='self'){side.selfHits104=(side.selfHits104||0)+1;for(const o of side.items){const f=!o.broken&&fx104(o,'selfCharge104');if(f){chargeCombatItem(o,f.v);log(side,`${o.def.icon} ${o.def.name} winds up: Charge ${f.v}s`)}}}
+   if(kind==='hit')for(const o of side.items){const f=!o.broken&&fx104(o,'hurtCharge104');if(!f||(o.hc104||0)>=f.max)continue;const w=side.items.filter(x=>!x.broken&&isW(x)).sort((a,b)=>b.def.size-a.def.size||a.idx-b.idx)[0];if(!w)continue;o.hc104=(o.hc104||0)+1;chargeCombatItem(w,f.v)}}
+  return r};
+ const _useItem=useItem;
+ useItem=function(me,foe,it){const d=it.def,mc0=d.multicast;let changed=false;
+  const sm=fx104(it,'selfMulti104');if(sm&&(me.selfHits104||0)>0){d.multicast=(mc0||1)+Math.min(sm.max,me.selfHits104);changed=true}
+  const hm=fx104(it,'hasteMulti104');if(hm&&it.haste>0){d.multicast=Math.max(mc0||1,hm.n);changed=true}
+  if(d.tags.includes('Spell')&&d.fx.some(f=>f.t==='dmg')&&me.concealBank>0){const mt=has104(me,'concealPerAnalysis104');if(mt){const add=fx104(mt,'concealPerAnalysis104').v*VAL_MULT[mt.inst.tier]*analysisCount(me);if(add>0){me.concealBank+=add;log(me,`🪢 ${mt.def.name}: concealed Spell +${add} for ${analysisCount(me)} analyzed`)}}}
+  try{_useItem(me,foe,it)}finally{if(changed){if(mc0==null)delete d.multicast;else d.multicast=mc0}}
+  if(d.tags.includes('Friend'))(me.friendsUsed104||(me.friendsUsed104=new Set())).add(d.id);
+  if(d.tags.includes('Food'))(me.foodsUsed104||(me.foodsUsed104=new Set())).add(d.id)};
+ const _studyAfterUse=studyAfterUse;
+ studyAfterUse=function(me,foe,it){const b0=me.concealBank||0;_studyAfterUse(me,foe,it);if(it.def.concealStack104&&b0>0){const one=me.concealBank;me.concealBank=Math.min(one*it.def.concealStack104,b0+one);log(me,`🌫️ Mana stacked: next damaging Spell +${me.concealBank}`)}};
+ const _crit=critChanceOf;
+ critChanceOf=function(me,it,prepared,peek){let c=_crit(me,it,prepared,peek);const fc=fx104(it,'friendCrit104');if(fc)c+=fc.v*((me.friendsUsed104&&me.friendsUsed104.size)||0);
+  if(it.def.tags.includes('Friend')&&(it.uses||0)<=1&&!(me.futureSeen104&&me.futureSeen104.has(it))&&has104(me,'futureCrit104')){if(!peek)(me.futureSeen104||(me.futureSeen104=new Set())).add(it);c+=1}
+  return c};
+ const _rwShatter=rwShatter;
+ rwShatter=function(me){const ar=me.armorUp&&me.shield<=0&&!me.armorShattered&&me.items&&me.items.find(o=>!o.broken&&o.def.fx.some(f=>f.armorDmg104));
+  if(ar){me.armorUp=false;me.armorShattered=true;me.shatterDmg104=ar.def.fx.find(f=>f.armorDmg104).armorDmg104*VAL_MULT[ar.inst.tier];log(me,`🦺 The Saiyan Armor shatters: next Weapon +${me.shatterDmg104} damage`);return 0}
+  return _rwShatter(me)};
+ const _identBonus=identBonus;
+ identBonus=function(me,foe,it,fx){let b=_identBonus(me,foe,it,fx);const T=VAL_MULT[it.inst.tier];
+  if(fx.perLost104)b+=Math.floor(Math.max(0,1-me.hp/me.max)*10)*fx.perLost104*T;
+  if(fx.perHasted104)b+=Math.min(fx.perHasted104.max,it.hastedN104||0)*fx.perHasted104.v*T;
+  if(fx.perFriendUsed104)b+=Math.min(fx.perFriendUsed104.max,[...(me.friendsUsed104||[])].filter(id=>id!==it.def.id).length)*fx.perFriendUsed104.v*T;
+  if(fx.perFoodUsed104)b+=Math.min(fx.perFoodUsed104.max,(me.foodsUsed104&&me.foodsUsed104.size)||0)*fx.perFoodUsed104.v*T;
+  if(fx.perHealGot104)b+=Math.min(fx.perHealGot104.max,me.healHits104||0)*fx.perHealGot104.v*T;
+  return b};
+ const _identText=identText;
+ identText=function(fx,inst){let t=_identText(fx,inst);const T=VAL_MULT[inst.tier];
+  if(fx.perLost104)t+=` (+${fx.perLost104*T} per 10% HP you have lost)`;
+  if(fx.perHasted104)t+=` (+${fx.perHasted104.v*T} for each time it was Hasted this fight, up to ${fx.perHasted104.max} times)`;
+  if(fx.perFriendUsed104)t+=` (+${fx.perFriendUsed104.v*T} per different other Friend you have used this fight, up to ${fx.perFriendUsed104.max})`;
+  if(fx.perFoodUsed104)t+=` (+${fx.perFoodUsed104.v*T} per different Food you have used this fight, up to ${fx.perFoodUsed104.max})`;
+  if(fx.perHealGot104)t+=` (+${fx.perHealGot104.v*T} for each time you were healed this fight, up to ${fx.perHealGot104.max} times)`;
+  return t};
+ const _fxText=fxText;
+ fxText=function(fx,inst){const T=VAL_MULT[inst.tier],it0=ITEMS[inst.id];
+  switch(fx.t){
+   case 'selfMulti104':return `Hits once more for each time you hurt yourself this fight (up to ${fx.max} more hits)`;
+   case 'hurtCharge104':return `Each time an enemy hit gets through to you: ${kw('Charge')} your biggest Weapon ${fx.v}s (up to ${fx.max} times a fight)`;
+   case 'hasteMulti104':return `While ${kw('Hasted')}: hits ${fx.n} times`;
+   case 'friendCrit104':return `+${Math.round(fx.v*100)}% crit chance for each different Friend you have used this fight`;
+   case 'concealPerAnalysis104':return `Your concealed Spell's opening hit gains +${fx.v*T} per analyzed enemy item`;
+   case 'futureCrit104':return `"I see your future": the first use of each of your Friend items each fight is a critical hit`;
+   case 'freezeCharge104':return `Whenever you ${kw('Freeze')} an enemy item: ${kw('Charge')} your Spell items ${fx.v}s (up to ${fx.max} times a fight)`;
+   case 'selfCharge104':return `Whenever you hurt yourself: ${kw('Charge')} this item ${fx.v}s`;
+   case 'slowLonger104':return `Your Slows last ${fx.d}s longer`;
+   case 'lowLeech104':return `At 50% HP or below: heal for ${Math.round(fx.v*100)}% of the damage it deals`;
+   case 'stealShield104':return `Remove up to <b>${fx.v*T}</b> enemy Shield and gain it as your own Shield`;
+   case 'hasteIds104':return `Haste your Water Breathing forms (${fx.ids.map(id=>ITEMS[id]?ITEMS[id].name:id).join(', ')}) for ${fx.d}s`;
+  }
+  if(fx.t==='freeze'&&fx.biggest104){const f=it0&&it0.tierScale?tierFx(fx,inst.tier):fx;return `Freeze the enemy's ${fx.n>1?fx.n+' biggest items':'biggest item'} for ${f.d}s`}
+  let s=_fxText(fx,inst);
+  if(fx.armorDmg104)s+=`; broken: next Weapon +${fx.armorDmg104*T} damage`;
+  if(fx.grow104)s+=` (+${fx.grow104}s each use, up to ${fx.max}s)`;
+  if(fx.halfOnly104)s='at 50% HP or below: '+s;
+  if(fx.slowedOnly104)s='If an enemy item is Slowed: '+s;
+  return s};
+ const _descLines=descLines;
+ descLines=function(inst){const L=_descLines(inst),d=ITEMS[inst.id];if(d&&d.concealStack104)for(let i=0;i<L.length;i++)L[i]=L[i].replace('(does not stack)',`(stacks up to ${d.concealStack104} times)`);for(let i=0;i<L.length;i++)L[i]=L[i].replace(' item: at 50% HP or below: ',' item at 50% HP or below: ');return L};
+}
 const ALL_SHOP=Object.values(ITEMS).filter(d=>!d.special&&(d.hero==='fuuko'||!LEGACY_HEROES.some(h=>h.id===d.hero))).map(d=>d.id);
 
 // fusion recipes: [hero, a, b, result, tierBonus]
@@ -7984,7 +8181,7 @@ const RESONANCES=[
  {id:'best_buddies',a:'power',b:'chainsaw',name:"Best Buddies",desc:"Power also Slows an enemy item 1s.",why:"Denji and Power, the chaos duo: wherever they go, everything falls apart.",fx:[{k:'onUse',item:'power',fx:[{t:'slow',n:1,d:1}]}]},
  {id:'family_breakfast',a:'aki',b:'toast',name:"Family Breakfast",desc:"Bread & Jam heals 10 more.",why:"Aki cooked breakfast for Denji and Power every morning.",fx:[{k:'onUse',item:'toast',fx:[{t:'heal',v:10}]}]},
  {id:'jinshi_riddle',a:'jinshi',b:'imperial_poison',name:"Jinshi's Riddle",desc:"Imperial Court Poison deals 25% more damage.",why:"Every palace poisoning case lands on Maomao's desk because of Jinshi.",fx:[{k:'mult',item:'imperial_poison',v:1.25}]},
- {id:'apothecary_family',a:'luomen',b:'poison_notes',name:"Family of Apothecaries",desc:"Uncle Luomen heals 4 per Toxin instead of 2.",why:"Luomen taught her everything in those notes.",fx:[{k:'onUse',tag:'Toxin',fx:[{t:'heal',v:2}]}]},
+ {id:'apothecary_family',a:'luomen',b:'poison_notes',name:"Family of Apothecaries",desc:"Uncle Luomen heals 4 per Food instead of 2.",why:"Luomen taught her everything in those notes.",fx:[{k:'onUse',tag:'Food',fx:[{t:'heal',v:2}]}]},
  {id:'onee_sama',a:'kuroko',b:'railgun',name:"Onee-sama!",desc:"Railgun also gives 8 Shield.",why:"Kuroko would do anything to protect her Onee-sama.",fx:[{k:'onUse',item:'railgun',fx:[{t:'shield',v:8}]}]},
  {id:'level5_ammo',a:'arcade_coin',b:'full_railgun',name:"Level 5 Ammo",desc:"Full-Power Railgun starts each fight with 3s of Charge.",why:"She always keeps a coin ready.",fx:[{k:'start',item:'full_railgun',v:3}]},
  {id:'sisters_blades',a:'satsuki',b:'scissor_blade',name:"Sisters' Blades",desc:"Scissor Blade deals 20% more damage.",why:"The Kiryuin sisters' blades cut through Life Fibers together.",fx:[{k:'mult',item:'scissor_blade',v:1.2}]},
